@@ -586,9 +586,9 @@ function updateCamera(dt) {
   wx = head.x + (wx - head.x) * ok; wy = head.y + (wy - head.y) * ok;
   const rig = V.kind === 'inv' && V.alive ? invMeshes[V.id] : null, bob = rig && vk === 'inv' ? Math.abs(Math.cos(rig.ph)) * 0.05 * Math.min(1, rig.speed / 2.6) : 0;
   if (vk === 'inv' && V.alive && V.hidden >= 0) { const sp = SPOTS[V.hidden], ox = sp.hx - (sp.x + 0.5), oy = sp.hy - (sp.y + 0.5), a0 = Math.atan2(oy, ox), a = a0 + clamp(Math.atan2(Math.sin(yaw - a0), Math.cos(yaw - a0)), -0.5, 0.5);
-    camera.position.set(sp.x + 0.5 + ox * 0.42, base + 1.5, sp.y + 0.5 + oy * 0.42); camPos.copy(camera.position); camLook.set(camera.position.x + Math.cos(a) * 4, base + 1.4 - Math.sin(pitch) * 2, camera.position.z + Math.sin(a) * 4); camera.lookAt(camLook);
+    camera.position.set(sp.x + 0.5 + ox * 0.42, base + 1.5, sp.y + 0.5 + oy * 0.42); camPos.copy(camera.position); camLook.set(camera.position.x + Math.cos(a) * 4, base + 1.4 + Math.sin(pitch) * 2, camera.position.z + Math.sin(a) * 4); camera.lookAt(camLook);
     if (Math.abs(camera.fov - 62) > 0.05) { camera.fov = 62; camera.updateProjectionMatrix(); } return; }
-  if (menuOpt.cam === 'fp' && vk === 'inv' && V.alive) { const ey = base + (V.hidden >= 0 ? 0.9 : 1.58) + bob * 0.6; camera.position.set(V.x + fx * 0.12, ey, V.y + fy * 0.12); camPos.copy(camera.position); camLook.set(V.x + fx * 4 * Math.cos(pitch), ey - Math.sin(pitch) * 4, V.y + fy * 4 * Math.cos(pitch)); camera.lookAt(camLook);
+  if (menuOpt.cam === 'fp' && vk === 'inv' && V.alive) { const ey = base + (V.hidden >= 0 ? 0.9 : 1.58) + bob * 0.6; camera.position.set(V.x + fx * 0.12, ey, V.y + fy * 0.12); camPos.copy(camera.position); camLook.set(V.x + fx * 4 * Math.cos(pitch), ey + Math.sin(pitch) * 4, V.y + fy * 4 * Math.cos(pitch)); camera.lookAt(camLook);
     const fovF = rig && rig.speed > 3.0 ? 74 : 68; if (Math.abs(camera.fov - fovF) > 0.05) { camera.fov += (fovF - camera.fov) * Math.min(1, dt * 4); camera.updateProjectionMatrix(); } return; }
   const camY = base + Math.min(FH - 0.35, 1.75 - pitch * 1.2) + bob;
   const fovT = rig && rig.speed > 3.0 ? 56 : 50; if (Math.abs(camera.fov - fovT) > 0.05) { camera.fov += (fovT - camera.fov) * Math.min(1, dt * 4); camera.updateProjectionMatrix(); }
