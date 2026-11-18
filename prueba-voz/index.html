@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<title>Noche de Ánimas · Prueba de sala y voz</title>
+<style>
+:root{--bg:#14110f;--card:#1f1a17;--ink:#efe6d8;--mut:#a89a88;--ok:#7cc47c;--bad:#e06a5a;--acc:#e8a33d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,sans-serif}
+main{max-width:980px;margin:auto;padding:16px}h1{font-size:20px;margin:0 0 4px}p{margin:4px 0}
+.card{background:var(--card);border-radius:12px;padding:12px;margin:10px 0}
+button,input{font:inherit;border-radius:8px;border:1px solid #4a3f36;background:#2b241f;color:var(--ink);padding:8px 12px}
+button{cursor:pointer}button:active,button.on{background:var(--acc);color:#1a1410}
+input{width:140px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.diag{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}.diag b{font-weight:600}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.mut{color:var(--mut)}
+canvas{width:100%;max-width:600px;background:#0b0908;border-radius:10px;display:block;touch-action:none}
+.grid{display:grid;grid-template-columns:minmax(0,600px) 1fr;gap:12px}@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.pad{display:grid;grid-template-columns:repeat(3,52px);gap:6px;margin-top:8px}.pad button{height:46px;padding:0}
+ul{margin:4px 0;padding-left:18px}#log{max-height:140px;overflow:auto;font:12px/1.4 ui-monospace,monospace;color:var(--mut);white-space:pre-wrap}
+</style>
+</head>
+<body>
+<main>
+<h1>Noche de Ánimas · Prueba de sala y voz</h1>
+<p class="mut">Comprueba la sala en línea (sin servidor propio), el micrófono, la voz por cercanía, la radio y la captura de frases. Las frases solo se guardan en la memoria de esta pestaña y se borran al cerrarla.</p>
+
+<div class="card">
+  <div class="diag" id="diag"></div>
+</div>
+
+<div class="card" id="unirse">
+  <div class="row">
+    <input id="nombre" placeholder="Tu nombre" maxlength="16">
+    <input id="codigo" placeholder="Código (4 letras)" maxlength="4">
+    <button id="crear">Crear sala</button>
+    <button id="entrar">Entrar</button>
+  </div>
+</div>
+
+<div id="juego" hidden>
+  <div class="grid">
+    <div class="card">
+      <p>Sala <b id="salaCod"></b>. Muévete con WASD, flechas o los botones. Cada cuadro mide 1 m; se oye hasta 15 m y el muro baja el volumen.</p>
+      <canvas id="mapa" width="600" height="400"></canvas>
+      <div class="pad">
+        <span></span><button data-d="0,-1">↑</button><span></span>
+        <button data-d="-1,0">←</button><button data-d="0,1">↓</button><button data-d="1,0">→</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row">
+        <button id="mic">Activar micrófono</button>
+        <button id="radio" disabled>Mantén para hablar por radio (R)</button>
+      </div>
+      <div class="row" style="margin-top:8px">
+                <button id="tel" disabled>Que suene el teléfono</button>
+      </div>
+      <p><b>Jugadores</b></p><ul id="lista"></ul>
+      <p><b>Frases robadas</b> <span class="mut">(máximo 5, solo en esta pestaña)</span></p><ul id="frases"><li class="mut">Ninguna todavía</li></ul>
+      <p class="mut" id="oido"></p>
+    </div>
+  </div>
+  <div class="card"><b>Registro</b><div id="log"></div></div>
+</div>
+</main>
+<script>
+const $ = s => document.querySelector(s);
+const D = { sala: ['Sala en línea', 'Sin conectar'], datos: ['Datos entre jugadores', '…'], mic: ['Micrófono', 'Sin activar'], rtc: ['Voz entre jugadores', 'Sin conexiones'], frases: ['Frases robadas', 'Activa el micrófono'] };
+const DS = {};
+function setD(k, txt, ok) { D[k][1] = txt; DS[k] = ok; drawDiag(); }
+function drawDiag() { $('#diag').innerHTML = Object.entries(D).map(([k, [n, v]]) => `<b>${n}</b><span class="${DS[k] === true ? 'ok' : DS[k] === false ? 'bad' : 'mut'}">${DS[k] === true ? '✓ ' : DS[k] === false ? '✗ ' : ''}${esc(v)}</span>`).join(''); }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function log(s) { const el = $('#log'); el.textContent = new Date().toLocaleTimeString() + '  ' + s + '\n' + el.textContent; }
+drawDiag();
+
+const COLORS = ['#e8a33d', '#6aa7e0', '#d0628a', '#7cc47c', '#b58ce0'];
+const PX = 20, RANGE = 15, WALL_X = 300, DOOR = [170, 230];
+const ICE = { iceServers: [{ urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'] }] };
+const me = { id: '', x: 120 + Math.random() * 100, y: 150 + Math.random() * 100, n: '', c: COLORS[Math.floor(Math.random() * COLORS.length)], r: false, m: false };
+let peer = null, isHost = false, hostConn = null;
+const conns = new Map();   // anfitrión: id -> DataConnection de cada invitado
+const pos = new Map();     // id -> estado de cada jugador (sin mí)
+
+function code4() { const A = 'ABCDEFGHJKLMNPQRSTUVWXYZ'; return Array.from({ length: 4 }, () => A[Math.floor(Math.random() * A.length)]).join(''); }
+$('#crear').onclick = () => start(code4(), true);
+$('#entrar').onclick = () => { const c = $('#codigo').value.trim().toUpperCase(); if (/^[A-Z]{4}$/.test(c)) start(c, false); else alert('El código son 4 letras.'); };
+
+function start(code, host) {
+  ctx();
+  if (!window.Peer) { setD('sala', 'No cargó PeerJS (¿sin internet o bloqueado?)', false); return; }
+  me.n = ($('#nombre').value.trim() || 'Investigador').slice(0, 16);
+  isHost = host;
+  const hostId = 'nda3d-' + code;
+  peer = host ? new Peer(hostId, { config: ICE }) : new Peer({ config: ICE });
+  setD('sala', host ? 'Creando sala…' : 'Buscando la sala…', undefined);
+  peer.on('open', id => {
+    me.id = id;
+    $('#unirse').hidden = true; $('#juego').hidden = false; $('#salaCod').textContent = code;
+    if (host) { setD('sala', 'Sala creada: eres el anfitrión', true); setD('datos', 'Esperando jugadores', undefined); setInterval(broadcast, 100); }
+    else joinHost(hostId);
+    requestAnimationFrame(frame); setInterval(volumes, 100); setInterval(sendMine, 70);
+  });
+  peer.on('error', e => {
+    if (e.type === 'unavailable-id') { setD('sala', 'Ese código ya está en uso; crea otro', false); return; }
+    if (e.type === 'peer-unavailable') { setD('sala', 'No existe una sala con ese código (o el anfitrión salió)', false); return; }
+    setD('sala', 'Error: ' + e.type, false); log('peer: ' + e.type + ' ' + e.message);
+  });
+  peer.on('disconnected', () => { log('se perdió el contacto con el presentador; reintentando'); try { peer.reconnect(); } catch {} });
+  peer.on('connection', c => { if (!isHost) { c.close(); return; } setupGuest(c); });
+  peer.on('call', call => answerCall(call));
+}
+
+// ---------- datos: el anfitrión reúne a todos y reparte el estado ----------
+function setupGuest(c) {
+  c.on('open', () => { conns.set(c.peer, c); setD('datos', `${conns.size} invitado(s) conectados`, true); log('entró un jugador'); });
+  c.on('data', d => { if (d && d.t === 'st') { pos.set(c.peer, { ...d.s, id: c.peer, seen: performance.now() }); } });
+  c.on('close', () => { conns.delete(c.peer); pos.delete(c.peer); closeCall(c.peer); log('salió un jugador'); setD('datos', `${conns.size} invitado(s) conectados`, conns.size ? true : undefined); drawList(); });
+}
+function broadcast() {
+  const all = [{ ...mine(), id: me.id }, ...[...pos.values()]];
+  for (const c of conns.values()) if (c.open) c.send({ t: 'all', p: all });
+}
+function joinHost(hostId) {
+  hostConn = peer.connect(hostId, { reliable: false, serialization: 'json' });
+  hostConn.on('open', () => { setD('sala', 'Dentro de la sala', true); setD('datos', 'Conectado al anfitrión', true); });
+  hostConn.on('data', d => {
+    if (!d || d.t !== 'all') return;
+    const seen = new Set();
+    for (const p of d.p) { if (p.id === me.id) continue; seen.add(p.id); if (!pos.has(p.id)) log('en la sala: ' + (p.n || 'alguien')); pos.set(p.id, p); if (me.m && p.m) maybeCall(p.id); }
+    for (const id of [...pos.keys()]) if (!seen.has(id)) { pos.delete(id); closeCall(id); }
+    drawList();
+  });
+  hostConn.on('close', () => { setD('sala', 'El anfitrión cerró la sala', false); setD('datos', 'Desconectado', false); });
+}
+function mine() { return { n: me.n, c: me.c, x: Math.round(me.x), y: Math.round(me.y), r: me.r, m: me.m }; }
+function sendMine() { if (!isHost && hostConn && hostConn.open) hostConn.send({ t: 'st', s: mine() }); if (isHost) for (const p of pos.values()) if (me.m && p.m) maybeCall(p.id); drawList(); }
+
+// ---------- movimiento ----------
+const keys = new Set(); let padDir = null;
+addEventListener('keydown', e => { if (e.target.tagName === 'INPUT') return; keys.add(e.key.toLowerCase()); if (e.key.toLowerCase() === 'r' && !e.repeat) radio(true); });
+addEventListener('keyup', e => { keys.delete(e.key.toLowerCase()); if (e.key.toLowerCase() === 'r') radio(false); });
+document.querySelectorAll('.pad button').forEach(b => { const d = b.dataset.d.split(',').map(Number); b.onpointerdown = e => { e.preventDefault(); padDir = d; }; b.onpointerup = b.onpointerleave = () => { padDir = null; }; });
+let lastT = performance.now();
+function frame(t) {
+  const dt = Math.min(0.05, (t - lastT) / 1000); lastT = t;
+  let dx = 0, dy = 0;
+  if (keys.has('a') || keys.has('arrowleft')) dx--; if (keys.has('d') || keys.has('arrowright')) dx++;
+  if (keys.has('w') || keys.has('arrowup')) dy--; if (keys.has('s') || keys.has('arrowdown')) dy++;
+  if (padDir) { dx += padDir[0]; dy += padDir[1]; }
+  if (dx || dy) {
+    const l = Math.hypot(dx, dy), nx = me.x + dx / l * 110 * dt, ny = me.y + dy / l * 110 * dt;
+    const cross = (me.x < WALL_X) !== (nx < WALL_X);
+    if (!cross || (ny > DOOR[0] && ny < DOOR[1])) me.x = Math.max(8, Math.min(592, nx));
+    me.y = Math.max(8, Math.min(392, ny));
+  }
+  draw(); requestAnimationFrame(frame);
+}
+function draw() {
+  const c = $('#mapa').getContext('2d'); c.clearRect(0, 0, 600, 400);
+  c.strokeStyle = '#2a231e'; for (let x = 0; x < 600; x += PX) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x, 400); c.stroke(); } for (let y = 0; y < 400; y += PX) { c.beginPath(); c.moveTo(0, y); c.lineTo(600, y); c.stroke(); }
+  c.strokeStyle = '#8a7a66'; c.lineWidth = 6; c.beginPath(); c.moveTo(WALL_X, 0); c.lineTo(WALL_X, DOOR[0]); c.moveTo(WALL_X, DOOR[1]); c.lineTo(WALL_X, 400); c.stroke(); c.lineWidth = 1;
+  c.strokeStyle = 'rgba(232,163,61,.25)'; c.beginPath(); c.arc(me.x, me.y, RANGE * PX, 0, 7); c.stroke();
+  for (const p of pos.values()) if (typeof p.x === 'number') dot(c, p.x, p.y, p.c || '#888', p.n || '?', p.r);
+  dot(c, me.x, me.y, me.c, me.n + ' (tú)', me.r);
+}
+function dot(c, x, y, col, n, r) { c.fillStyle = col; c.beginPath(); c.arc(x, y, 9, 0, 7); c.fill(); if (r) { c.strokeStyle = '#fff'; c.beginPath(); c.arc(x, y, 14, 0, 7); c.stroke(); } c.fillStyle = '#efe6d8'; c.font = '12px system-ui'; c.fillText(n, x + 12, y - 10); }
+function wallBetween(a, b) { if ((a.x < WALL_X) === (b.x < WALL_X)) return false; const t = (WALL_X - a.x) / (b.x - a.x), y = a.y + t * (b.y - a.y); return !(y > DOOR[0] && y < DOOR[1]); }
+function drawList() {
+  const items = [...pos.values()].map(p => { const d = typeof p.x === 'number' ? Math.hypot(p.x - me.x, p.y - me.y) / PX : NaN; const e = calls.get(p.id); const st = e ? (e.pc ? e.pc.connectionState : 'conectando') : p.m ? (me.m ? 'conectando' : 'activa tu micrófono') : 'sin micrófono'; return `<li><span style="color:${p.c || '#888'}">●</span> ${esc(p.n || '¿?')} · ${isNaN(d) ? '' : d.toFixed(1) + ' m'} · voz: ${esc(st)}${e && e.vol !== undefined ? ' · vol ' + Math.round(e.vol * 100) + '%' : ''}${p.r ? ' · 📻' : ''}</li>`; });
+  $('#lista').innerHTML = items.join('') || '<li class="mut">Estás solo en la sala. Comparte el código.</li>';
+}
+
+// ---------- audio ----------
+let ac = null;
+function ctx() { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); return ac; }
+
+// ---------- voz entre jugadores: llamadas directas de navegador a navegador ----------
+let localStream = null; const calls = new Map();
+$('#mic').onclick = async () => {
+  ctx();
+  if (localStream) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { setD('mic', 'Este navegador no permite micrófono aquí', false); return; }
+  try {
+    localStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+    me.m = true; setD('mic', 'Funciona', true); setD('frases', 'Escuchando: di frases cortas', undefined);
+    $('#mic').classList.add('on'); $('#mic').textContent = 'Micrófono activo'; $('#radio').disabled = false;
+    startCapture(localStream);
+  } catch (e) { setD('mic', 'Bloqueado (' + e.name + ')', false); log('micrófono: ' + e.name + ' ' + e.message); }
+};
+function maybeCall(id) { if (!localStream || calls.has(id) || !(me.id < id)) return; const call = peer.call(id, localStream); setupCall(id, call); }
+function answerCall(call) { if (calls.has(call.peer)) closeCall(call.peer); setupCall(call.peer, call); if (localStream) call.answer(localStream); else call.answer(); }
+function setupCall(id, call) {
+  const e = { call }; calls.set(id, e);
+  call.on('stream', s => attachRemote(id, s));
+  call.on('close', () => { if (calls.get(id) === e) calls.delete(id); rtcDiag(); });
+  call.on('error', err => log('voz: ' + err.message));
+  const poll = setInterval(() => { if (!calls.has(id)) return clearInterval(poll); e.pc = call.peerConnection; if (e.pc && !e.hooked) { e.hooked = true; e.pc.addEventListener('connectionstatechange', () => { log('voz con ' + nameOf(id) + ': ' + e.pc.connectionState); rtcDiag(); }); } rtcDiag(); }, 300);
+}
+function nameOf(id) { const p = pos.get(id); return p && p.n ? p.n : 'alguien'; }
+function closeCall(id) { const e = calls.get(id); if (!e) return; try { e.call.close(); } catch {} if (e.el) e.el.srcObject = null; calls.delete(id); rtcDiag(); }
+function rtcDiag() { const st = [...calls.values()].map(e => e.pc ? e.pc.connectionState : 'new'); if (!st.length) return setD('rtc', 'Sin conexiones', undefined); const ok = st.filter(s => s === 'connected').length; setD('rtc', `${ok} de ${st.length} conectadas` + (st.includes('failed') ? ' (alguna falló: esta red no deja pasar el audio directo)' : ''), ok ? true : st.includes('failed') ? false : undefined); }
+function attachRemote(id, stream) {
+  const e = calls.get(id); if (!e || e.src) return; const a = ctx();
+  e.el = new Audio(); e.el.srcObject = stream; e.el.muted = true; e.el.play().catch(() => {});
+  e.src = a.createMediaStreamSource(stream);
+  e.g = a.createGain(); e.g.gain.value = 0; e.src.connect(e.g).connect(a.destination);
+  const hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 500; const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2800; const sh = a.createWaveShaper(); sh.curve = crunch();
+  e.gr = a.createGain(); e.gr.gain.value = 0; e.src.connect(hp).connect(lp).connect(sh).connect(e.gr).connect(a.destination);
+}
+function crunch() { const n = 256, c = new Float32Array(n); for (let i = 0; i < n; i++) { const x = i / (n - 1) * 2 - 1; c[i] = Math.tanh(3 * x) * 0.8; } return c; }
+function volumes() {
+  for (const [id, e] of calls) {
+    if (!e.g) continue; const p = pos.get(id) || {};
+    let v = 0; if (typeof p.x === 'number') { const d = Math.hypot(p.x - me.x, p.y - me.y) / PX; v = Math.max(0, 1 - d / RANGE); if (wallBetween(me, p)) v *= 0.35; v = v * v; }
+    e.vol = v; e.g.gain.setTargetAtTime(v, ac.currentTime, 0.08); e.gr.gain.setTargetAtTime(p.r ? 0.9 : 0, ac.currentTime, 0.05);
+  }
+}
+function radio(on) { if (!localStream || me.r === on) return; me.r = on; $('#radio').classList.toggle('on', on); if (on) radioClick(); }
+const rb = $('#radio'); rb.onpointerdown = e => { e.preventDefault(); radio(true); }; rb.onpointerup = rb.onpointerleave = () => radio(false);
+function radioClick() { const a = ctx(), o = a.createOscillator(), g = a.createGain(); o.frequency.value = 1800; g.gain.value = 0.05; o.connect(g).connect(a.destination); o.start(); o.stop(a.currentTime + 0.05); }
+
+// ---------- frases robadas: solo en la memoria de esta pestaña ----------
+const clips = []; let ring = null, ringPos = 0, sr = 48000, speaking = false, spStart = 0, silent = 0, noise = 0.01;
+function startCapture(stream) {
+  const a = ctx(); sr = a.sampleRate; ring = new Float32Array(Math.ceil(sr * 6));
+  const src = a.createMediaStreamSource(stream), sp = a.createScriptProcessor(2048, 1, 1), z = a.createGain(); z.gain.value = 0;
+  src.connect(sp); sp.connect(z).connect(a.destination);
+  sp.onaudioprocess = ev => {
+    const x = ev.inputBuffer.getChannelData(0); let s = 0;
+    for (let i = 0; i < x.length; i++) { ring[ringPos] = x[i]; ringPos = (ringPos + 1) % ring.length; s += x[i] * x[i]; }
+    const rms = Math.sqrt(s / x.length), blk = x.length / sr;
+    if (!speaking) { noise = noise * 0.98 + rms * 0.02; if (rms > Math.max(0.02, noise * 3)) { speaking = true; spStart = 0; silent = 0; } }
+    else { spStart += blk; if (rms < Math.max(0.015, noise * 2)) silent += blk; else silent = 0; if (silent > 0.45) { speaking = false; const dur = spStart - silent + 0.15; if (dur > 0.35 && dur < 3.2) saveClip(dur + silent); } else if (spStart > 4) speaking = false; }
+  };
+}
+function saveClip(back) {
+  const n = Math.min(ring.length, Math.ceil(back * sr) + Math.ceil(0.1 * sr)), out = new Float32Array(n);
+  for (let i = 0; i < n; i++) out[i] = ring[(ringPos - n + i + ring.length) % ring.length];
+  clips.push({ data: out, t: Date.now() }); while (clips.length > 5) clips.shift();
+  $('#tel').disabled = false; setD('frases', clips.length + ' guardada(s)', true); drawClips();
+}
+function drawClips() { $('#frases').innerHTML = clips.map((c, i) => `<li>frase de ${(c.data.length / sr).toFixed(1)} s <button data-i="${i}" class="play">▶</button></li>`).join(''); document.querySelectorAll('.play').forEach(b => b.onclick = () => playClip(clips[+b.dataset.i], false)); }
+$('#tel').onclick = () => { if (!clips.length) return; const c = clips[Math.floor(Math.random() * clips.length)]; playClip(c, Math.random() < 0.1); };
+function playClip(c, distort) {
+  const a = ctx(), b = a.createBuffer(1, c.data.length, sr), d = b.getChannelData(0);
+  if (distort) for (let i = 0; i < d.length; i++) d[i] = c.data[d.length - 1 - i]; else d.set(c.data);
+  ringTone(a);
+  const s = a.createBufferSource(); s.buffer = b; if (distort) s.playbackRate.value = 0.72;
+  const hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 400; const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3000; const g = a.createGain(); g.gain.value = 1.2;
+  s.connect(hp).connect(lp).connect(g).connect(a.destination); s.start(a.currentTime + 1.6);
+  log('teléfono: ' + (distort ? 'frase distorsionada' : 'una de tus frases'));
+}
+function ringTone(a) { for (let k = 0; k < 2; k++) { const o = a.createOscillator(), o2 = a.createOscillator(), g = a.createGain(), t = a.currentTime + k * 0.7; o.frequency.value = 440; o2.frequency.value = 480; g.gain.setValueAtTime(0.06, t); g.gain.setValueAtTime(0, t + 0.45); o.connect(g); o2.connect(g); g.connect(a.destination); o.start(t); o2.start(t); o.stop(t + 0.5); o2.stop(t + 0.5); } }
+</script>
+</body>
+</html>
