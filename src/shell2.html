@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<title>Noche de Ánimas · Demo 3D v1.0 en línea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;800&family=Grenze:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--wine:#5a0f1e;--wine2:#7a1f2e;--orange:#e0782a;--gold:#f2b04e;--plum:#4a2347;--bone:#f3e6cf;--night:#1a1430;--ink:#120d22}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#07050f;color:var(--bone);font-family:Grenze,Georgia,serif;overflow:hidden;-webkit-user-select:none;user-select:none}
+button{font-family:inherit;cursor:pointer}
+kbd{display:inline-block;min-width:1.3em;padding:0 .3em;margin:0 .25em 0 0;border:1px solid rgba(242,176,78,.6);border-radius:4px;background:rgba(242,176,78,.12);color:var(--gold);font:600 .8em Grenze,Georgia,serif;text-align:center}
+small{display:block;opacity:.7;font-size:.78em;line-height:1.2}
+.small{font-size:.85em} em{opacity:.6}
+.warn{color:#ff9aa4}
+#menu{position:fixed;inset:0;overflow:auto;background:radial-gradient(ellipse at 50% 0%,#3a1530 0%,var(--night) 55%,#07050f 100%);padding:0 16px 40px;user-select:text}
+.picado{height:44px;margin:0 -16px;background:repeating-linear-gradient(90deg,var(--orange) 0 40px,var(--gold) 40px 80px,#c95fb5 80px 120px,#5b8bd9 120px 160px,#6fbf73 160px 200px);
+  clip-path:polygon(0 0,100% 0,100% 70%,97.5% 100%,95% 70%,92.5% 100%,90% 70%,87.5% 100%,85% 70%,82.5% 100%,80% 70%,77.5% 100%,75% 70%,72.5% 100%,70% 70%,67.5% 100%,65% 70%,62.5% 100%,60% 70%,57.5% 100%,55% 70%,52.5% 100%,50% 70%,47.5% 100%,45% 70%,42.5% 100%,40% 70%,37.5% 100%,35% 70%,32.5% 100%,30% 70%,27.5% 100%,25% 70%,22.5% 100%,20% 70%,17.5% 100%,15% 70%,12.5% 100%,10% 70%,7.5% 100%,5% 70%,2.5% 100%,0 70%);opacity:.85}
+.wrap{max-width:1040px;margin:0 auto}
+h1{font-family:"Grenze Gotisch",Georgia,serif;font-weight:800;font-size:clamp(42px,9vw,80px);margin:18px 0 0;color:var(--gold);text-shadow:0 3px 0 var(--wine),0 0 30px rgba(224,120,42,.35);line-height:1}
+.sub{font-size:1.1em;opacity:.85;margin:.3em 0 1.2em}
+.card{background:rgba(18,13,34,.75);border:1px solid rgba(242,176,78,.35);border-radius:14px;padding:16px 18px;margin:14px 0}
+.card h2{font-family:"Grenze Gotisch",Georgia,serif;color:var(--gold);margin:0 0 .4em;font-size:1.55em;font-weight:600}
+label{display:block;margin:10px 0 6px;font-weight:600}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{background:rgba(243,230,207,.06);color:var(--bone);border:1px solid rgba(243,230,207,.25);border-radius:999px;padding:6px 12px;font-size:.95em}
+.seg button.on{background:var(--gold);color:var(--ink);border-color:var(--gold);font-weight:600}
+#play{margin-top:16px;font:800 1.55em "Grenze Gotisch",Georgia,serif;padding:10px 32px;border-radius:12px;border:0;background:linear-gradient(180deg,var(--orange),var(--wine2));color:var(--bone);box-shadow:0 4px 0 var(--wine)}
+table{width:100%;border-collapse:collapse;font-size:.88em} th,td{text-align:left;padding:6px;border-bottom:1px solid rgba(243,230,207,.12);vertical-align:top} th{color:var(--gold)}
+.tablewrap{overflow-x:auto}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px 24px}.ctl div{line-height:1.9}
+.rules li{margin:.3em 0}
+#simBtn{background:var(--plum);color:var(--bone);border:1px solid var(--gold);border-radius:8px;padding:6px 14px;font-size:1em}
+select{background:var(--ink);color:var(--bone);border:1px solid rgba(243,230,207,.3);border-radius:6px;padding:4px;font-family:inherit}
+.note{border-left:3px solid var(--gold);padding:6px 10px;background:rgba(242,176,78,.07);border-radius:6px}
+/* juego */
+#stage canvas{position:fixed;inset:0;display:block;touch-action:none}
+.panel{position:fixed;background:rgba(18,13,34,.82);border:1px solid rgba(242,176,78,.3);border-radius:12px;padding:9px 12px;font-size:14px}
+#top{position:fixed;top:8px;left:50%;transform:translateX(-50%);display:flex;gap:14px;align-items:center;background:rgba(18,13,34,.85);border:1px solid rgba(242,176,78,.3);border-radius:999px;padding:5px 16px;font-size:15px;white-space:nowrap;z-index:3}
+.hora{font-family:"Grenze Gotisch",Georgia,serif;color:var(--gold);font-size:1.25em}
+.huntb{color:#ff6b78;font-weight:600;animation:pulse .5s infinite alternate}@keyframes pulse{to{opacity:.35}}
+#mini{top:52px;left:8px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:6px 10px;font-size:13px;max-width:min(420px,70vw);cursor:pointer;z-index:4;background:rgba(18,13,34,.6)}
+.m-san{font-weight:600}.m-bars{display:flex;flex-direction:column;gap:2px;width:70px}.m-bars .bar{height:4px;margin:0}.m-keys{flex-basis:100%;font-size:12px;opacity:.85}.m-more{opacity:.5;font-size:12px}
+#left{left:8px;top:100px;width:330px;max-height:60vh;overflow:auto;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .25s,transform .25s;z-index:4}#left.show{opacity:1;pointer-events:auto;transform:none}
+.row{margin:3px 0}.bar{height:7px;background:rgba(243,230,207,.12);border-radius:4px;overflow:hidden;margin-top:2px}.bar i{display:block;height:100%}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:6px 0}
+.slot{padding:3px 6px;border:1px solid rgba(243,230,207,.15);border-radius:6px;font-size:.92em;cursor:pointer}.slot.sel{border-color:var(--gold);background:rgba(242,176,78,.15)}
+.team{margin-top:6px;font-size:.9em}
+.ab{padding:1px 0;font-size:.95em}.ab.off{opacity:.42}.ab small{display:inline;margin-left:4px}
+.state{color:#7ec8ff}
+#hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(18,13,34,.75);border-radius:999px;padding:5px 14px;font-size:14px;white-space:nowrap;max-width:94vw;overflow:hidden;text-overflow:ellipsis;z-index:3}
+#feed{position:fixed;top:52px;right:100px;width:min(400px,45vw);text-align:right;font-size:13px;line-height:1.35;pointer-events:none;text-shadow:0 1px 2px #000}
+#feed div{background:rgba(18,13,34,.55);padding:2px 8px;border-radius:6px;margin:2px 0 0 auto;width:fit-content;max-width:100%}
+#subs{position:fixed;bottom:56px;left:50%;transform:translateX(-50%);text-align:center;font-size:17px;color:#fff;text-shadow:0 2px 3px #000;pointer-events:none;z-index:3}
+#subs div{background:rgba(0,0,0,.45);padding:2px 10px;border-radius:6px;margin-top:3px;display:inline-block}
+#journal{top:52px;right:8px;width:320px;max-height:calc(100% - 70px);overflow:auto;z-index:4}
+#journal h3{color:var(--gold);margin:8px 0 4px;font-size:1em}#journal h3 small{display:inline}
+.ev,.cand{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:3px 0;border-bottom:1px solid rgba(243,230,207,.08);cursor:pointer}
+.ev b{border-radius:6px;padding:0 8px}.ev.si b{background:#2f6b3a}.ev.no b{background:#4b4458}.ev.na b{background:rgba(243,230,207,.1)}.ev.no span{opacity:.5;text-decoration:line-through}
+.cand.out span{opacity:.3;text-decoration:line-through}
+.cand button,.btns button{background:var(--wine2);color:var(--bone);border:1px solid var(--gold);border-radius:6px;padding:3px 10px}
+.cand button:disabled{opacity:.35}
+#mute,#quit,#jbtn{position:fixed;top:8px;background:rgba(18,13,34,.85);color:var(--bone);border:1px solid rgba(242,176,78,.3);border-radius:999px;width:38px;height:38px;z-index:5}
+#mute{right:8px}#jbtn{right:52px}#quit{left:8px}
+#modal{position:fixed;inset:0;background:rgba(7,5,15,.78);display:flex;align-items:center;justify-content:center;z-index:10;padding:16px}#modal[hidden]{display:none}
+#modalIn{max-width:560px;width:100%;max-height:90vh;overflow:auto;background:var(--ink);border:1px solid var(--gold);border-radius:14px;padding:18px 20px;user-select:text}
+#modalIn h2{font-family:"Grenze Gotisch",Georgia,serif;color:var(--gold);font-size:2.1em;margin:0;font-weight:800}
+.big{font-size:1.2em}.btns{display:flex;gap:10px;margin-top:12px}.ghostbtn{background:transparent!important}
+#vignette{position:fixed;inset:0;pointer-events:none;z-index:2;transition:box-shadow .4s}
+#vignette.hunt{box-shadow:inset 0 0 160px 40px rgba(160,0,25,.55)}
+#vignette.low{box-shadow:inset 0 0 200px 70px rgba(30,0,10,.75)}
+#vignette.nuca{animation:nuca 1.4s}
+@keyframes nuca{0%{box-shadow:inset 0 -60px 140px 30px rgba(170,200,255,.5)}100%{box-shadow:none}}
+#throwbar{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);width:160px;height:8px;background:rgba(243,230,207,.15);border-radius:4px;overflow:hidden;z-index:4}#throwbar i{display:block;height:100%;background:var(--gold)}
+#touch[hidden]{display:none}
+#joy{position:fixed;left:16px;bottom:16px;width:120px;height:120px;border-radius:50%;background:rgba(243,230,207,.08);border:2px solid rgba(242,176,78,.35);touch-action:none;z-index:6}
+#knob{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:rgba(242,176,78,.5)}
+#tbtns{position:fixed;right:10px;bottom:12px;display:grid;grid-template-columns:repeat(3,58px);gap:6px;z-index:6}
+#tbtns button{background:rgba(90,15,30,.7);color:var(--bone);border:1px solid rgba(242,176,78,.7);border-radius:50%;width:58px;height:58px;padding:0;font-size:11px;line-height:1.1;touch-action:none}#tbtns button.off{opacity:.35}
+#tbtns.ghost{grid-template-columns:repeat(4,50px)}#tbtns.ghost button{width:50px;height:50px;font-size:10px}#hint:empty,#hint.empty{display:none}
+@media (pointer:coarse){#hint.ghosthint{display:none}}
+#loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#07050f;z-index:20;font-size:20px}
+@media (max-width:760px),(pointer:coarse){#left{width:min(330px,calc(100% - 16px));font-size:12px}#feed{top:96px;right:8px;font-size:11.5px;width:60vw}#journal{width:calc(100% - 16px)}#hint{font-size:12px;bottom:auto;top:52px;left:auto;right:96px;transform:none;max-width:45vw;white-space:normal;border-radius:10px}#subs{bottom:150px;font-size:14px}#top{font-size:12px;gap:8px;padding:4px 10px}}
+img.ci{width:26px;height:39px;object-fit:cover;border-radius:3px;vertical-align:middle;margin-right:5px;box-shadow:0 1px 3px #000}
+span.ci,span.mci{display:inline-block;width:26px;text-align:center;margin-right:5px}
+img.mci{width:22px;height:33px;object-fit:cover;border-radius:3px;vertical-align:middle;margin-right:5px}
+.m-av{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 12%;border:2px solid var(--gold);background:var(--plum)}
+img.av{width:20px;height:20px;border-radius:50%;object-fit:cover;object-position:50% 12%;vertical-align:middle;margin-right:3px}
+.slot{display:flex;align-items:center;gap:2px}
+img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align:middle;margin-right:8px;float:left}
+.cand span{overflow:hidden}
+.mirror{color:#c8d8ff}
+.endart{width:calc(100% + 40px);margin:-18px -20px 8px;border-radius:14px 14px 0 0;display:block;max-height:240px;object-fit:cover}
+.endcards{display:flex;gap:10px;justify-content:center;margin:8px 0}.endcards img{width:120px;border-radius:8px;box-shadow:0 3px 10px #000}
+.logo{display:block;width:min(560px,90vw);margin:14px auto 0}
+.hero{background:linear-gradient(180deg,rgba(7,5,15,.15),rgba(7,5,15,.95)),url(/*ASSET*/a/portada-h.webp) center/cover;margin:0 -16px;padding:10px 16px 6px;border-radius:0 0 18px 18px}
+.chars button{display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:12px!important;padding:4px 8px!important;width:84px}.chars img{width:56px;height:64px;object-fit:cover;object-position:50% 12%;border-radius:8px}.chars small{font-size:.68em;opacity:.75;line-height:1.05}
+#game.gal #top,#game.gal #mini,#game.gal #left,#game.gal #feed,#game.gal #subs,#game.gal #hint,#game.gal #touch,#game.gal #jbtn,#game.gal #mute,#game.gal #journal,#game.gal #vignette,#game.gal #throwbar{display:none!important}
+#galui{position:fixed;left:8px;right:8px;bottom:8px;z-index:6;background:rgba(18,13,34,.85);border:1px solid rgba(242,176,78,.35);border-radius:12px;padding:8px 10px;font-size:13px;max-height:42vh;overflow:auto}#galui[hidden]{display:none}
+.galrow{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:3px 0}.galrow button{background:rgba(243,230,207,.06);color:var(--bone);border:1px solid rgba(243,230,207,.25);border-radius:999px;padding:3px 10px;font:inherit}.galrow button.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.galrow.chips img{width:20px;height:20px;border-radius:50%;object-fit:cover;object-position:50% 12%;vertical-align:middle;margin-right:4px}.galnow{color:var(--gold);margin-top:4px}
+#galBtn{background:var(--plum);color:var(--bone);border:1px solid var(--gold);border-radius:10px;padding:8px 16px;font-size:1.05em;margin-top:8px}
+#reticle{position:fixed;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(243,230,207,.7);box-shadow:0 0 0 2px rgba(0,0,0,.35);pointer-events:none;z-index:3}
+#prompt{position:fixed;left:50%;top:calc(50% + 34px);transform:translateX(-50%);font-size:16px;text-shadow:0 2px 4px #000;pointer-events:none;z-index:3;white-space:nowrap}
+#prompt kbd{font-size:.95em}
+#tool{position:fixed;left:50%;bottom:44px;transform:translateX(-50%);background:rgba(18,13,34,.85);border:1px solid rgba(242,176,78,.35);border-radius:10px;padding:5px 12px;font-size:14px;z-index:3;white-space:nowrap}
+#tool .dev{display:flex;align-items:center;gap:8px;white-space:nowrap}
+#tool .dev small{opacity:.75;font-size:11px}
+#tool .scr{background:#0e1a14;border:2px solid #3a3a3a;border-radius:6px;padding:3px 8px;min-width:96px;display:flex;align-items:center;justify-content:center;gap:4px;box-shadow:inset 0 0 8px rgba(0,0,0,.8)}
+#tool .lcd{font:700 22px/1 'Courier New',monospace;color:#9ef0a8;text-shadow:0 0 6px rgba(120,255,140,.5);letter-spacing:1px}
+#tool .lcd.sm{font-size:14px;color:#ff5a5a}
+#tool .scr i{font-style:normal;color:#9ef0a8;font-size:12px}
+#tool .wave{display:flex;align-items:center;gap:2px;height:18px}#tool .wave i{display:block;width:3px;background:#9ef0a8}
+#tool .photo{display:block;width:70px;height:40px;background:linear-gradient(#2a2a2a,#151515);position:relative}
+#tool .photo.blur{filter:blur(2px);background:linear-gradient(#5a5a5a,#202020)}
+#tool .photo.float:after{content:'';position:absolute;left:30px;top:8px;width:12px;height:16px;background:#e0c890;transform:rotate(18deg)}
+#tool .dial{display:block;width:56px;height:30px;border-radius:56px 56px 0 0;background:conic-gradient(from 270deg at 50% 100%,#3a8a3a 0 60deg,#c8a020 60deg 120deg,#c02020 120deg 180deg,transparent 0);position:relative}
+#tool .dial i{position:absolute;left:27px;bottom:0;width:2px;height:28px;background:#f3e6cf;transform-origin:50% 100%}
+#tool .mirror{display:block;width:44px;height:30px;border-radius:50%;background:#7a8a96}#tool .mirror.fog{background:#b8c4cc}#tool .mirror.hand{background:radial-gradient(circle at 50% 55%,#5a5a6a 0 30%,#b8c4cc 32%)}
+#tool .uvdot{display:block;width:30px;height:16px;border-radius:4px;background:#2a1a40}#tool .uvdot.on{background:#b07cff;box-shadow:0 0 10px #b07cff}
+#tool .scr .emf i{width:10px;height:14px}
+#slit{position:fixed;inset:0;pointer-events:none;z-index:2;background:linear-gradient(90deg,#050308 0 40%,transparent 44% 56%,#050308 60% 100%)}
+#slit.lit{box-shadow:inset 0 0 0 6px rgba(255,60,40,.7);animation:litw 1s infinite}#slit.lit:after{content:'Tu linterna sigue encendida: ¡te delata! (F)';position:absolute;left:50%;top:18%;transform:translateX(-50%);color:#ff8a70;font-weight:700;text-shadow:0 0 6px #000}
+@keyframes litw{50%{box-shadow:inset 0 0 0 14px rgba(255,60,40,.35)}}
+#game.glitch canvas{animation:glt .12s steps(2) infinite;filter:contrast(1.4) saturate(1.6) hue-rotate(-20deg)}
+#game.glitch:after{content:'';position:fixed;inset:0;pointer-events:none;z-index:4;background:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 2px,transparent 2px 4px);mix-blend-mode:screen}
+@keyframes glt{0%{transform:translate(0,0)}25%{transform:translate(-6px,2px) skewX(2deg)}50%{transform:translate(5px,-3px)}75%{transform:translate(-2px,4px) skewX(-3deg)}100%{transform:translate(0,0)}}
+#ruleta{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:rgba(10,6,20,.6)}
+#ruleta .rbox{background:#1a1430;border:1px solid #f2b04e;border-radius:12px;padding:16px 20px;max-width:min(520px,92vw);color:#f3e6cf}
+#ruleta h3{margin:0 0 8px;color:#f2b04e}#ruleta .rgrid{display:flex;flex-wrap:wrap;gap:6px}#ruleta .rgrid span{background:rgba(255,255,255,.06);border-radius:6px;padding:3px 6px;font-size:13px;display:flex;align-items:center;gap:4px}
+#ruleta button{margin-top:10px;background:#f2b04e;color:#1a1430;border:0;border-radius:8px;padding:6px 14px;font-weight:700;cursor:pointer}
+#slit[hidden]{display:none}
+#possessUI{position:fixed;left:50%;top:22%;transform:translateX(-50%);z-index:6;background:rgba(20,6,12,.82);border:1px solid #c0396b;border-radius:10px;padding:10px 16px;color:#f3e6cf;text-align:center;display:flex;flex-direction:column;gap:6px}
+#possessUI .seq{display:flex;gap:6px;justify-content:center}#possessUI kbd{min-width:26px;padding:4px 6px;border-radius:6px;background:#2a1a24;border:1px solid #5a3a4a;font-weight:700}
+#possessUI kbd.ok{background:#3a6a3a;border-color:#6ac06a}#possessUI kbd.now{background:#c0396b;border-color:#f2b04e;transform:scale(1.15)}
+#possessUI[hidden]{display:none}
+#bigscare{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:#000;animation:bsc .12s steps(2) infinite}
+#bigscare img{height:115vh;filter:contrast(1.8) saturate(2) hue-rotate(-25deg);mix-blend-mode:screen}
+@keyframes bsc{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-14px,8px) scale(1.06)}100%{transform:translate(10px,-6px) scale(1.02)}}
+#tool .lcd.msg{color:#ff4a3a;font-size:16px;letter-spacing:2px;animation:litw .5s steps(2) infinite}
+#tool[hidden],#compass[hidden],#seen[hidden],#noise[hidden],#tip[hidden],#lockhint[hidden],#itemlabel[hidden]{display:none}
+.cold{color:#7ec8ff}.pbar{display:inline-block;width:80px;height:7px;background:rgba(243,230,207,.15);border-radius:4px;vertical-align:middle;overflow:hidden}.pbar i{display:block;height:100%;background:var(--gold)}
+.emf{display:inline-flex;gap:2px;vertical-align:middle}.emf i{width:9px;height:12px;border-radius:2px;background:rgba(243,230,207,.15)}.emf i.on.l1,.emf i.on.l2{background:#6fbf73}.emf i.on.l3{background:#e8c840}.emf i.on.l4{background:#e0782a}.emf i.on.l5{background:#e04a5a}
+#itemlabel{position:fixed;transform:translate(-50%,-100%);background:rgba(18,13,34,.8);border:1px solid rgba(242,176,78,.5);border-radius:8px;padding:2px 8px;font-size:13px;pointer-events:none;z-index:3;white-space:nowrap}
+#toast{position:fixed;left:50%;top:18%;transform:translate(-50%,-10px);display:flex;flex-direction:column;align-items:center;max-width:min(420px,88vw);opacity:0;transition:opacity .3s,transform .3s;background:rgba(18,13,34,.92);border:2px solid var(--gold);border-radius:14px;padding:10px 18px;text-align:center;pointer-events:none;z-index:7;min-width:220px}
+#toast.show{opacity:1;transform:translate(-50%,0)}#toast b{display:block;font:600 1.35em Grenze,Georgia,serif;color:var(--gold)}#toast small{font-size:.9em}#toast img{width:46px;height:46px;display:block;margin:0 auto 4px}
+#toast.hunt{border-color:#e04a5a}#toast.hunt b{color:#ff6b78}#toast.calm{border-color:#7ec8ff}#toast.calm b{color:#7ec8ff}
+#floaters{position:fixed;left:150px;top:62px;pointer-events:none;z-index:6}.floater{position:absolute;white-space:nowrap;font-weight:600;font-size:15px;text-shadow:0 2px 3px #000;animation:floatup 1.6s forwards}.floater.bad{color:#ff6b78}.floater.good{color:#6fbf73}
+@keyframes floatup{from{transform:translateY(0);opacity:1}to{transform:translateY(-36px);opacity:0}}
+#vignette.hurt{animation:hurt .6s}@keyframes hurt{0%{box-shadow:inset 0 0 120px 40px rgba(200,0,30,.6)}100%{box-shadow:inset 0 0 0 0 rgba(200,0,30,0)}}
+#compass{position:fixed;left:50%;top:50px;transform:translateX(-50%);background:rgba(18,13,34,.8);border:1px solid var(--gold);border-radius:999px;padding:3px 12px;font-size:14px;z-index:4;color:var(--gold)}#compass .arr{display:inline-block;transition:transform .15s}
+#seen{position:fixed;left:50%;top:84px;transform:translateX(-50%);color:#ff6b78;font-weight:600;font-size:16px;text-shadow:0 2px 3px #000;animation:pulse .4s infinite alternate;z-index:4;pointer-events:none}
+#noise{position:fixed;left:16px;top:104px;color:#e8c840;font-size:13px;text-shadow:0 1px 2px #000;z-index:4;pointer-events:none}
+#tip{position:fixed;left:12px;top:108px;max-width:min(380px,58vw);background:rgba(18,13,34,.95);border:1px solid var(--gold);border-left:4px solid var(--gold);border-radius:10px;padding:10px 14px;font-size:14px;line-height:1.35;z-index:8}#tip button{display:block;margin:8px 0 0 auto;background:var(--wine2);color:var(--bone);border:1px solid var(--gold);border-radius:6px;padding:3px 10px;font:inherit}
+#lockhint{position:fixed;left:50%;top:60%;transform:translateX(-50%);background:rgba(18,13,34,.8);border-radius:999px;padding:5px 14px;font-size:14px;z-index:4;pointer-events:none}
+#game.gal #reticle,#game.gal #prompt,#game.gal #tool,#game.gal #toast,#game.gal #floaters,#game.gal #compass,#game.gal #seen,#game.gal #noise,#game.gal #tip,#game.gal #lockhint,#game.gal #itemlabel{display:none!important}
+@media (pointer:coarse){#prompt{top:calc(50% + 28px);font-size:14px}#tool{bottom:auto;top:calc(50% + 56px)}#hint{display:none}#toast{top:12%;padding:6px 12px}#toast b{font-size:1.1em}#toast img{width:30px;height:30px}#tip{font-size:12.5px;top:104px;max-width:min(330px,55vw)}}
+.gcard{background:rgba(243,230,207,.05);border-left:3px solid var(--gold);padding:6px 10px;border-radius:6px;font-size:.92em}.gcard p{margin:3px 0}
+.cand .gx{float:right;background:none;border:1px solid rgba(243,230,207,.3);color:var(--bone);border-radius:6px;padding:0 6px;margin-left:6px;cursor:pointer}.cand{cursor:pointer}.cand.sel{outline:1px solid var(--gold)}
+.ab.alert{color:#ff6b78;font-weight:600;animation:pulse .5s infinite alternate}
+.chk{display:flex;align-items:center;gap:8px;cursor:pointer}.chk input{width:18px;height:18px;accent-color:#f2b04e}
+.gname{color:#ff6b78}
+#online input{font:inherit;padding:6px 10px;border-radius:8px;border:1px solid rgba(243,230,207,.3);background:rgba(243,230,207,.06);color:var(--bone);width:150px}
+#online button{background:rgba(243,230,207,.08);color:var(--bone);border:1px solid rgba(242,176,78,.5);border-radius:999px;padding:6px 14px;font-size:1em}
+#online button.on,#onStart{background:var(--gold)!important;color:var(--ink)!important;font-weight:600}
+.onrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+#onLobby .pl{display:inline-flex;align-items:center;gap:6px;margin:4px 10px 4px 0;padding:4px 10px 4px 4px;border-radius:999px;background:rgba(243,230,207,.07)}
+#onLobby img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+#onStatus.ok{color:#8fd18f}#onStatus.bad{color:#ff9aa4}
+#radioInd{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:rgba(90,15,30,.85);border:1px solid var(--gold);color:var(--gold);padding:4px 12px;border-radius:999px;z-index:30}
+</style>
+<script>window.ASSET_BASE = '/*ASSET*/';</script>
+</head>
+<body>
+<div id="loading">Cargando la casona…</div>
+<div id="menu">
+  <div class="picado"></div>
+  <div class="wrap">
+    <div class="hero"><img class="logo" src="/*ASSET*/a/logo.webp" alt="Noche de Ánimas"><h1 hidden>Noche de Ánimas</h1>
+    <p class="sub">Demo 3D v1.0 en línea · terror analógico y núcleo v2: las pruebas se provocan y el ánima tiene hambre. Estilo de aristas duras.</p></div>
+    <div class="card" id="online"><h2>Jugar en línea</h2>
+      <p class="small">Hasta 4 investigadores; el ánima es un bot. Quien crea la sala es el anfitrión: su navegador corre la partida, así que debe quedarse hasta el final. Usa audífonos. Tu personaje es el que elijas abajo, en «Nueva noche».</p>
+      <div class="onrow"><input id="onName" maxlength="16" placeholder="Tu nombre"><button id="onMic">🎙 Activar micrófono</button></div>
+      <div class="onrow"><button id="onHost">Crear sala</button><span class="small">o</span><input id="onCode" maxlength="4" placeholder="Código"><button id="onJoin">Entrar</button></div>
+      <p id="onStatus" class="small"></p>
+      <div id="onLobby"></div>
+      <div class="onrow"><button id="onStart" hidden>Empezar la noche</button><button id="onLeave" hidden>Salir de la sala</button></div>
+    </div>
+    <div class="card"><h2>Nueva noche</h2><div id="opts"></div><button id="play">Entrar a la casona</button></div>
+    <div class="card"><h2>Personajes</h2><p class="small">Los cinco investigadores y los ocho testigos de la casona (roles de las cartas), con modelo 3D y animaciones. Por ahora los roles se juegan como personajes; sus habilidades de las cartas aún no están en el videojuego.</p><button id="galBtn">Ver modelos y animaciones en 3D</button></div>
+    <div class="card"><h2>Cómo se juega</h2>
+      <div class="ctl">
+        <div><b>Investigador</b><br><kbd>WASD</kbd>moverte · <kbd>Shift</kbd>correr (gasta aliento)<br><kbd>Clic</kbd>/<kbd>Espacio</kbd> usar lo que tienes en la mano · <kbd>1</kbd>–<kbd>4</kbd> o rueda: ranura<br><kbd>E</kbd> tomar, esconderte, escalera, altar · <kbd>G</kbd> dejar en el piso<br>Mantener <kbd>clic derecho</kbd> o <kbd>R</kbd> y soltar: aventar · <kbd>Q</kbd> luz del cuarto · <kbd>F</kbd> linterna · <kbd>Tab</kbd> libreta · <kbd>I</kbd> más información · <kbd>M</kbd> sonido<br><kbd>Ratón</kbd> mirar (clic para fijar el cursor; <kbd>Esc</kbd> lo suelta) · <kbd>←</kbd><kbd>→</kbd> girar</div>
+        <div><b>Ánima</b><br><kbd>WASD</kbd>moverte · <kbd>ratón</kbd>hacia dónde miras (tu cono de visión)<br><kbd>Q</kbd> escalofrío · <kbd>E</kbd> apagar luz · <kbd>F</kbd> portazo · <kbd>C</kbd> mover objeto · <kbd>T</kbd> usar un objeto de la casa (piano, mecedora, grifo…) · <kbd>V</kbd> susurro<br><kbd>R</kbd> habilidad · <kbd>H</kbd> cazar · <kbd>B</kbd> volver a tu cuarto · <kbd>Z</kbd> escalera · <kbd>X</kbd> Espanto (en la huida)<br><b>Espíritu</b> (al morir): <kbd>Espacio</kbd> manifestarte · <kbd>Z</kbd> cambiar de piso</div>
+      </div>
+      <ul class="rules">
+        <li><b>Las herramientas dependen del lugar.</b> Recoge las 7 del maletín en el Zaguán y <b>déjalas donde pasará el ánima</b>: la Lámpara UV apuntando a una puerta, la Cámara a un cuarto, el EMF, la Grabadora, el Espejo y el Sensor de gases cerca de su camino. El Termómetro se usa en la mano.</li>
+        <li><b>Busca el resto en la casa:</b> té, rosarios, ruda, copal y veladoras están donde tendría sentido encontrarlos (mira la libreta).</li>
+        <li><b>Trampas de la casa:</b> riega <b>ceniza</b> en el piso (si el ánima pasa, deja huellas que la UV revela; si vuela, no la pisa), deja una <b>cruz de palma</b> donde se juntan (no puede empezar a cazar a 4 m) y pon <b>pan de muerto</b> de ofrenda para atraerla adonde la esperan tus herramientas.</li>
+        <li><b>Un objeto maldito por noche</b> (Tarot, Tablilla, Espejo de plata, Mano del mono, Muñeca de la isla, Pentagrama o Radio), siempre en su cuarto. Da información rápida a cambio de cordura y puede desatar una <b>cacería maldita</b>: ignora la cordura y la cruz.</li>
+        <li><b>Encuentra su cuarto</b> por las velas azules o el frío. Fuera de él, el ánima gasta presencia; si se agota, vuelve y queda inmóvil un rato.</li>
+        <li><b>Cacería:</b> empieza según la cordura del grupo (cada ánima tiene su regla). Te alcanza = mueres. Cada segundo que te ve, corre más: <b>rompe su línea de vista</b> y escóndete antes de quedarte sin aliento. Escondido, <b>un aparato encendido en la mano te delata</b> (linterna incluida).</li>
+        <li><b>El Rosario</b> se activa solo si te alcanza (o tú, a 3 m): el ánima queda ciega 5 s. La <b>Ruda</b> en una puerta le impide cruzarla 40 s; el <b>Copal</b> hace humo que no puede atravesar.</li>
+        <li><b>Nombrarla:</b> con 2 pruebas (evidencias o su sello), dile su nombre en el altar de la Capilla. Si aciertas empieza <b>la huida</b>: salgan por el Zaguán. Gana el equipo si escapa la mitad.</li>
+        <li><b>La apariencia del ánima es al azar</b> cada noche (mujer de blanco, sombra, niño…) y no dice cuál es: se deduce por lo que hace. Su nombre aparece al nombrarla.</li>
+        <li><b>Sin sustos baratos:</b> usa audífonos. Los pasos, los portazos y el aliento en la nuca son la información.</li>
+      </ul>
+      <p class="note small">En celular: joystick abajo a la izquierda, botones abajo a la derecha y arrastra en la pantalla para mirar. Prototipo: modelos hechos en código, sin arte final. En línea: hasta 4 personas con voz por cercanía (mantén <kbd>V</kbd> para hablar por radio). Los lugares vacíos los ocupan bots.</p>
+    </div>
+    <div class="card"><h2>Las 13 ánimas</h2><p class="small">Todas parten del Ánima en pena y cambian su perfil: cómo ven, oyen, se mueven, cazan y qué fenómenos usan.</p><div class="tablewrap" id="catalog"></div></div>
+    <div class="card"><h2>Simulador de equilibrio</h2>
+      <p>Noches por ánima <select id="simN"><option>5</option><option selected>10</option><option>25</option></select> Investigadores <select id="simInv"><option>1</option><option>2</option><option selected>3</option><option>4</option></select> <button id="simBtn">Simular</button></p>
+      <div class="tablewrap" id="simOut"></div></div>
+  </div>
+</div>
+<div id="game" hidden>
+  <div id="stage"></div>
+  <div id="vignette"></div>
+  <div id="top"></div>
+  <button id="quit" title="Menú">✕</button><button id="jbtn" title="Libreta (Tab)">📖</button><button id="mute" title="Sonido (M)">🔊</button>
+  <div id="mini" class="panel" title="Toca o pulsa I para ver más"></div>
+  <div id="left" class="panel"></div>
+  <div id="feed"></div>
+  <div id="radioInd" hidden>📻 Hablando por radio</div>
+  <div id="subs"></div>
+  <div id="hint"></div>
+  <div id="reticle"></div><div id="prompt"></div><div id="tool" hidden></div><div id="itemlabel" hidden></div>
+  <div id="toast"></div><div id="floaters"></div><div id="compass" hidden></div>
+  <div id="seen" hidden>👁 Te está viendo</div><div id="possessUI" hidden></div><div id="slit" hidden></div><div id="noise" hidden>〰 ruido</div>
+  <div id="tip" hidden></div><div id="lockhint" hidden>Haz clic en la casa para mirar con el ratón · <kbd>Esc</kbd> para soltarlo</div>
+  <div id="throwbar" hidden><i></i></div>
+  <div id="journal" class="panel" hidden><div id="journalIn"></div></div>
+  <div id="touch" hidden><div id="joy"><div id="knob"></div></div><div id="tbtns"></div></div>
+</div>
+<div id="galui" hidden></div>
+<div id="modal" hidden><div id="modalIn"></div></div>
+<script>
+/*LOGIC*/
+</script>
+<script type="importmap">{"imports":{"three":"/*THREEURL*/"}}</script>
+<script type="module">
+/*GAME*/
+document.getElementById('loading').remove();
+</script>
+<script>
+setTimeout(() => { const l = document.getElementById('loading'); if (l) l.innerHTML = 'No se pudo cargar Three.js. Revisa tu conexión y recarga la página.'; }, 15000);
+</script>
+</body>
+</html>

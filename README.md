@@ -15,4 +15,19 @@ Las «frases robadas» que usa la casona se guardan solo en la memoria de la pes
 
 ## Contenido
 
+- `juego/`: la demo 3D (se genera; no se edita a mano).
+- `src/`: el código fuente.
+  - `logic2.js`: reglas y bots, sin gráficos.
+  - `net.js`: sala en línea, sincronización y voz.
+  - `chars3d.js` y `game3d.js`: modelos, render e interfaz.
+  - `shell2.html`: la página.
 - `prueba-voz/`: prueba de sala, micrófono, voz por cercanía, radio y teléfono.
+- `test/`: pruebas locales (`fakepeer.js` simula PeerJS entre pestañas).
+
+## Cómo armar la demo
+
+```
+python3 src/build.py
+```
+
+Genera `juego/index.html` a partir de `src/`.
