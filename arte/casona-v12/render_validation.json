@@ -1,17 +1,17 @@
 {
   "errors": [],
   "metrics": {
-    "meshes": 1417,
-    "vertices": 290308,
+    "meshes": 1428,
+    "vertices": 294524,
     "invalid": 0,
     "draw": {
-      "frame": 11,
-      "calls": 177,
-      "triangles": 17150,
+      "frame": 3,
+      "calls": 661,
+      "triangles": 74678,
       "points": 0,
       "lines": 0
     },
-    "version": "casona-v12",
+    "version": "casona-v12.1",
     "quality": "balanced"
   }
 }

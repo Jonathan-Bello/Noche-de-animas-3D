@@ -1,13 +1,13 @@
 {
   "passed": true,
-  "movementOnHost": 3.593733879999988,
+  "movementOnHost": 3.6368934199999714,
   "flashSynced": true,
   "layoutAndRandomStateSynced": true,
   "drawerOpenSynced": true,
   "independentBookThrowSynced": true,
   "disconnectHandled": true,
   "snapshotBytes": [
-    38035,
+    38492,
     5144
   ],
   "errors": [],

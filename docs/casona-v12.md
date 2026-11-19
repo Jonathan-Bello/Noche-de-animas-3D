@@ -10,7 +10,7 @@ Esta revisión se integra sobre `cf15711`, conservando la libreta manual y la ac
 
 **Escaleras.** La comprobación anterior utilizaba radio de 0.22 m; los investigadores reales usan 0.30 m y el ánima, 0.32 m. La cápsula chocaba con el piso siguiente antes de que su raíz alcanzara el umbral del descanso. Se da holgura al cuerpo en el punto de transferencia, se centra la entrada antes de avanzar y se recupera dentro de su misma celda una cápsula que ya estuviera penetrando el borde. Se reduce la tolerancia de llegada de `steer`, que podía dejar al actor inmóvil a 0.039 m de una alineación requerida de 0.035 m. Los bots dejan de iniciar barridos de temperatura y desvíos para recoger suministros sobre los peldaños.
 
-**Camioneta.** Se mueve al lado oeste de la explanada. Su malla, caja de colisión, punto de salida y posiciones iniciales se actualizan juntos. El eje del camino de acceso queda libre.
+**Camioneta.** Se mueve al lado este de la explanada, frente al área de equipo que queda libre al oeste. Su malla, caja de colisión, punto de salida y posiciones iniciales se actualizan juntos. El eje del camino de acceso queda libre.
 
 ## Mobiliario coherente
 
@@ -20,6 +20,7 @@ Se elimina la búsqueda automática del primer hueco libre para colocar una mesa
 - Despensas: conservas y repostería; mesas de trabajo y alacenas.
 - Biblioteca: librero abierto de cuatro niveles, mesa de lectura y gabinete de doble fondo integrado al extremo del librero.
 - Comedor: mesa, ocho sillas orientadas hacia ella, trinchero y vajilla.
+- Cuarto de aperos (antigua cochera): se retira el carruaje; banco de trabajo y estante de mantenimiento contra los muros. El arcón se traslada al muro este, lejos de ambas puertas.
 - Despacho y portería: escritorios y archivos, reloj y materiales propios de su uso.
 - Recámaras: camas con cabecero, almohadas, burós, cómodas y ropa; nana y huéspedes reciben camas propias.
 - Costura, botica y estrado: mesa de costura, frascos, tocador y banca según la función del cuarto.
@@ -64,10 +65,14 @@ Resultados de esta revisión:
 
 - Acceso a los 22 cuartos; cobertura de refugios en 100 selecciones; colocación de suministros en 60 mundos.
 - 24 recorridos de escalera con entradas descentradas, radios reales 0.30/0.32 m y tres pasos de tiempo diferentes.
-- 22 partidas completas con cuatro bots y los 22 tipos de ánima: todas terminan, sin inmovilidad de más de 20 s detectada en las escaleras. Hubo 30 cacerías; 9 resultados a favor de investigadores y 13 a favor del ánima. La identificación de evidencias por bots influye en esos resultados, por lo que no son un estudio de balance humano.
-- Partida completa en navegador con pantalla táctil emulada, dos cacerías y final a los 564.2 s de simulación. Se toman muestras de renderizado durante la sesión; no se presenta como una partida humana en tiempo real.
+- 22 partidas completas con cuatro bots y los 22 tipos de ánima: todas terminan, sin inmovilidad de más de 20 s detectada en las escaleras. Hubo 35 cacerías; 7 resultados a favor de investigadores y 15 a favor del ánima. La identificación de evidencias por bots influye en esos resultados, por lo que no son un estudio de balance humano.
+- Referencia de v12: partida completa en navegador con pantalla táctil emulada, dos cacerías y final a los 564.2 s de simulación. Se toman muestras de renderizado durante la sesión; no se presenta como una partida humana en tiempo real.
 - Cuatro calidades, reinicio de escena, apertura de cajones, recuperación de resolución y croquis seleccionable sin desbordamiento horizontal móvil.
 - Dos navegadores: movimiento, linterna, distribución aleatoria, cajones, lanzamiento de un libro independiente y desconexión sincronizados con transporte local de prueba.
 - WebKit con iPhone 12 vertical y horizontal. Mallas y matrices finitas, colores constantes por cara y sin intersecciones coplanares detectadas entre vanos y paredes.
 
 Los resultados resumidos están en `arte/casona-v12/`. Las capturas de inspección usan luces encendidas. Sigue pendiente verificar FPS, calentamiento y duración de batería en el iPhone 12 real del usuario, y afinar la dificultad mediante partidas humanas.
+
+## Revisión v12.1 — acceso al equipo y cuarto de aperos
+
+La camioneta queda al este del camino, con las mesas de equipo libres al oeste. Se amplía la explanada y se actualizan su colisión, el punto de salida y el croquis. B10 deja de ser cochera: se retira el carruaje y se agrega un estante de mantenimiento. Su arcón pasa al muro este, fuera de las dos puertas. La cobertura de 18 m se conserva, al igual que los 24 candidatos y las 21–22 disponibilidades observadas. Se repiten los recorridos, las 22 simulaciones completas, las cuatro calidades, la sincronización y WebKit con perfil iPhone 12.

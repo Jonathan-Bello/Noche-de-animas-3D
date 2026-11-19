@@ -27,7 +27,7 @@ async def main():
     intro=page.get_by_role('button',name='A la casona',exact=True)
     if await intro.count():await intro.tap()
     data=await page.evaluate("()=>{const w=__game.w;Object.assign(w.invs[0],{f:0,x:35.5,y:25.5});__qa.frame();const r=__qa.renderer,gl=r.getContext(),ext=gl.getExtension('WEBGL_debug_renderer_info');return{layout:w.layout,viewport:{width:innerWidth,height:innerHeight},deviceDpr:devicePixelRatio,renderDpr:r.getPixelRatio(),shadows:r.shadowMap.enabled,draw:{...r.info.render},renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null};}")
-    assert data['layout']=='casona-v12';assert data['renderDpr']==1;assert not data['shadows'];assert data['draw']['triangles']>0;assert not errors,errors
+    assert data['layout']=='casona-v12.1';assert data['renderDpr']==1;assert not data['shadows'];assert data['draw']['triangles']>0;assert not errors,errors
     data['device']=device;data['errors']=errors;reports.append(data);await page.screenshot(path=str(OUT/('iphone12-landscape.png' if 'landscape' in device else 'iphone12.png')));await ctx.close();print('WEBKIT',device,flush=True)
    (OUT/'iphone12_validation.json').write_text(json.dumps({'passed':True,'profiles':reports,'note':'WebKit on Windows with emulated iPhone dimensions/input, not an iPhone GPU or physical FPS measurement.'},indent=2),encoding='utf8');await b.close()
  finally:server.shutdown()

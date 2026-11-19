@@ -27,7 +27,7 @@ async def main():
     await page.evaluate("Object.assign(__game.menuOpt,{role:'inv',nInv:1,char:'curandero',tips:'no',cam:'fp'});__game.start.skipSlot=true;__game.start();")
     await page.wait_for_timeout(1300)
     data=await page.evaluate("()=>{const w=__game.w,m=w.invs[0];Object.assign(m,{x:35.5,y:25.5,f:0,flash:true});w.g.stunUntil=1e9;__qa.frame();let invalid=0;__game.scene.traverse(o=>{for(const v of o.matrixWorld.elements)if(!Number.isFinite(v))invalid++;if(o.isMesh&&o.geometry.attributes.position)for(const x of o.geometry.attributes.position.array)if(!Number.isFinite(x))invalid++;});return{version:w.layout,quality:__game.quality.preference,shadows:__qa.renderer.shadowMap.enabled,dpr:__qa.renderer.getPixelRatio(),active:w.spotsActive.size,drawers:w.containers.length,invalid,draw:__qa.renderer.info.render};}")
-    assert data['version']=='casona-v12';assert 20<=data['active']<=22;assert data['drawers']==66;assert data['invalid']==0
+    assert data['version']=='casona-v12.1';assert 20<=data['active']<=22;assert data['drawers']==66;assert data['invalid']==0
     assert data['shadows']==(quality not in ['low','auto']);assert data['dpr']<=({'low':1,'balanced':1.35,'high':2,'auto':1}[quality])
     if quality=='balanced':
      await page.evaluate('()=>{'+(ROOT/'test/scene-geometry-qc.js').read_text(encoding='utf-8')+';window.auditSceneGeometry=auditSceneGeometry;}')

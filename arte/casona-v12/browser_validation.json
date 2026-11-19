@@ -2,7 +2,7 @@
   "passed": true,
   "profiles": [
     {
-      "version": "casona-v12",
+      "version": "casona-v12.1",
       "quality": "low",
       "shadows": false,
       "dpr": 1,
@@ -11,24 +11,24 @@
       "invalid": 0,
       "draw": {
         "frame": 1,
-        "calls": 324,
-        "triangles": 45880,
+        "calls": 321,
+        "triangles": 45632,
         "points": 0,
         "lines": 0
       }
     },
     {
-      "version": "casona-v12",
+      "version": "casona-v12.1",
       "quality": "balanced",
       "shadows": true,
       "dpr": 1.35,
-      "active": 22,
+      "active": 21,
       "drawers": 66,
       "invalid": 0,
       "draw": {
         "frame": 1,
-        "calls": 340,
-        "triangles": 47824,
+        "calls": 331,
+        "triangles": 47484,
         "points": 0,
         "lines": 0
       },
@@ -40,7 +40,7 @@
       }
     },
     {
-      "version": "casona-v12",
+      "version": "casona-v12.1",
       "quality": "high",
       "shadows": true,
       "dpr": 2,
@@ -49,14 +49,14 @@
       "invalid": 0,
       "draw": {
         "frame": 1,
-        "calls": 324,
-        "triangles": 47436,
+        "calls": 328,
+        "triangles": 47684,
         "points": 0,
         "lines": 0
       }
     },
     {
-      "version": "casona-v12",
+      "version": "casona-v12.1",
       "quality": "auto",
       "shadows": false,
       "dpr": 1,
@@ -65,8 +65,8 @@
       "invalid": 0,
       "draw": {
         "frame": 1,
-        "calls": 166,
-        "triangles": 32396,
+        "calls": 177,
+        "triangles": 32964,
         "points": 0,
         "lines": 0
       }

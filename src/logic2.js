@@ -302,7 +302,7 @@ function rebuildMasks(w) {
   w.ghostMaskVer++; w.invMaskVer++;
 }
 function chooseSpots(){return chooseLayoutSpots();}
-const ITEM_PLACES={te:[[0,'cocina'],[0,'comedor'],[0,'despensa'],[0,'reposteria']],rosario:[[0,'capilla'],[1,'abuelo'],[1,'recp'],[1,'nana']],ruda:[[0,'botica'],[0,'cocina'],[1,'abuelo']],copal:[[0,'capilla'],[0,'botica'],[1,'desvan']],vela:[[0,'capilla'],[1,'salon'],[0,'comedor']],ceniza:[[0,'cocina'],[0,'capilla']],cruz:[[0,'capilla'],[1,'abuelo']],pan:[[0,'comedor'],[0,'cocina']],limpia:[[0,'botica'],[0,'cocina']],foco:[[0,'porteria'],[0,'despacho'],[0,'cochera']]};
+const ITEM_PLACES={te:[[0,'cocina'],[0,'comedor'],[0,'despensa'],[0,'reposteria']],rosario:[[0,'capilla'],[1,'abuelo'],[1,'recp'],[1,'nana']],ruda:[[0,'botica'],[0,'cocina'],[1,'abuelo']],copal:[[0,'capilla'],[0,'botica'],[1,'desvan']],vela:[[0,'capilla'],[1,'salon'],[0,'comedor']],ceniza:[[0,'cocina'],[0,'capilla']],cruz:[[0,'capilla'],[1,'abuelo']],pan:[[0,'comedor'],[0,'cocina']],limpia:[[0,'botica'],[0,'cocina']],foco:[[0,'porteria'],[0,'despacho'],[0,'aperos']]};
 // Un objeto maldito por noche, siempre en su lugar (como en las cartas: cada uno tiene su historia en la casa)
 const CURSED_PLACES = { tarot:[0,'botica'],tablilla:[1,'desvan'],espejoplata:[1,'hija'],mano:[0,'despacho'],muneca:[1,'recn'],pentagrama:[0,'capilla'],radio:[0,'despacho'] };
 const TAROT = [['sol', 1], ['luna', 1], ['ermitano', 1], ['muerte', 1], ['rueda', 2], ['diablo', 2], ['torre', 2]];

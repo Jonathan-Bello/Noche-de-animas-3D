@@ -39,3 +39,9 @@ console.log('24 offset traversals passed with real .30/.32m capsules');
 const bookWorld=api.newWorld({role:'bots',nInv:4,ghost:'pena'}),books=bookWorld.loose.filter(o=>o.shelfId);assert.equal(books.length,24);const book=books[0],original={x:book.x,y:book.y,h:book.h};bookWorld.loose=[book];bookWorld.t=100;Object.assign(bookWorld.g,{f:0,x:book.x,y:15.5,state:'libre',stunUntil:0});bookWorld.g.ready.c=0;assert(api.gMover(bookWorld,bookWorld.g));assert.equal(book.h,0);assert.deepEqual(book.from,original);assert(Math.hypot(book.x-original.x,book.y-original.y)>.5);console.log('24 independent shelf books, real throw with no decorative duplicate passed');
 
 const closed=w.doors.find(d=>d.f===0&&d.x===30&&d.y===9.5),aView={f:0,x:30,y:8.3},bView={f:0,x:30,y:10.7};closed.closed=true;assert.equal(api.sees(aView,bView,10,w),false);closed.closed=false;assert.equal(api.sees(aView,bView,10,w),true);console.log('Actor sight respects closed/open door state');
+
+for(let z=40;z<57;z++)assert.equal(api.grids[0][z*60+30],api.T.FLOOR,'Truck blocks entry path');
+assert.equal(api.ROOMS[0].some(r=>r.id==='aperos'&&r.n==='Cuarto de aperos'),true);
+const refuge=api.SPOTS.find(s=>s.id==='HB10');assert.deepEqual([refuge.x,refuge.y,refuge.hx,refuge.hy],[13,37,12.5,37.5]);
+for(const target of[{f:0,x:16.5,y:54.4},{f:0,x:34.3,y:53.4}]){const actor={...w.invs[0],f:0,x:30.5,y:49.5,r:.3,bot:true};let ok=false;for(let k=0;k<3000;k++){api.navTo(w,actor,target,2.6,1/60);if(Math.hypot(actor.x-target.x,actor.y-target.y)<.3){ok=true;break;}}assert(ok,'Equipment or van exit inaccessible');}
+console.log('Equipment access, central path, relocated truck and aperos refuge passed');

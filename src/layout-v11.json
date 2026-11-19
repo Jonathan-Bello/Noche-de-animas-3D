@@ -1,5 +1,5 @@
 {
-  "version": "casona-v12",
+  "version": "casona-v12.1",
   "status": "runtime registry",
   "units": "metros",
   "coordinates": "[x0,z0,x1,z1), norte z=0, calle z=40; reticula logica 1m; suelo PA y=3.8",
@@ -140,7 +140,7 @@
     {
       "floor": 0,
       "id": "B10",
-      "name": "Cochera",
+      "name": "Cuarto de aperos",
       "rect": [
         1,
         31,
@@ -148,7 +148,7 @@
         39
       ],
       "home": true,
-      "key": "cochera"
+      "key": "aperos"
     },
     {
       "floor": 0,
@@ -1020,18 +1020,6 @@
         30.18,
         20.18
       ]
-    },
-    {
-      "floor": 0,
-      "id": "carruaje",
-      "rect": [
-        5,
-        33,
-        9,
-        36
-      ],
-      "height": 2.2,
-      "blocksSight": true
     },
     {
       "floor": 0,
@@ -2256,6 +2244,24 @@
       "contents": [],
       "facing": -1.5707963267948966,
       "visualHeight": 1.11
+    },
+    {
+      "id": "estante_aperos",
+      "floor": 0,
+      "room": "B10",
+      "rect": [
+        1,
+        31,
+        4,
+        32
+      ],
+      "height": 2.1,
+      "blocksSight": true,
+      "model": "pantryTall",
+      "label": "Estante de mantenimiento",
+      "contents": [
+        "Botes de pintura, aceite y materiales de reparación"
+      ]
     }
   ],
   "stairs": [
@@ -2464,16 +2470,16 @@
       "id": "HB10",
       "room": "B10",
       "floor": 0,
-      "x": 7,
-      "z": 32,
+      "x": 12,
+      "z": 37,
       "type": "arcon de aperos",
       "mandatory": false,
       "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
       "preferredSolid": [
-        7,
-        31
+        13,
+        37
       ],
-      "contents": "Arnés y aperos laterales; espacio libre dentro del arcón."
+      "contents": "Arcón de aperos junto al muro este; espacio interior libre para refugiarse."
     },
     {
       "id": "HB11",
@@ -2689,13 +2695,13 @@
       "id": "HB07",
       "room": "B07",
       "floor": 0,
-      "x": 3,
+      "x": 4,
       "z": 22,
       "type": "arcon de aperos",
       "mandatory": false,
       "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
       "preferredSolid": [
-        3,
+        4,
         21
       ],
       "contents": "Aperos en un compartimento lateral; hueco de refugio libre."
@@ -3120,7 +3126,7 @@
       21,
       22
     ],
-    "walkableCoverageCells": 3228
+    "walkableCoverageCells": 3237
   },
   "caveats": [
     "Cobertura medida por camino horizontal con puertas transitables; una puerta cerrada puede cambiar el tiempo de escape.",
@@ -3166,18 +3172,18 @@
   "exterior": {
     "van": {
       "position": [
-        23,
+        38,
         53.4
       ],
       "rotation": 0,
       "collision": [
-        20,
+        35,
         52,
-        26,
+        42,
         55
       ],
       "exit": [
-        19.3,
+        34.3,
         53.4
       ]
     },
@@ -3186,6 +3192,18 @@
       40,
       33,
       57
+    ],
+    "apron": [
+      12,
+      50,
+      44,
+      57
+    ],
+    "fence": [
+      12,
+      57,
+      44,
+      58
     ]
   },
   "furnishingContract": {

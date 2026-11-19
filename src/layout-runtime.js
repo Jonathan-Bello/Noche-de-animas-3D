@@ -8,7 +8,7 @@ for(const r of NDALayout.rooms){const [a,b,c,d]=r.rect,rm={id:r.key,n:r.name,r:[
 for(const [f,id,n,r]of[[0,'patio','Patio',[18,13,41,26]],[0,'corredor','Corredor',[15,10,44,29]],[0,'afuera','Afuera (la base)',[1,40,58,58]],[1,'vacio','Vacío del patio',[18,13,41,26]],[1,'vaciocapilla','Vacío de la capilla',[24,1,35,5]],[1,'galeria','Galería',[15,10,44,29]],[1,'afuera1','Exterior superior',[0,40,59,59]]])ROOMS[f].push({id,n,r,home:false});
 ROOMS.forEach((rs,f)=>rs.forEach((r,i)=>RID[f][r.id]=i));
 // Compatibility names remain indexes into real rooms, never duplicate rooms.
-Object.assign(RID[0],{sala:RID[0].botica,recp:RID[0].despacho,recn:RID[0].porteria,bano:RID[0].cocina,estudio:RID[0].despacho,servicio:RID[0].cochera});
+Object.assign(RID[0],{sala:RID[0].botica,recp:RID[0].despacho,recn:RID[0].porteria,bano:RID[0].cocina,estudio:RID[0].despacho,servicio:RID[0].aperos});
 Object.assign(RID[1],{juegos:RID[1].recn,oratorio:RID[1].coro,archivo:RID[1].salon,azotehuela:RID[1].nana});
 const RECTS=ROOMS[0].map(r=>r.r),NO_HOME=ROOMS.map(rs=>rs.filter(r=>!r.home).map(r=>r.id));
 const HALLS=[['corredor','patio','escalera'],['galeria','rellano']];
@@ -50,9 +50,9 @@ const stairSideBlock=(a,b)=>a!==b&&((isStair[a]&&!isStair[b]&&!STAIR_ENDS.has(a)
 function stairFlip(w,e,quiet){if(!e||(e.kind==='ghost'&&ethereal(e)))return;const k=stairAt(e.x,e.y);if(k<0)return;const p=stairP(k,e.x,e.y);if(e.f===0&&p>.505)quiet?(e.f=1):changeFloor(w,e,1);else if(e.f===1&&p<.495)quiet?(e.f=0):changeFloor(w,e,0);}
 const stairNext=(k,up)=>k===0?{x:7.5,y:up?24.5:26.5}:{x:up?42.5:40.5,y:2.5};
 // Exterior keeps the existing van, tables and spawn, with its path centered on the new portón.
-fillLayout(0,[0,40,60,60],T.VOID,RID[0].afuera);fillLayout(0,[27,40,33,51],T.FLOOR,RID[0].afuera);fillLayout(0,[12,50,35,57],T.FLOOR,RID[0].afuera);
+fillLayout(0,[0,40,60,60],T.VOID,RID[0].afuera);fillLayout(0,[27,40,33,51],T.FLOOR,RID[0].afuera);fillLayout(0,NDALayout.exterior.apron,T.FLOOR,RID[0].afuera);
 for(let y=41;y<57;y++)for(let x=1;x<59;x++)if(grids[0][y*W+x]===T.VOID&&[[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>grids[0][(y+b)*W+x+a]===T.FLOOR))grids[0][y*W+x]=T.BUSH;
-fillLayout(0,[12,57,35,58],T.GATE);fillLayout(0,NDALayout.exterior.van.collision,T.VAN);
+fillLayout(0,NDALayout.exterior.fence,T.GATE);fillLayout(0,NDALayout.exterior.van.collision,T.VAN);
 for(const r of[[14,51,20,52],[14,55,20,56]]){fillLayout(0,r,T.TABLE);FURN[0].push([T.TABLE,r[0],r[1],r[2]-1,r[3]-1]);LAYOUT_FURN.push({id:'mesa_base_'+r[1],floor:0,rect:r,type:T.TABLE,height:.78});}
 const tileAt=(f,x,y)=>x<0||y<0||x>=W||y>=H?T.WALL:grids[f][(y|0)*W+(x|0)];
 const roomAt=(f,x,y)=>x<0||y<0||x>=W||y>=H?-1:roomGrid[f][(y|0)*W+(x|0)];
