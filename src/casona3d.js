@@ -89,8 +89,8 @@ function ensureTV() {
   casMeshes.tv = g; casMeshes.tvTex = tex; casMeshes.tvCtx = ctx; w.tv = { f: 0, x: x0 + 1.0, y: (y0 + y1) / 2 + 0.5 };
 }
 function tvShow(e) { ensureTV(); casLocal.tvMode = e.k; casLocal.tvUntil = performance.now() + (e.k === 'tv' ? 14000 : 9000); casLocal.tvNames = e.names || []; const p = w.tv;
-  if (e.k === 'tv') { CSFX.static(p, 0.8); setTimeout(() => speak(`Interrumpimos la transmisión. Reportan un asesinato en la casona del final de la calle. Las víctimas: ${(e.names || []).join(', ')}.`, { pitch: 0.6, rate: 0.95 }), 900); }
-  if (e.k === 'barras') tone(1000, 4, 'sine', 0.05, p); if (e.k === 'tvcam') CSFX.static(p, 0.5); }
+  CSFX.static(p, e.k === 'tv' ? 12 : 8); // solo estática: el miedo está en lo que se ve en pantalla
+}
 function tvDraw(now) {
   const ctx = casMeshes.tvCtx; if (!ctx) return; const mode = now < casLocal.tvUntil ? casLocal.tvMode : null;
   if (!mode) { if (casLocal.tvDrawn !== 'off') { ctx.fillStyle = '#050505'; ctx.fillRect(0, 0, 256, 192); casMeshes.tvTex.needsUpdate = true; casLocal.tvDrawn = 'off'; } return; }
