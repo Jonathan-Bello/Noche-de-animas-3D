@@ -1,0 +1,71 @@
+{
+  "id": "B05",
+  "name": "Traspatio",
+  "origin": [
+    49,
+    0.0,
+    1
+  ],
+  "size": [
+    10,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "escapeExit"
+    ],
+    "favorite": null
+  },
+  "furniture": [
+    {
+      "floor": 0,
+      "id": "prop_grifo_traspatio",
+      "rect": [
+        6,
+        1,
+        8,
+        2
+      ],
+      "height": 0.9,
+      "kind": "prop",
+      "blocksSight": false
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [],
+  "doors": [
+    {
+      "id": "D32",
+      "floor": 0,
+      "a": "B04",
+      "b": "B05",
+      "rect": [
+        48,
+        4,
+        49,
+        6
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D33",
+      "floor": 0,
+      "a": "B05",
+      "b": "B08",
+      "rect": [
+        52,
+        9,
+        54,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

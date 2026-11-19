@@ -1,0 +1,146 @@
+{
+  "id": "A11",
+  "name": "Recámara principal",
+  "origin": [
+    15,
+    3.8,
+    31
+  ],
+  "size": [
+    11,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "ceniza"
+    ],
+    "favorite": "mulata"
+  },
+  "furniture": [
+    {
+      "floor": 1,
+      "id": "cama_A11",
+      "rect": [
+        2,
+        5,
+        4,
+        8
+      ],
+      "height": 0.65,
+      "blocksSight": false,
+      "model": "bed",
+      "label": "Cama de madera",
+      "contents": [
+        "Colcha y almohadas"
+      ],
+      "visualHeight": 1.5,
+      "backWall": "south"
+    },
+    {
+      "id": "am_A11",
+      "floor": 1,
+      "room": "A11",
+      "rect": [
+        8,
+        7,
+        11,
+        8
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "bedside",
+      "label": "Cómoda principal",
+      "contents": [
+        "Rosario y retratos"
+      ],
+      "drawers": true,
+      "backWall": "south"
+    },
+    {
+      "id": "buro_extra_A11",
+      "room": "A11",
+      "floor": 1,
+      "rect": [
+        1,
+        7,
+        2,
+        8
+      ],
+      "height": 0.78,
+      "model": "bedside",
+      "backWall": "south",
+      "blocksSight": false,
+      "label": "Buró junto a la cabecera",
+      "contents": [
+        "Veladora y recuerdos"
+      ]
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA11",
+      "room": "A11",
+      "floor": 1,
+      "x": 23,
+      "z": 32,
+      "type": "vestidor",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        23,
+        31
+      ],
+      "contents": "Ropa del vestidor."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D26",
+      "floor": 1,
+      "a": "A10",
+      "b": "A11",
+      "rect": [
+        14,
+        34,
+        15,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D27",
+      "floor": 1,
+      "a": "A11",
+      "b": "A12",
+      "rect": [
+        26,
+        34,
+        27,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D29",
+      "floor": 1,
+      "a": "A11",
+      "b": "galeria",
+      "rect": [
+        20,
+        30,
+        22,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

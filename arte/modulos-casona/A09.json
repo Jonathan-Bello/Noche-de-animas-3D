@@ -1,0 +1,108 @@
+{
+  "id": "A09",
+  "name": "Baño",
+  "origin": [
+    46,
+    3.8,
+    21
+  ],
+  "size": [
+    5,
+    3.8,
+    9
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "espejoplata"
+    ],
+    "favorite": "llorona"
+  },
+  "furniture": [
+    {
+      "floor": 1,
+      "id": "banera",
+      "rect": [
+        2,
+        4,
+        4,
+        7
+      ],
+      "height": 0.65,
+      "kind": "bath",
+      "blocksSight": false,
+      "visualHeight": 0.78
+    },
+    {
+      "floor": 1,
+      "id": "prop_grifo_banoalto",
+      "rect": [
+        4,
+        2,
+        5,
+        3
+      ],
+      "height": 1.15,
+      "kind": "prop",
+      "blocksSight": false,
+      "rotationY": -1.5707963268,
+      "backWall": "east"
+    },
+    {
+      "id": "am_A09",
+      "floor": 1,
+      "room": "A09",
+      "rect": [
+        0,
+        7,
+        2,
+        8
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "washstand",
+      "label": "Mesa de aseo",
+      "contents": [
+        "Toalla y recipientes"
+      ],
+      "drawers": true
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA09",
+      "room": "A09",
+      "floor": 1,
+      "x": 47,
+      "z": 23,
+      "type": "armario de ropa blanca",
+      "mandatory": true,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        46,
+        23
+      ],
+      "contents": "Toallas y ropa blanca."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D25",
+      "floor": 1,
+      "a": "A08",
+      "b": "A09",
+      "rect": [
+        48,
+        20,
+        50,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

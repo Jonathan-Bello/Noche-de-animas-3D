@@ -707,8 +707,10 @@ function gPortazo(w, g) {
 function gMover(w, g) {
   if (!gReady(w, g, 'c')) return false;
   const r0 = roomOf(g); const cand = w.loose.filter(o => o.f === g.f && d2(o, g) <= 3.5 && w.t - o.flyT > 1.2).sort((a, b) => (roomAt(a.f, a.x, a.y) !== r0) - (roomAt(b.f, b.x, b.y) !== r0) || d2(a, g) - d2(b, g));
-  const o = cand[0]; if (!o) return false; g.ready.c = w.t + cdFor(g, 'c', CFG.cds.c);
-  let tx = o.x, ty = o.y; for (let k = 0; k < 12; k++) { const a = Math.random() * 6.28, dd = 1.5 + Math.random() * 1.6, nx = o.x + Math.cos(a) * dd, ny = o.y + Math.sin(a) * dd; if (layoutPlacementAllowed(o.f,nx,ny,.3)&&walkableT(tileAt(o.f, nx, ny)) && los(o.f,o.releaseX??o.x,o.releaseY??o.y,nx,ny,(o.h||0)+.2,(o.h||0)+.2,w)) { tx = nx; ty = ny; break; } }
+  const o = cand[0]; if (!o) return false;
+  let tx = o.x, ty = o.y, landed=false; for (let k = 0; k < 12; k++) { const a = Math.random() * 6.28, dd = 1.5 + Math.random() * 1.6, nx = o.x + Math.cos(a) * dd, ny = o.y + Math.sin(a) * dd; if (layoutPlacementAllowed(o.f,nx,ny,.3)&&walkableT(tileAt(o.f, nx, ny)) && los(o.f,o.releaseX??o.x,o.releaseY??o.y,nx,ny,(o.h||0)+.2,(o.h||0)+.2,w)) { tx = nx; ty = ny; landed=true; break; } }
+  if(!landed){const options=(ROOM_TILES[o.f][roomAt(o.f,o.x,o.y)]||[]).map(([x,y])=>({x:x+.5,y:y+.5})).filter(p=>Math.hypot(p.x-o.x,p.y-o.y)>=1&&Math.hypot(p.x-o.x,p.y-o.y)<=4&&layoutPlacementAllowed(o.f,p.x,p.y,.3)&&los(o.f,o.releaseX??o.x,o.releaseY??o.y,p.x,p.y,(o.h||0)+.2,(o.h||0)+.2,w)).sort((a,b)=>Math.hypot(a.x-o.x,a.y-o.y)-Math.hypot(b.x-o.x,b.y-o.y));if(!options.length)return false;tx=options[0].x;ty=options[0].y;}
+  g.ready.c = w.t + cdFor(g, 'c', CFG.cds.c);
   o.from = { x: o.x, y: o.y, h: o.h };delete o.releaseX;delete o.releaseY;o.x = tx; o.y = ty; o.h = 0; o.flyT = w.t; o.rot = Math.random() * 6.28;
   w.noise(o, 12, 'mover'); w.sub(o, `Cae ${LOOSE_N[o.kind]} al piso`, 12);
   exposedInvs(w).filter(i => i.f === o.f && d2(i, o) <= 4).forEach(i => w.haunt(i, 2));
@@ -774,7 +776,7 @@ function possessTick(w, dt, human) {
   if (!g.bot && human && (human.mx || human.my)) { const l = Math.hypot(human.mx, human.my); tryMove(w, v, human.mx / l * CFG.walk * 0.8 * dt, human.my / l * CFG.walk * 0.8 * dt); v.face = Math.atan2(human.my, human.mx) + Math.PI; return; }
   if (P.pause > 0) { P.pause -= dt; return; }
   if (!P.goal || d2(P.goal, v) < 0.5) { const r = roomOf(v); P.goal = r >= 0 ? randomIn(v.f, r) : { f: v.f, x: v.x + rnd(-2, 2), y: v.y + rnd(-2, 2) }; if (Math.random() < 0.4) { P.pause = rnd(2, 4); v.face += Math.PI; }
-    const o = w.loose.find(o => o.f === v.f && d2(o, v) < 2.2 && w.t - o.flyT > 2); if (o && Math.random() < 0.6) { const a = Math.random() * 6.28; o.from = { x: o.x, y: o.y, h: o.h }; const nx = o.x + Math.cos(a) * 1.6, ny = o.y + Math.sin(a) * 1.6; if (walkableT(tileAt(o.f, nx, ny))) { o.x = nx; o.y = ny; } o.h = 0; o.flyT = w.t; w.noise(o, 10, 'mover'); w.ev('mover', { f: o.f, x: o.x, y: o.y, id: o.id }); } }
+    const o = w.loose.find(o => o.f === v.f && d2(o, v) < 2.2 && w.t - o.flyT > 2); if (o && Math.random() < 0.6) { const a = Math.random() * 6.28; o.from = { x: o.x, y: o.y, h: o.h }; const nx = o.x + Math.cos(a) * 1.6, ny = o.y + Math.sin(a) * 1.6; if (walkableT(tileAt(o.f, nx, ny))&&layoutPlacementAllowed(o.f,nx,ny,.3)) { o.x = nx; o.y = ny; } o.h = 0; o.flyT = w.t; w.noise(o, 10, 'mover'); w.ev('mover', { f: o.f, x: o.x, y: o.y, id: o.id }); } }
   const dx = P.goal.x - v.x, dy = P.goal.y - v.y, l = Math.hypot(dx, dy) || 1; if (!walkableT(tileAt(v.f, P.goal.x, P.goal.y)) || navTo(w, v, P.goal, CFG.walk * 0.55, dt)) P.goal = null; v.face = Math.atan2(dy, dx) + Math.PI; // camina de espaldas
 }
 // Anomalía: algo aparece o cambia donde nadie está mirando
@@ -925,7 +927,7 @@ function botInv(w, b, dt) {
 }
 // explorar: detenerse en cada cuarto con el termómetro quieto hasta que se asiente
 function botTermoSweep(w, b, dt) {
-  if(stairAt(b.x,b.y)>=0)return false;
+  if(stairAt(b.x,b.y)>=0){const sw=b.ai.sweep;if(sw&&sw.key===b.f+':'+roomOf(b)&&sw.p.f===b.f&&stairAt(sw.p.x,sw.p.y)<0&&d2(sw.p,b)>.5){navTo(w,b,sw.p,CFG.walk,dt);return true;}return false;}
   const k = b.slots.findIndex(s => s && s.kind === 'termo'), r = roomOf(b); if (k < 0 || r < 0 || isHall(b.f, r) || ['afuera', 'zaguan'].includes(ROOMS[b.f][r].id)) return false;
   const key = b.f + ':' + r; b.ai.termoDone = b.ai.termoDone || {}; if ((b.ai.termoDone[key] || -99) > w.t - 45) return false;
   const c = w.cold[b.f][r]; b.hand = k; if (!b.ai.sweep || b.ai.sweep.key !== key) b.ai.sweep = { key, p: Math.random() < 0.6 && c ? { f: b.f, x: c.x + rnd(-1, 1), y: c.y + rnd(-1, 1) } : randomIn(b.f, r), t: 0 };
@@ -1128,7 +1130,7 @@ function step(w, dt, input) {
   // obligación de cacería: si puede cazar y no lo hace, el impulso la obliga
   if (w.phase === 'night' && g.state === 'libre' && !g.hunt) { if (huntRuleOK(w, g) && g.pres >= CFG.huntMinPres) { g.urge = (g.urge || 0) + dt; if (g.urge >= (def.mustHunt || CFG.mustHunt) && canHunt(w, g)) { if (startHunt(w, g)) { g.urge = 0; if (!g.bot) w.say('No pudiste contenerte: empezó la cacería.', 'g'); } } } else g.urge = Math.max(0, (g.urge || 0) - dt * 0.5); }
   // en la cacería avienta lo que encuentra a su paso
-  if (g.hunt && !g.hunt.huida) for (const o of w.loose) if (o.f === g.f && d2(o, g) < 1.4 && w.t - o.flyT > 3) { const a = g.face + (Math.random() - 0.5) * 2, nx = o.x + Math.cos(a) * 1.8, ny = o.y + Math.sin(a) * 1.8; if (walkableT(tileAt(o.f, nx, ny))) { o.from = { x: o.x, y: o.y, h: o.h }; o.x = nx; o.y = ny; o.h = 0; o.flyT = w.t; o.rot = Math.random() * 6.28; w.ev('mover', { f: o.f, x: o.x, y: o.y, id: o.id }); } }
+  if (g.hunt && !g.hunt.huida) for (const o of w.loose) if (o.f === g.f && d2(o, g) < 1.4 && w.t - o.flyT > 3) { const a = g.face + (Math.random() - 0.5) * 2, nx = o.x + Math.cos(a) * 1.8, ny = o.y + Math.sin(a) * 1.8; if (walkableT(tileAt(o.f, nx, ny))&&layoutPlacementAllowed(o.f,nx,ny,.3)) { o.from = { x: o.x, y: o.y, h: o.h }; o.x = nx; o.y = ny; o.h = 0; o.flyT = w.t; o.rot = Math.random() * 6.28; w.ev('mover', { f: o.f, x: o.x, y: o.y, id: o.id }); } }
   // ----- Ritual en el altar -----
   if (w.ritual) { const rt = w.ritual, by = rt.by; const broken = !by.alive || by.escaped || by.f !== ALTAR_POS.f || Math.hypot(by.x - ALTAR_POS.x, by.y - ALTAR_POS.y) > 2.8 || by.san < rt.san0 - CFG.ritualBreak || (g.state !== 'despertando' && g.f === by.f && d2(g, by) < 1.6);
     if (broken) { w.ritual = null; if (by.alive) by.san = Math.max(0, by.san - 5); w.say('La vela del altar se apaga: el nombre no se completó.', 'a'); w.say('¡Interrumpiste el ritual!', 'g'); w.ev('ritualFail', by); }

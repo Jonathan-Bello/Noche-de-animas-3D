@@ -1,0 +1,140 @@
+{
+  "id": "A04",
+  "name": "Cuarto de la nana",
+  "origin": [
+    37,
+    3.8,
+    1
+  ],
+  "size": [
+    11,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "vela"
+    ],
+    "favorite": "yohual"
+  },
+  "furniture": [
+    {
+      "floor": 1,
+      "id": "reserva_escalera_servicio",
+      "rect": [
+        1,
+        1,
+        9,
+        3
+      ],
+      "height": 3.8,
+      "blocksSight": false
+    },
+    {
+      "floor": 1,
+      "id": "prop_cuna",
+      "rect": [
+        10,
+        4,
+        11,
+        6
+      ],
+      "height": 1.1,
+      "kind": "prop",
+      "blocksSight": false,
+      "backWall": "east",
+      "rotationY": 1.5707963267948966
+    },
+    {
+      "id": "am_A04",
+      "floor": 1,
+      "room": "A04",
+      "rect": [
+        5,
+        7,
+        8,
+        8
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "dresser",
+      "label": "Cómoda de la nana",
+      "contents": [
+        "Rosario y ropa blanca"
+      ],
+      "drawers": true,
+      "backWall": "south"
+    },
+    {
+      "id": "am_cama_nana",
+      "floor": 1,
+      "room": "A04",
+      "rect": [
+        0,
+        3,
+        3,
+        5
+      ],
+      "height": 0.58,
+      "blocksSight": false,
+      "kind": null,
+      "model": "bed",
+      "label": "Cama de la nana",
+      "contents": [],
+      "visualHeight": 1.5,
+      "backWall": "west"
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA04",
+      "room": "A04",
+      "floor": 1,
+      "x": 46,
+      "z": 8,
+      "type": "ropero",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        47,
+        8
+      ],
+      "contents": "Ropa de cama de la nana."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D19",
+      "floor": 1,
+      "a": "A04",
+      "b": "galeria",
+      "rect": [
+        39,
+        9,
+        41,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D45",
+      "floor": 1,
+      "a": "A03",
+      "b": "A04",
+      "rect": [
+        36,
+        7,
+        37,
+        9
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

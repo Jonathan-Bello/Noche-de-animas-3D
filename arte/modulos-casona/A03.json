@@ -1,0 +1,71 @@
+{
+  "id": "A03",
+  "name": "Coro",
+  "origin": [
+    24,
+    3.8,
+    6
+  ],
+  "size": [
+    12,
+    3.8,
+    3
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "pentagrama"
+    ],
+    "favorite": null
+  },
+  "furniture": [],
+  "decorations": [],
+  "hidingSockets": [],
+  "doors": [
+    {
+      "id": "D18",
+      "floor": 1,
+      "a": "A03",
+      "b": "galeria",
+      "rect": [
+        29,
+        9,
+        31,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D44",
+      "floor": 1,
+      "a": "A02",
+      "b": "A03",
+      "rect": [
+        23,
+        7,
+        24,
+        9
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D45",
+      "floor": 1,
+      "a": "A03",
+      "b": "A04",
+      "rect": [
+        36,
+        7,
+        37,
+        9
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

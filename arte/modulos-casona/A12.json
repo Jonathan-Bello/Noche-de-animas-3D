@@ -1,0 +1,127 @@
+{
+  "id": "A12",
+  "name": "Salón de estrado",
+  "origin": [
+    27,
+    3.8,
+    31
+  ],
+  "size": [
+    14,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "tarot"
+    ],
+    "favorite": "tlahuel"
+  },
+  "furniture": [
+    {
+      "id": "am_A12",
+      "floor": 1,
+      "room": "A12",
+      "rect": [
+        7,
+        7,
+        11,
+        8
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "console",
+      "label": "Mesa del estrado",
+      "contents": [
+        "Velas y cerámica"
+      ],
+      "drawers": true,
+      "backWall": "south"
+    },
+    {
+      "id": "am_banca_estrado",
+      "floor": 1,
+      "room": "A12",
+      "rect": [
+        1,
+        7,
+        5,
+        8
+      ],
+      "height": 0.5,
+      "blocksSight": false,
+      "kind": "bench",
+      "model": "bench",
+      "label": "Banca del estrado",
+      "contents": [],
+      "visualHeight": 1.04,
+      "backWall": "south"
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA12",
+      "room": "A12",
+      "floor": 1,
+      "x": 32,
+      "z": 32,
+      "type": "armario de mantas",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        32,
+        31
+      ],
+      "contents": "Mantas del estrado."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D27",
+      "floor": 1,
+      "a": "A11",
+      "b": "A12",
+      "rect": [
+        26,
+        34,
+        27,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D28",
+      "floor": 1,
+      "a": "A12",
+      "b": "A14",
+      "rect": [
+        41,
+        34,
+        42,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D30",
+      "floor": 1,
+      "a": "A12",
+      "b": "galeria",
+      "rect": [
+        29,
+        30,
+        31,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

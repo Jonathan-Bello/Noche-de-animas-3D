@@ -1,5 +1,5 @@
 {
-  "version": "casona-v13",
+  "version": "casona-v14",
   "status": "runtime registry",
   "units": "metros",
   "coordinates": "[x0,z0,x1,z1), norte z=0, calle z=40; reticula logica 1m; suelo PA y=3.8",
@@ -1625,7 +1625,7 @@
         1,
         2,
         2,
-        5
+        7
       ],
       "height": 0.78,
       "blocksSight": false,
@@ -1701,9 +1701,9 @@
       "room": "B09",
       "rect": [
         54,
-        22,
-        58,
-        23
+        21,
+        59,
+        22
       ],
       "height": 0.78,
       "blocksSight": false,
@@ -1712,7 +1712,8 @@
       "contents": [
         "Pan, moldes y plato"
       ],
-      "drawers": true
+      "drawers": true,
+      "backWall": "north"
     },
     {
       "id": "am_B10",
@@ -2054,7 +2055,7 @@
       "room": "B04",
       "rect": [
         37,
-        6,
+        4,
         38,
         8
       ],
@@ -2345,6 +2346,26 @@
       "contents": [
         "Veladora y recuerdos"
       ]
+    },
+    {
+      "id": "cocina_apoyo_fogon",
+      "floor": 0,
+      "room": "B04",
+      "rect": [
+        37,
+        1,
+        38,
+        2
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "counter",
+      "label": "Mesa auxiliar del fogón",
+      "backWall": "west",
+      "contents": [
+        "Aparatos y suministros"
+      ],
+      "drawers": false
     }
   ],
   "stairs": [
@@ -3279,7 +3300,7 @@
       20,
       22
     ],
-    "walkableCoverageCells": 3217
+    "walkableCoverageCells": 3211
   },
   "caveats": [
     "Cobertura medida por camino horizontal con puertas transitables; una puerta cerrada puede cambiar el tiempo de escape.",
@@ -3834,5 +3855,1558 @@
       ],
       "status": "implemented"
     }
-  ]
+  ],
+  "decorAssets": {
+    "basket": {
+      "label": "Canasta tejida",
+      "radius": 0.23,
+      "height": 0.28,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "sack": {
+      "label": "Costal de grano",
+      "radius": 0.23,
+      "height": 0.48,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "jar": {
+      "label": "Frasco de especias",
+      "radius": 0.09,
+      "height": 0.24,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.2
+    },
+    "molinillo": {
+      "label": "Molinillo",
+      "radius": 0.07,
+      "height": 0.33,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.2
+    },
+    "cup": {
+      "label": "Taza de barro",
+      "radius": 0.1,
+      "height": 0.13,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.2
+    },
+    "plate": {
+      "label": "Plato de talavera",
+      "radius": 0.16,
+      "height": 0.04,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.2
+    },
+    "pot": {
+      "label": "Olla de barro",
+      "radius": 0.22,
+      "height": 0.32,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "comal": {
+      "label": "Comal octagonal",
+      "radius": 0.3,
+      "height": 0.06,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "bread": {
+      "label": "Pan sobre tabla",
+      "radius": 0.28,
+      "height": 0.16,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "maize": {
+      "label": "Canasta de mazorcas",
+      "radius": 0.26,
+      "height": 0.35,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "runner": {
+      "label": "Camino de mesa",
+      "radius": 0.34,
+      "height": 0.012,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "tinaja": {
+      "label": "Tinaja grande",
+      "radius": 0.24,
+      "height": 0.7,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    }
+  },
+  "decorInstances": [
+    {
+      "id": "B01_basket_01",
+      "room": "B01",
+      "asset": "basket",
+      "support": "am_alacena_abierta",
+      "offset": [
+        0.45,
+        -1.9200000000000002,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_sack_01",
+      "room": "B01",
+      "asset": "sack",
+      "support": "am_alacena_abierta",
+      "offset": [
+        0.45,
+        -1.3800000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_basket_02",
+      "room": "B01",
+      "asset": "basket",
+      "support": "am_alacena_abierta",
+      "offset": [
+        1.5,
+        -1.9200000000000002,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_sack_02",
+      "room": "B01",
+      "asset": "sack",
+      "support": "am_alacena_abierta",
+      "offset": [
+        1.5,
+        -1.3800000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_basket_03",
+      "room": "B01",
+      "asset": "basket",
+      "support": "am_alacena_abierta",
+      "offset": [
+        2.55,
+        -1.9200000000000002,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_sack_03",
+      "room": "B01",
+      "asset": "sack",
+      "support": "am_alacena_abierta",
+      "offset": [
+        2.55,
+        -1.3800000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_maize_01",
+      "room": "B01",
+      "asset": "maize",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        -0.78,
+        1.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_maize_02",
+      "room": "B01",
+      "asset": "maize",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        -0.78,
+        2.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_maize_03",
+      "room": "B01",
+      "asset": "maize",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        -0.78,
+        3.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_jar_01",
+      "room": "B01",
+      "asset": "jar",
+      "support": "am_alacena_abierta",
+      "offset": [
+        0.45,
+        -0.8200000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_jar_02",
+      "room": "B01",
+      "asset": "jar",
+      "support": "am_alacena_abierta",
+      "offset": [
+        1.5,
+        -0.8200000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_jar_03",
+      "room": "B01",
+      "asset": "jar",
+      "support": "am_alacena_abierta",
+      "offset": [
+        2.55,
+        -0.8200000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_tinaja_01",
+      "room": "B01",
+      "asset": "tinaja",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B04_comal_01",
+      "room": "B04",
+      "asset": "comal",
+      "support": "am_fogony",
+      "offset": [
+        0.5,
+        0.06,
+        2.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B04_pot_01",
+      "room": "B04",
+      "asset": "pot",
+      "support": "am_fogony",
+      "offset": [
+        0.5,
+        0.06,
+        3.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_bread_01",
+      "room": "B01",
+      "asset": "bread",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        0,
+        4.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B04_molinillo_01",
+      "room": "B04",
+      "asset": "molinillo",
+      "support": "am_B04",
+      "offset": [
+        1.2,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B04_cup_01",
+      "room": "B04",
+      "asset": "cup",
+      "support": "am_B04",
+      "offset": [
+        1.65,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B04_jar_01",
+      "room": "B04",
+      "asset": "jar",
+      "support": "am_B04",
+      "offset": [
+        1.8,
+        0,
+        0.65
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_runner_01",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        0.7,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_runner_02",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        2.1,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_runner_03",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        3.5,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_runner_04",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        4.9,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_runner_05",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        6.3,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_01",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        1,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_01",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        1.4,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_02",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        1,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_02",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        1.4,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_03",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        3,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_03",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        3.4,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_04",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        3,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_04",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        3.4,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_05",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        5,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_05",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        5.4,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_06",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        5,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_06",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        5.4,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_bread_01",
+      "room": "B08",
+      "asset": "bread",
+      "support": "mesa_comedor",
+      "offset": [
+        3.5,
+        0.025,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_basket_01",
+      "room": "B08",
+      "asset": "basket",
+      "support": "trinchero_comedor",
+      "offset": [
+        0.5,
+        -1.74,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_basket_02",
+      "room": "B08",
+      "asset": "basket",
+      "support": "trinchero_comedor",
+      "offset": [
+        0.5,
+        -1.74,
+        1.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_basket_03",
+      "room": "B08",
+      "asset": "basket",
+      "support": "trinchero_comedor",
+      "offset": [
+        0.5,
+        -1.74,
+        2.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_basket_01",
+      "room": "B09",
+      "asset": "basket",
+      "support": "am_B09",
+      "offset": [
+        0.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_basket_02",
+      "room": "B09",
+      "asset": "basket",
+      "support": "am_B09",
+      "offset": [
+        1.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_basket_03",
+      "room": "B09",
+      "asset": "basket",
+      "support": "am_B09",
+      "offset": [
+        2.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_basket_04",
+      "room": "B09",
+      "asset": "basket",
+      "support": "am_B09",
+      "offset": [
+        3.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_jar_01",
+      "room": "B09",
+      "asset": "jar",
+      "support": "am_B09",
+      "offset": [
+        0.4,
+        0,
+        0.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_jar_02",
+      "room": "B09",
+      "asset": "jar",
+      "support": "am_B09",
+      "offset": [
+        1.25,
+        0,
+        0.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_jar_03",
+      "room": "B09",
+      "asset": "jar",
+      "support": "am_B09",
+      "offset": [
+        2.1,
+        0,
+        0.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_jar_04",
+      "room": "B09",
+      "asset": "jar",
+      "support": "am_B09",
+      "offset": [
+        3.0,
+        0,
+        0.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_bread_01",
+      "room": "B09",
+      "asset": "bread",
+      "support": "am_B09",
+      "offset": [
+        0.8,
+        0,
+        0.7
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_maize_01",
+      "room": "B09",
+      "asset": "maize",
+      "support": "am_B09",
+      "offset": [
+        2.55,
+        0,
+        0.72
+      ],
+      "rotation": 0
+    }
+  ],
+  "roomModules": [
+    {
+      "id": "B01",
+      "floor": 0,
+      "bounds": [
+        1,
+        1,
+        13,
+        9
+      ],
+      "enabled": true,
+      "obstacles": [
+        "am_B01",
+        "am_alacena_abierta"
+      ],
+      "decoration": [
+        "B01_basket_01",
+        "B01_sack_01",
+        "B01_basket_02",
+        "B01_sack_02",
+        "B01_basket_03",
+        "B01_sack_03",
+        "B01_maize_01",
+        "B01_maize_02",
+        "B01_maize_03",
+        "B01_jar_01",
+        "B01_jar_02",
+        "B01_jar_03",
+        "B01_tinaja_01",
+        "B01_bread_01"
+      ],
+      "doors": [
+        "D01"
+      ],
+      "initial": true,
+      "purchasable": false,
+      "autoWith": null,
+      "complement": [],
+      "favorite": "cucuy"
+    },
+    {
+      "id": "B02",
+      "floor": 0,
+      "bounds": [
+        14,
+        1,
+        23,
+        9
+      ],
+      "enabled": true,
+      "obstacles": [
+        "am_B02"
+      ],
+      "decoration": [],
+      "doors": [
+        "D02"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "safeCloset"
+      ],
+      "favorite": "planchada"
+    },
+    {
+      "id": "B03",
+      "floor": 0,
+      "bounds": [
+        24,
+        1,
+        36,
+        9
+      ],
+      "enabled": true,
+      "obstacles": [
+        "altar_fijo",
+        "banca_oeste_1",
+        "banca_este_1",
+        "banca_oeste_2",
+        "banca_este_2"
+      ],
+      "decoration": [],
+      "doors": [
+        "D03"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "rosario",
+        "cruz"
+      ],
+      "favorite": "demonio"
+    },
+    {
+      "id": "B04",
+      "floor": 0,
+      "bounds": [
+        37,
+        1,
+        48,
+        9
+      ],
+      "enabled": true,
+      "obstacles": [
+        "reserva_escalera_servicio",
+        "prop_grifo_cocina",
+        "am_B04",
+        "am_fogony",
+        "cocina_apoyo_fogon"
+      ],
+      "decoration": [
+        "B04_comal_01",
+        "B04_pot_01",
+        "B04_molinillo_01",
+        "B04_cup_01",
+        "B04_jar_01"
+      ],
+      "doors": [
+        "D04",
+        "D32",
+        "D34"
+      ],
+      "initial": true,
+      "purchasable": false,
+      "autoWith": null,
+      "complement": [],
+      "favorite": "chaneque"
+    },
+    {
+      "id": "B05",
+      "floor": 0,
+      "bounds": [
+        49,
+        1,
+        59,
+        9
+      ],
+      "enabled": true,
+      "obstacles": [
+        "prop_grifo_traspatio"
+      ],
+      "decoration": [],
+      "doors": [
+        "D32",
+        "D33"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "escapeExit"
+      ],
+      "favorite": null
+    },
+    {
+      "id": "B06",
+      "floor": 0,
+      "bounds": [
+        1,
+        10,
+        14,
+        20
+      ],
+      "enabled": true,
+      "obstacles": [
+        "librero_isla",
+        "am_B06"
+      ],
+      "decoration": [],
+      "doors": [
+        "D01",
+        "D05",
+        "D06"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "legendBook"
+      ],
+      "favorite": "bruja"
+    },
+    {
+      "id": "B07",
+      "floor": 0,
+      "bounds": [
+        1,
+        21,
+        14,
+        30
+      ],
+      "enabled": true,
+      "obstacles": [
+        "reserva_escalera_principal"
+      ],
+      "decoration": [],
+      "doors": [
+        "D06",
+        "D07",
+        "D08"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "upperFloor"
+      ],
+      "favorite": null
+    },
+    {
+      "id": "B08",
+      "floor": 0,
+      "bounds": [
+        46,
+        10,
+        59,
+        20
+      ],
+      "enabled": true,
+      "obstacles": [
+        "mesa_comedor",
+        "trinchero_comedor",
+        "am_silla_0",
+        "am_silla_1",
+        "am_silla_2",
+        "am_silla_3",
+        "am_silla_4",
+        "am_silla_5",
+        "am_silla_6",
+        "am_silla_7"
+      ],
+      "decoration": [
+        "B08_runner_01",
+        "B08_runner_02",
+        "B08_runner_03",
+        "B08_runner_04",
+        "B08_runner_05",
+        "B08_plate_01",
+        "B08_cup_01",
+        "B08_plate_02",
+        "B08_cup_02",
+        "B08_plate_03",
+        "B08_cup_03",
+        "B08_plate_04",
+        "B08_cup_04",
+        "B08_plate_05",
+        "B08_cup_05",
+        "B08_plate_06",
+        "B08_cup_06",
+        "B08_bread_01",
+        "B08_basket_01",
+        "B08_basket_02",
+        "B08_basket_03"
+      ],
+      "doors": [
+        "D09",
+        "D33",
+        "D34",
+        "D35"
+      ],
+      "initial": true,
+      "purchasable": false,
+      "autoWith": null,
+      "complement": [],
+      "favorite": "pena"
+    },
+    {
+      "id": "B09",
+      "floor": 0,
+      "bounds": [
+        46,
+        21,
+        59,
+        30
+      ],
+      "enabled": true,
+      "obstacles": [
+        "am_B09"
+      ],
+      "decoration": [
+        "B09_basket_01",
+        "B09_basket_02",
+        "B09_basket_03",
+        "B09_basket_04",
+        "B09_jar_01",
+        "B09_jar_02",
+        "B09_jar_03",
+        "B09_jar_04",
+        "B09_bread_01",
+        "B09_maize_01"
+      ],
+      "doors": [
+        "D35",
+        "D36",
+        "D37"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "pan"
+      ],
+      "favorite": "nahual"
+    },
+    {
+      "id": "B10",
+      "floor": 0,
+      "bounds": [
+        1,
+        31,
+        14,
+        39
+      ],
+      "enabled": true,
+      "obstacles": [
+        "am_B10",
+        "estante_aperos"
+      ],
+      "decoration": [],
+      "doors": [
+        "D08",
+        "D11"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "foco",
+        "lightLimit+1"
+      ],
+      "favorite": "cadejo"
+    },
+    {
+      "id": "B11",
+      "floor": 0,
+      "bounds": [
+        15,
+        31,
+        26,
+        39
+      ],
+      "enabled": true,
+      "obstacles": [
+        "prop_reloj",
+        "am_B11"
+      ],
+      "decoration": [],
+      "doors": [
+        "D11",
+        "D12",
+        "D13"
+      ],
+      "initial": true,
+      "purchasable": false,
+      "autoWith": null,
+      "complement": [],
+      "favorite": "charro"
+    },
+    {
+      "id": "B12",
+      "floor": 0,
+      "bounds": [
+        27,
+        31,
+        33,
+        39
+      ],
+      "enabled": true,
+      "obstacles": [],
+      "decoration": [],
+      "doors": [
+        "D12",
+        "D14",
+        "D38",
+        "D41"
+      ],
+      "initial": true,
+      "purchasable": false,
+      "autoWith": null,
+      "complement": [],
+      "favorite": null
+    },
+    {
+      "id": "B13",
+      "floor": 0,
+      "bounds": [
+        34,
+        31,
+        41,
+        39
+      ],
+      "enabled": true,
+      "obstacles": [
+        "am_B13"
+      ],
+      "decoration": [],
+      "doors": [
+        "D38",
+        "D39",
+        "D40"
+      ],
+      "initial": true,
+      "purchasable": false,
+      "autoWith": null,
+      "complement": [],
+      "favorite": "aparecido"
+    },
+    {
+      "id": "B14",
+      "floor": 0,
+      "bounds": [
+        42,
+        31,
+        59,
+        39
+      ],
+      "enabled": true,
+      "obstacles": [
+        "mostrador_botica",
+        "biombo_botica",
+        "am_herbolario"
+      ],
+      "decoration": [],
+      "doors": [
+        "D15",
+        "D37",
+        "D39"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "copal",
+        "ruda",
+        "limpia"
+      ],
+      "favorite": "malaire"
+    },
+    {
+      "id": "A01",
+      "floor": 1,
+      "bounds": [
+        1,
+        1,
+        13,
+        9
+      ],
+      "enabled": true,
+      "obstacles": [
+        "am_A01"
+      ],
+      "decoration": [],
+      "doors": [
+        "D16"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "muneca"
+      ],
+      "favorite": "matla"
+    },
+    {
+      "id": "A02",
+      "floor": 1,
+      "bounds": [
+        14,
+        1,
+        23,
+        9
+      ],
+      "enabled": true,
+      "obstacles": [
+        "am_A02"
+      ],
+      "decoration": [],
+      "doors": [
+        "D17",
+        "D44"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "mano"
+      ],
+      "favorite": "cihuateteo"
+    },
+    {
+      "id": "A03",
+      "floor": 1,
+      "bounds": [
+        24,
+        6,
+        36,
+        9
+      ],
+      "enabled": true,
+      "obstacles": [],
+      "decoration": [],
+      "doors": [
+        "D18",
+        "D44",
+        "D45"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "pentagrama"
+      ],
+      "favorite": null
+    },
+    {
+      "id": "A04",
+      "floor": 1,
+      "bounds": [
+        37,
+        1,
+        48,
+        9
+      ],
+      "enabled": true,
+      "obstacles": [
+        "reserva_escalera_servicio",
+        "prop_cuna",
+        "am_A04",
+        "am_cama_nana"
+      ],
+      "decoration": [],
+      "doors": [
+        "D19",
+        "D45"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "vela"
+      ],
+      "favorite": "yohual"
+    },
+    {
+      "id": "A06",
+      "floor": 1,
+      "bounds": [
+        1,
+        10,
+        14,
+        20
+      ],
+      "enabled": true,
+      "obstacles": [
+        "prop_caballito",
+        "am_A06",
+        "am_cama_nino"
+      ],
+      "decoration": [],
+      "doors": [
+        "D16",
+        "D20",
+        "D21"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "tablilla"
+      ],
+      "favorite": "nachito"
+    },
+    {
+      "id": "A07",
+      "floor": 1,
+      "bounds": [
+        1,
+        21,
+        14,
+        30
+      ],
+      "enabled": true,
+      "obstacles": [
+        "reserva_escalera_principal"
+      ],
+      "decoration": [],
+      "doors": [
+        "D21",
+        "D22",
+        "D23"
+      ],
+      "initial": false,
+      "purchasable": false,
+      "autoWith": "B07",
+      "complement": [],
+      "favorite": null
+    },
+    {
+      "id": "A08",
+      "floor": 1,
+      "bounds": [
+        46,
+        10,
+        59,
+        20
+      ],
+      "enabled": true,
+      "obstacles": [
+        "piano",
+        "biombo_musica",
+        "am_A08"
+      ],
+      "decoration": [],
+      "doors": [
+        "D24",
+        "D25",
+        "D42"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "radio"
+      ],
+      "favorite": "xtabay"
+    },
+    {
+      "id": "A09",
+      "floor": 1,
+      "bounds": [
+        46,
+        21,
+        51,
+        30
+      ],
+      "enabled": true,
+      "obstacles": [
+        "banera",
+        "prop_grifo_banoalto",
+        "am_A09"
+      ],
+      "decoration": [],
+      "doors": [
+        "D25"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "espejoplata"
+      ],
+      "favorite": "llorona"
+    },
+    {
+      "id": "A15",
+      "floor": 1,
+      "bounds": [
+        52,
+        21,
+        59,
+        30
+      ],
+      "enabled": true,
+      "obstacles": [
+        "am_A15",
+        "am_cama_huesped"
+      ],
+      "decoration": [],
+      "doors": [
+        "D42",
+        "D43"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "bedHide",
+        "galleryRoute"
+      ],
+      "favorite": "chocarrero"
+    },
+    {
+      "id": "A10",
+      "floor": 1,
+      "bounds": [
+        1,
+        31,
+        14,
+        39
+      ],
+      "enabled": true,
+      "obstacles": [
+        "cama_A10",
+        "prop_mecedora",
+        "am_A10",
+        "buro_extra_A10"
+      ],
+      "decoration": [],
+      "doors": [
+        "D23",
+        "D26"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "te"
+      ],
+      "favorite": "guardian"
+    },
+    {
+      "id": "A11",
+      "floor": 1,
+      "bounds": [
+        15,
+        31,
+        26,
+        39
+      ],
+      "enabled": true,
+      "obstacles": [
+        "cama_A11",
+        "am_A11",
+        "buro_extra_A11"
+      ],
+      "decoration": [],
+      "doors": [
+        "D26",
+        "D27",
+        "D29"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "ceniza"
+      ],
+      "favorite": "mulata"
+    },
+    {
+      "id": "A12",
+      "floor": 1,
+      "bounds": [
+        27,
+        31,
+        41,
+        39
+      ],
+      "enabled": true,
+      "obstacles": [
+        "am_A12",
+        "am_banca_estrado"
+      ],
+      "decoration": [],
+      "doors": [
+        "D27",
+        "D28",
+        "D30"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "tarot"
+      ],
+      "favorite": "tlahuel"
+    },
+    {
+      "id": "A14",
+      "floor": 1,
+      "bounds": [
+        42,
+        31,
+        59,
+        39
+      ],
+      "enabled": true,
+      "obstacles": [
+        "cama_A14",
+        "am_A14",
+        "buro_extra_A14"
+      ],
+      "decoration": [],
+      "doors": [
+        "D28",
+        "D31",
+        "D43"
+      ],
+      "initial": false,
+      "purchasable": true,
+      "autoWith": null,
+      "complement": [
+        "fotocam"
+      ],
+      "favorite": "uaychivo"
+    }
+  ],
+  "campaignDesign": {
+    "status": "configuration_only_not_enabled",
+    "initialRooms": [
+      "B08",
+      "B04",
+      "B11",
+      "B13",
+      "B01"
+    ],
+    "alwaysOpen": [
+      "B12",
+      "patio",
+      "corredor"
+    ],
+    "purchasableCount": 20,
+    "offers": 3,
+    "stairFourthOption": {
+      "room": "B07",
+      "afterOpenGroundRooms": 3,
+      "alsoOpens": [
+        "A07",
+        "galeria"
+      ]
+    },
+    "serviceStairRequires": [
+      "B07",
+      "A04"
+    ],
+    "costTiers": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "purchasesPerTier": 5,
+    "favoriteProbability": 0.4,
+    "hostOwnsSave": true,
+    "baseToolsAlwaysAvailable": true,
+    "nightSeconds": 600,
+    "finalNightSeconds": 900,
+    "rewardFormula": {
+      "participation": 1,
+      "correctEvidenceEach": 1,
+      "correctEvidenceCap": 3,
+      "correctGhostAndSurvivor": 3,
+      "allSurvive": 2,
+      "halfSurvive": 1
+    },
+    "architecturalDependencies": [
+      "B01 needs an always-open access bypassing closed B06.",
+      "Service stair must stay gated until B07 and A04 are restored."
+    ],
+    "fullHouseMode": "unchanged"
+  }
 }

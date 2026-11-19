@@ -1,0 +1,94 @@
+{
+  "id": "A02",
+  "name": "Costura",
+  "origin": [
+    14,
+    3.8,
+    1
+  ],
+  "size": [
+    9,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "mano"
+    ],
+    "favorite": "cihuateteo"
+  },
+  "furniture": [
+    {
+      "id": "am_A02",
+      "floor": 1,
+      "room": "A02",
+      "rect": [
+        0,
+        2,
+        2,
+        3
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "sewing",
+      "label": "Mesa de costura",
+      "contents": [
+        "Máquina de coser y tela"
+      ],
+      "drawers": true,
+      "backWall": "west"
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA02",
+      "room": "A02",
+      "floor": 1,
+      "x": 16,
+      "z": 7,
+      "type": "ropero",
+      "mandatory": true,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        16,
+        8
+      ],
+      "contents": "Telas y prendas de costura."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D17",
+      "floor": 1,
+      "a": "A02",
+      "b": "galeria",
+      "rect": [
+        18,
+        9,
+        20,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D44",
+      "floor": 1,
+      "a": "A02",
+      "b": "A03",
+      "rect": [
+        23,
+        7,
+        24,
+        9
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

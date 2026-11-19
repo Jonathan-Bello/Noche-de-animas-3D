@@ -1,0 +1,83 @@
+{
+  "id": "B12",
+  "name": "Zaguán",
+  "origin": [
+    27,
+    0.0,
+    31
+  ],
+  "size": [
+    6,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": true,
+    "purchasable": false,
+    "autoWith": null,
+    "complement": [],
+    "favorite": null
+  },
+  "furniture": [],
+  "decorations": [],
+  "hidingSockets": [],
+  "doors": [
+    {
+      "id": "D12",
+      "floor": 0,
+      "a": "B11",
+      "b": "B12",
+      "rect": [
+        26,
+        34,
+        27,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D14",
+      "floor": 0,
+      "a": "B12",
+      "b": "corredor",
+      "rect": [
+        29,
+        30,
+        31,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D38",
+      "floor": 0,
+      "a": "B12",
+      "b": "B13",
+      "rect": [
+        33,
+        34,
+        34,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D41",
+      "floor": 0,
+      "a": "B12",
+      "b": "base",
+      "rect": [
+        29,
+        39,
+        31,
+        40
+      ],
+      "kind": "portón",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

@@ -1,0 +1,106 @@
+{
+  "id": "B13",
+  "name": "Portería",
+  "origin": [
+    34,
+    0.0,
+    31
+  ],
+  "size": [
+    7,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": true,
+    "purchasable": false,
+    "autoWith": null,
+    "complement": [],
+    "favorite": "aparecido"
+  },
+  "furniture": [
+    {
+      "id": "am_B13",
+      "floor": 0,
+      "room": "B13",
+      "rect": [
+        5,
+        7,
+        7,
+        8
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "desk",
+      "label": "Mesa del portero",
+      "contents": [
+        "Foco y llaves decorativas"
+      ],
+      "drawers": true,
+      "backWall": "south"
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HB13",
+      "room": "B13",
+      "floor": 0,
+      "x": 34,
+      "z": 32,
+      "type": "ropero",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        34,
+        31
+      ],
+      "contents": "Abrigos y ropa de servicio."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D38",
+      "floor": 0,
+      "a": "B12",
+      "b": "B13",
+      "rect": [
+        33,
+        34,
+        34,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D39",
+      "floor": 0,
+      "a": "B13",
+      "b": "B14",
+      "rect": [
+        41,
+        34,
+        42,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D40",
+      "floor": 0,
+      "a": "B13",
+      "b": "corredor",
+      "rect": [
+        36,
+        30,
+        38,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

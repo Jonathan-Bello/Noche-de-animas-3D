@@ -1,0 +1,129 @@
+{
+  "id": "B03",
+  "name": "Capilla",
+  "origin": [
+    24,
+    0.0,
+    1
+  ],
+  "size": [
+    12,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "rosario",
+      "cruz"
+    ],
+    "favorite": "demonio"
+  },
+  "furniture": [
+    {
+      "floor": 0,
+      "id": "altar_fijo",
+      "rect": [
+        2,
+        0,
+        10,
+        1
+      ],
+      "height": 0.95,
+      "blocksSight": false
+    },
+    {
+      "floor": 0,
+      "id": "banca_oeste_1",
+      "rect": [
+        2,
+        3,
+        4,
+        4
+      ],
+      "height": 0.5,
+      "kind": "bench",
+      "blocksSight": false,
+      "visualHeight": 1.04
+    },
+    {
+      "floor": 0,
+      "id": "banca_este_1",
+      "rect": [
+        8,
+        3,
+        10,
+        4
+      ],
+      "height": 0.5,
+      "kind": "bench",
+      "blocksSight": false,
+      "visualHeight": 1.04
+    },
+    {
+      "floor": 0,
+      "id": "banca_oeste_2",
+      "rect": [
+        2,
+        5,
+        4,
+        6
+      ],
+      "height": 0.5,
+      "kind": "bench",
+      "blocksSight": false,
+      "visualHeight": 1.04
+    },
+    {
+      "floor": 0,
+      "id": "banca_este_2",
+      "rect": [
+        8,
+        5,
+        10,
+        6
+      ],
+      "height": 0.5,
+      "kind": "bench",
+      "blocksSight": false,
+      "visualHeight": 1.04
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HB03",
+      "room": "B03",
+      "floor": 0,
+      "x": 32,
+      "z": 8,
+      "type": "confesionario",
+      "mandatory": true,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        33,
+        8
+      ],
+      "contents": "Compartimento interior del confesionario."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D03",
+      "floor": 0,
+      "a": "B03",
+      "b": "corredor",
+      "rect": [
+        29,
+        9,
+        31,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

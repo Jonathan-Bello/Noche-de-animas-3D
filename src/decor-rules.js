@@ -1,0 +1,2 @@
+const _decorNewWorld=newWorld;
+newWorld=function(opt){const w=_decorNewWorld(opt);for(const i of NDALayout.decorInstances||[]){if(!NDALayout.decorAssets[i.asset].throwable)continue;const p=decorPosition(i),owner=NDALayout.obstacles.find(o=>o.id===i.support);w.loose.push({id:w.loose.length,kind:i.asset==='plate'?'plato':i.asset==='cup'?'taza':i.asset==='jar'?'jarron':'figura',assetId:i.asset,componentId:i.id,...(owner.blocksSight?{releaseX:p.x,releaseY:owner.rect[3]+.14}:{}),f:p.f,x:p.x,y:p.y,h:p.h,rot:i.rotation||0,flyT:-99,from:null});}return w;};

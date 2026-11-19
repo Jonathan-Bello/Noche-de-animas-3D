@@ -1,0 +1,229 @@
+{
+  "id": "B09",
+  "name": "Despensa de diario / repostería",
+  "origin": [
+    46,
+    0.0,
+    21
+  ],
+  "size": [
+    13,
+    3.8,
+    9
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "pan"
+    ],
+    "favorite": "nahual"
+  },
+  "furniture": [
+    {
+      "id": "am_B09",
+      "floor": 0,
+      "room": "B09",
+      "rect": [
+        8,
+        0,
+        13,
+        1
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "counter",
+      "label": "Mesa de repostería",
+      "contents": [
+        "Pan, moldes y plato"
+      ],
+      "drawers": true,
+      "backWall": "north"
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B09_basket_01",
+      "room": "B09",
+      "asset": "basket",
+      "support": "am_B09",
+      "offset": [
+        0.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_basket_02",
+      "room": "B09",
+      "asset": "basket",
+      "support": "am_B09",
+      "offset": [
+        1.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_basket_03",
+      "room": "B09",
+      "asset": "basket",
+      "support": "am_B09",
+      "offset": [
+        2.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_basket_04",
+      "room": "B09",
+      "asset": "basket",
+      "support": "am_B09",
+      "offset": [
+        3.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_jar_01",
+      "room": "B09",
+      "asset": "jar",
+      "support": "am_B09",
+      "offset": [
+        0.4,
+        0,
+        0.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_jar_02",
+      "room": "B09",
+      "asset": "jar",
+      "support": "am_B09",
+      "offset": [
+        1.25,
+        0,
+        0.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_jar_03",
+      "room": "B09",
+      "asset": "jar",
+      "support": "am_B09",
+      "offset": [
+        2.1,
+        0,
+        0.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_jar_04",
+      "room": "B09",
+      "asset": "jar",
+      "support": "am_B09",
+      "offset": [
+        3.0,
+        0,
+        0.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_bread_01",
+      "room": "B09",
+      "asset": "bread",
+      "support": "am_B09",
+      "offset": [
+        0.8,
+        0,
+        0.7
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B09_maize_01",
+      "room": "B09",
+      "asset": "maize",
+      "support": "am_B09",
+      "offset": [
+        2.55,
+        0,
+        0.72
+      ],
+      "rotation": 0
+    }
+  ],
+  "hidingSockets": [
+    {
+      "id": "HB09",
+      "room": "B09",
+      "floor": 0,
+      "x": 47,
+      "z": 22,
+      "type": "alacena",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        46,
+        22
+      ],
+      "contents": "Recipientes y moldes; compartimento central libre."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D35",
+      "floor": 0,
+      "a": "B08",
+      "b": "B09",
+      "rect": [
+        51,
+        20,
+        53,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D36",
+      "floor": 0,
+      "a": "B09",
+      "b": "corredor",
+      "rect": [
+        45,
+        24,
+        46,
+        26
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D37",
+      "floor": 0,
+      "a": "B09",
+      "b": "B14",
+      "rect": [
+        51,
+        30,
+        53,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

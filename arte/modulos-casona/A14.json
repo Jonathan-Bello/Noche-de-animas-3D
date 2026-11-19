@@ -1,0 +1,147 @@
+{
+  "id": "A14",
+  "name": "Recámara de la hija",
+  "origin": [
+    42,
+    3.8,
+    31
+  ],
+  "size": [
+    17,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "fotocam"
+    ],
+    "favorite": "uaychivo"
+  },
+  "furniture": [
+    {
+      "floor": 1,
+      "id": "cama_A14",
+      "rect": [
+        14,
+        5,
+        16,
+        8
+      ],
+      "height": 0.65,
+      "blocksSight": false,
+      "model": "bed",
+      "label": "Cama de madera",
+      "contents": [
+        "Colcha y almohadas"
+      ],
+      "visualHeight": 1.5,
+      "backWall": "south"
+    },
+    {
+      "id": "am_A14",
+      "floor": 1,
+      "room": "A14",
+      "rect": [
+        2,
+        7,
+        5,
+        8
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "vanity",
+      "label": "Tocador de la hija",
+      "contents": [
+        "Espejo de plata y peineta"
+      ],
+      "drawers": true,
+      "visualHeight": 1.73,
+      "backWall": "south"
+    },
+    {
+      "id": "buro_extra_A14",
+      "room": "A14",
+      "floor": 1,
+      "rect": [
+        13,
+        7,
+        14,
+        8
+      ],
+      "height": 0.78,
+      "model": "bedside",
+      "backWall": "south",
+      "blocksSight": false,
+      "label": "Buró junto a la cabecera",
+      "contents": [
+        "Veladora y recuerdos"
+      ]
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA14",
+      "room": "A14",
+      "floor": 1,
+      "x": 50,
+      "z": 32,
+      "type": "ropero",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        50,
+        31
+      ],
+      "contents": "Ropa de la hija."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D28",
+      "floor": 1,
+      "a": "A12",
+      "b": "A14",
+      "rect": [
+        41,
+        34,
+        42,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D31",
+      "floor": 1,
+      "a": "A14",
+      "b": "galeria",
+      "rect": [
+        42,
+        30,
+        44,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D43",
+      "floor": 1,
+      "a": "A15",
+      "b": "A14",
+      "rect": [
+        55,
+        30,
+        57,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

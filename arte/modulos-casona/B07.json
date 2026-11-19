@@ -1,0 +1,100 @@
+{
+  "id": "B07",
+  "name": "Escalera principal",
+  "origin": [
+    1,
+    0.0,
+    21
+  ],
+  "size": [
+    13,
+    3.8,
+    9
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "upperFloor"
+    ],
+    "favorite": null
+  },
+  "furniture": [
+    {
+      "floor": 0,
+      "id": "reserva_escalera_principal",
+      "rect": [
+        5,
+        2,
+        11,
+        7
+      ],
+      "height": 3.8,
+      "blocksSight": false
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HB07",
+      "room": "B07",
+      "floor": 0,
+      "x": 4,
+      "z": 22,
+      "type": "arcon de aperos",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        4,
+        21
+      ],
+      "contents": "Aperos en un compartimento lateral; hueco de refugio libre."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D06",
+      "floor": 0,
+      "a": "B06",
+      "b": "B07",
+      "rect": [
+        7,
+        20,
+        9,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D07",
+      "floor": 0,
+      "a": "B07",
+      "b": "corredor",
+      "rect": [
+        14,
+        24,
+        15,
+        26
+      ],
+      "kind": "arco abierto",
+      "clearWidth": 2
+    },
+    {
+      "id": "D08",
+      "floor": 0,
+      "a": "B07",
+      "b": "B10",
+      "rect": [
+        7,
+        30,
+        9,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

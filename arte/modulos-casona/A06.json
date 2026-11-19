@@ -1,0 +1,141 @@
+{
+  "id": "A06",
+  "name": "Recámara de niños",
+  "origin": [
+    1,
+    3.8,
+    10
+  ],
+  "size": [
+    13,
+    3.8,
+    10
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "tablilla"
+    ],
+    "favorite": "nachito"
+  },
+  "furniture": [
+    {
+      "floor": 1,
+      "id": "prop_caballito",
+      "rect": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "height": 1.1,
+      "kind": "prop",
+      "blocksSight": false,
+      "visualHeight": 1.2
+    },
+    {
+      "id": "am_A06",
+      "floor": 1,
+      "room": "A06",
+      "rect": [
+        10,
+        9,
+        13,
+        10
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "desk",
+      "label": "Escritorio infantil",
+      "contents": [
+        "Muñeca, libro y dibujos"
+      ],
+      "drawers": true,
+      "backWall": "south"
+    },
+    {
+      "id": "am_cama_nino",
+      "floor": 1,
+      "room": "A06",
+      "rect": [
+        0,
+        5,
+        3,
+        7
+      ],
+      "height": 0.58,
+      "blocksSight": false,
+      "kind": null,
+      "model": "bed",
+      "label": "Cama infantil",
+      "contents": [],
+      "visualHeight": 1.5,
+      "backWall": "west"
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA06",
+      "room": "A06",
+      "floor": 1,
+      "x": 12,
+      "z": 11,
+      "type": "ropero infantil",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        13,
+        11
+      ],
+      "contents": "Ropa infantil."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D16",
+      "floor": 1,
+      "a": "A01",
+      "b": "A06",
+      "rect": [
+        6,
+        9,
+        8,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D20",
+      "floor": 1,
+      "a": "A06",
+      "b": "galeria",
+      "rect": [
+        14,
+        14,
+        15,
+        16
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D21",
+      "floor": 1,
+      "a": "A06",
+      "b": "A07",
+      "rect": [
+        7,
+        20,
+        9,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

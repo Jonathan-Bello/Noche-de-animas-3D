@@ -1,0 +1,125 @@
+{
+  "id": "B06",
+  "name": "Biblioteca",
+  "origin": [
+    1,
+    0.0,
+    10
+  ],
+  "size": [
+    13,
+    3.8,
+    10
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "legendBook"
+    ],
+    "favorite": "bruja"
+  },
+  "furniture": [
+    {
+      "floor": 0,
+      "id": "librero_isla",
+      "rect": [
+        4,
+        4,
+        6,
+        5
+      ],
+      "height": 2.1,
+      "blocksSight": true,
+      "model": "bookcase",
+      "label": "Librero de consulta",
+      "contents": [
+        "Libros independientes arrojables"
+      ]
+    },
+    {
+      "id": "am_B06",
+      "floor": 0,
+      "room": "B06",
+      "rect": [
+        8,
+        0,
+        11,
+        1
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "desk",
+      "label": "Mesa de lectura",
+      "contents": [
+        "Libro y taza"
+      ],
+      "drawers": true,
+      "backWall": "north"
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HB06",
+      "room": "B06",
+      "floor": 0,
+      "x": 7,
+      "z": 15,
+      "type": "librero de doble fondo",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        7,
+        14
+      ],
+      "contents": "Libros arrojables en el librero contiguo; gabinete de doble fondo vacío."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D01",
+      "floor": 0,
+      "a": "B01",
+      "b": "B06",
+      "rect": [
+        6,
+        9,
+        8,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D05",
+      "floor": 0,
+      "a": "B06",
+      "b": "corredor",
+      "rect": [
+        14,
+        14,
+        15,
+        16
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D06",
+      "floor": 0,
+      "a": "B06",
+      "b": "B07",
+      "rect": [
+        7,
+        20,
+        9,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

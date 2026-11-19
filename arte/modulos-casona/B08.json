@@ -1,0 +1,539 @@
+{
+  "id": "B08",
+  "name": "Comedor",
+  "origin": [
+    46,
+    0.0,
+    10
+  ],
+  "size": [
+    13,
+    3.8,
+    10
+  ],
+  "campaign": {
+    "initial": true,
+    "purchasable": false,
+    "autoWith": null,
+    "complement": [],
+    "favorite": "pena"
+  },
+  "furniture": [
+    {
+      "floor": 0,
+      "id": "mesa_comedor",
+      "rect": [
+        3,
+        4,
+        10,
+        6
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "dining",
+      "label": "Mesa de comedor",
+      "contents": [
+        "Pan, taza y platos"
+      ]
+    },
+    {
+      "floor": 0,
+      "id": "trinchero_comedor",
+      "rect": [
+        12,
+        6,
+        13,
+        9
+      ],
+      "height": 1.9,
+      "blocksSight": true,
+      "model": "china",
+      "label": "Trinchero de vajilla",
+      "contents": [
+        "Platos y tazas"
+      ]
+    },
+    {
+      "id": "am_silla_0",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        4,
+        2,
+        5,
+        3
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 0,
+      "visualHeight": 1.11
+    },
+    {
+      "id": "am_silla_1",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        6,
+        2,
+        7,
+        3
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 0,
+      "visualHeight": 1.11
+    },
+    {
+      "id": "am_silla_2",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        8,
+        2,
+        9,
+        3
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 0,
+      "visualHeight": 1.11
+    },
+    {
+      "id": "am_silla_3",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        4,
+        7,
+        5,
+        8
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 3.14159265,
+      "visualHeight": 1.11
+    },
+    {
+      "id": "am_silla_4",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        6,
+        7,
+        7,
+        8
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 3.14159265,
+      "visualHeight": 1.11
+    },
+    {
+      "id": "am_silla_5",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        8,
+        7,
+        9,
+        8
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 3.14159265,
+      "visualHeight": 1.11
+    },
+    {
+      "id": "am_silla_6",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        2,
+        4,
+        3,
+        5
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 1.5707963267948966,
+      "visualHeight": 1.11
+    },
+    {
+      "id": "am_silla_7",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        11,
+        4,
+        12,
+        5
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": -1.5707963267948966,
+      "visualHeight": 1.11
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B08_runner_01",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        0.7,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_runner_02",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        2.1,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_runner_03",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        3.5,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_runner_04",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        4.9,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_runner_05",
+      "room": "B08",
+      "asset": "runner",
+      "support": "mesa_comedor",
+      "offset": [
+        6.3,
+        0.003,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_01",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        1,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_01",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        1.4,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_02",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        1,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_02",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        1.4,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_03",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        3,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_03",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        3.4,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_04",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        3,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_04",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        3.4,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_05",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        5,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_05",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        5.4,
+        0,
+        0.38
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_plate_06",
+      "room": "B08",
+      "asset": "plate",
+      "support": "mesa_comedor",
+      "offset": [
+        5,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_cup_06",
+      "room": "B08",
+      "asset": "cup",
+      "support": "mesa_comedor",
+      "offset": [
+        5.4,
+        0,
+        1.62
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_bread_01",
+      "room": "B08",
+      "asset": "bread",
+      "support": "mesa_comedor",
+      "offset": [
+        3.5,
+        0.025,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_basket_01",
+      "room": "B08",
+      "asset": "basket",
+      "support": "trinchero_comedor",
+      "offset": [
+        0.5,
+        -1.74,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_basket_02",
+      "room": "B08",
+      "asset": "basket",
+      "support": "trinchero_comedor",
+      "offset": [
+        0.5,
+        -1.74,
+        1.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B08_basket_03",
+      "room": "B08",
+      "asset": "basket",
+      "support": "trinchero_comedor",
+      "offset": [
+        0.5,
+        -1.74,
+        2.5
+      ],
+      "rotation": 0
+    }
+  ],
+  "hidingSockets": [
+    {
+      "id": "HB08",
+      "room": "B08",
+      "floor": 0,
+      "x": 47,
+      "z": 12,
+      "type": "trinchero",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        46,
+        12
+      ],
+      "contents": "Mantelería y vajilla en módulos laterales; hueco central libre."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D09",
+      "floor": 0,
+      "a": "B08",
+      "b": "corredor",
+      "rect": [
+        45,
+        14,
+        46,
+        16
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D33",
+      "floor": 0,
+      "a": "B05",
+      "b": "B08",
+      "rect": [
+        52,
+        9,
+        54,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D34",
+      "floor": 0,
+      "a": "B04",
+      "b": "B08",
+      "rect": [
+        46,
+        9,
+        48,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D35",
+      "floor": 0,
+      "a": "B08",
+      "b": "B09",
+      "rect": [
+        51,
+        20,
+        53,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

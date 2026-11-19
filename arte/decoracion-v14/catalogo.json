@@ -1,0 +1,801 @@
+{
+  "version": "decoracion-v14",
+  "items": [
+    {
+      "id": "petate",
+      "nombre": "Alfombras y petates",
+      "estado": "implementado",
+      "ubicacion": "suelo, fuera de accesos",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 1
+    },
+    {
+      "id": "ropa_cama",
+      "nombre": "Colchas facetadas y manta doblada",
+      "estado": "implementado",
+      "ubicacion": "sobre colchón, solidarias a la cama",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 1
+    },
+    {
+      "id": "libros",
+      "nombre": "Libros independientes",
+      "estado": "existente",
+      "ubicacion": "24 en librero; sin copia fija detrás",
+      "animaPuedeLanzar": true,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "giro o levitación según CAS",
+      "fase": 0
+    },
+    {
+      "id": "vajilla",
+      "nombre": "Tazas, platos y jarrones pequeños",
+      "estado": "existente",
+      "ubicacion": "sobre superficies registradas",
+      "animaPuedeLanzar": true,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "giro o levitación según CAS",
+      "fase": 0
+    },
+    {
+      "id": "prop_activo",
+      "nombre": "Cuna, mecedora, piano, grifo, reloj y costurero",
+      "estado": "existente",
+      "ubicacion": "huella fija y acceso libre",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "solo evento propio del aparato",
+      "fase": 0
+    },
+    {
+      "id": "mueble",
+      "nombre": "Camas, burós, armarios y mesas",
+      "estado": "existente",
+      "ubicacion": "cabecera o respaldo contra muro salvo mesa de reunión",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 0
+    },
+    {
+      "id": "cortina",
+      "nombre": "Cortinas recogidas a los lados",
+      "estado": "propuesto",
+      "ubicacion": "perímetro exterior; nunca tapar ventana interior",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "balanceo rígido futuro, sin física de tela",
+      "fase": 2
+    },
+    {
+      "id": "mantel",
+      "nombre": "Caminos de mesa y manteles",
+      "estado": "implementado parcialmente en cocina, comedor y despensas; consultar instancias V14",
+      "ubicacion": "encima de mesa, dentro de su huella",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "cojin",
+      "nombre": "Cojines de sarape",
+      "estado": "propuesto",
+      "ubicacion": "encima de silla, banca o cama",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "retratos",
+      "nombre": "Grupos de retratos, cartas y certificados",
+      "estado": "propuesto",
+      "ubicacion": "pared sólida, sobre la altura del mueble",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "inclinación futura; nunca desprender muro",
+      "fase": 2
+    },
+    {
+      "id": "marco",
+      "nombre": "Portarretrato de sobremesa",
+      "estado": "propuesto",
+      "ubicacion": "buró o escritorio con soporte reservado",
+      "animaPuedeLanzar": true,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "levitación futura",
+      "fase": 3
+    },
+    {
+      "id": "canasta",
+      "nombre": "Canastas y costales cerrados",
+      "estado": "implementado parcialmente en cocina, comedor y despensas; consultar instancias V14",
+      "ubicacion": "estante o bajo banco, dentro de huella fija",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "tinaja",
+      "nombre": "Tinaja y aguamanil grande",
+      "estado": "implementado parcialmente en cocina, comedor y despensas; consultar instancias V14",
+      "ubicacion": "rincón junto a muro, base apoyada",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "sonido futuro, no desplazamiento",
+      "fase": 2
+    },
+    {
+      "id": "cocina",
+      "nombre": "Comal, ollas de cobre y cucharones colgados",
+      "estado": "implementado parcialmente en cocina, comedor y despensas; consultar instancias V14",
+      "ubicacion": "pared sólida y encimera de cocina",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "sonido futuro",
+      "fase": 2
+    },
+    {
+      "id": "molinillo",
+      "nombre": "Molinillo y taza de barro",
+      "estado": "implementado parcialmente en cocina, comedor y despensas; consultar instancias V14",
+      "ubicacion": "encimera; pieza pequeña con soporte",
+      "animaPuedeLanzar": true,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "giro futuro",
+      "fase": 3
+    },
+    {
+      "id": "frascos",
+      "nombre": "Frascos de especias y botica",
+      "estado": "implementado parcialmente en cocina, comedor y despensas; consultar instancias V14",
+      "ubicacion": "estantes con huecos individuales",
+      "animaPuedeLanzar": true,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "levitación futura",
+      "fase": 3
+    },
+    {
+      "id": "alimentos",
+      "nombre": "Pan, mazorcas y frutero",
+      "estado": "implementado parcialmente en cocina, comedor y despensas; consultar instancias V14",
+      "ubicacion": "repisa o mesa; agrupación fija",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "flores",
+      "nombre": "Flores secas y veladoras agrupadas",
+      "estado": "propuesto",
+      "ubicacion": "altar y burós; llama sin colisión",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "parpadeo; no fuente de prueba adicional",
+      "fase": 2
+    },
+    {
+      "id": "devocion",
+      "nombre": "Rosario y papel picado de capilla",
+      "estado": "propuesto",
+      "ubicacion": "pared lateral; conservar un solo retablo",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "movimiento rígido futuro",
+      "fase": 2
+    },
+    {
+      "id": "perchero",
+      "nombre": "Perchero, sombreros y paraguas",
+      "estado": "propuesto",
+      "ubicacion": "pared del recibidor fuera de giro de puertas",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "costura",
+      "nombre": "Carretes, botones y telas dobladas",
+      "estado": "propuesto",
+      "ubicacion": "mesa de costura; agrupación fija",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "juguete",
+      "nombre": "Trompo y muñeco de madera",
+      "estado": "propuesto",
+      "ubicacion": "estante infantil; no en paso ni escaleras",
+      "animaPuedeLanzar": true,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "giro futuro",
+      "fase": 3
+    },
+    {
+      "id": "dibujos",
+      "nombre": "Dibujos y cometa plegada",
+      "estado": "propuesto",
+      "ubicacion": "muro infantil sólido",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "tocador",
+      "nombre": "Peine, espejo de mano y joyero",
+      "estado": "propuesto",
+      "ubicacion": "tocador de hija, sin duplicar mesa",
+      "animaPuedeLanzar": true,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "levitación futura de piezas pequeñas",
+      "fase": 3
+    },
+    {
+      "id": "partitura",
+      "nombre": "Partituras y atril",
+      "estado": "propuesto",
+      "ubicacion": "junto al piano, dentro de su zona de uso",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "sonido propio del piano",
+      "fase": 2
+    },
+    {
+      "id": "aseo",
+      "nombre": "Jabón, toallas y palangana",
+      "estado": "propuesto",
+      "ubicacion": "sobre lavabo o ganchos de muro",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "aperos",
+      "nombre": "Cuerdas, brochas y herramientas colgadas",
+      "estado": "propuesto",
+      "ubicacion": "panel sobre banco de aperos",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "sonido futuro",
+      "fase": 2
+    },
+    {
+      "id": "cajas",
+      "nombre": "Maletas y cajas etiquetadas",
+      "estado": "propuesto",
+      "ubicacion": "muros de desván y huéspedes, fuera de refugio",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "carta",
+      "nombre": "Cartas, tinta y sello",
+      "estado": "propuesto",
+      "ubicacion": "escritorio; papeles como una malla fija",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "ninguna",
+      "fase": 2
+    },
+    {
+      "id": "maceta",
+      "nombre": "Macetas de barro y plantas facetadas",
+      "estado": "propuesto",
+      "ubicacion": "patio en esquinas reservadas, nunca en anillo de carrera",
+      "animaPuedeLanzar": false,
+      "casaPuedeLanzar": false,
+      "casaPuedeActivar": "balanceo rígido futuro",
+      "fase": 2
+    }
+  ],
+  "rooms": [
+    {
+      "room": "B01",
+      "uso": "Almacenaje seco, pared norte y oeste",
+      "circulacion": "Dejar el acceso sur y el frente de estantes libres.",
+      "propuestas": [
+        {
+          "id": "canasta",
+          "cantidad": 6
+        },
+        {
+          "id": "alimentos",
+          "cantidad": 3
+        },
+        {
+          "id": "tinaja",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "B02",
+      "uso": "Lavado y planchado; tabla al muro oeste",
+      "circulacion": "Tabla y armario al perímetro; franja central para trabajar.",
+      "propuestas": [
+        {
+          "id": "costura",
+          "cantidad": 2
+        },
+        {
+          "id": "mantel",
+          "cantidad": 2
+        },
+        {
+          "id": "canasta",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "B03",
+      "uso": "Capilla con un solo altar al norte",
+      "circulacion": "Eje central hacia retablo despejado; no apilar dos cruces.",
+      "propuestas": [
+        {
+          "id": "devocion",
+          "cantidad": 2
+        },
+        {
+          "id": "flores",
+          "cantidad": 3
+        },
+        {
+          "id": "retratos",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "B04",
+      "uso": "Cocina de servicio, estufa oeste y fregadero sur",
+      "circulacion": "Escalera de servicio y puertas independientes de encimeras.",
+      "propuestas": [
+        {
+          "id": "cocina",
+          "cantidad": 3
+        },
+        {
+          "id": "molinillo",
+          "cantidad": 1
+        },
+        {
+          "id": "frascos",
+          "cantidad": 4
+        },
+        {
+          "id": "canasta",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "B05",
+      "uso": "Traspatio de lavado",
+      "circulacion": "Lavadero y salida al patio sin obstáculos.",
+      "propuestas": [
+        {
+          "id": "tinaja",
+          "cantidad": 1
+        },
+        {
+          "id": "canasta",
+          "cantidad": 2
+        },
+        {
+          "id": "maceta",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "B06",
+      "uso": "Biblioteca, lectura y archivo",
+      "circulacion": "24 libros existentes arrojables; escritorio norte y estantes al muro.",
+      "propuestas": [
+        {
+          "id": "carta",
+          "cantidad": 2
+        },
+        {
+          "id": "retratos",
+          "cantidad": 2
+        },
+        {
+          "id": "cortina",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "B07",
+      "uso": "Vestíbulo de escalera",
+      "circulacion": "Sin alfombra, mesas ni macetas en vuelos o descansos.",
+      "propuestas": [
+        {
+          "id": "retratos",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "B08",
+      "uso": "Comedor familiar con mesa central de reunión",
+      "circulacion": "Mesa central es intencional; sillas fuera de entradas y ruta perimetral libre.",
+      "propuestas": [
+        {
+          "id": "mantel",
+          "cantidad": 1
+        },
+        {
+          "id": "alimentos",
+          "cantidad": 1
+        },
+        {
+          "id": "retratos",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "B09",
+      "uso": "Repostería, preparación y vajilla",
+      "circulacion": "Estantes al perímetro; mesa de preparación con paso por ambos lados.",
+      "propuestas": [
+        {
+          "id": "canasta",
+          "cantidad": 3
+        },
+        {
+          "id": "alimentos",
+          "cantidad": 2
+        },
+        {
+          "id": "frascos",
+          "cantidad": 3
+        }
+      ]
+    },
+    {
+      "room": "B10",
+      "uso": "Aperos y mantenimiento; banco oeste",
+      "circulacion": "Arcón al este sin tapar acceso; ya no es cochera.",
+      "propuestas": [
+        {
+          "id": "aperos",
+          "cantidad": 3
+        },
+        {
+          "id": "canasta",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "B11",
+      "uso": "Despacho y correspondencia",
+      "circulacion": "Escritorio al sur, frente de cajones accesible.",
+      "propuestas": [
+        {
+          "id": "carta",
+          "cantidad": 3
+        },
+        {
+          "id": "marco",
+          "cantidad": 1
+        },
+        {
+          "id": "retratos",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "B12",
+      "uso": "Zaguán, llegada y transición a patio",
+      "circulacion": "Eje puerta principal-patio y bifurcación hacia alas libres.",
+      "propuestas": [
+        {
+          "id": "perchero",
+          "cantidad": 1
+        },
+        {
+          "id": "retratos",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "B13",
+      "uso": "Portería, llaves y control de llegada",
+      "circulacion": "Mesa sur; refugio al norte fuera de portal.",
+      "propuestas": [
+        {
+          "id": "carta",
+          "cantidad": 1
+        },
+        {
+          "id": "perchero",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "B14",
+      "uso": "Botica y preparación de remedios",
+      "circulacion": "Frascos en estantes; no botellas sueltas en suelo.",
+      "propuestas": [
+        {
+          "id": "frascos",
+          "cantidad": 6
+        },
+        {
+          "id": "tinaja",
+          "cantidad": 1
+        },
+        {
+          "id": "canasta",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "A01",
+      "uso": "Desván y archivo familiar",
+      "circulacion": "Agrupar por pared sin cerrar aproximación al refugio.",
+      "propuestas": [
+        {
+          "id": "cajas",
+          "cantidad": 4
+        },
+        {
+          "id": "retratos",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "A02",
+      "uso": "Costura y arreglo de prendas",
+      "circulacion": "Mesa oeste; armario sur a la izquierda de entrada.",
+      "propuestas": [
+        {
+          "id": "costura",
+          "cantidad": 3
+        },
+        {
+          "id": "mantel",
+          "cantidad": 1
+        },
+        {
+          "id": "canasta",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "A03",
+      "uso": "Coro sobre capilla",
+      "circulacion": "Barandal hacia vacío; ninguna pieza cerca del borde.",
+      "propuestas": [
+        {
+          "id": "partitura",
+          "cantidad": 1
+        },
+        {
+          "id": "devocion",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "A04",
+      "uso": "Dormitorio de nana y cuidado infantil",
+      "circulacion": "Cama oeste lejos de puerta al coro; cuna este con patas y acceso lateral.",
+      "propuestas": [
+        {
+          "id": "aseo",
+          "cantidad": 1
+        },
+        {
+          "id": "canasta",
+          "cantidad": 1
+        },
+        {
+          "id": "flores",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "A06",
+      "uso": "Recámara de niños, dormir y estudiar",
+      "circulacion": "Cama oeste; escritorio sur; armario noreste fuera de puerta norte.",
+      "propuestas": [
+        {
+          "id": "juguete",
+          "cantidad": 2
+        },
+        {
+          "id": "dibujos",
+          "cantidad": 2
+        },
+        {
+          "id": "cojin",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "A07",
+      "uso": "Rellano de escalera principal",
+      "circulacion": "Solo retratos en muro sólido. Respetar barandales y ambos desembarcos.",
+      "propuestas": [
+        {
+          "id": "retratos",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "A08",
+      "uso": "Sala de música, ensayo y visitas",
+      "circulacion": "Piano como isla funcional; acceso por tres lados, puertas libres.",
+      "propuestas": [
+        {
+          "id": "partitura",
+          "cantidad": 2
+        },
+        {
+          "id": "retratos",
+          "cantidad": 2
+        },
+        {
+          "id": "cojin",
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "room": "A09",
+      "uso": "Baño y aseo",
+      "circulacion": "Lavabo contra muro este; tapete pequeño fuera de puerta, no bloquear bañera.",
+      "propuestas": [
+        {
+          "id": "aseo",
+          "cantidad": 3
+        }
+      ]
+    },
+    {
+      "room": "A15",
+      "uso": "Huéspedes, dormir y equipaje",
+      "circulacion": "Cabecero este; tocador oeste; equipaje dentro de zona de armario.",
+      "propuestas": [
+        {
+          "id": "cajas",
+          "cantidad": 1
+        },
+        {
+          "id": "cojin",
+          "cantidad": 1
+        },
+        {
+          "id": "marco",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "A10",
+      "uso": "Recámara de abuela, reposo y devoción",
+      "circulacion": "Cabecero oeste con burós contiguos; mecedora al sur, puerta norte libre.",
+      "propuestas": [
+        {
+          "id": "flores",
+          "cantidad": 1
+        },
+        {
+          "id": "devocion",
+          "cantidad": 1
+        },
+        {
+          "id": "cojin",
+          "cantidad": 1
+        },
+        {
+          "id": "marco",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "A11",
+      "uso": "Dormitorio principal y vestirse",
+      "circulacion": "Cabecero sur desplazado del balcón; tocador sur y acceso lateral al lecho.",
+      "propuestas": [
+        {
+          "id": "cojin",
+          "cantidad": 2
+        },
+        {
+          "id": "marco",
+          "cantidad": 1
+        },
+        {
+          "id": "cortina",
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "room": "A12",
+      "uso": "Estrado familiar y conversación",
+      "circulacion": "Bancas al perímetro; alfombra central sin colisión para reunión.",
+      "propuestas": [
+        {
+          "id": "cojin",
+          "cantidad": 3
+        },
+        {
+          "id": "mantel",
+          "cantidad": 1
+        },
+        {
+          "id": "retratos",
+          "cantidad": 3
+        }
+      ]
+    },
+    {
+      "room": "A14",
+      "uso": "Recámara de hija, dormir y arreglo personal",
+      "circulacion": "Cabecero sur junto a buró, fuera del balcón; tocador sur al oeste.",
+      "propuestas": [
+        {
+          "id": "tocador",
+          "cantidad": 3
+        },
+        {
+          "id": "cojin",
+          "cantidad": 1
+        },
+        {
+          "id": "marco",
+          "cantidad": 1
+        },
+        {
+          "id": "carta",
+          "cantidad": 1
+        }
+      ]
+    }
+  ],
+  "zonasComunes": {
+    "patio": "Macetas solo en esquinas fuera del circuito; fuente existente fija.",
+    "galerias": "Sin muebles nuevos en anillo de 3 m. Retratos solo en pared sólida.",
+    "exterior": "Equipo oeste y camioneta este; camino central libre."
+  },
+  "reglas": {
+    "puertas": "No colocar nada dentro del vano ampliado 1.15 m a ambos lados y 0.15 m lateral. Misma reserva para aparición, botín y lanzamiento.",
+    "escaleras": "Hueco, aproximaciones, descansos y desembarcos reservados.",
+    "soportes": "Todo objeto pequeño debe tener soporte real, propietario y altura. Nada flotante.",
+    "fisica": "Muebles y alfombras fijos. Solo objetos ligeros registrados pueden ser arrojados por el ánima.",
+    "casa": "No se introduce un evento nuevo de lanzamiento de la casa; CAS conserva sus reglas. Activaciones futuras deben validarse aparte.",
+    "presupuesto": "Máximo 24 objetos interactivos nuevos en fase 3; decorado fijo fusionado por cuarto/material; mismos volúmenes en calidad baja."
+  }
+}

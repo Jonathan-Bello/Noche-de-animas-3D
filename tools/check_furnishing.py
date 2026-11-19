@@ -28,6 +28,20 @@ def validate(d):
  for rug in d.get('decorations',[]):
   for door,f,r in zones:
    if rug['floor']==f and overlaps(rug['rect'],r):errors.append(rug['id']+' invade acceso '+door)
+ ids=set();throwables=0
+ for i in d.get('decorInstances',[]):
+  if i['id'] in ids:errors.append('ID duplicado '+i['id'])
+  ids.add(i['id']);a=d['decorAssets'].get(i['asset']);o=next((o for o in d['obstacles'] if o['id']==i['support']),None)
+  if not a or not o:errors.append('Componente sin modelo o soporte '+i['id']);continue
+  x=o['rect'][0]+i['offset'][0];z=o['rect'][1]+i['offset'][2];h=o['height']+i['offset'][1];r=a['radius'];throwables+=bool(a['throwable'])
+  if h<-.001 or x-r<o['rect'][0]-.001 or x+r>o['rect'][2]+.001 or z-r<o['rect'][1]-.001 or z+r>o['rect'][3]+.001:errors.append(i['id']+' fuera del soporte')
+  room=rooms.get(i['room'])
+  if not room or room['floor']!=o['floor'] or not(room['rect'][0]<=x<=room['rect'][2] and room['rect'][1]<=z<=room['rect'][3]):errors.append(i['id']+' fuera de su cuarto')
+  for door,f,rect in zones:
+   if f==o['floor'] and overlaps([x-r,z-r,x+r,z+r],rect):errors.append(i['id']+' invade acceso '+door)
+  for stair in d['obstacles']:
+   if stair['id'].startswith('reserva_') and stair['floor']==o['floor'] and overlaps([x-r,z-r,x+r,z+r],stair['rect']):errors.append(i['id']+' invade escalera')
+ if throwables>24:errors.append('Más de 24 decoraciones arrojables nuevas')
  if errors:raise ValueError('\n'.join(errors))
- return {'doors':len(zones),'furnitureAndHides':len(objects),'bedsAgainstWalls':sum(o.get('model')=='bed' or o['id'].startswith('cama_')for o in d['obstacles']),'internalWindowsOpen':sum(w.get('internal',False)for w in d['windows']),'rugs':len(d.get('decorations',[])),'errors':errors}
+ return {'doors':len(zones),'furnitureAndHides':len(objects),'bedsAgainstWalls':sum(o.get('model')=='bed' or o['id'].startswith('cama_')for o in d['obstacles']),'internalWindowsOpen':sum(w.get('internal',False)for w in d['windows']),'rugs':len(d.get('decorations',[])),'decorComponents':len(ids),'throwableComponents':throwables,'errors':errors}
 if __name__=='__main__':print(json.dumps(validate(json.loads((ROOT/'src/layout-v11.json').read_text(encoding='utf-8'))),ensure_ascii=False))

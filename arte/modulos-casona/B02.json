@@ -1,0 +1,80 @@
+{
+  "id": "B02",
+  "name": "Planchaduría",
+  "origin": [
+    14,
+    0.0,
+    1
+  ],
+  "size": [
+    9,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "safeCloset"
+    ],
+    "favorite": "planchada"
+  },
+  "furniture": [
+    {
+      "id": "am_B02",
+      "floor": 0,
+      "room": "B02",
+      "rect": [
+        0,
+        2,
+        2,
+        3
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "ironing",
+      "label": "Mesa de planchar",
+      "contents": [
+        "Ropa doblada y costurero"
+      ],
+      "drawers": true,
+      "backWall": "west"
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HB02",
+      "room": "B02",
+      "floor": 0,
+      "x": 16,
+      "z": 7,
+      "type": "ropero de ropa blanca",
+      "mandatory": true,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        16,
+        8
+      ],
+      "contents": "Ropa blanca; espacio central libre."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D02",
+      "floor": 0,
+      "a": "B02",
+      "b": "corredor",
+      "rect": [
+        18,
+        9,
+        20,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

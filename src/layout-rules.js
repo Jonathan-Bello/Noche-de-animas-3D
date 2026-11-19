@@ -6,8 +6,9 @@ function layoutItemVisible(w,it){if(it.containerId===undefined)return true;const
 function layoutBeginSearch(w,i,c){if(!c||c.open)return false;if(!c.until){c.until=w.t+1;c.by=i.id;w.noise({f:c.f,x:c.x,y:c.y},6,'drawer');}return true;}
 function layoutSurfacePacking(w){
  const taken=[],reserve=(f,x,y,r)=>taken.push({f,x,y,r});w.layoutPackingMisses=[];
+ for(const i of NDALayout.decorInstances||[]){const p=decorPosition(i),a=NDALayout.decorAssets[i.asset];if(p.h>.7&&a.height>.03)reserve(p.f,p.x,p.y,a.radius+.06);}
  reserve(w.altarSurface.f,w.altarSurface.x,w.altarSurface.y,.55);
- for(const f of[0,1])ROOMS[f].forEach((r,ri)=>{const s=SURFACES[f][ri][0];if(s&&r.home&&!((w.devices||[]).some(d=>d.f===f&&d.r===ri)&&SURFACES[f][ri].length<2))reserve(f,s[0]+.25,s[1]+.25,.14);});
+ for(const f of[0,1])ROOMS[f].forEach((r,ri)=>{const s=SURFACES[f][ri][0];if(s&&r.home&&!NDALayout.decorInstances?.some(i=>i.room===r.code)&&!((w.devices||[]).some(d=>d.f===f&&d.r===ri)&&SURFACES[f][ri].length<2))reserve(f,s[0]+.25,s[1]+.25,.14);});
  const place=(o,radius=.13)=>{
   const original={f:o.f,r:roomAt(o.f,o.x,o.y)},options=[original];
   for(const[f,id]of ITEM_PLACES[o.kind]||[]){const r=RID[f][id];if(!options.some(q=>q.f===f&&q.r===r))options.push({f,r});}
@@ -16,7 +17,7 @@ function layoutSurfacePacking(w){
  };
 
  // Large devices claim their surface first; loose clutter and consumables fill remaining slots.
- for(const d of w.devices||[])place(d,d.kind==='tv'?.47:.28);
+ for(const d of (w.devices||[]).slice().sort((a,b)=>(b.kind==='tv')-(a.kind==='tv')))place(d,d.kind==='tv'?.47:.28);
  for(const p of PROPS)if(['campanita','libros','radio','maquina'].includes(p.kind)){const a=LAYOUT_ROOMS.get(NDALayout.rooms.find(r=>r.floor===p.f&&r.key===roomId(p))?.id);if(a&&SURFACES[p.f][a.r]?.length){const s=SURFACES[p.f][a.r][0];p.x=s[0]+.65;p.y=s[1]+.65;p.h=s[2];place(p,.18);}}
  for(const o of w.loose)place(o,['plato','cuadro','jarron','libro'].includes(o.kind)?.16:.10);
  for(const it of w.items)if(!it.holder&&!(it.f===0&&it.y>=40))place(it,.13);

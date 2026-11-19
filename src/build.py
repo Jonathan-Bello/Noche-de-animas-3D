@@ -6,10 +6,11 @@ mode = sys.argv[1] if len(sys.argv) > 1 else 'prod'
 three = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js' if mode == 'prod' else '/test/three.module.js'
 layout=json.loads(src('layout-v11.json'))
 runpy.run_path(os.path.join(root, 'tools', 'check_furnishing.py'))['validate'](layout)
+runpy.run_path(os.path.join(root, 'tools', 'export_room_modules.py'))['export'](layout)
 s = src('shell2.html')
-logic_files = ['placement-layout.js', 'logic2.js', 'rules3.js', 'rules4.js', 'layout-rules.js', 'rules5.js', 'lab.js', 'net.js']
+logic_files = ['placement-layout.js', 'logic2.js', 'rules3.js', 'rules4.js', 'decor-runtime.js', 'layout-rules.js', 'decor-rules.js', 'rules5.js', 'lab.js', 'net.js']
 game_files = ['chars3d.js', 'alex-art.js', 'elenco-art.js', 'character-qc.js',
-              'anima-art.js', 'house-art.js', 'casona-layout3d.js', 'furniture-props3d.js', 'game3d.js', 'casona3d.js',
+              'anima-art.js', 'house-art.js', 'casona-layout3d.js', 'furniture-props3d.js', 'decor3d.js', 'tools-art3d.js', 'game3d.js', 'casona3d.js',
               'base3d.js', 'snd3d.js', 'lab3d.js', 'casa3d.js']
 logic = '\n'.join(src(f) for f in logic_files).replace('/*LAYOUT_RUNTIME*/', src('layout-runtime.js'))
 logic = 'const NDALayout=' + json.dumps(json.loads(src('layout-v11.json')), ensure_ascii=False, separators=(',', ':')) + ';\n' + logic

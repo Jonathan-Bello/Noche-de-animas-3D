@@ -1,0 +1,114 @@
+{
+  "id": "A15",
+  "name": "Huéspedes",
+  "origin": [
+    52,
+    3.8,
+    21
+  ],
+  "size": [
+    7,
+    3.8,
+    9
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "bedHide",
+      "galleryRoute"
+    ],
+    "favorite": "chocarrero"
+  },
+  "furniture": [
+    {
+      "id": "am_A15",
+      "floor": 1,
+      "room": "A15",
+      "rect": [
+        0,
+        4,
+        1,
+        7
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "dresser",
+      "label": "Cómoda de huéspedes",
+      "contents": [
+        "Taza y maleta decorativa"
+      ],
+      "drawers": true,
+      "backWall": "west"
+    },
+    {
+      "id": "am_cama_huesped",
+      "floor": 1,
+      "room": "A15",
+      "rect": [
+        4,
+        5,
+        7,
+        7
+      ],
+      "height": 0.58,
+      "blocksSight": false,
+      "kind": null,
+      "model": "bed",
+      "label": "Cama de huéspedes",
+      "contents": [],
+      "visualHeight": 1.5,
+      "backWall": "east"
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA15",
+      "room": "A15",
+      "floor": 1,
+      "x": 53,
+      "z": 22,
+      "type": "ropero",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        52,
+        22
+      ],
+      "contents": "Ropa de huéspedes."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D42",
+      "floor": 1,
+      "a": "A08",
+      "b": "A15",
+      "rect": [
+        55,
+        20,
+        57,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D43",
+      "floor": 1,
+      "a": "A15",
+      "b": "A14",
+      "rect": [
+        55,
+        30,
+        57,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

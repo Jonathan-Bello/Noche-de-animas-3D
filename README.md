@@ -41,3 +41,9 @@ Genera `juego/index.html` a partir de `src/`.
 - [Catálogo de 30 familias decorativas](arte/decoracion-v13/catalogo.json): diferencia lo construido y lo propuesto.
 
 El compilador comprueba puertas, apoyos de camas y superposiciones de muebles antes de generar la demo. Las pruebas principales están documentadas en el plan.
+
+## Entrega V14
+
+[Cocina, comedor y despensas](arte/decoracion-v14/index.html) · [Taller visual](editor/index.html) · [Instrumentos 3D](arte/instrumentos-v14/index.html) · [Guía y preparación de campaña](docs/decoracion-v14.md).
+
+Para mover decoración visualmente y guardar en la copia local del juego: doble clic en `Abrir editor.cmd` (requiere Python y Node), o `python tools/editor_server.py --open`. En la página pública se puede editar y exportar el plano.

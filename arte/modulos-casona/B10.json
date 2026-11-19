@@ -1,0 +1,112 @@
+{
+  "id": "B10",
+  "name": "Cuarto de aperos",
+  "origin": [
+    1,
+    0.0,
+    31
+  ],
+  "size": [
+    13,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "foco",
+      "lightLimit+1"
+    ],
+    "favorite": "cadejo"
+  },
+  "furniture": [
+    {
+      "id": "am_B10",
+      "floor": 0,
+      "room": "B10",
+      "rect": [
+        0,
+        4,
+        1,
+        7
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "workbench",
+      "label": "Banco de herramientas",
+      "contents": [
+        "Focos y aperos"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "estante_aperos",
+      "floor": 0,
+      "room": "B10",
+      "rect": [
+        0,
+        0,
+        3,
+        1
+      ],
+      "height": 2.1,
+      "blocksSight": true,
+      "model": "pantryTall",
+      "label": "Estante de mantenimiento",
+      "contents": [
+        "Botes de pintura, aceite y materiales de reparación"
+      ]
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HB10",
+      "room": "B10",
+      "floor": 0,
+      "x": 12,
+      "z": 37,
+      "type": "arcon de aperos",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        13,
+        37
+      ],
+      "contents": "Arcón de aperos junto al muro este; espacio interior libre para refugiarse."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D08",
+      "floor": 0,
+      "a": "B07",
+      "b": "B10",
+      "rect": [
+        7,
+        30,
+        9,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D11",
+      "floor": 0,
+      "a": "B10",
+      "b": "B11",
+      "rect": [
+        14,
+        34,
+        15,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

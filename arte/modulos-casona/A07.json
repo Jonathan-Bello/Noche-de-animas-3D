@@ -1,0 +1,98 @@
+{
+  "id": "A07",
+  "name": "Rellano principal",
+  "origin": [
+    1,
+    3.8,
+    21
+  ],
+  "size": [
+    13,
+    3.8,
+    9
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": false,
+    "autoWith": "B07",
+    "complement": [],
+    "favorite": null
+  },
+  "furniture": [
+    {
+      "floor": 1,
+      "id": "reserva_escalera_principal",
+      "rect": [
+        5,
+        2,
+        11,
+        7
+      ],
+      "height": 3.8,
+      "blocksSight": false
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA07",
+      "room": "A07",
+      "floor": 1,
+      "x": 4,
+      "z": 22,
+      "type": "arcon de mantas",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        4,
+        21
+      ],
+      "contents": "Mantas en un compartimento lateral; hueco de refugio libre."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D21",
+      "floor": 1,
+      "a": "A06",
+      "b": "A07",
+      "rect": [
+        7,
+        20,
+        9,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D22",
+      "floor": 1,
+      "a": "A07",
+      "b": "galeria",
+      "rect": [
+        14,
+        24,
+        15,
+        26
+      ],
+      "kind": "arco abierto",
+      "clearWidth": 2
+    },
+    {
+      "id": "D23",
+      "floor": 1,
+      "a": "A07",
+      "b": "A10",
+      "rect": [
+        7,
+        30,
+        9,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

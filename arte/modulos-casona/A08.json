@@ -1,0 +1,135 @@
+{
+  "id": "A08",
+  "name": "Sala de música",
+  "origin": [
+    46,
+    3.8,
+    10
+  ],
+  "size": [
+    13,
+    3.8,
+    10
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "radio"
+    ],
+    "favorite": "xtabay"
+  },
+  "furniture": [
+    {
+      "floor": 1,
+      "id": "piano",
+      "rect": [
+        4,
+        4,
+        7,
+        6
+      ],
+      "height": 1.1,
+      "blocksSight": false,
+      "kind": "prop"
+    },
+    {
+      "floor": 1,
+      "id": "biombo_musica",
+      "rect": [
+        9,
+        6,
+        10,
+        8
+      ],
+      "height": 1.9,
+      "blocksSight": true,
+      "model": "screen",
+      "label": "Biombo de madera y tela",
+      "contents": []
+    },
+    {
+      "id": "am_A08",
+      "floor": 1,
+      "room": "A08",
+      "rect": [
+        11,
+        1,
+        13,
+        2
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "console",
+      "label": "Consola de música",
+      "contents": [
+        "Partituras y radio"
+      ],
+      "drawers": true
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA08",
+      "room": "A08",
+      "floor": 1,
+      "x": 47,
+      "z": 17,
+      "type": "armario de partituras",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        46,
+        17
+      ],
+      "contents": "Partituras en módulos laterales."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D24",
+      "floor": 1,
+      "a": "A08",
+      "b": "galeria",
+      "rect": [
+        45,
+        14,
+        46,
+        16
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D25",
+      "floor": 1,
+      "a": "A08",
+      "b": "A09",
+      "rect": [
+        48,
+        20,
+        50,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D42",
+      "floor": 1,
+      "a": "A08",
+      "b": "A15",
+      "rect": [
+        55,
+        20,
+        57,
+        21
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

@@ -1,0 +1,231 @@
+{
+  "id": "B04",
+  "name": "Cocina",
+  "origin": [
+    37,
+    0.0,
+    1
+  ],
+  "size": [
+    11,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": true,
+    "purchasable": false,
+    "autoWith": null,
+    "complement": [],
+    "favorite": "chaneque"
+  },
+  "furniture": [
+    {
+      "floor": 0,
+      "id": "reserva_escalera_servicio",
+      "rect": [
+        1,
+        1,
+        9,
+        3
+      ],
+      "height": 3.8,
+      "blocksSight": false
+    },
+    {
+      "floor": 0,
+      "id": "prop_grifo_cocina",
+      "rect": [
+        5,
+        7,
+        6,
+        8
+      ],
+      "height": 1.15,
+      "kind": "prop",
+      "blocksSight": false,
+      "backWall": "south",
+      "rotationY": 3.14159265359
+    },
+    {
+      "id": "am_B04",
+      "floor": 0,
+      "room": "B04",
+      "rect": [
+        6,
+        7,
+        8,
+        8
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "counter",
+      "label": "Mesa de preparación",
+      "contents": [
+        "Té, ceniza y vajilla"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_fogony",
+      "floor": 0,
+      "room": "B04",
+      "rect": [
+        0,
+        3,
+        1,
+        7
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "kind": null,
+      "model": "stove",
+      "label": "Fogón y comal",
+      "contents": [],
+      "backWall": "west"
+    },
+    {
+      "id": "cocina_apoyo_fogon",
+      "floor": 0,
+      "room": "B04",
+      "rect": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "counter",
+      "label": "Mesa auxiliar del fogón",
+      "backWall": "west",
+      "contents": [
+        "Aparatos y suministros"
+      ],
+      "drawers": false
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B04_comal_01",
+      "room": "B04",
+      "asset": "comal",
+      "support": "am_fogony",
+      "offset": [
+        0.5,
+        0.06,
+        2.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B04_pot_01",
+      "room": "B04",
+      "asset": "pot",
+      "support": "am_fogony",
+      "offset": [
+        0.5,
+        0.06,
+        3.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B04_molinillo_01",
+      "room": "B04",
+      "asset": "molinillo",
+      "support": "am_B04",
+      "offset": [
+        1.2,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B04_cup_01",
+      "room": "B04",
+      "asset": "cup",
+      "support": "am_B04",
+      "offset": [
+        1.65,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B04_jar_01",
+      "room": "B04",
+      "asset": "jar",
+      "support": "am_B04",
+      "offset": [
+        1.8,
+        0,
+        0.65
+      ],
+      "rotation": 0
+    }
+  ],
+  "hidingSockets": [
+    {
+      "id": "HB04",
+      "room": "B04",
+      "floor": 0,
+      "x": 46,
+      "z": 2,
+      "type": "alacena de servicio",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        47,
+        2
+      ],
+      "contents": "Vajilla y ollas en compartimentos laterales; hueco central libre."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D04",
+      "floor": 0,
+      "a": "B04",
+      "b": "corredor",
+      "rect": [
+        39,
+        9,
+        41,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D32",
+      "floor": 0,
+      "a": "B04",
+      "b": "B05",
+      "rect": [
+        48,
+        4,
+        49,
+        6
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D34",
+      "floor": 0,
+      "a": "B04",
+      "b": "B08",
+      "rect": [
+        46,
+        9,
+        48,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

@@ -1,0 +1,146 @@
+{
+  "id": "A10",
+  "name": "Recámara de la abuela",
+  "origin": [
+    1,
+    3.8,
+    31
+  ],
+  "size": [
+    13,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": false,
+    "purchasable": true,
+    "autoWith": null,
+    "complement": [
+      "te"
+    ],
+    "favorite": "guardian"
+  },
+  "furniture": [
+    {
+      "floor": 1,
+      "id": "cama_A10",
+      "rect": [
+        0,
+        3,
+        3,
+        5
+      ],
+      "height": 0.65,
+      "blocksSight": false,
+      "model": "bed",
+      "label": "Cama de madera",
+      "contents": [
+        "Colcha y almohadas"
+      ],
+      "visualHeight": 1.5,
+      "backWall": "west"
+    },
+    {
+      "floor": 1,
+      "id": "prop_mecedora",
+      "rect": [
+        4,
+        6,
+        5,
+        7
+      ],
+      "height": 1.1,
+      "kind": "prop",
+      "blocksSight": false,
+      "visualHeight": 1.16
+    },
+    {
+      "id": "am_A10",
+      "floor": 1,
+      "room": "A10",
+      "rect": [
+        0,
+        5,
+        1,
+        7
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "bedside",
+      "label": "Buró de la abuela",
+      "contents": [
+        "Rosario, vela y fotografía"
+      ],
+      "drawers": true,
+      "backWall": "west"
+    },
+    {
+      "id": "buro_extra_A10",
+      "room": "A10",
+      "floor": 1,
+      "rect": [
+        0,
+        2,
+        1,
+        3
+      ],
+      "height": 0.78,
+      "model": "bedside",
+      "backWall": "west",
+      "blocksSight": false,
+      "label": "Buró junto a la cabecera",
+      "contents": [
+        "Veladora y recuerdos"
+      ]
+    }
+  ],
+  "decorations": [],
+  "hidingSockets": [
+    {
+      "id": "HA10",
+      "room": "A10",
+      "floor": 1,
+      "x": 4,
+      "z": 32,
+      "type": "ropero",
+      "mandatory": false,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        4,
+        31
+      ],
+      "contents": "Ropa y mantas de la abuela."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D23",
+      "floor": 1,
+      "a": "A07",
+      "b": "A10",
+      "rect": [
+        7,
+        30,
+        9,
+        31
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    },
+    {
+      "id": "D26",
+      "floor": 1,
+      "a": "A10",
+      "b": "A11",
+      "rect": [
+        14,
+        34,
+        15,
+        36
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

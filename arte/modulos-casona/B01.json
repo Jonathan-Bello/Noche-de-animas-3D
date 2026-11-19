@@ -1,0 +1,263 @@
+{
+  "id": "B01",
+  "name": "Despensa seca",
+  "origin": [
+    1,
+    0.0,
+    1
+  ],
+  "size": [
+    12,
+    3.8,
+    8
+  ],
+  "campaign": {
+    "initial": true,
+    "purchasable": false,
+    "autoWith": null,
+    "complement": [],
+    "favorite": "cucuy"
+  },
+  "furniture": [
+    {
+      "id": "am_B01",
+      "floor": 0,
+      "room": "B01",
+      "rect": [
+        0,
+        1,
+        1,
+        6
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "pantry",
+      "label": "Estante bajo de despensa",
+      "contents": [
+        "Té, pan y frascos"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_alacena_abierta",
+      "floor": 0,
+      "room": "B01",
+      "rect": [
+        0,
+        0,
+        3,
+        1
+      ],
+      "height": 2.1,
+      "blocksSight": true,
+      "kind": null,
+      "model": "pantryTall",
+      "label": "Alacena de conservas",
+      "contents": []
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B01_basket_01",
+      "room": "B01",
+      "asset": "basket",
+      "support": "am_alacena_abierta",
+      "offset": [
+        0.45,
+        -1.9200000000000002,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_sack_01",
+      "room": "B01",
+      "asset": "sack",
+      "support": "am_alacena_abierta",
+      "offset": [
+        0.45,
+        -1.3800000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_basket_02",
+      "room": "B01",
+      "asset": "basket",
+      "support": "am_alacena_abierta",
+      "offset": [
+        1.5,
+        -1.9200000000000002,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_sack_02",
+      "room": "B01",
+      "asset": "sack",
+      "support": "am_alacena_abierta",
+      "offset": [
+        1.5,
+        -1.3800000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_basket_03",
+      "room": "B01",
+      "asset": "basket",
+      "support": "am_alacena_abierta",
+      "offset": [
+        2.55,
+        -1.9200000000000002,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_sack_03",
+      "room": "B01",
+      "asset": "sack",
+      "support": "am_alacena_abierta",
+      "offset": [
+        2.55,
+        -1.3800000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_maize_01",
+      "room": "B01",
+      "asset": "maize",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        -0.78,
+        1.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_maize_02",
+      "room": "B01",
+      "asset": "maize",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        -0.78,
+        2.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_maize_03",
+      "room": "B01",
+      "asset": "maize",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        -0.78,
+        3.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_jar_01",
+      "room": "B01",
+      "asset": "jar",
+      "support": "am_alacena_abierta",
+      "offset": [
+        0.45,
+        -0.8200000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_jar_02",
+      "room": "B01",
+      "asset": "jar",
+      "support": "am_alacena_abierta",
+      "offset": [
+        1.5,
+        -0.8200000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_jar_03",
+      "room": "B01",
+      "asset": "jar",
+      "support": "am_alacena_abierta",
+      "offset": [
+        2.55,
+        -0.8200000000000001,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_tinaja_01",
+      "room": "B01",
+      "asset": "tinaja",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B01_bread_01",
+      "room": "B01",
+      "asset": "bread",
+      "support": "am_B01",
+      "offset": [
+        0.5,
+        0,
+        4.5
+      ],
+      "rotation": 0
+    }
+  ],
+  "hidingSockets": [
+    {
+      "id": "HB01",
+      "room": "B01",
+      "floor": 0,
+      "x": 3,
+      "z": 7,
+      "type": "alacena",
+      "mandatory": true,
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        3,
+        8
+      ],
+      "contents": "Conservas en compartimentos laterales; hueco central libre para esconderse."
+    }
+  ],
+  "doors": [
+    {
+      "id": "D01",
+      "floor": 0,
+      "a": "B01",
+      "b": "B06",
+      "rect": [
+        6,
+        9,
+        8,
+        10
+      ],
+      "kind": "puerta",
+      "clearWidth": 2
+    }
+  ],
+  "note": "Furniture rects local to origin; door/socket positions remain shared world coordinates. Runtime campaign gating is not implemented."
+}

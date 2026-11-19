@@ -1,2 +1,4 @@
 test/three.module.js
 test-results/
+
+__pycache__/

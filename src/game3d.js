@@ -102,11 +102,11 @@ function buildHouse() {
   const lam = (c, extra) => LambertFlat(Object.assign({ color: c, map: paper }, extra || {}));
   floorGroups = [new THREE.Group(), new THREE.Group()]; floorGroups[1].position.y = FH; floorGroups.forEach(g => scene.add(g));
   wallRuns = []; ceilMeshes = []; doorMeshes = []; candleMeshes = []; lampMeshes = []; spotMeshes = [];
-  houseArtState=NDAHouseArt.build({floors:floorGroups,world:w});
+  houseArtState=NDAHouseArt.build({floors:floorGroups,world:w});NDADecorArt.build(floorGroups);
   for(let f=0;f<2;f++){const G=floorGroups[f];
     // velas de cada cuarto y focos
     ROOMS[f].forEach((r, i) => { const c = ROOM_CENTER[f][i]; if(!c||['afuera','afuera1','patio','traspatio'].includes(r.id))return;
-      const cg=new THREE.Group(),surface=SURFACES[f][i][0];cg.position.set(surface?surface[0]+.25:c.x,surface?surface[2]:0,surface?surface[1]+.25:c.y);cg.visible=!!surface&&r.home&&!((w.devices||[]).some(d=>d.f===f&&d.r===i)&&SURFACES[f][i].length<2)&&!(w.altarRoom.f===f&&w.altarRoom.r===i);
+      const cg=new THREE.Group(),surface=SURFACES[f][i][0];cg.position.set(surface?surface[0]+.25:c.x,surface?surface[2]:0,surface?surface[1]+.25:c.y);cg.visible=!!surface&&r.home&&!NDALayout.decorInstances?.some(i=>i.room===r.code)&&!((w.devices||[]).some(d=>d.f===f&&d.r===i)&&SURFACES[f][i].length<2)&&!(w.altarRoom.f===f&&w.altarRoom.r===i);
       const base = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.3, 8), lam(COL.bone)); base.position.y = 0.15; cg.add(base);
       const fl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.06, 1), new THREE.MeshBasicMaterial({ color: COL.gold })); fl.position.y = 0.36; fl.scale.y = 1.8; cg.add(fl);
       G.add(cg); candleMeshes.push({ f, r: i, flame: fl });
@@ -152,6 +152,7 @@ function buildHouse() {
 let halluMesh = null, ceilMeshes = [], propMeshes = [], switchMeshes = [], fuseMesh = null, looseMeshes = [];
 const LOOSE_COL = { jarron: 0xe0782a, plato: 0xf3e6cf, vela: 0xf3e6cf, libro: 0x5a0f1e, taza: 0x23565c, figura: 0xb85a2a, cuadro: 0xb8902a };
 function makeLooseMesh(kind, lam,object) {
+  if(object?.assetId)return NDADecorArt.create(object.assetId);
   if(kind==='libro'&&object?.shelfId)return NDAHouseArt.bookMesh(object);
   const g = new THREE.Group(), c = LOOSE_COL[kind] || 0x8a6a40, add = (geo, col, y) => { const m = new THREE.Mesh(geo, lam(col)); m.position.y = y; m.castShadow = true; g.add(m); return m; };
   switch (kind) {
@@ -221,7 +222,8 @@ const ITEM_COLOR = { foco: 0xf3e6cf, ceniza: 0x8a8580, cruz: 0xc8b070, pan: 0xc9
 function makeItemMesh(it) {
   const g = new THREE.Group(); const c = ITEM_COLOR[it.kind]; let m;
   const lam = (col, e) => LambertFlat({ color: col, emissive: e || 0x000000 });
-  switch (it.kind) {
+  const toolModel=NDAToolArt.create(it.kind);
+  if(toolModel)m=toolModel;else switch (it.kind) {
     case 'espejo': m = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.04, 16), lam(c, 0x202830)); m.rotation.x = Math.PI / 2; m.position.y = 0.25; break;
     case 'uv': case 'gases': case 'termo': m = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.32, 8), lam(c)); m.rotation.z = Math.PI / 2; m.position.y = 0.1; break;
     case 'rosario': m = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.03, 6, 14), lam(c, 0x302820)); m.rotation.x = Math.PI / 2; m.position.y = 0.05; break;
@@ -309,8 +311,9 @@ function ghostOpacity(t, V, vk) {
 function updateScene(t, dt) {
   const V = viewer(), vk = viewKind(), g = w.g;
   const vf = V ? V.f : 0;
-  floorGroups[1].visible = true;
+  floorGroups[1].visible = !(vk==='all'&&vf===0);
   floorGroups[0].visible = true;
+  for(const m of houseArtState?.meshes||[]){if(m.userData.viewFloor!==undefined)m.visible=vk!=='all'||m.userData.viewFloor<=vf;if(m.userData.ceilingDetail)m.visible=vk!=='all';}
   // muros recortados entre la cámara y el personaje
   for (const r of wallRuns) { const cut = vk === 'all' && r.f === vf && V && r.y > V.y - 0.5 && r.y - V.y < 9 && r.x1 >= V.x - 9 && r.x0 <= V.x + 9; const s = cut ? 0.22 : 1; r.g.scale.y += (s - r.g.scale.y) * Math.min(1, dt * 8); }
   // puertas
@@ -355,6 +358,7 @@ function updateScene(t, dt) {
     animateCharacter(m, { x: i.x + i.f * 100, y: i.y, t, dt, hidden: i.hidden >= 0, dead: isDead, manifest: isDead && i.spirit.until > w.t, lamp: !isDead && i.flash && w.t >= i.flashOffUntil, holding: !!hk0, aim: AIM_KINDS.includes(hk0), tremble: isDead ? 0 : clamp01((35 - i.san) / 35) });
     if (i.alive && !i.escaped && i.hidden < 0 && Math.floor(m.ph / Math.PI) !== Math.floor(ph0 / Math.PI) && m.speed > 0.4) footstep(i, m.speed, i === V);
     const hk = i.slots[i.hand] ? i.slots[i.hand].kind : null; if (hk !== m.handKind) { m.handKind = hk; m.hand.clear(); if (hk) { const im = makeItemMesh({ kind: hk }); scene.remove(im.g); im.halo.visible = false; im.g.scale.setScalar(0.8); im.g.rotation.y = -Math.PI / 2; im.g.position.y = -0.06; m.hand.add(im.g); m.handItem = im; } else m.handItem = null; }
+    if(m.handItem&&i.slots[i.hand])NDAToolArt.update(m.handItem.m,i.slots[i.hand],t,true);
     if (m.handItem && m.handItem.beam) { m.handItem.beam.visible = i.alive && i.hidden < 0; }
   });
   // ánima
@@ -388,6 +392,7 @@ function updateScene(t, dt) {
     im.g.visible = layoutItemVisible(w,it)&&(it.f === vf || vf === 1); im.g.position.set(it.x, it.f * FH + (it.h || 0), it.y); im.g.rotation.y = -it.dir;
     im.halo.material.opacity = 0.2 + Math.sin(t * 3 + it.id) * 0.12;
     if (it.kind === 'emf') { const on = t < it.emfUntil; im.ind.visible = on; im.ind.material.color.setHex(it.emfLvl >= 5 ? 0xff2020 : it.emfLvl >= 4 ? 0xff9020 : 0x40ff60); }
+    NDAToolArt.update(im.m,it,t);
     if (it.kind === 'gases') { im.ind.visible = t < it.redUntil || t < (it.yellowUntil || 0); im.ind.material.color.setHex(t < it.redUntil ? 0xff2020 : 0xffb020); }
     if (it.kind === 'cam') { im.ind.visible = Math.sin(t * 2) > 0.6; im.ind.material.color.setHex(0xff2020); }
     if (it.kind === 'grab') im.ind.visible = false;
@@ -398,7 +403,7 @@ function updateScene(t, dt) {
   for (const [id, im] of itemMeshes) if (!seenIds.has(id)) { scene.remove(im.g); itemMeshes.delete(id); }
   // efectos
   updateFx(t, vf); updateProps(t, vf); updateLoose(t);NDAHouseArt.updateDrawers(w,dt);
-  for (const m of ceilMeshes) m.visible = camera.position.y < m.userData.f * FH + FH - 0.05;
+  for (const m of ceilMeshes) m.visible = vk!=='all' && camera.position.y < m.userData.f * FH + FH - 0.05;
   // salida y altar
   const xd = w.doors.find(d => d.ext); exitMesh.material.emissive.setHex(xd && xd.locked ? 0x400000 : 0x000000);
   const open = xd && !xd.closed ? 1.4 : 0; exitMesh.leaves.forEach((l, k) => { const tg = (k ? -1 : 1) * open; l.rotation.y += (tg - l.rotation.y) * Math.min(1, dt * 3); });
