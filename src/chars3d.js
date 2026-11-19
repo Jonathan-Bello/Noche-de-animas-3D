@@ -222,7 +222,7 @@ const LOOK_SPEC = {
   anciano: { body: 0x7a1a2e, body2: 0xf0e2c4, hi: 0xd8a84a, skin: 0xc0906a, hat: 0xd8b878 },
   humo: { body: 0x23565c, body2: 0x3e7a7a, hi: 0x8ab8b0, skin: 0x0e2a2e },
 };
-function makeGhostRig(look, labelText) {
+function makeBaseGhostRig(look, labelText) {
   const C = LOOK_SPEC[look] || LOOK_SPEC.velo, g = new THREE.Group(), inner = new THREE.Group(); g.add(inner); const fade = [];
   const F = (hex, emis) => { const m = vecMat(hex, { transparent: true, opacity: 0.9, emissive: emis || 0x000000, depthWrite: true }); fade.push(m); return m; };
   const mat = F(C.body, 0x0a0a14), robe = F(C.body2), darkM = F(C.skin), hiM = F(C.hi);

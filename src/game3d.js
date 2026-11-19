@@ -51,6 +51,7 @@ class BoxBatch {
 
 // ---------- Estado ----------
 let renderer, scene, camera, clock, paper, handT;
+let houseArtState=null;
 let floorGroups = [], wallRuns = [], doorMeshes = [], candleMeshes = [], lampMeshes = [], spotMeshes = [], exitMesh, altarGlow;
 let invMeshes = [], ghostMesh, itemMeshes = new Map(), fxMeshes = new Map(), heardMarks = [];
 let flash, botFlashes = [], roomLights = [], velaLights = [], blueLight, ambient, hemi;
@@ -128,11 +129,11 @@ function buildHouse() {
     const batches = {}; const B = k => (batches[k] = batches[k] || new BoxBatch());
     for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
       const t = grid[y * W + x], cx = x + 0.5, cz = y + 0.5;
-      if (t === T.TABLE) { B('wood').add(cx, 0.78, cz, 1, 0.08, 1); B('wood2').add(cx, 0.37, cz, 0.12, 0.74, 0.12); }
+      if (t === T.TABLE && !NDAHouseArt.replacesTile(f,t,x,y)) { B('wood').add(cx, 0.78, cz, 1, 0.08, 1); B('wood2').add(cx, 0.37, cz, 0.12, 0.74, 0.12); }
       if (t === T.SHELF) { B('wood2').add(cx, 0.95, cz, 1, 1.9, 0.8); const cs = ['bookR', 'bookB', 'bookG', 'bookY']; for (let k = 0; k < 3; k++) B(cs[(x + k + y) % 4]).add(cx, 0.45 + k * 0.6, cz, 0.85, 0.32, 0.84); }
       if (t === T.BED) { B('wood2').add(cx, 0.25, cz, 1, 0.5, 1); B('sheet').add(cx, 0.55, cz, 0.98, 0.12, 0.98); }
-      if (t === T.WATER) B('water').add(cx, 0.35, cz, 1, 0.7, 1);
-      if (t === T.ALTAR) { B('altar').add(cx, 0.55, cz, 1, 1.1, 1); B('flower').add(cx, 1.18, cz, 0.6, 0.18, 0.4); }
+      if (t === T.WATER && !NDAHouseArt.replacesTile(f,t,x,y)) B('water').add(cx, 0.35, cz, 1, 0.7, 1);
+      if (t === T.ALTAR && !NDAHouseArt.replacesTile(f,t,x,y)) { B('altar').add(cx, 0.55, cz, 1, 1.1, 1); B('flower').add(cx, 1.18, cz, 0.6, 0.18, 0.4); }
       if (t === T.PILLAR) B('bone').add(cx, WALL_H / 2, cz, 0.6, WALL_H, 0.6);
       if (t === T.VOID) { for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (walkableT(tileAt(f, x + dx, y + dy))) B('rail').add(cx + dx * 0.46, 0.5, cz + dy * 0.46, dx ? 0.08 : 1, 1, dy ? 0.08 : 1); }
     }
@@ -219,6 +220,7 @@ function buildHouse() {
   // personajes
   halluMesh = null; invMeshes = []; itemMeshes = new Map(); fxMeshes = new Map(); heardMarks = [];
   ghostMesh = makeGhostRig(w.g.look, w.g.def.n); scene.add(ghostMesh.g);
+  houseArtState=NDAHouseArt.build({floors:floorGroups,world:w,candles:candleMeshes});NDAVisualQuality.apply(renderer,flash);
 }
 let halluMesh = null, ceilMeshes = [], propMeshes = [], switchMeshes = [], fuseMesh = null, looseMeshes = [];
 const LOOSE_COL = { jarron: 0xe0782a, plato: 0xf3e6cf, vela: 0xf3e6cf, libro: 0x5a0f1e, taza: 0x23565c, figura: 0xb85a2a, cuadro: 0xb8902a };
@@ -290,14 +292,14 @@ function buildDecor(lam) {
   const nearDoorXY = (f, x, z) => w.doors.some(d => d.f === f && Math.hypot(d.x - x, d.y - z) < 1.9);
   const frame = (f, x, z, ry, w_, h, art) => { if (nearDoorXY(f, x, z)) return; put(f, B(w_ + 0.1, h + 0.1, 0.04), 0x8a6a2a, x, 1.75, z, 0, ry); put(f, B(w_, h, 0.05), art, x, 1.75, z, 0, ry); };
   const candles = (f, x, z, n, y0) => { for (let k = 0; k < n; k++) { const a = k / n * 6.28, r = 0.08 + (k % 3) * 0.05; put(f, C(0.025, 0.025, 0.12 + (k % 3) * 0.06, 6), 0xf0e6cf, x + Math.cos(a) * r, (y0 || 0) + 0.08, z + Math.sin(a) * r); glow[f].push([x + Math.cos(a) * r, (y0 || 0) + 0.2 + (k % 3) * 0.03, z + Math.sin(a) * r]); } };
-  const plant = (f, x, z) => { put(f, C(0.16, 0.12, 0.3, 10), 0xa0522d, x, 0.15, z); for (let k = 0; k < 5; k++) { const a = k * 1.3; put(f, S(0.14, 8, 6), 0x2a5a2a + (k % 2) * 0x061006, x + Math.cos(a) * 0.1, 0.42 + (k % 3) * 0.1, z + Math.sin(a) * 0.1); } };
+  const plant = (f, x, z) => { if(NDAHouseArt.ownsPoint(f,x,z))return;put(f, C(0.16, 0.12, 0.3, 10), 0xa0522d, x, 0.15, z); for (let k = 0; k < 5; k++) { const a = k * 1.3; put(f, S(0.14, 8, 6), 0x2a5a2a + (k % 2) * 0x061006, x + Math.cos(a) * 0.1, 0.42 + (k % 3) * 0.1, z + Math.sin(a) * 0.1); } };
   const papel = (f, x0, z0, x1, z1, y) => { const n = Math.max(4, Math.round(Math.hypot(x1 - x0, z1 - z0) / 0.45)); const cols = [0xe0405a, 0xf2b04e, 0x4ab0a0, 0xc95fb5, 0x7ac04a, 0xe0782a]; const ry = -Math.atan2(z1 - z0, x1 - x0);
     put(f, B(Math.hypot(x1 - x0, z1 - z0), 0.01, 0.01), 0xd8d0c0, (x0 + x1) / 2, y + 0.02, (z0 + z1) / 2, 0, ry); for (let k = 0; k < n; k++) { const t = (k + 0.5) / n; put(f, B(0.3, 0.26, 0.004), cols[k % cols.length], x0 + (x1 - x0) * t, y - 0.12 - Math.sin(t * Math.PI) * 0.15, z0 + (z1 - z0) * t, 0, ry); } };
   const wallScan = (f, cx, cy, dx, dy) => { let x = cx | 0, y = cy | 0; for (let k = 0; k < 20; k++) { const t = tileAt(f, x + dx, y + dy); if (t === T.WALL || t === undefined) return { x: x + 0.5 + dx * 0.5, y: y + 0.5 + dy * 0.5 }; x += dx; y += dy; } return null; };
   ROOMS.forEach((rs, f) => rs.forEach((room, ri) => {
     const id = room.id, [x0, y0, x1, y1] = room.r, c = ROOM_CENTER[f][ri]; if (!c || ['vacio', 'corredor', 'galeria'].includes(id)) return;
     const cx = (x0 + x1 + 1) / 2, cy = (y0 + y1 + 1) / 2;
-    if (id === 'patio') { put(f, C(1.4, 1.5, 0.5, 18), 0xb0a090, 29.8, 0.25, 19.8); put(f, C(0.2, 0.25, 1.2, 10), 0xb0a090, 29.8, 0.8, 19.8); put(f, C(0.6, 0.5, 0.14, 14), 0xb0a090, 29.8, 1.4, 19.8);
+    if (id === 'patio') { if(!NDAHouseArt.ownsPoint(f,29.8,19.8)){put(f, C(1.4, 1.5, 0.5, 18), 0xb0a090, 29.8, 0.25, 19.8); put(f, C(0.2, 0.25, 1.2, 10), 0xb0a090, 29.8, 0.8, 19.8); put(f, C(0.6, 0.5, 0.14, 14), 0xb0a090, 29.8, 1.4, 19.8);}
       papel(f, x0 + 0.5, y0 + 0.5, x1 + 0.5, y1 + 0.5, 3.3); papel(f, x0 + 0.5, y1 + 0.5, x1 + 0.5, y0 + 0.5, 3.2); papel(f, x0 + 0.5, cy, x1 + 0.5, cy, 3.4);
       [[x0 + 1, y0 + 1], [x1, y0 + 1], [x0 + 1, y1], [x1, y1], [cx - 5, y0 + 1], [cx + 5, y1]].forEach(([x, y]) => plant(f, x, y)); return; }
     // alfombra
@@ -478,8 +480,8 @@ function updateScene(t, dt) {
   velaLights.forEach((p, k) => { const v = velas[k]; p.intensity = 0; if (v) { p.position.set(v.x, v.f * FH + 0.6, v.y); p.intensity = 4 + Math.sin(t * 11 + k) * 0.6; } });
   const hc = ROOM_CENTER[g.home.f][g.home.r]; blueLight.intensity = 0; blueLight.position.set(hc.x, g.home.f * FH + 0.6, hc.y);
   // ambiente según quién mira
-  const amb = vk === 'ghost' ? 2.6 : vk === 'spirit' || vk === 'all' ? 2.0 : 0.9;
-  ambient.intensity = amb; ambient.color.setHex(vk === 'ghost' ? 0x5070a0 : 0x3a3060); scene.fog.near = vk === 'inv' ? 14 : 30; scene.fog.far = vk === 'inv' ? 34 : 80;
+  const amb = vk === 'ghost' ? 2.6 : vk === 'spirit' || vk === 'all' ? 2.0 : 1.02;
+  ambient.intensity = amb; hemi.intensity=vk==='inv'?.58:.45; ambient.color.setHex(vk === 'ghost' ? 0x5070a0 : 0x3a3060); scene.fog.near = vk === 'inv' ? 14 : 30; scene.fog.far = vk === 'inv' ? 34 : 80;
   // linterna del jugador
   if (V && V.kind === 'inv' && V.alive) { const on = V.flash && t >= V.flashOffUntil && V.hidden < 0; flash.intensity = !on ? 0 : g.hunt && sees(V, g, 12) && Math.random() < 0.25 ? 4 : 18; flash.position.set(V.x + Math.cos(V.face + 0.6) * 0.3, elv(V) + 1.3, V.y + Math.sin(V.face + 0.6) * 0.3); if (V === me0() && viewKind() === 'inv') { const dir = camLook.clone().sub(camera.position).normalize(); if (menuOpt.cam === 'fp') flash.position.copy(camera.position).addScaledVector(dir, 0.25).add(new THREE.Vector3(Math.cos(V.face + 1.4) * 0.18, -0.25, Math.sin(V.face + 1.4) * 0.18)); flash.target.position.copy(flash.position).addScaledVector(dir, 8); } else flash.target.position.set(V.x + Math.cos(V.face) * 7, elv(V) + 1.0, V.y + Math.sin(V.face) * 7); }
   else flash.intensity = 0;
@@ -508,7 +510,7 @@ function updateScene(t, dt) {
   ghostMesh.g.visible = ghostMesh.opS > 0.01 && (g.f === vf || vf === 1);
   if (ghostMesh.label) ghostMesh.label.visible = false;
   ghostMesh.mat.emissive.setHex(g.hunt ? 0x802020 : 0x405070);
-    { const gl = w.t < (g.revealUntil || 0); if (ghostMesh.glossy !== gl) { ghostMesh.glossy = gl; ghostMesh.fade.forEach(m => { m.roughness = gl ? 0.08 : 0.95; m.metalness = gl ? 0.55 : 0; m.flatShading = !gl; m.needsUpdate = true; }); } } ghostMesh.eyeMat.color.setHex(g.hunt ? 0xff3b4a : COL.gold);
+    { const gl = w.t < (g.revealUntil || 0); if (ghostMesh.glossy !== gl) { ghostMesh.glossy = gl; ghostMesh.fade.forEach(m => { const polished = gl && !ghostMesh.g.userData.approvedArt; m.roughness = polished ? 0.08 : 0.95; m.metalness = polished ? 0.55 : 0; m.flatShading = !polished; m.needsUpdate = true; }); } } ghostMesh.eyeMat.color.setHex(g.hunt ? 0xff3b4a : COL.gold);
   ghostMesh.g.position.set(g.x, elv(g), g.y); ghostMesh.g.rotation.y = -g.face + Math.PI / 2;
   // alucinación: un doble tal cual; 1 de cada 10, monstruoso
   { const h = w.hallu, mine = h && V && V.kind === 'inv' && V.id === h.who && vk === 'inv';
@@ -1045,11 +1047,11 @@ function setupRenderer() {
   if (renderer) return;
   renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1)); renderer.setSize(innerWidth, innerHeight);
-  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;NDAVisualQuality.apply(renderer,null);
   $('#stage').appendChild(renderer.domElement);
   renderer.domElement.addEventListener('mousedown', canvasDown); renderer.domElement.addEventListener('mouseup', canvasUp); renderer.domElement.addEventListener('contextmenu', e => e.preventDefault());
   camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 200);
-  addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); });
+  addEventListener('resize', () => { NDAVisualQuality.apply(renderer,flash);renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); });
 }
 let netActs = [], bgLast = 0;
 setInterval(() => { // si el anfitrión cambia de pestaña, la partida sigue para los demás
@@ -1075,7 +1077,7 @@ function start(netStart) {
     ME = Math.max(0, opt.humans.findIndex(h => h.peer === NET.id));
     netApply(w, netStart, ME); w.events.length = 0;
   } else w = newWorld(Object.assign({}, menuOpt));
-  if (scene) { scene.traverse(o => { if (o.geometry) o.geometry.dispose && o.geometry.dispose(); }); }
+  if (scene) { scene.traverse(o => { if (o.geometry) o.geometry.dispose && o.geometry.dispose();if(o.userData.NDAHouseArt)o.material.dispose(); }); }
   buildHouse(); camPos.set(0, 0, 0); yaw = -Math.PI / 2; pitch = -0.12; if (w.opt.role !== 'bots') setTimeout(nightRoulette, 300);
   follow = 0; speedMult = menuOpt.role === 'bots' && NET.mode === 'off' ? 2 : 1; keys.clear(); pressed.clear(); journalOpen = false; $('#journal').hidden = true;
   $('#menu').hidden = true; $('#modal').hidden = true; $('#game').hidden = false; setupTouch();
@@ -1172,8 +1174,9 @@ function menu() {
     <label>Duración de la noche</label>${seg('night', [[480, '8 min'], [600, '10 min'], [720, '12 min']], menuOpt.night)}
     <label>Equipo en la casa</label>${seg('equip', [['escaso', 'Escaso'], ['normal', 'Normal'], ['abundante', 'Abundante']], menuOpt.equip)}
     <label>Dificultad</label>${seg('diff', [['facil', 'Fácil'], ['normal', 'Normal'], ['pesadilla', 'Pesadilla']], menuOpt.diff)}
+    <label>Calidad gráfica</label>${seg('quality', [['auto','Automática'], ['low','Ligera'], ['balanced','Equilibrada'], ['high','Alta']], NDAVisualQuality.preference)}
     <label>Consejos en pantalla</label>${seg('tips', [['si', 'Sí'], ['no', 'No'], ['reset', 'Volver a mostrarlos']], menuOpt.tips)}`;
-  $('#opts').querySelectorAll('.seg button').forEach(b => b.onclick = () => { const n = b.parentElement.dataset.name; menuOpt[n] = ['nInv', 'night'].includes(n) ? +b.dataset.v : b.dataset.v; if (n === 'tips' && b.dataset.v === 'reset') { fb.tips.clear(); try { localStorage.removeItem('nda_tips'); } catch (e) {} menuOpt.tips = 'si'; } menu(); });
+  $('#opts').querySelectorAll('.seg button').forEach(b => b.onclick = () => { const n = b.parentElement.dataset.name;if(n==='quality'){NDAVisualQuality.select(b.dataset.v);NDAVisualQuality.apply(renderer,flash);menu();return;} menuOpt[n] = ['nInv', 'night'].includes(n) ? +b.dataset.v : b.dataset.v; if (n === 'tips' && b.dataset.v === 'reset') { fb.tips.clear(); try { localStorage.removeItem('nda_tips'); } catch (e) {} menuOpt.tips = 'si'; } menu(); });
   $('#catalog').innerHTML = `<table><thead><tr><th>Ánima</th><th>Visión cerca / lejos · oído</th><th>Velocidad · caza → tope</th><th>Caza cuando</th><th>Pasiva</th><th>Habilidad</th><th>Sello</th><th>Espanto</th></tr></thead><tbody>` +
     GHOSTS.map(G => `<tr><td><b>${G.n}</b><small>${G.ev.map(k => EV[k].n).join(' · ')}</small></td><td>${G.id === 'cucuy' ? 'oscuro 6/16, luz 3/4' : G.id === 'guardian' ? 'en su cuarto 8/20, fuera 3/6' : `${G.near} / ${G.farMin ? G.farMin + '–' : ''}${G.far} m`} · ${G.hear} m</td><td>${G.id === 'guardian' ? '1,8 / 2,6' : G.speed} · ${G.huntStart} → ${G.top}</td><td>${huntRuleTxt(G)}</td><td>${G.passive ? `<b>${G.passive.n}</b><small>${G.passive.d}</small>` : '—'}</td><td>${G.special ? `<b>${G.special.n}</b><small>${G.special.d}</small>` : '—'}</td><td>${G.sello.n}<small>se confunde con: ${G.sello.parecido}</small></td><td><b>${G.espanto.n}</b><small>${G.espanto.d}</small></td></tr>`).join('') + '</tbody></table>';
 }
@@ -1216,4 +1219,4 @@ $('#onMic').onclick = async () => { if (!audio) initAudio(); const ok = await VO
 // si cambias de personaje dentro de la sala, avísale al anfitrión
 document.addEventListener('click', e => { const b = e.target.closest('.seg[data-name="char"] button'); if (!b) return; setTimeout(() => { if (NET.mode === 'guest' && NET.hostConn && NET.hostConn.open) NET.hostConn.send({ t: 'char', char: menuOpt.char, name: onName() }); if (NET.mode === 'host' && NET.lobby[0]) { NET.lobby[0].char = menuOpt.char; NET.lobby[0].name = onName(); netLobbyChanged(); } }, 0); });
 menu();
-window.__game = { get w() { return w; }, setYaw(v) { yaw = v; }, get scene() { return scene; }, start, menuOpt, step, get ME() { return ME; }, NET, VOICE };
+window.__game = { get w() { return w; }, setYaw(v) { yaw = v; }, get scene() { return scene; }, get art(){return houseArtState;},quality:NDAVisualQuality,start, menuOpt, step, get ME() { return ME; }, NET, VOICE };
