@@ -87,7 +87,7 @@ function musicPlay(on) { ambience(on); return; try { if (!music) { music = new A
 const keys = new Set(), pressed = new Set();
 let mouse = { x: 0, y: 0, has: false }, throwHold = 0, throwing = false;
 const joy = { x: 0, y: 0 };
-let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro' };
+let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro', libreta: 'manual' };
 
 // Escultura vectorial: todo mate y de caras planas, sin la textura de grano (GDD §9.3)
 function LambertFlat(o) { o = Object.assign({}, o || {}); if (o.map && o.map === paper) delete o.map; return new THREE.MeshStandardMaterial(Object.assign({ flatShading: true, roughness: 0.95, metalness: 0 }, o)); }
@@ -664,6 +664,7 @@ function feedbackEvents() {
     if (e.type === 'burn' && me && e.f === me.f && Math.hypot(e.x - me.x, e.y - me.y) < 10) tip('burn', `Prender y apagar muchas veces <b>funde el foco</b>. Cámbialo con un <b>foco de repuesto</b> en la mano (${kb('Q', 'Luz')} junto al apagador).`);
     if (e.type === 'manifest' || e.type === 'fade' || (e.type === 'hunt') || (e.type === 'halluEnd' && me && e.who === me.id) || (e.type === 'dragOut')) glitch(e.type === 'hunt' ? 0.9 : e.type === 'halluEnd' ? 0.6 : 0.45);
     if (e.type === 'toolMsg' && me && e.who === me.id) analogFx.noVoltees = /VOLTEES|DETRÁS/.test(e.text) ? { yaw0: yaw, until: performance.now() + 6000 } : null;
+    if (e.type === 'mark' && NET.mode === 'guest' && w.opt.libreta === 'auto' && e.k && !w.conf[e.k]) w.conf[e.k] = { by: 'equipo', t: w.t, how: '' };
     if (e.type === 'reloj') analogFx.clockUntil = performance.now() + 4000;
     if (e.type === 'fakeSys') w.say(`⚠ ${e.name} se desconectó.`, 'i');
     if (e.type === 'possess' && me && e.who === me.id) { glitch(1.2); analogFx.possessT = performance.now(); }
@@ -1028,6 +1029,7 @@ function menu() {
     <label>Ánima ${menuOpt.role === 'inv' ? '(al azar es un misterio)' : ''}</label>${seg('ghost', [['random', 'Al azar'], ...GHOSTS.map(G => [G.id, G.n.replace('El Guardián del Entierro', 'Guardián').replace('Espíritu ', '')])], menuOpt.ghost)}
     <label>Duración de la noche</label>${seg('night', [[480, '8 min'], [600, '10 min'], [720, '12 min']], menuOpt.night)}
     <label>Equipo en la casa</label>${seg('equip', [['escaso', 'Escaso'], ['normal', 'Normal'], ['abundante', 'Abundante']], menuOpt.equip)}
+    ${menuOpt.role !== 'bots' ? `<label>Libreta</label>${seg('libreta', [['manual', 'Tú la llenas'], ['auto', 'Los bots anotan lo que ven']], menuOpt.libreta)}` : ''}
     <label>Dificultad</label>${seg('diff', [['facil', 'Fácil'], ['normal', 'Normal'], ['pesadilla', 'Pesadilla']], menuOpt.diff)}
     <label>Calidad gráfica</label>${seg('quality', [['auto','Automática'], ['low','Ligera'], ['balanced','Equilibrada'], ['high','Alta']], NDAVisualQuality.preference)}
     <label>Consejos en pantalla</label>${seg('tips', [['si', 'Sí'], ['no', 'No'], ['reset', 'Volver a mostrarlos']], menuOpt.tips)}`;

@@ -366,14 +366,18 @@ function newWorld(opt) {
 }
 
 // ---------- Deducción ----------
-const pruebas = w => Object.keys(w.conf).length;
-function candidates(w, useDiscards) {
-  return GHOSTS.filter(G => Object.keys(w.conf).every(k => G.ev.includes(k)) && (!useDiscards || !Object.keys(w.discard).some(k => w.discard[k] && G.ev.includes(k))));
+// w.conf = la libreta del equipo (la llenan las personas; los bots solo si la libreta automática está activa)
+// w.botConf = lo que los bots vieron con sus propios ojos (lo usan para decidir, no se marca solo)
+const pruebas = (w, K) => Object.keys(K || w.conf).length;
+const botK = w => Object.assign({}, w.botConf || {}, w.conf);
+function candidates(w, useDiscards, K) {
+  return GHOSTS.filter(G => Object.keys(K || w.conf).every(k => G.ev.includes(k)) && (!useDiscards || !Object.keys(w.discard).some(k => w.discard[k] && G.ev.includes(k))));
 }
 function confirmEv(w, k, by, how) {
-  if (w.conf[k] || !w.g.def.ev.includes(k)) return;
-  w.conf[k] = { by: by ? by.name : '?', t: w.t, how }; w.stats.conf++;
-  w.say(`${by ? by.name : 'Alguien'} anota en la libreta: ${EV[k].n} (${how}).`, 'a'); w.ev('mark', { k });
+  if (!w.g.def.ev.includes(k)) return; w.botConf = w.botConf || {}; const auto = w.opt.libreta === 'auto' || !w.invs.some(i => !i.bot);
+  if (w.botConf[k] && (w.conf[k] || !auto)) return; const first = !w.botConf[k]; w.botConf[k] = { by: by ? by.name : '?', t: w.t, how }; if (first) w.stats.conf++;
+  if (auto) { if (w.conf[k]) return; w.conf[k] = w.botConf[k]; w.say(`${by ? by.name : 'Alguien'} anota en la libreta: ${EV[k].n} (${how}).`, 'a'); w.ev('mark', { k }); }
+  else w.say(`${by ? by.name : 'Alguien'}: «¡Vi ${EV[k].n.toLowerCase()}! (${how})». Tú decides si lo anotas.`, 'a');
 }
 // una lectura positiva real: los bots la anotan; la persona la ve en su aparato y decide
 function observe(w, k, by, how) { if (!by || !by.alive || !w.g.def.ev.includes(k)) return; w.obs[k] = w.obs[k] || w.t; if (by.bot) confirmEv(w, k, by, how); }
@@ -928,7 +932,7 @@ function termoUse(w, b) { const r = roomOf(b); const k = b.slots.findIndex(s => 
 function lightUp(w, b) { const r = roomOf(b); if (r >= 0 && !w.lights[b.f][r] && !isHall(b.f, r) && ROOMS[b.f][r].id !== 'vacio' && Math.random() < 0.02) { if (!w.fuse[b.f]) { if (b.f === 0 && Math.random() < 0.2) b.ai.lure = { f: 0, x: FUSE.x, y: FUSE.y, until: w.t + 25, fuse: true }; return; } if (w.burnt[b.f][r]) { const fk = b.slots.findIndex(s => s && s.kind === 'foco'); if (fk >= 0) { b.hand = fk; toggleLight(w, b); } return; } toggleLight(w, b); } }
 function moveBot(w, b, tg, speed, dt, run) { if (run) { b.stam -= CFG.stamDrain * dt; if (b.stam <= 0) { b.stam = 0; b.tired = true; } } return navTo(w, b, tg, speed, dt); }
 function botTeam(w) {
-  const humanAlive = w.invs.some(i => !i.bot && i.alive && !i.escaped); const c = w.objDiscard ? candidates(w, true) : candidates(w), p = pruebas(w); const speaker = alive(w).find(i => i.bot); if (!speaker || w.phase !== 'night') return;
+  const humanAlive = w.invs.some(i => !i.bot && i.alive && !i.escaped); const K = botK(w), c = w.objDiscard ? candidates(w, true, K) : candidates(w, false, K), p = pruebas(w, K); const speaker = alive(w).find(i => i.bot); if (!speaker || w.phase !== 'night') return;
   const left = w.opt.night - w.t;
   if ((p >= 3 || (p >= 2 && c.length === 1) || (left < 90 && p >= 1))) {
     if (humanAlive) { if (!w.team.hinted) { w.say(`${speaker.name}: «${c.length === 1 ? 'Por la libreta, tiene que ser ' + c[0].n : 'Puede ser ' + c.map(x => x.n).join(', ')}. Vamos al altar».`, 'a'); w.team.hinted = true; } return; }
@@ -986,7 +990,7 @@ function botGhost(w, g, dt) {
       if (free && gReady(w, g, 'f') && Math.random() < dt * 0.5) { if (gPortazo(w, g)) { ai.nextAct = w.t + actGap(w); ai.hush = w.t + 15; return; } } // "se fue"... pero se queda quieta
       if (w.t < (ai.hush || 0)) { if (free && Math.random() < dt * 0.2) gAnomaly(w, g); return; }
       if (free && gReady(w, g, 'v') && Math.random() < dt * 0.3) { if (gSusurro(w, g)) ai.nextAct = w.t + actGap(w); }
-      if (g.mudanzas > 0 && pruebas(w) >= 2 && !ai.reloc && Math.random() < dt * 0.02) ai.reloc = pick(HOME_CHOICES.filter(h => !(h.f === g.home.f && h.r === g.home.r)));
+      if (g.mudanzas > 0 && pruebas(w, botK(w)) >= 2 && !ai.reloc && Math.random() < dt * 0.02) ai.reloc = pick(HOME_CHOICES.filter(h => !(h.f === g.home.f && h.r === g.home.r)));
       if (ai.reloc) { if (g.f === ai.reloc.f && roomOf(g) === ai.reloc.r) { gMudanza(w, g); ai.reloc = null; } else { navTo(w, g, ROOM_CENTER[ai.reloc.f][ai.reloc.r], sp, dt); return; } }
       break; }
   }
@@ -1211,7 +1215,7 @@ function step(w, dt, input) {
   if (w.t >= w.opt.night) {
     if (w.invs.some(i => !i.bot && i.alive)) { w.pendingDawn = true; w.say('Amanece: última oportunidad para nombrarla con lo que sepan.', 'a'); w.ev('dawn'); return; }
     if (w.t > w.opt.night + 45) { w.over = { win: 'ghost', cause: 'Llegó el Alba sin nombrarla' }; return; }
-    const c = candidates(w); if (!w.ritual) { w.dawnBots = true; const nm = al.sort((a, b) => pathLen(w, a, ALTAR_POS) - pathLen(w, b, ALTAR_POS))[0]; nm.ai.state = 'name'; nm.ai.nameId = pick(c.length ? c : GHOSTS).id; }
+    const c = candidates(w, false, botK(w)); if (!w.ritual) { w.dawnBots = true; const nm = al.sort((a, b) => pathLen(w, a, ALTAR_POS) - pathLen(w, b, ALTAR_POS))[0]; nm.ai.state = 'name'; nm.ai.nameId = pick(c.length ? c : GHOSTS).id; }
   }
 }
 function enteringDark(w, g, nx, ny) { const r0 = roomOf(g), r1 = roomAt(g.f, nx, ny); return r1 >= 0 && r1 !== r0 && !w.lights[g.f][r1] && !isHall(g.f, r1); }

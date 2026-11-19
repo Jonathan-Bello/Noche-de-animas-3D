@@ -734,14 +734,18 @@ function newWorld(opt) {
 }
 
 // ---------- Deducción ----------
-const pruebas = w => Object.keys(w.conf).length;
-function candidates(w, useDiscards) {
-  return GHOSTS.filter(G => Object.keys(w.conf).every(k => G.ev.includes(k)) && (!useDiscards || !Object.keys(w.discard).some(k => w.discard[k] && G.ev.includes(k))));
+// w.conf = la libreta del equipo (la llenan las personas; los bots solo si la libreta automática está activa)
+// w.botConf = lo que los bots vieron con sus propios ojos (lo usan para decidir, no se marca solo)
+const pruebas = (w, K) => Object.keys(K || w.conf).length;
+const botK = w => Object.assign({}, w.botConf || {}, w.conf);
+function candidates(w, useDiscards, K) {
+  return GHOSTS.filter(G => Object.keys(K || w.conf).every(k => G.ev.includes(k)) && (!useDiscards || !Object.keys(w.discard).some(k => w.discard[k] && G.ev.includes(k))));
 }
 function confirmEv(w, k, by, how) {
-  if (w.conf[k] || !w.g.def.ev.includes(k)) return;
-  w.conf[k] = { by: by ? by.name : '?', t: w.t, how }; w.stats.conf++;
-  w.say(`${by ? by.name : 'Alguien'} anota en la libreta: ${EV[k].n} (${how}).`, 'a'); w.ev('mark', { k });
+  if (!w.g.def.ev.includes(k)) return; w.botConf = w.botConf || {}; const auto = w.opt.libreta === 'auto' || !w.invs.some(i => !i.bot);
+  if (w.botConf[k] && (w.conf[k] || !auto)) return; const first = !w.botConf[k]; w.botConf[k] = { by: by ? by.name : '?', t: w.t, how }; if (first) w.stats.conf++;
+  if (auto) { if (w.conf[k]) return; w.conf[k] = w.botConf[k]; w.say(`${by ? by.name : 'Alguien'} anota en la libreta: ${EV[k].n} (${how}).`, 'a'); w.ev('mark', { k }); }
+  else w.say(`${by ? by.name : 'Alguien'}: «¡Vi ${EV[k].n.toLowerCase()}! (${how})». Tú decides si lo anotas.`, 'a');
 }
 // una lectura positiva real: los bots la anotan; la persona la ve en su aparato y decide
 function observe(w, k, by, how) { if (!by || !by.alive || !w.g.def.ev.includes(k)) return; w.obs[k] = w.obs[k] || w.t; if (by.bot) confirmEv(w, k, by, how); }
@@ -1296,7 +1300,7 @@ function termoUse(w, b) { const r = roomOf(b); const k = b.slots.findIndex(s => 
 function lightUp(w, b) { const r = roomOf(b); if (r >= 0 && !w.lights[b.f][r] && !isHall(b.f, r) && ROOMS[b.f][r].id !== 'vacio' && Math.random() < 0.02) { if (!w.fuse[b.f]) { if (b.f === 0 && Math.random() < 0.2) b.ai.lure = { f: 0, x: FUSE.x, y: FUSE.y, until: w.t + 25, fuse: true }; return; } if (w.burnt[b.f][r]) { const fk = b.slots.findIndex(s => s && s.kind === 'foco'); if (fk >= 0) { b.hand = fk; toggleLight(w, b); } return; } toggleLight(w, b); } }
 function moveBot(w, b, tg, speed, dt, run) { if (run) { b.stam -= CFG.stamDrain * dt; if (b.stam <= 0) { b.stam = 0; b.tired = true; } } return navTo(w, b, tg, speed, dt); }
 function botTeam(w) {
-  const humanAlive = w.invs.some(i => !i.bot && i.alive && !i.escaped); const c = w.objDiscard ? candidates(w, true) : candidates(w), p = pruebas(w); const speaker = alive(w).find(i => i.bot); if (!speaker || w.phase !== 'night') return;
+  const humanAlive = w.invs.some(i => !i.bot && i.alive && !i.escaped); const K = botK(w), c = w.objDiscard ? candidates(w, true, K) : candidates(w, false, K), p = pruebas(w, K); const speaker = alive(w).find(i => i.bot); if (!speaker || w.phase !== 'night') return;
   const left = w.opt.night - w.t;
   if ((p >= 3 || (p >= 2 && c.length === 1) || (left < 90 && p >= 1))) {
     if (humanAlive) { if (!w.team.hinted) { w.say(`${speaker.name}: «${c.length === 1 ? 'Por la libreta, tiene que ser ' + c[0].n : 'Puede ser ' + c.map(x => x.n).join(', ')}. Vamos al altar».`, 'a'); w.team.hinted = true; } return; }
@@ -1354,7 +1358,7 @@ function botGhost(w, g, dt) {
       if (free && gReady(w, g, 'f') && Math.random() < dt * 0.5) { if (gPortazo(w, g)) { ai.nextAct = w.t + actGap(w); ai.hush = w.t + 15; return; } } // "se fue"... pero se queda quieta
       if (w.t < (ai.hush || 0)) { if (free && Math.random() < dt * 0.2) gAnomaly(w, g); return; }
       if (free && gReady(w, g, 'v') && Math.random() < dt * 0.3) { if (gSusurro(w, g)) ai.nextAct = w.t + actGap(w); }
-      if (g.mudanzas > 0 && pruebas(w) >= 2 && !ai.reloc && Math.random() < dt * 0.02) ai.reloc = pick(HOME_CHOICES.filter(h => !(h.f === g.home.f && h.r === g.home.r)));
+      if (g.mudanzas > 0 && pruebas(w, botK(w)) >= 2 && !ai.reloc && Math.random() < dt * 0.02) ai.reloc = pick(HOME_CHOICES.filter(h => !(h.f === g.home.f && h.r === g.home.r)));
       if (ai.reloc) { if (g.f === ai.reloc.f && roomOf(g) === ai.reloc.r) { gMudanza(w, g); ai.reloc = null; } else { navTo(w, g, ROOM_CENTER[ai.reloc.f][ai.reloc.r], sp, dt); return; } }
       break; }
   }
@@ -1579,7 +1583,7 @@ function step(w, dt, input) {
   if (w.t >= w.opt.night) {
     if (w.invs.some(i => !i.bot && i.alive)) { w.pendingDawn = true; w.say('Amanece: última oportunidad para nombrarla con lo que sepan.', 'a'); w.ev('dawn'); return; }
     if (w.t > w.opt.night + 45) { w.over = { win: 'ghost', cause: 'Llegó el Alba sin nombrarla' }; return; }
-    const c = candidates(w); if (!w.ritual) { w.dawnBots = true; const nm = al.sort((a, b) => pathLen(w, a, ALTAR_POS) - pathLen(w, b, ALTAR_POS))[0]; nm.ai.state = 'name'; nm.ai.nameId = pick(c.length ? c : GHOSTS).id; }
+    const c = candidates(w, false, botK(w)); if (!w.ritual) { w.dawnBots = true; const nm = al.sort((a, b) => pathLen(w, a, ALTAR_POS) - pathLen(w, b, ALTAR_POS))[0]; nm.ai.state = 'name'; nm.ai.nameId = pick(c.length ? c : GHOSTS).id; }
   }
 }
 function enteringDark(w, g, nx, ny) { const r0 = roomOf(g), r1 = roomAt(g.f, nx, ny); return r1 >= 0 && r1 !== r0 && !w.lights[g.f][r1] && !isHall(g.f, r1); }
@@ -1959,7 +1963,7 @@ askSpirit = function (w, i, it) { const r = _askSpirit(w, i, it); if (w.g.def.id
 
 // ---------- Bots: se van por el zaguán con su apuesta ----------
 botTeam = function (w) {
-  const c = w.objDiscard ? candidates(w, true) : candidates(w), p = pruebas(w); const bots = alive(w).filter(i => i.bot); if (!bots.length || w.phase !== 'night') return;
+  const K = botK(w), c = w.objDiscard ? candidates(w, true, K) : candidates(w, false, K), p = pruebas(w, K); const bots = alive(w).filter(i => i.bot); if (!bots.length || w.phase !== 'night') return;
   const humansIn = w.invs.some(i => !i.bot && i.alive && !i.escaped), left = w.nightLen - w.t;
   const ready = p >= 3 || (p >= 2 && c.length === 1) || (left < 75 && p >= 1) || left < 40;
   if (!ready) return;
@@ -2690,7 +2694,7 @@ function netGuestData(d) {
 }
 
 // ---------- serializar el mundo ----------
-const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'bitacora','layoutPackingMisses']);
+const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'botConf', 'bitacora','layoutPackingMisses']);
 function netEnc(w, full) {
   const invs = new Set(w.invs), its = new Set(w.items), dr = new Map(w.doors.map((d, k) => [d, k]));
   const R = v => Math.round(v * 1000) / 1000;
@@ -4204,7 +4208,7 @@ function musicPlay(on) { ambience(on); return; try { if (!music) { music = new A
 const keys = new Set(), pressed = new Set();
 let mouse = { x: 0, y: 0, has: false }, throwHold = 0, throwing = false;
 const joy = { x: 0, y: 0 };
-let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro' };
+let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro', libreta: 'manual' };
 
 // Escultura vectorial: todo mate y de caras planas, sin la textura de grano (GDD §9.3)
 function LambertFlat(o) { o = Object.assign({}, o || {}); if (o.map && o.map === paper) delete o.map; return new THREE.MeshStandardMaterial(Object.assign({ flatShading: true, roughness: 0.95, metalness: 0 }, o)); }
@@ -4781,6 +4785,7 @@ function feedbackEvents() {
     if (e.type === 'burn' && me && e.f === me.f && Math.hypot(e.x - me.x, e.y - me.y) < 10) tip('burn', `Prender y apagar muchas veces <b>funde el foco</b>. Cámbialo con un <b>foco de repuesto</b> en la mano (${kb('Q', 'Luz')} junto al apagador).`);
     if (e.type === 'manifest' || e.type === 'fade' || (e.type === 'hunt') || (e.type === 'halluEnd' && me && e.who === me.id) || (e.type === 'dragOut')) glitch(e.type === 'hunt' ? 0.9 : e.type === 'halluEnd' ? 0.6 : 0.45);
     if (e.type === 'toolMsg' && me && e.who === me.id) analogFx.noVoltees = /VOLTEES|DETRÁS/.test(e.text) ? { yaw0: yaw, until: performance.now() + 6000 } : null;
+    if (e.type === 'mark' && NET.mode === 'guest' && w.opt.libreta === 'auto' && e.k && !w.conf[e.k]) w.conf[e.k] = { by: 'equipo', t: w.t, how: '' };
     if (e.type === 'reloj') analogFx.clockUntil = performance.now() + 4000;
     if (e.type === 'fakeSys') w.say(`⚠ ${e.name} se desconectó.`, 'i');
     if (e.type === 'possess' && me && e.who === me.id) { glitch(1.2); analogFx.possessT = performance.now(); }
@@ -5145,6 +5150,7 @@ function menu() {
     <label>Ánima ${menuOpt.role === 'inv' ? '(al azar es un misterio)' : ''}</label>${seg('ghost', [['random', 'Al azar'], ...GHOSTS.map(G => [G.id, G.n.replace('El Guardián del Entierro', 'Guardián').replace('Espíritu ', '')])], menuOpt.ghost)}
     <label>Duración de la noche</label>${seg('night', [[480, '8 min'], [600, '10 min'], [720, '12 min']], menuOpt.night)}
     <label>Equipo en la casa</label>${seg('equip', [['escaso', 'Escaso'], ['normal', 'Normal'], ['abundante', 'Abundante']], menuOpt.equip)}
+    ${menuOpt.role !== 'bots' ? `<label>Libreta</label>${seg('libreta', [['manual', 'Tú la llenas'], ['auto', 'Los bots anotan lo que ven']], menuOpt.libreta)}` : ''}
     <label>Dificultad</label>${seg('diff', [['facil', 'Fácil'], ['normal', 'Normal'], ['pesadilla', 'Pesadilla']], menuOpt.diff)}
     <label>Calidad gráfica</label>${seg('quality', [['auto','Automática'], ['low','Ligera'], ['balanced','Equilibrada'], ['high','Alta']], NDAVisualQuality.preference)}
     <label>Consejos en pantalla</label>${seg('tips', [['si', 'Sí'], ['no', 'No'], ['reset', 'Volver a mostrarlos']], menuOpt.tips)}`;

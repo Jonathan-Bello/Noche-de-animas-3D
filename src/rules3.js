@@ -360,7 +360,7 @@ askSpirit = function (w, i, it) { const r = _askSpirit(w, i, it); if (w.g.def.id
 
 // ---------- Bots: se van por el zaguán con su apuesta ----------
 botTeam = function (w) {
-  const c = w.objDiscard ? candidates(w, true) : candidates(w), p = pruebas(w); const bots = alive(w).filter(i => i.bot); if (!bots.length || w.phase !== 'night') return;
+  const K = botK(w), c = w.objDiscard ? candidates(w, true, K) : candidates(w, false, K), p = pruebas(w, K); const bots = alive(w).filter(i => i.bot); if (!bots.length || w.phase !== 'night') return;
   const humansIn = w.invs.some(i => !i.bot && i.alive && !i.escaped), left = w.nightLen - w.t;
   const ready = p >= 3 || (p >= 2 && c.length === 1) || (left < 75 && p >= 1) || left < 40;
   if (!ready) return;

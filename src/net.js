@@ -83,7 +83,7 @@ function netGuestData(d) {
 }
 
 // ---------- serializar el mundo ----------
-const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'bitacora','layoutPackingMisses']);
+const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'botConf', 'bitacora','layoutPackingMisses']);
 function netEnc(w, full) {
   const invs = new Set(w.invs), its = new Set(w.items), dr = new Map(w.doors.map((d, k) => [d, k]));
   const R = v => Math.round(v * 1000) / 1000;
