@@ -1065,7 +1065,8 @@ function start(netStart) {
   if (NET.mode === 'host') {
     const spec = !!($('#onSpec') && $('#onSpec').checked); NET.spec = spec;
     const humans = NET.lobby.filter(p => !spec || p.peer !== NET.id).map(p => ({ name: p.name, char: p.char, peer: p.peer }));
-    const opt = Object.assign({}, menuOpt, { role: 'inv', humans, nInv: Math.max(menuOpt.nInv, humans.length, 1), cursed: menuOpt.cursed });
+    const lab = !!($('#onLab') && $('#onLab').checked);
+    const opt = Object.assign({}, menuOpt, { role: 'inv', humans, nInv: lab ? Math.max(1, humans.length) : Math.max(menuOpt.nInv, humans.length, 1), cursed: menuOpt.cursed, lab });
     w = newWorld(spec ? Object.assign({}, opt, { role: 'bots' }) : opt); netHookWorld(w); NET.started = true; if (spec) { ME = -1; try { VOICE.stream && VOICE.stream.getAudioTracks().forEach(t => t.enabled = false); } catch (e) {} }
     const pkt = Object.assign({ t: 'start', opt: Object.assign({}, opt, { role: 'inv' }) }, netEnc(w, true));
     for (const c of NET.conns.values()) if (c.open) c.send(pkt);
@@ -1210,7 +1211,7 @@ NET.cb.left = peer => { if (!w) return; const i = w.invs.find(x => x.peer === pe
 $('#onHost').onclick = () => { netHost(onName(), menuOpt.char); onStatus('Creando la sala…'); };
 $('#onJoin').onclick = () => { const c = $('#onCode').value.trim().toUpperCase(); if (!/^[A-Z]{4}$/.test(c)) { onStatus('El código son 4 letras.', false); return; } netJoin(c, onName(), menuOpt.char); onStatus('Conectando…'); };
 $('#onLeave').onclick = () => { netClose(); onLobby([]); onStatus('Saliste de la sala.'); };
-$('#onStart').onclick = () => { if (NET.mode !== 'host') return; if (!audio) initAudio(); else if (audio.ctx.state === 'suspended') audio.ctx.resume(); start(); };
+$('#onStart').onclick = () => { if (NET.mode !== 'host') return; if (!audio) initAudio(); else if (audio.ctx.state === 'suspended') audio.ctx.resume(); const lab = $('#onLab') && $('#onLab').checked; if (lab) start.skipSlot = true; try { start(); } finally { start.skipSlot = false; } };
 $('#onMic').onclick = async () => { if (!audio) initAudio(); const ok = await VOICE.enable(); $('#onMic').classList.toggle('on', ok); $('#onMic').textContent = ok ? '🎙 Micrófono activo' : '🎙 Activar micrófono'; if (!ok) onStatus(VOICE.err + ' En celular, ábrelo en Chrome o Safari (no dentro de WhatsApp) y revisa el permiso del sitio.', false); };
 // si cambias de personaje dentro de la sala, avísale al anfitrión
 document.addEventListener('click', e => { const b = e.target.closest('.seg[data-name="char"] button'); if (!b) return; setTimeout(() => { if (NET.mode === 'guest' && NET.hostConn && NET.hostConn.open) NET.hostConn.send({ t: 'char', char: menuOpt.char, name: onName() }); if (NET.mode === 'host' && NET.lobby[0]) { NET.lobby[0].char = menuOpt.char; NET.lobby[0].name = onName(); netLobbyChanged(); } }, 0); });
