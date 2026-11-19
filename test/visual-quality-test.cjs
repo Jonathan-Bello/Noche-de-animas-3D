@@ -1,0 +1,11 @@
+const fs=require('node:fs'),assert=require('node:assert/strict'),path=require('node:path');
+const source=fs.readFileSync(path.join(__dirname,'../src/house-art.js'),'utf8');
+const q=new Function('localStorage','matchMedia','devicePixelRatio',source+';return NDAVisualQuality;')({getItem:()=>null,setItem:()=>{}},()=>({matches:true}),3);
+const r={dpr:3,setPixelRatio(n){this.dpr=n},shadowMap:{enabled:true}};
+q.apply(r,null);assert.equal(r.dpr,1);assert.equal(r.shadowMap.enabled,false);
+for(let k=0;k<800;k++)q.frame(r,70,k*70+1);
+assert(Math.abs(r.dpr-.65)<1e-5);q.apply(r,null);assert(Math.abs(r.dpr-.65)<1e-5,'Restart must retain the adaptive scale');
+for(let k=0;k<1600;k++)q.frame(r,16,60000+k*16);assert.equal(q.resolutionScale,1);
+q.select('high');q.apply(r,null);assert.equal(r.dpr,2);assert.equal(r.shadowMap.enabled,true);
+for(let k=0;k<800;k++)q.frame(r,70,90000+k*70);assert.equal(r.dpr,2,'Manual high quality must not be lowered');
+console.log('iPhone DPR cap, adaptation, recovery, restart and manual override passed');

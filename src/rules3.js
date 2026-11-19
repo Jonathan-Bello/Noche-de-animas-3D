@@ -131,7 +131,7 @@ function gHuellas(w, g) {    // huellas descalzas que avanzan hacia alguien que 
 }
 
 // ---------- Llevarse: toma algo que nadie ve y lo deja cerca, a media distancia o lejos ----------
-function watchedBy(w, p, R) { return alive(w).some(i => i.f === p.f && i.hidden < 0 && sees(i, p, R || 14)); }
+function watchedBy(w, p, R) { return alive(w).some(i => i.f === p.f && i.hidden < 0 && sees(i, p, R || 14,w)); }
 function llevarse(w, g, forceKind) {
   const tier = forceKind || (PROF[g.def.id] || {}).lleva; if (!tier) return false;
   const loose = w.items.filter(it => !it.holder && it.f === g.f && d2(it, g) < 6 && !watchedBy(w, it));
@@ -310,9 +310,9 @@ function casDo(w, k, v) {
 function casonaTick(w, dt) {
   if (w.phase !== 'night' || w.g.hunt || w.possess) return;
   // anomalías: notarla quita cordura
-  for (const me of alive(w)) for (const a of w.anoms) if (a.f === me.f && !a.seen.has(me.id) && sees(me, a, 7)) { a.seen.add(me.id); w.haunt(me, 3); w.ev('anomSeen', { f: a.f, x: a.x, y: a.y, who: me.id }); }
+  for (const me of alive(w)) for (const a of w.anoms) if (a.f === me.f && !a.seen.has(me.id) && sees(me, a, 7,w)) { a.seen.add(me.id); w.haunt(me, 3); w.ev('anomSeen', { f: a.f, x: a.x, y: a.y, who: me.id }); }
   // el señuelo se esfuma si te acercas
-  if (w.decoy && (w.t > w.decoy.until || alive(w).some(i => i.f === w.decoy.f && d2(i, w.decoy) < 6))) { const seen = alive(w).filter(i => i.f === w.decoy.f && sees(i, w.decoy, 20)); seen.forEach(i => w.haunt(i, 2)); w.decoy = null; }
+  if (w.decoy && (w.t > w.decoy.until || alive(w).some(i => i.f === w.decoy.f && d2(i, w.decoy) < 6))) { const seen = alive(w).filter(i => i.f === w.decoy.f && sees(i, w.decoy, 20,w)); seen.forEach(i => w.haunt(i, 2)); w.decoy = null; }
   if (w.corpse && w.t > w.corpse.until) w.corpse = null; if (w.kneel && w.t > w.kneel.until) w.kneel = null;
   w.cas.next -= dt * w.casRate; if (w.cas.next <= 0) { w.cas.next = 60; casRoll(w); }
 }

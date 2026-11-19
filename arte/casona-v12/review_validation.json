@@ -1,16 +1,16 @@
 {
   "passed": true,
   "completeBrowserSession": {
-    "t": 557.3000000000582,
+    "t": 564.2000000000597,
     "over": {
       "win": "inv",
-      "cause": "Jenny sali\u00f3 con la apuesta correcta"
+      "cause": "Tom\u00e1s sali\u00f3 con la apuesta correcta"
     },
     "hunts": 2,
     "draw": {
-      "frame": 56,
-      "calls": 185,
-      "triangles": 33980,
+      "frame": 57,
+      "calls": 208,
+      "triangles": 33888,
       "points": 0,
       "lines": 0
     },
@@ -26,393 +26,400 @@
   "renderSamples": [
     {
       "frame": 1,
-      "calls": 188,
-      "triangles": 34502,
+      "calls": 190,
+      "triangles": 34622,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 2,
-      "calls": 202,
-      "triangles": 34848,
+      "calls": 413,
+      "triangles": 42378,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 3,
-      "calls": 277,
-      "triangles": 36448,
+      "calls": 194,
+      "triangles": 35614,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 4,
-      "calls": 185,
-      "triangles": 32922,
+      "calls": 416,
+      "triangles": 46440,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 5,
-      "calls": 300,
-      "triangles": 41960,
+      "calls": 231,
+      "triangles": 39556,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 6,
-      "calls": 268,
-      "triangles": 37504,
+      "calls": 224,
+      "triangles": 38992,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 7,
-      "calls": 182,
-      "triangles": 33192,
+      "calls": 179,
+      "triangles": 33338,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 8,
-      "calls": 222,
-      "triangles": 37328,
+      "calls": 189,
+      "triangles": 35228,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 9,
-      "calls": 213,
-      "triangles": 37570,
+      "calls": 185,
+      "triangles": 35154,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 10,
-      "calls": 236,
-      "triangles": 35676,
+      "calls": 215,
+      "triangles": 38306,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 11,
-      "calls": 322,
-      "triangles": 41256,
+      "calls": 275,
+      "triangles": 39766,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 12,
-      "calls": 431,
-      "triangles": 41256,
+      "calls": 208,
+      "triangles": 38270,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 13,
-      "calls": 217,
-      "triangles": 38996,
+      "calls": 202,
+      "triangles": 35496,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 14,
-      "calls": 198,
-      "triangles": 35034,
+      "calls": 227,
+      "triangles": 40004,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 15,
-      "calls": 182,
-      "triangles": 34994,
+      "calls": 212,
+      "triangles": 37274,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 16,
-      "calls": 268,
-      "triangles": 36454,
+      "calls": 299,
+      "triangles": 39234,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 17,
-      "calls": 195,
-      "triangles": 36170,
+      "calls": 260,
+      "triangles": 38086,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 18,
-      "calls": 362,
-      "triangles": 42188,
+      "calls": 214,
+      "triangles": 35568,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 19,
-      "calls": 190,
-      "triangles": 34718,
+      "calls": 193,
+      "triangles": 35564,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 20,
-      "calls": 289,
-      "triangles": 43231,
+      "calls": 240,
+      "triangles": 37634,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 21,
-      "calls": 200,
-      "triangles": 34052,
+      "calls": 192,
+      "triangles": 36032,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 22,
-      "calls": 190,
-      "triangles": 34480,
+      "calls": 188,
+      "triangles": 36208,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 23,
-      "calls": 198,
-      "triangles": 34558,
+      "calls": 266,
+      "triangles": 42496,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 24,
-      "calls": 290,
-      "triangles": 38648,
+      "calls": 215,
+      "triangles": 36736,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 25,
-      "calls": 272,
-      "triangles": 40138,
+      "calls": 187,
+      "triangles": 35618,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 26,
-      "calls": 277,
-      "triangles": 38498,
+      "calls": 260,
+      "triangles": 41786,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 27,
-      "calls": 183,
-      "triangles": 33018,
+      "calls": 291,
+      "triangles": 40724,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 28,
-      "calls": 183,
-      "triangles": 32978,
+      "calls": 197,
+      "triangles": 33622,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 29,
-      "calls": 184,
-      "triangles": 32800,
+      "calls": 197,
+      "triangles": 33622,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 30,
-      "calls": 213,
-      "triangles": 36920,
+      "calls": 192,
+      "triangles": 33300,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 31,
-      "calls": 314,
-      "triangles": 38676,
+      "calls": 226,
+      "triangles": 39110,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 32,
-      "calls": 208,
-      "triangles": 37122,
+      "calls": 221,
+      "triangles": 36506,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 33,
-      "calls": 282,
-      "triangles": 37652,
+      "calls": 278,
+      "triangles": 36038,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 34,
       "calls": 213,
-      "triangles": 37504,
+      "triangles": 36462,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 35,
-      "calls": 188,
-      "triangles": 35240,
+      "calls": 183,
+      "triangles": 32998,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 36,
-      "calls": 190,
-      "triangles": 33470,
+      "calls": 196,
+      "triangles": 33800,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 37,
-      "calls": 236,
-      "triangles": 39636,
+      "calls": 196,
+      "triangles": 33800,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 38,
-      "calls": 226,
-      "triangles": 38872,
+      "calls": 351,
+      "triangles": 38462,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 39,
-      "calls": 211,
-      "triangles": 35728,
+      "calls": 273,
+      "triangles": 36214,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 40,
-      "calls": 202,
-      "triangles": 35492,
+      "calls": 223,
+      "triangles": 38204,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 41,
-      "calls": 191,
-      "triangles": 35828,
+      "calls": 222,
+      "triangles": 37712,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 42,
-      "calls": 236,
-      "triangles": 34992,
+      "calls": 331,
+      "triangles": 40234,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 43,
-      "calls": 279,
-      "triangles": 36756,
+      "calls": 226,
+      "triangles": 36268,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 44,
-      "calls": 180,
-      "triangles": 32902,
+      "calls": 232,
+      "triangles": 34814,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 45,
-      "calls": 208,
-      "triangles": 37242,
+      "calls": 366,
+      "triangles": 43234,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 46,
-      "calls": 244,
-      "triangles": 38312,
+      "calls": 208,
+      "triangles": 33888,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 47,
-      "calls": 325,
-      "triangles": 43434,
+      "calls": 306,
+      "triangles": 37064,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 48,
-      "calls": 205,
-      "triangles": 38806,
+      "calls": 197,
+      "triangles": 33338,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 49,
-      "calls": 192,
-      "triangles": 36750,
+      "calls": 226,
+      "triangles": 38148,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 50,
-      "calls": 278,
-      "triangles": 40474,
+      "calls": 250,
+      "triangles": 35358,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 51,
-      "calls": 187,
-      "triangles": 36834,
+      "calls": 220,
+      "triangles": 38222,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 52,
-      "calls": 244,
-      "triangles": 36628,
+      "calls": 192,
+      "triangles": 33266,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 53,
-      "calls": 285,
-      "triangles": 36162,
+      "calls": 216,
+      "triangles": 34914,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 54,
-      "calls": 183,
-      "triangles": 33014,
+      "calls": 199,
+      "triangles": 36180,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 55,
-      "calls": 183,
-      "triangles": 34682,
+      "calls": 207,
+      "triangles": 34456,
       "points": 0,
       "lines": 0
     },
     {
       "frame": 56,
-      "calls": 185,
-      "triangles": 33980,
+      "calls": 221,
+      "triangles": 37288,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 57,
+      "calls": 208,
+      "triangles": 33888,
       "points": 0,
       "lines": 0
     }

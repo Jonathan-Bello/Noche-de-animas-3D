@@ -395,7 +395,7 @@ function confirmEv(w, k, by, how) {
 }
 // una lectura positiva real: los bots la anotan; la persona la ve en su aparato y decide
 function observe(w, k, by, how) { if (!by || !by.alive || !w.g.def.ev.includes(k)) return; w.obs[k] = w.obs[k] || w.t; if (by.bot) confirmEv(w, k, by, how); }
-function witnessOf(w, p, R) { return alive(w).filter(i => i.hidden < 0 && sees(i, p, R)).sort((a, b) => d2(a, p) - d2(b, p))[0]; }
+function witnessOf(w, p, R) { return alive(w).filter(i => i.hidden < 0 && sees(i, p, R,w)).sort((a, b) => d2(a, p) - d2(b, p))[0]; }
 // temperatura en un punto: baja con el rastro; bajo cero solo con la evidencia y en el punto frío
 function tempAt(w, f, x, y) {
   const r = roomAt(f, x, y); if (r < 0) return 18; const ras = w.rastro[f][r], c = w.cold[f][r], g = w.g;
@@ -418,7 +418,7 @@ function emitSello(w, g, kind) {
   if (kind === 'nombre') return true;
   w.sub(p, text, sound ? CFG.selloSound + 2 : CFG.selloSight + 2);
   for (const i of alive(w)) {
-    const ok = sound ? (i.f === p.f && d2(i, p) <= CFG.selloSound) : sees(i, p, CFG.selloSight);
+    const ok = sound ? (i.f === p.f && d2(i, p) <= CFG.selloSound) : sees(i, p, CFG.selloSight,w);
     if (ok) { w.ev('selloSeen', { who: i.id }); break; }
   }
 }
@@ -745,7 +745,7 @@ function gManifest(w, g) {
   if (w.t < (g.ready.k || 0) || g.state !== 'libre' || (g.hunt && !g.hunt.huida) || g.pres < CFG.manifest.cost) return false;
   const v = exposedInvs(w).filter(i => i.f === g.f && d2(i, g) <= 7).sort((a, b) => d2(a, g) - d2(b, g))[0]; if (!v) return false;
   g.ready.k = w.t + CFG.manifest.cd; g.pres -= CFG.manifest.cost; g.lastMan = { f: g.f, x: g.x, y: g.y, t: w.t }; g.revealUntil = w.t + CFG.manifest.show; const snd = MANIFEST_SND[g.def.id] || 'quejido';
-  exposedInvs(w).filter(i => i.f === g.f && d2(i, g) <= 7 && sees(i, g, 7)).forEach(i => w.haunt(i, CFG.manifest.dmg));
+  exposedInvs(w).filter(i => i.f === g.f && d2(i, g) <= 7 && sees(i, g, 7,w)).forEach(i => w.haunt(i, CFG.manifest.dmg));
   w.sub(g, { canto: 'Un canto lejano, de golpe', llanto: '¡Un llanto desgarrado!', risa: '¡Una risa aguda!', grito: '¡UN GRITO!', quejido: 'Un quejido largo' }[snd], 14);
   w.ev('manifest', { f: g.f, x: g.x, y: g.y, snd }); ghostEvent(w, g, 'manifest'); return true;
 }
@@ -780,7 +780,7 @@ function possessTick(w, dt, human) {
 // Anomalía: algo aparece o cambia donde nadie está mirando
 function gAnomaly(w, g) {
   if (w.t < (g.ready.y || 0) || g.state !== 'libre' || g.hunt || g.pres < CFG.anomaly.cost) return false;
-  const watched = p => alive(w).some(i => i.f === p.f && i.hidden < 0 && sees(i, p, 14));
+  const watched = p => alive(w).some(i => i.f === p.f && i.hidden < 0 && sees(i, p, 14,w));
   const r = roomOf(g); if(r<0||!ROOMS[g.f][r].home)return false;let p=null;
   for (let k = 0; k < 10 && !p; k++) { const q = Math.random() < 0.6 && SURFACES[g.f][r].length ? onFurniture(g.f, r) : Object.assign(randomIn(g.f, r), { h: 0 }); if (d2(q, g) < 4.5 && !watched(q)) p = q; }
   if (!p) { if (!g.bot) w.say('Anomalía: alguien está mirando. Hazlo donde no te vean.', 'g'); return false; }
@@ -797,7 +797,7 @@ function gAnomaly(w, g) {
 // El director del terror analógico: cosas raras para quien juega (no cambian las lecturas)
 function analogTick(w, dt) {
   const me = w.invs.find(i => !i.bot && i.alive); if (!me || w.phase !== 'night' || w.g.hunt || w.possess) return;
-  for (const a of w.anoms) if (a.f === me.f && !a.seen.has(me.id) && sees(me, a, 7)) { a.seen.add(me.id); w.haunt(me, 3); w.ev('anomSeen', { f: a.f, x: a.x, y: a.y }); }
+  for (const a of w.anoms) if (a.f === me.f && !a.seen.has(me.id) && sees(me, a, 7,w)) { a.seen.add(me.id); w.haunt(me, 3); w.ev('anomSeen', { f: a.f, x: a.x, y: a.y }); }
   if (w.t < w.analogNext) return; w.analogNext = w.t + rnd(CFG.analog.gap[0], CFG.analog.gap[1]) * (0.55 + 0.45 * me.san / 100);
   const opts = ['eco', 'loteria', 'rezo', 'reloj', 'sistema']; const h = handItem(me); if (h && ITEMS[h.kind].elec) opts.push('herramienta', 'herramienta'); if (isolated(w, me) && !w.hallu) opts.push('doble', 'doble');
   const k = pick(opts);
@@ -858,7 +858,7 @@ function botInv(w, b, dt) {
   const teK = b.slots.findIndex(s => s && s.kind === 'te'); if (b.san < 45 && teK >= 0) { b.hand = teK; useItem(w, b); }
   const lmK = b.slots.findIndex(s => s && s.kind === 'limpia'); if (b.san < 40 && teK < 0 && lmK >= 0) { b.hand = lmK; useItem(w, b); }
   // cacería
-  const gSeen = g.state !== 'despertando' && g.f === b.f && (d2(g, b) < 3 || (g.hunt && sees(b, g, 12)) || w.t < g.revealUntil && d2(g, b) < 10);
+  const gSeen = g.state !== 'despertando' && g.f === b.f && (d2(g, b) < 3 || (g.hunt && sees(b, g, 12,w)) || w.t < g.revealUntil && d2(g, b) < 10);
   if (g.hunt && gSeen) {
     if (!ai.react) ai.react = w.t + rnd(0.4, 1.3);
     if (w.t >= ai.react) {

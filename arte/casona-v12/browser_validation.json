@@ -6,13 +6,13 @@
       "quality": "low",
       "shadows": false,
       "dpr": 1,
-      "active": 21,
+      "active": 22,
       "drawers": 66,
       "invalid": 0,
       "draw": {
         "frame": 1,
-        "calls": 327,
-        "triangles": 45668,
+        "calls": 324,
+        "triangles": 45880,
         "points": 0,
         "lines": 0
       }
@@ -22,13 +22,13 @@
       "quality": "balanced",
       "shadows": true,
       "dpr": 1.35,
-      "active": 21,
+      "active": 22,
       "drawers": 66,
       "invalid": 0,
       "draw": {
         "frame": 1,
-        "calls": 342,
-        "triangles": 47530,
+        "calls": 340,
+        "triangles": 47824,
         "points": 0,
         "lines": 0
       },
@@ -44,13 +44,13 @@
       "quality": "high",
       "shadows": true,
       "dpr": 2,
-      "active": 21,
+      "active": 22,
       "drawers": 66,
       "invalid": 0,
       "draw": {
         "frame": 1,
-        "calls": 323,
-        "triangles": 47164,
+        "calls": 324,
+        "triangles": 47436,
         "points": 0,
         "lines": 0
       }
@@ -65,8 +65,8 @@
       "invalid": 0,
       "draw": {
         "frame": 1,
-        "calls": 179,
-        "triangles": 32980,
+        "calls": 166,
+        "triangles": 32396,
         "points": 0,
         "lines": 0
       }

@@ -1,13 +1,13 @@
 {
   "errors": [],
   "metrics": {
-    "meshes": 1429,
-    "vertices": 290876,
+    "meshes": 1417,
+    "vertices": 290308,
     "invalid": 0,
     "draw": {
       "frame": 11,
-      "calls": 178,
-      "triangles": 17390,
+      "calls": 177,
+      "triangles": 17150,
       "points": 0,
       "lines": 0
     },

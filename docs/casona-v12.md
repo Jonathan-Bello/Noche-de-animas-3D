@@ -1,6 +1,6 @@
 # Casona v12 — mobiliario, uniones y recorridos
 
-Esta revisión parte de `8b6b1a1`, incluida la actualización territorial del ánima. Conserva personajes, animaciones, apariencias y reglas de evidencias. El [croquis amueblado](../arte/casona-v12/index.html) se genera del registro que usa el juego: permite seleccionar cada cuarto y consultar muebles, dimensiones, altura y contenido previsto.
+Esta revisión se integra sobre `cf15711`, conservando la libreta manual y la actualización territorial del ánima. Conserva personajes, animaciones, apariencias y reglas de evidencias. El [croquis amueblado](../arte/casona-v12/index.html) se genera del registro que usa el juego: permite seleccionar cada cuarto y consultar muebles, dimensiones, altura y contenido previsto.
 
 ## Fallos corregidos
 
@@ -33,7 +33,7 @@ Los **24 libros del librero son objetos sueltos independientes**, sincronizados 
 
 Los muebles no cambian de posición entre noches. Se sortea su disponibilidad y candado. Hay 24 candidatos; al llevar los refugios al perímetro y añadir arcones fuera de las escaleras, mantener la cobertura de 18 m requiere **21–22 activos** en las selecciones ensayadas. El nuevo presupuesto es 20–22, sustituyendo el de 18–20 de v11. Como antes, se mide el camino horizontal con puertas transitables y no garantiza sobrevivir a una cacería.
 
-Los bots y el ánima hacen una pausa al abrir una puerta: 0.35 y 0.65 s respectivamente. Una puerta cerrada sobre la celda ocupada por el actor también se puede abrir desde dentro. No se modifican las velocidades ni las habilidades específicas de cada ánima para forzar un porcentaje de victorias.
+Los bots y el ánima hacen una pausa al abrir una puerta: 0.35 y 0.65 s respectivamente. Una puerta cerrada sobre la celda ocupada por el actor también se puede abrir desde dentro. Las comprobaciones visuales de testigos y bots reciben también el estado de las puertas; una puerta cerrada corta su línea de vista. No se modifican las velocidades ni las habilidades específicas de cada ánima para forzar un porcentaje de victorias.
 
 ## Calidad móvil e iPhone 12
 
@@ -48,6 +48,7 @@ Se prueba WebKit en Windows con los perfiles de Playwright `iPhone 12` y `iPhone
 ```sh
 python src/build.py prod
 node test/layout-v11-test.cjs
+node test/visual-quality-test.cjs
 GHOSTS=all node test/session-casona.cjs
 python test/browser-layout-v11.py
 python test/online-layout-v11.py
@@ -64,7 +65,7 @@ Resultados de esta revisión:
 - Acceso a los 22 cuartos; cobertura de refugios en 100 selecciones; colocación de suministros en 60 mundos.
 - 24 recorridos de escalera con entradas descentradas, radios reales 0.30/0.32 m y tres pasos de tiempo diferentes.
 - 22 partidas completas con cuatro bots y los 22 tipos de ánima: todas terminan, sin inmovilidad de más de 20 s detectada en las escaleras. Hubo 30 cacerías; 9 resultados a favor de investigadores y 13 a favor del ánima. La identificación de evidencias por bots influye en esos resultados, por lo que no son un estudio de balance humano.
-- Partida completa en navegador con pantalla táctil emulada, dos cacerías y final a los 557.3 s de simulación. Se toman muestras de renderizado durante la sesión; no se presenta como una partida humana en tiempo real.
+- Partida completa en navegador con pantalla táctil emulada, dos cacerías y final a los 564.2 s de simulación. Se toman muestras de renderizado durante la sesión; no se presenta como una partida humana en tiempo real.
 - Cuatro calidades, reinicio de escena, apertura de cajones, recuperación de resolución y croquis seleccionable sin desbordamiento horizontal móvil.
 - Dos navegadores: movimiento, linterna, distribución aleatoria, cajones, lanzamiento de un libro independiente y desconexión sincronizados con transporte local de prueba.
 - WebKit con iPhone 12 vertical y horizontal. Mallas y matrices finitas, colores constantes por cara y sin intersecciones coplanares detectadas entre vanos y paredes.

@@ -2,7 +2,7 @@ const fs=require('node:fs'),assert=require('node:assert/strict');
 const root=require('node:path').join(__dirname,'..');
 const read=p=>fs.readFileSync(require('node:path').join(root,p),'utf8');
 let source='const NDALayout='+read('src/layout-v11.json')+';\n'+read('src/logic2.js').replace('/*LAYOUT_RUNTIME*/',read('src/layout-runtime.js'))+'\n'+read('src/rules3.js')+'\n'+read('src/rules4.js')+'\n'+read('src/layout-rules.js');
-const api=new Function('module',source+';return {newWorld,step,interact,pickUp,layoutItemVisible,layoutBeginSearch,chooseSpots,SPOTS,ROOMS,ROOM_TILES,ROOM_CENTER,HOME_CHOICES,SURFACES,layoutHideCache,grids,T,STAIR_BLOCK,STAIR_PATHS,stairProjection,layoutDistances,navTo,stairFlip,elevOf,pathLen,los,gMover};')({exports:{}});
+const api=new Function('module',source+';return {newWorld,step,interact,pickUp,layoutItemVisible,layoutBeginSearch,chooseSpots,SPOTS,ROOMS,ROOM_TILES,ROOM_CENTER,HOME_CHOICES,SURFACES,layoutHideCache,grids,T,STAIR_BLOCK,STAIR_PATHS,stairProjection,layoutDistances,navTo,stairFlip,elevOf,pathLen,los,gMover,sees};')({exports:{}});
 console.log('rooms',api.ROOMS.map(r=>r.length),'spots',api.SPOTS.length);
 assert.equal(api.HOME_CHOICES.length,22);assert.equal(api.SPOTS.length,24);
 const c=api.layoutHideCache();console.log('coverage cells',c.points.length);
@@ -37,3 +37,5 @@ for(const radius of[.30,.32])for(const dt of[1/60,.05,.1])for(const [start,tg]of
 console.log('24 offset traversals passed with real .30/.32m capsules');
 
 const bookWorld=api.newWorld({role:'bots',nInv:4,ghost:'pena'}),books=bookWorld.loose.filter(o=>o.shelfId);assert.equal(books.length,24);const book=books[0],original={x:book.x,y:book.y,h:book.h};bookWorld.loose=[book];bookWorld.t=100;Object.assign(bookWorld.g,{f:0,x:book.x,y:15.5,state:'libre',stunUntil:0});bookWorld.g.ready.c=0;assert(api.gMover(bookWorld,bookWorld.g));assert.equal(book.h,0);assert.deepEqual(book.from,original);assert(Math.hypot(book.x-original.x,book.y-original.y)>.5);console.log('24 independent shelf books, real throw with no decorative duplicate passed');
+
+const closed=w.doors.find(d=>d.f===0&&d.x===30&&d.y===9.5),aView={f:0,x:30,y:8.3},bView={f:0,x:30,y:10.7};closed.closed=true;assert.equal(api.sees(aView,bView,10,w),false);closed.closed=false;assert.equal(api.sees(aView,bView,10,w),true);console.log('Actor sight respects closed/open door state');

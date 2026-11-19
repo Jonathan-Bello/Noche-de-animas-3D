@@ -1461,7 +1461,8 @@
       ],
       "height": 0.5,
       "kind": "bench",
-      "blocksSight": false
+      "blocksSight": false,
+      "visualHeight": 1.04
     },
     {
       "floor": 0,
@@ -1474,7 +1475,8 @@
       ],
       "height": 0.5,
       "kind": "bench",
-      "blocksSight": false
+      "blocksSight": false,
+      "visualHeight": 1.04
     },
     {
       "floor": 0,
@@ -1487,7 +1489,8 @@
       ],
       "height": 0.5,
       "kind": "bench",
-      "blocksSight": false
+      "blocksSight": false,
+      "visualHeight": 1.04
     },
     {
       "floor": 0,
@@ -1500,7 +1503,8 @@
       ],
       "height": 0.5,
       "kind": "bench",
-      "blocksSight": false
+      "blocksSight": false,
+      "visualHeight": 1.04
     },
     {
       "floor": 1,
@@ -1513,7 +1517,8 @@
       ],
       "height": 1.1,
       "kind": "prop",
-      "blocksSight": false
+      "blocksSight": false,
+      "visualHeight": 1.16
     },
     {
       "floor": 1,
@@ -1526,7 +1531,8 @@
       ],
       "height": 1.1,
       "kind": "prop",
-      "blocksSight": false
+      "blocksSight": false,
+      "visualHeight": 1.2
     },
     {
       "floor": 1,
@@ -1558,7 +1564,8 @@
         37.35,
         25.7,
         37.65
-      ]
+      ],
+      "visualHeight": 2.03
     },
     {
       "floor": 0,
@@ -1584,7 +1591,8 @@
       ],
       "height": 0.65,
       "kind": "bath",
-      "blocksSight": false
+      "blocksSight": false,
+      "visualHeight": 0.78
     },
     {
       "floor": 0,
@@ -2094,7 +2102,8 @@
       "kind": "bench",
       "model": "bench",
       "label": "Banca del estrado",
-      "contents": []
+      "contents": [],
+      "visualHeight": 1.04
     },
     {
       "id": "am_silla_0",
@@ -2112,7 +2121,8 @@
       "model": "chair",
       "label": "Silla de comedor",
       "contents": [],
-      "facing": 0
+      "facing": 0,
+      "visualHeight": 1.11
     },
     {
       "id": "am_silla_1",
@@ -2130,7 +2140,8 @@
       "model": "chair",
       "label": "Silla de comedor",
       "contents": [],
-      "facing": 0
+      "facing": 0,
+      "visualHeight": 1.11
     },
     {
       "id": "am_silla_2",
@@ -2148,7 +2159,8 @@
       "model": "chair",
       "label": "Silla de comedor",
       "contents": [],
-      "facing": 0
+      "facing": 0,
+      "visualHeight": 1.11
     },
     {
       "id": "am_silla_3",
@@ -2166,7 +2178,8 @@
       "model": "chair",
       "label": "Silla de comedor",
       "contents": [],
-      "facing": 3.14159265
+      "facing": 3.14159265,
+      "visualHeight": 1.11
     },
     {
       "id": "am_silla_4",
@@ -2184,7 +2197,8 @@
       "model": "chair",
       "label": "Silla de comedor",
       "contents": [],
-      "facing": 3.14159265
+      "facing": 3.14159265,
+      "visualHeight": 1.11
     },
     {
       "id": "am_silla_5",
@@ -2202,7 +2216,8 @@
       "model": "chair",
       "label": "Silla de comedor",
       "contents": [],
-      "facing": 3.14159265
+      "facing": 3.14159265,
+      "visualHeight": 1.11
     },
     {
       "id": "am_silla_6",
@@ -2220,7 +2235,8 @@
       "model": "chair",
       "label": "Silla de comedor",
       "contents": [],
-      "facing": 1.5707963267948966
+      "facing": 1.5707963267948966,
+      "visualHeight": 1.11
     },
     {
       "id": "am_silla_7",
@@ -2238,7 +2254,8 @@
       "model": "chair",
       "label": "Silla de comedor",
       "contents": [],
-      "facing": -1.5707963267948966
+      "facing": -1.5707963267948966,
+      "visualHeight": 1.11
     }
   ],
   "stairs": [

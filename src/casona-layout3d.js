@@ -20,14 +20,16 @@ const NDAHouseArt=(()=>{
   if(m==='stove'){box(b,x,H/2,zz,w-.08,H-.08,dep-.08,P.shade);for(const xx of[x-.45,x+.45])cylinder(b,xx,H+.025,zz,.26,.26,.05,P.iron,8);}
   if(m==='workbench')for(let k=0;k<3;k++)box(b,a+.25+k*.22,H+.035,zz,.13,.07,.28,P.iron);
  }
- function cabinet(b,o){const[a,z,c,d]=o.rect,x=(a+c)/2,zz=(z+d)/2,w=c-a,dep=d-z,H=o.height||1.9,m=o.model;
-  if(m==='screen'){for(let k=0;k<3;k++){const za=z+(k+.5)*dep/3;box(b,x,H/2,za,.10,H,dep/3-.035,P.dark);box(b,x+.065,H/2,za,.025,H-.16,dep/3-.15,P.bone);}return;}
-  box(b,x,H/2,z+.055,w,H,.11,P.dark);for(const xx of[a+.055,c-.055])box(b,xx,H/2,zz,.11,H,dep-.22,P.wood);
+ function cabinet(b,o){const[aa,zz0,cc,dd]=o.rect,turn=dd-zz0>cc-aa&&o.model!=='screen',cx=(aa+cc)/2,cz=(zz0+dd)/2,[a,z,c,d]=turn?[-(dd-zz0)/2,-(cc-aa)/2,(dd-zz0)/2,(cc-aa)/2]:o.rect,x=(a+c)/2,zz=(z+d)/2,w=c-a,dep=d-z,H=o.height||1.9,m=o.model;
+  const cabBox=(b,x,y,z,w,h,d,color)=>turn?box(b,cx-z,y,cz+x,d,h,w,color):box(b,x,y,z,w,h,d,color);
+  const cabCyl=(b,x,y,z,r1,r2,h,color,n)=>turn?cylinder(b,cx-z,y,cz+x,r1,r2,h,color,n):cylinder(b,x,y,z,r1,r2,h,color,n);
+  if(m==='screen'){for(let k=0;k<3;k++){const za=z+(k+.5)*dep/3;cabBox(b,x,H/2,za,.10,H,dep/3-.035,P.dark);cabBox(b,x+.065,H/2,za,.025,H-.16,dep/3-.15,P.bone);}return;}
+  cabBox(b,x,H/2,z+.055,w,H,.11,P.dark);for(const xx of[a+.055,c-.055])cabBox(b,xx,H/2,zz,.11,H,dep-.22,P.wood);
   const levels=m==='bookcase'?[.18,.65,1.12,1.59,2.06]:[.16,.72,1.28,H-.06];
-  for(const yy of levels)box(b,x,yy-.035,zz,w-.22,.07,dep-.22,P.woodLight);
+  for(const yy of levels)cabBox(b,x,yy-.035,zz,w-.22,.07,dep-.22,P.woodLight);
   if(m==='bookcase')return;
-  if(m==='apothecary'||m==='pantryTall'){for(let j=0;j<levels.length-1;j++)for(let k=0;k<Math.floor(w*2);k++){const xx=a+.3+k*.43;cylinder(b,xx,levels[j]+.13,zz,.105,.09,.26,[P.teal,P.terra,P.bone][k%3],6);box(b,xx,levels[j]+.28,zz,.18,.04,.18,P.dark);}return;}
-  for(let k=0;k<Math.floor(w*2);k++){const xx=a+.3+k*.42;cylinder(b,xx,.8,zz,.15,.15,.045,P.bone,8);cylinder(b,xx,1.36,zz,.11,.1,.18,P.teal,6);}
+  if(m==='apothecary'||m==='pantryTall'){for(let j=0;j<levels.length-1;j++)for(let k=0;k<Math.floor(w*2);k++){const xx=a+.3+k*.43;cabCyl(b,xx,levels[j]+.13,zz,.105,.09,.26,[P.teal,P.terra,P.bone][k%3],6);cabBox(b,xx,levels[j]+.28,zz,.18,.04,.18,P.dark);}return;}
+  for(let k=0;k<Math.floor(w*2);k++){const xx=a+.3+k*.42;cabCyl(b,xx,.8,zz,.15,.15,.045,P.bone,8);cabCyl(b,xx,1.36,zz,.11,.1,.18,P.teal,6);}
  }
  function mergeProp(part){const b=new Batch('objeto_amueblado');for(const child of part.children.slice()){if(!child.isMesh)continue;b.add(child.geometry,child.material.color.getHex(),child.position.x,child.position.y,child.position.z,child.rotation.x,child.rotation.y,child.rotation.z);child.material.dispose();part.remove(child);}if(b.p.length)part.add(b.mesh());}
  function bookMesh(o){const b=new Batch('libro_independiente_'+o.id),c=[P.wine,P.teal,P.terra,P.gold][o.id%4];box(b,0,.17,0,.105,.32,.22,P.bone);for(const x of[-.061,.061])box(b,x,.17,0,.017,.35,.25,c);box(b,0,.17,.12,.105,.35,.015,c);return b.mesh();}

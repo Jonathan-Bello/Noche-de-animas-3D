@@ -13,7 +13,7 @@
       "draw": {
         "frame": 1,
         "calls": 216,
-        "triangles": 34440,
+        "triangles": 34364,
         "points": 0,
         "lines": 0
       },
@@ -32,8 +32,8 @@
       "shadows": false,
       "draw": {
         "frame": 1,
-        "calls": 376,
-        "triangles": 50352,
+        "calls": 403,
+        "triangles": 51126,
         "points": 0,
         "lines": 0
       },

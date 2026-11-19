@@ -141,7 +141,7 @@ casDo = function (w, k, v) {
 function casNoticed(w, pd) {
   const k = pd.k, p = pd.p, a = alive(w);
   if (['sombralag', 'reconectando', 'clima', 'foto', 'pasillo', 'ofrenda', 'eco', 'ecoya'].includes(k)) return a.filter(i => i.id === pd.who);
-  if (['senuelo', 'cadaver', 'rezando', 'sombra', 'doble', 'estatua'].includes(k)) { const o = k === 'senuelo' ? w.decoy : k === 'cadaver' ? w.corpse : k === 'rezando' ? w.kneel : k === 'doble' ? w.hallu : k === 'estatua' ? w.statue : p; if (!o) return []; return a.filter(i => i.f === o.f && sees(i, o, 20)); }
+  if (['senuelo', 'cadaver', 'rezando', 'sombra', 'doble', 'estatua'].includes(k)) { const o = k === 'senuelo' ? w.decoy : k === 'cadaver' ? w.corpse : k === 'rezando' ? w.kneel : k === 'doble' ? w.hallu : k === 'estatua' ? w.statue : p; if (!o) return []; return a.filter(i => i.f === o.f && sees(i, o, 20,w)); }
   const R = ['tv', 'tvcam', 'barras'].includes(k) ? 10 : 15; return a.filter(i => p && i.f === p.f && d2(i, p) <= R);
 }
 function casonaTick4(w, dt) {
