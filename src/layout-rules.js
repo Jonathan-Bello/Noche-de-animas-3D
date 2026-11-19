@@ -11,7 +11,7 @@ function layoutSurfacePacking(w){
  const place=(o,radius=.13)=>{
   const original={f:o.f,r:roomAt(o.f,o.x,o.y)},options=[original];
   for(const[f,id]of ITEM_PLACES[o.kind]||[]){const r=RID[f][id];if(!options.some(q=>q.f===f&&q.r===r))options.push({f,r});}
-  for(const option of options){const points=[];for(const[x,y,h]of SURFACES[option.f][option.r]||[])for(const dx of(radius>.25?[.5]:[.16,.5,.84]))for(const dy of(radius>.25?[.5]:[.16,.5,.84]))points.push({f:option.f,x:x+dx,y:y+dy,h});points.sort((a,b)=>Math.hypot(a.x-o.x,a.y-o.y)-Math.hypot(b.x-o.x,b.y-o.y));const point=points.find(p=>!taken.some(t=>t.f===p.f&&Math.hypot(t.x-p.x,t.y-p.y)<t.r+radius));if(point){Object.assign(o,point);reserve(point.f,point.x,point.y,radius);return true;}}
+  for(const option of options){const points=[];for(const[x,y,h]of SURFACES[option.f][option.r]||[])for(const dx of(radius>.25?[.5]:[.16,.5,.84]))for(const dy of(radius>.25?[.5]:[.16,.5,.84]))points.push({f:option.f,x:x+dx,y:y+dy,h});points.sort((a,b)=>Math.hypot(a.x-o.x,a.y-o.y)-Math.hypot(b.x-o.x,b.y-o.y));const point=points.find(p=>layoutPlacementAllowed(p.f,p.x,p.y,radius)&&!taken.some(t=>t.f===p.f&&Math.hypot(t.x-p.x,t.y-p.y)<t.r+radius));if(point){Object.assign(o,point);reserve(point.f,point.x,point.y,radius);return true;}}
   w.layoutPackingMisses.push({kind:o.kind,f:o.f,room:ROOMS[o.f][original.r]?.id});return false;
  };
 
@@ -32,7 +32,7 @@ newWorld=function(opt){fieldCache.clear();const w=_newWorldLayout(opt);w.layout=
   const x=shelf.rect[0]+.3+k*.27,y=shelf.rect[3]-.38;
   w.loose.push({id:w.loose.length,kind:'libro',f:shelf.floor,x,y,h,rot:0,flyT:-99,from:null,shelfId:shelf.id,releaseX:x,releaseY:shelf.rect[3]+.12});
  }
- w.propPositions=PROPS.map(p=>({id:p.id,f:p.f,x:p.x,y:p.y,h:p.h||0}));
+ w.propPositions=PROPS.map(p=>({id:p.id,f:p.f,x:p.x,y:p.y,h:p.h||0,rotationY:p.rotationY||0}));
  w.containers=[];for(const h of HOME_CHOICES){const s=SURFACES[h.f][h.r].find(([x,y])=>tileAt(h.f,x,y)===T.TABLE)||SURFACES[h.f][h.r][0];if(!s)continue;const side=[[0,1],[0,-1],[-1,0],[1,0]].find(([dx,dy])=>walkableT(tileAt(h.f,s[0]+dx,s[1]+dy)));if(!side)continue;for(let level=0;level<3;level++)w.containers.push({id:w.containers.length,f:h.f,room:h.r,x:s[0]+.5,y:s[1]+.5,h:s[2],ax:s[0]+.5+side[0],ay:s[1]+.5+side[1],dx:side[0],dy:side[1],level,open:false,until:0,by:-1,items:[]});}
  for(const it of shuffle(w.items.filter(it=>!it.holder&&!TOOLS.includes(it.kind)&&it.kind!=='fotocam'&&it.y<39))){const ri=roomAt(it.f,it.x,it.y),c=w.containers.find(c=>c.f===it.f&&c.room===ri&&c.items.length<2&&Math.hypot(it.x-c.ax,it.y-c.ay)<1.25);if(c){c.items.push(it.id);it.containerId=c.id;it.stowX=it.x;it.stowY=it.y;}}
  return w;
@@ -62,7 +62,7 @@ los=function(f,ax,ay,bx,by,az=1.55,bz=1.55,world){
   if((prevHeight<3.8)!==(globalHeight<3.8)&&tileAt(1,x,y)!==T.VOID&&!NDALayout.stairs.some(s=>x>=s.hole[0]&&x<=s.hole[2]&&y>=s.hole[1]&&y<=s.hole[3]))return false;prevHeight=globalHeight;
   let block=LAYOUT_SIGHT_HEIGHT[level][i];
   const precise=LAYOUT_SIGHT_LOOKUP.precise[level][i];if(precise){const r=precise.sightRect;if(x<r[0]||x>=r[2]||y<r[1]||y>=r[3])block=0;}
-  if(block&&tileAt(level,x,y)===T.WALL){const window=LAYOUT_SIGHT_LOOKUP.windows[level][i]?.find(w=>{const r=layoutWindowVolume(w),bottom=w.floor*3.8+w.sillRelative;return x>=r[0]&&x<r[2]&&y>=r[1]&&y<r[3]&&globalHeight>=bottom&&globalHeight<bottom+w.height;});if(window&&window.state==='vidrio roto con reja')block=0;}
+  if(block&&tileAt(level,x,y)===T.WALL){const window=LAYOUT_SIGHT_LOOKUP.windows[level][i]?.find(w=>{const r=layoutWindowVolume(w),bottom=w.floor*3.8+w.sillRelative;return x>=r[0]&&x<r[2]&&y>=r[1]&&y<r[3]&&globalHeight>=bottom&&globalHeight<bottom+w.height;});if(window&&['abierta','vidrio roto'].includes(window.state))block=0;}
   const portal=LAYOUT_SIGHT_LOOKUP.portals[level][i];if(portal&&h>layoutPortalHead(portal,x,y))return false;
   if(world?.doorTile?.get(level*FL+i)?.closed&&h<2.6)return false;
   if(h>=0&&h<block)return false;

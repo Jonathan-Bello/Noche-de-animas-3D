@@ -2,7 +2,7 @@
 import asyncio,sys,json,threading,functools
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Revision_Casona_v12';OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Decoracion_Casona_v13';OUT.mkdir(exist_ok=True)
 sys.path.insert(0,str(ROOT.parent/'QA_Arte_Alex/python_lib'))
 from playwright.async_api import async_playwright
 class Quiet(SimpleHTTPRequestHandler):
@@ -29,7 +29,7 @@ async def main():
    assert result,'Browser session did not finish'
    adaptive=await page.evaluate("()=>{const q=__game.quality,r=__qa.renderer;for(let k=0;k<800;k++)q.frame(r,70,k*70+1);const low={scale:q.resolutionScale,dpr:r.getPixelRatio()};for(let k=0;k<1600;k++)q.frame(r,16,60000+k*16);return{low,recovered:q.resolutionScale};}")
    assert .64<=adaptive['low']['scale']<=.66;assert adaptive['recovered']>.65
-   await page.goto('http://127.0.0.1:8784/arte/casona-v12/');await page.select_option('#rooms','B06');assert 'Librero de consulta' in await page.inner_text('#selection');assert await page.locator('#plan').get_attribute('viewBox')!='-1 -1 62 43';await page.click('#pa');await page.select_option('#rooms','A04');assert 'Cómoda de la nana' in await page.inner_text('#selection');assert await page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+   await page.goto('http://127.0.0.1:8784/arte/decoracion-v13/');await page.select_option('#rooms','B06');assert 'Librero de consulta' in await page.inner_text('#selection');assert await page.locator('#plan').get_attribute('viewBox')!='-1 -1 62 43';await page.click('#pa');await page.select_option('#rooms','A04');assert 'Cómoda de la nana' in await page.inner_text('#selection');assert await page.evaluate('document.documentElement.scrollWidth<=innerWidth')
    await page.screenshot(path=str(OUT/'croquis-movil.png'),full_page=True)
    await page.set_viewport_size({'width':1400,'height':900});await page.click('#pb');await page.screenshot(path=str(OUT/'croquis.png'));await page.select_option('#rooms','B06');await page.screenshot(path=str(OUT/'croquis-biblioteca.png'))
    assert not errors,errors

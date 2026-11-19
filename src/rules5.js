@@ -52,7 +52,7 @@ casPoint = function (w, v, dmin, dmax, needView) {
   if (!needView) for (let k = 0; k < 12; k++) angs.push(Math.random() * 6.28);
   for (const da of angs) { const ang = (needView ? v.face : 0) + da; let reach = 0;
     for (let s = 0.4; s <= dmax; s += 0.2) { const x = v.x + Math.cos(ang) * s, y = v.y + Math.sin(ang) * s; if (!walkableT(tileAt(v.f, x, y)) || !los(v.f, v.x, v.y, x, y)) break; reach = s; }
-    const want = Math.min(reach - 0.5, dmin + Math.random() * (dmax - dmin)); if (want >= Math.max(2.2, dmin * 0.55)) { const p = { f: v.f, x: v.x + Math.cos(ang) * want, y: v.y + Math.sin(ang) * want }; if (!(p.f === 0 && p.y >= 38.5)) return p; } }
+    const want = Math.min(reach - 0.5, dmin + Math.random() * (dmax - dmin)); if (want >= Math.max(2.2, dmin * 0.55)) { const p = { f: v.f, x: v.x + Math.cos(ang) * want, y: v.y + Math.sin(ang) * want }; if (!(p.f === 0 && p.y >= 38.5)&&layoutPlacementAllowed(p.f,p.x,p.y,.45)) return p; } }
   return null;
 };
 // el doble: si no cabe lejos, más cerca
@@ -76,7 +76,7 @@ function casRezando5(w, v) {
   const r = roomOf(v); if (r < 0) { w.cas.retry = true; w.cas.retryWhy = 'la persona no está en un cuarto'; return; }
   const opts = shuffle(roomNeighbors(w, v.f, r).filter(n => !isHall(v.f, n.r) && !n.door.closed && los(v.f, v.x, v.y, n.door.x, n.door.y)));
   for (const n of opts) { const dx = n.sideOut.x - n.sideIn.x, dy = n.sideOut.y - n.sideIn.y, l = Math.hypot(dx, dy) || 1;
-    for (const s of [2.2, 1.6, 1.1]) { const p = { f: v.f, x: n.sideOut.x + dx / l * s, y: n.sideOut.y + dy / l * s }; if (roomAt(p.f, p.x, p.y) === n.r && walkableT(tileAt(p.f, p.x, p.y)) && los(v.f, v.x, v.y, p.x, p.y)) {
+    for (const s of [2.2, 1.6, 1.1]) { const p = { f: v.f, x: n.sideOut.x + dx / l * s, y: n.sideOut.y + dy / l * s }; if (layoutPlacementAllowed(p.f,p.x,p.y,.45)&&roomAt(p.f, p.x, p.y) === n.r && walkableT(tileAt(p.f, p.x, p.y)) && los(v.f, v.x, v.y, p.x, p.y)) {
       w.lights[v.f][n.r] = 0; w.kneel = Object.assign(p, { until: w.t + 40, char: pick(NAMES)[2] }); w.ev('cas', { k: 'rezando', who: v.id, f: p.f, x: p.x, y: p.y }); return; } } }
   w.cas.retry = true; w.cas.retryWhy = 'no hay un cuarto de junto a la vista';
 }

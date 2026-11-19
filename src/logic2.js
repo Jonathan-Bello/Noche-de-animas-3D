@@ -708,7 +708,7 @@ function gMover(w, g) {
   if (!gReady(w, g, 'c')) return false;
   const r0 = roomOf(g); const cand = w.loose.filter(o => o.f === g.f && d2(o, g) <= 3.5 && w.t - o.flyT > 1.2).sort((a, b) => (roomAt(a.f, a.x, a.y) !== r0) - (roomAt(b.f, b.x, b.y) !== r0) || d2(a, g) - d2(b, g));
   const o = cand[0]; if (!o) return false; g.ready.c = w.t + cdFor(g, 'c', CFG.cds.c);
-  let tx = o.x, ty = o.y; for (let k = 0; k < 12; k++) { const a = Math.random() * 6.28, dd = 1.5 + Math.random() * 1.6, nx = o.x + Math.cos(a) * dd, ny = o.y + Math.sin(a) * dd; if (walkableT(tileAt(o.f, nx, ny)) && los(o.f,o.releaseX??o.x,o.releaseY??o.y,nx,ny,(o.h||0)+.2,(o.h||0)+.2,w)) { tx = nx; ty = ny; break; } }
+  let tx = o.x, ty = o.y; for (let k = 0; k < 12; k++) { const a = Math.random() * 6.28, dd = 1.5 + Math.random() * 1.6, nx = o.x + Math.cos(a) * dd, ny = o.y + Math.sin(a) * dd; if (layoutPlacementAllowed(o.f,nx,ny,.3)&&walkableT(tileAt(o.f, nx, ny)) && los(o.f,o.releaseX??o.x,o.releaseY??o.y,nx,ny,(o.h||0)+.2,(o.h||0)+.2,w)) { tx = nx; ty = ny; break; } }
   o.from = { x: o.x, y: o.y, h: o.h };delete o.releaseX;delete o.releaseY;o.x = tx; o.y = ty; o.h = 0; o.flyT = w.t; o.rot = Math.random() * 6.28;
   w.noise(o, 12, 'mover'); w.sub(o, `Cae ${LOOSE_N[o.kind]} al piso`, 12);
   exposedInvs(w).filter(i => i.f === o.f && d2(i, o) <= 4).forEach(i => w.haunt(i, 2));

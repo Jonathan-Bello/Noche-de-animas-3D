@@ -1,8 +1,8 @@
 const fs=require('node:fs'),assert=require('node:assert/strict');
 const root=require('node:path').join(__dirname,'..');
 const read=p=>fs.readFileSync(require('node:path').join(root,p),'utf8');
-let source='const NDALayout='+read('src/layout-v11.json')+';\n'+read('src/logic2.js').replace('/*LAYOUT_RUNTIME*/',read('src/layout-runtime.js'))+'\n'+read('src/rules3.js')+'\n'+read('src/rules4.js')+'\n'+read('src/layout-rules.js');
-const api=new Function('module',source+';return {newWorld,step,interact,pickUp,layoutItemVisible,layoutBeginSearch,chooseSpots,SPOTS,ROOMS,ROOM_TILES,ROOM_CENTER,HOME_CHOICES,SURFACES,layoutHideCache,grids,T,STAIR_BLOCK,STAIR_PATHS,stairProjection,layoutDistances,navTo,stairFlip,elevOf,pathLen,los,gMover,sees};')({exports:{}});
+let source='const NDALayout='+read('src/layout-v11.json')+';\n'+read('src/placement-layout.js')+'\n'+read('src/logic2.js').replace('/*LAYOUT_RUNTIME*/',read('src/layout-runtime.js'))+'\n'+read('src/rules3.js')+'\n'+read('src/rules4.js')+'\n'+read('src/layout-rules.js')+'\n'+read('src/rules5.js');
+const api=new Function('module',source+';return {layoutPlacementAllowed,SPAWN_TILES,casPoint,casRezando5,randomIn,newWorld,step,interact,pickUp,layoutItemVisible,layoutBeginSearch,chooseSpots,SPOTS,ROOMS,ROOM_TILES,ROOM_CENTER,HOME_CHOICES,SURFACES,layoutHideCache,grids,T,STAIR_BLOCK,STAIR_PATHS,stairProjection,layoutDistances,navTo,stairFlip,elevOf,pathLen,los,gMover,sees};')({exports:{}});
 console.log('rooms',api.ROOMS.map(r=>r.length),'spots',api.SPOTS.length);
 assert.equal(api.HOME_CHOICES.length,22);assert.equal(api.SPOTS.length,24);
 const c=api.layoutHideCache();console.log('coverage cells',c.points.length);
@@ -45,3 +45,8 @@ assert.equal(api.ROOMS[0].some(r=>r.id==='aperos'&&r.n==='Cuarto de aperos'),tru
 const refuge=api.SPOTS.find(s=>s.id==='HB10');assert.deepEqual([refuge.x,refuge.y,refuge.hx,refuge.hy],[13,37,12.5,37.5]);
 for(const target of[{f:0,x:16.5,y:54.4},{f:0,x:34.3,y:53.4}]){const actor={...w.invs[0],f:0,x:30.5,y:49.5,r:.3,bot:true};let ok=false;for(let k=0;k<3000;k++){api.navTo(w,actor,target,2.6,1/60);if(Math.hypot(actor.x-target.x,actor.y-target.y)<.3){ok=true;break;}}assert(ok,'Equipment or van exit inaccessible');}
 console.log('Equipment access, central path, relocated truck and aperos refuge passed');
+
+// Check eligible random cells and actual CAS placement against shared reservations.
+let samples=0;for(let f=0;f<2;f++)for(let r=0;r<api.SPAWN_TILES[f].length;r++)for(const[x,y]of api.SPAWN_TILES[f][r]){assert(api.layoutPlacementAllowed(f,x+.5,y+.5,.35));samples++;}
+for(let k=0;k<500;k++){const rr=api.HOME_CHOICES[k%api.HOME_CHOICES.length],p=api.randomIn(rr.f,rr.r),v={...w.invs[0],...p,face:k*.1};assert(api.layoutPlacementAllowed(p.f,p.x,p.y,.35));const point=api.casPoint(w,v,2.5,6,false);if(point)assert(api.layoutPlacementAllowed(point.f,point.x,point.y,.45));w.kneel=null;api.casRezando5(w,v);if(w.kneel)assert(api.layoutPlacementAllowed(w.kneel.f,w.kneel.x,w.kneel.y,.45));}
+console.log(samples,'eligible spawn cells and 500 CAS placements clear of doors/stairs');

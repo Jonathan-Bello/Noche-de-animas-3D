@@ -180,14 +180,14 @@ function updateLoose(t) {
 function buildProps(lam) {
   propMeshes = [];
   for (const p of PROPS) {
-    const g = new THREE.Group(); g.position.set(p.x,p.h||0,p.y); floorGroups[p.f].add(g); const part = new THREE.Group(); g.add(part);
+    const g = new THREE.Group(); g.position.set(p.x,p.h||0,p.y);g.rotation.y=p.rotationY||0; floorGroups[p.f].add(g); const part = new THREE.Group(); g.add(part);
     const box = (sx, sy, sz, x, y, z, c) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), lam(c)); m.position.set(x, y, z); m.castShadow = true; part.add(m); return m; };
     const cyl = (r, h, x, y, z, c) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 8), lam(c)); m.position.set(x, y, z); m.castShadow = true; part.add(m); return m; };
     if(p.kind==='fuente'){propMeshes.push({p,g,part});continue;}
     if(NDAFurnitureProps.build(part,p)){NDAHouseArt.mergeProp(part);propMeshes.push({p,g,part});continue;}
     switch (p.kind) {
       case 'mecedora': case 'caballito': box(0.6, 0.06, 0.6, 0, 0.45, 0, 0x6a3a20); box(0.6, 0.6, 0.06, 0, 0.8, -0.28, 0x6a3a20); box(0.8, 0.05, 0.08, 0, 0.05, 0.25, 0x4a2a14); box(0.8, 0.05, 0.08, 0, 0.05, -0.25, 0x4a2a14); if (p.kind === 'caballito') { box(0.2, 0.3, 0.5, 0, 0.75, 0, 0xc95f3a); } break;
-      case 'cuna':{box(1.65,.08,.75,0,.48,0,0x66412b);box(1.5,.07,.65,0,.56,0,0xe4d4b7);for(const z of[-.36,.36]){box(1.7,.06,.06,0,1.0,z,0x66412b);for(let x=-.78;x<.8;x+=.22)box(.035,.52,.035,x,.74,z,0x66412b);}break;}
+      case 'cuna':{box(1.65,.08,.75,0,.48,0,0x66412b);box(1.5,.07,.65,0,.56,0,0xe4d4b7);for(const xx of[-.76,.76])for(const zz of[-.30,.30])box(.075,.5,.075,xx,.25,zz,0x66412b);for(const z of[-.36,.36]){box(1.7,.06,.06,0,1.0,z,0x66412b);for(let x=-.78;x<.8;x+=.22)box(.035,.52,.035,x,.74,z,0x66412b);}break;}
       case 'grifo':cyl(.085,.65,0,.325,0,0xe8e8e0);cyl(0.05, 0.3, 0, 1.0, 0, 0xb0b0b0); box(0.5, 0.25, 0.4, 0, 0.75, 0, 0xe8e8e0); break;
       case 'fuente': cyl(0.08, 0.6, 0, 1.0, 0, COL.bone); break;
       case 'cuadro': box(0.7, 0.55, 0.05, 0, 1.6, -0.45, 0xb8902a); box(0.6, 0.45, 0.06, 0, 1.6, -0.43, 0x4a5a6a); break;
@@ -203,7 +203,7 @@ function buildProps(lam) {
       case 'baul': box(0.9, 0.5, 0.5, 0, 0.25, 0, 0x5b3a20); break;
       case 'papeles': for (let k = 0; k < 5; k++) box(0.2, 0.005, 0.28, Math.sin(k) * 0.3, 0.01 + k * 0.004, Math.cos(k) * 0.3, 0xf0e6cf); break;
     }
-    propMeshes.push({ p, g, part });
+    NDAHouseArt.mergeProp(part);propMeshes.push({ p, g, part });
   }
 }
 function updateProps(t, vf) {
