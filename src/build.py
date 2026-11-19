@@ -5,7 +5,7 @@ src = lambda f: open(os.path.join(root, 'src', f), encoding='utf-8').read()
 mode = sys.argv[1] if len(sys.argv) > 1 else 'prod'
 three = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js' if mode == 'prod' else '/test/three.module.js'
 s = src('shell2.html')
-logic_files = ['logic2.js', 'rules3.js', 'rules4.js', 'layout-rules.js', 'lab.js', 'net.js']
+logic_files = ['logic2.js', 'rules3.js', 'rules4.js', 'layout-rules.js', 'rules5.js', 'lab.js', 'net.js']
 game_files = ['chars3d.js', 'alex-art.js', 'elenco-art.js', 'character-qc.js',
               'anima-art.js', 'house-art.js', 'casona-layout3d.js', 'furniture-props3d.js', 'game3d.js', 'casona3d.js',
               'base3d.js', 'snd3d.js', 'lab3d.js', 'casa3d.js']

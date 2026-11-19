@@ -13,7 +13,7 @@ const angDiff = (a, b) => { let d = a - b; while (d > Math.PI) d -= 2 * Math.PI;
 // ---------- Evidencias y herramientas ----------
 const EV = {
   BC: { n: 'Bajo cero', tool: 'termo' }, SU: { n: 'Susurros', tool: 'grab' }, ES: { n: 'Marcas en el espejo', tool: 'espejo' },
-  CE: { n: 'Huellas de ceniza', tool: 'uv' }, OB: { n: 'Objetos movidos', tool: 'cam' }, LU: { n: 'Luces parpadeantes', tool: 'emf' },
+  CE: { n: 'Huellas de ceniza', tool: 'uv' }, OB: { n: 'Silueta en cámara', tool: 'cam' }, LU: { n: 'EMF 5', tool: 'emf' },
   AZ: { n: 'Olor a azufre', tool: 'gases' },
 };
 const EV_KEYS = Object.keys(EV);
@@ -193,7 +193,7 @@ const GHOSTS = [
     special: { n: 'Juguetes', cd: 25, d: 'Un juguete suena en otro cuarto del mismo piso (señuelo).',
       use(w, g) { const rs = ROOM_LIST.filter(r => r.f === g.f && r.r !== roomOf(g) && ROOM_CENTER[r.f][r.r]); const r = pick(rs); const p = ROOM_CENTER[r.f][r.r]; w.noise(p, 20, 'juguete'); w.sub(p, 'Suena un juguete de cuerda a lo lejos', 20); return true; },
       bot(w, g) { return Math.random() < 0.2; } },
-    sello: { n: 'Una luz se enciende sola y se oye una risa de niño', parecido: 'Luces parpadeantes' },
+    sello: { n: 'Una luz se enciende sola y se oye una risa de niño', parecido: 'EMF 5' },
     espanto: { n: 'Que no se apague', d: 'Enciende todas las luces y corre a su tope desde el inicio.', use(w, g) { w.lights.forEach(l => l.fill(1)); w.lights[1][RID[1].vacio] = 0; g.seenT = 99; } } }),
   mk({ id: 'llorona', n: 'La Llorona', ev: ['BC', 'SU', 'ES'], near: 4, far: 18, hear: 16, freq: { v: 2 },
     passive: { n: 'Junto al agua', d: 'Su Escalofrío quita 50 % más en Cocina, Baño, Baño alto y Patio.' },
@@ -528,7 +528,7 @@ function useItemRaw(w, i) {
     case 'tarot': case 'tablilla': case 'espejoplata': case 'mano': case 'muneca': case 'pentagrama': case 'radio': return useCursed(w, i, it);
     case 'termo': if (!i.bot) w.say('El termómetro mide solo mientras lo sostienes: quédate quieto para que se asiente.', 'i'); return false;
     case 'grab': return askSpirit(w, i, it);
-    case 'cam': it.view = { kind: it.photo || 'nada', until: w.t + 5 }; if (it.photo === 'flota') observe(w, 'OB', i, 'la foto muestra un objeto que flota'); it.photo = null; return true;
+    case 'cam': it.view = { kind: it.photo || 'nada', until: w.t + 5 }; it.photo = null; /* solo cuenta la silueta vista en la tele de la base */ return true;
     default: if (!i.bot) w.say(ITEMS[it.kind].hint || `${ITEMS[it.kind].n}: déjala (G) donde va a pasar el ánima, o llévala en la mano.`, 'i'); return false;
   }
 }

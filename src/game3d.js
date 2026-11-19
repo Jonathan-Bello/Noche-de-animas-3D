@@ -170,7 +170,7 @@ function makeLooseMesh(kind, lam,object) {
   return g;
 }
 function updateLoose(t) {
-  w.loose.forEach((o, k) => { const m = looseMeshes[k]; if (!m) return; const a = w.t - o.flyT;
+  w.loose.forEach((o, k) => { const m = looseMeshes[k]; if (!m) return; m.visible = !o.gone; const a = w.t - o.flyT;
     if (a >= 0 && a < 0.55 && o.from) { const u = a / 0.55; m.position.set(o.from.x + (o.x - o.from.x) * u, o.from.h * (1 - u) + Math.sin(u * Math.PI) * 0.9, o.from.y + (o.y - o.from.y) * u); m.rotation.set(u * 6, o.rot, u * 3);if(o.shelfId){m.position.y+=.13*u;m.rotation.set(-u*Math.PI/2,o.rot*u,0);} }
     else if(o.shelfId&&o.h===0){m.position.set(o.x,.13,o.y);m.rotation.set(-Math.PI/2,o.rot,0);}
     else if (o.float) { m.position.set(o.x, o.h + Math.sin(t * 0.7 + k) * 0.03, o.y); m.rotation.set(0, o.rot + t * 0.15, 0); }
@@ -667,6 +667,7 @@ function feedbackEvents() {
     if (e.type === 'burn' && me && e.f === me.f && Math.hypot(e.x - me.x, e.y - me.y) < 10) tip('burn', `Prender y apagar muchas veces <b>funde el foco</b>. Cámbialo con un <b>foco de repuesto</b> en la mano (${kb('Q', 'Luz')} junto al apagador).`);
     if (e.type === 'manifest' || e.type === 'fade' || (e.type === 'hunt') || (e.type === 'halluEnd' && me && e.who === me.id) || (e.type === 'dragOut')) glitch(e.type === 'hunt' ? 0.9 : e.type === 'halluEnd' ? 0.6 : 0.45);
     if (e.type === 'toolMsg' && me && e.who === me.id) analogFx.noVoltees = /VOLTEES|DETRÁS/.test(e.text) ? { yaw0: yaw, until: performance.now() + 6000 } : null;
+    if (e.type === 'cas' && e.k === 'bucle' && e.who === ME && e.face !== undefined) yaw = e.face; // el cuarto se repite: entras otra vez mirando hacia adentro
     if (e.type === 'mark' && NET.mode === 'guest' && w.opt.libreta === 'auto' && e.k && !w.conf[e.k]) w.conf[e.k] = { by: 'equipo', t: w.t, how: '' };
     if (e.type === 'reloj') analogFx.clockUntil = performance.now() + 4000;
     if (e.type === 'fakeSys') w.say(`⚠ ${e.name} se desconectó.`, 'i');

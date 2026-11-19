@@ -296,7 +296,7 @@ newWorld = function (opt) {
 };
 const _observeL = observe;
 observe = function (w, k, by, how) { const had = !!w.obs[k]; _observeL(w, k, by, how); if (by && by.alive && w.g.def.ev.includes(k) && !(w.seenBy && w.seenBy[k + by.id])) { (w.seenBy = w.seenBy || {})[k + by.id] = 1; blog(w, 'equipo', `🔎 ${by.name} vio evidencia: ${EVN[k] || k} (${how})${had ? '' : ' — primera vez esta noche'}`, by, by.id); } };
-const EVN = { BC: 'bajo cero', CE: 'ceniza con UV', SU: 'susurros', OB: 'objetos/silueta en cámara', LU: 'EMF 5', ES: 'mano en el espejo', AZ: 'azufre' };
+const EVN = { BC: 'bajo cero', CE: 'ceniza con UV', SU: 'susurros', OB: 'silueta en cámara', LU: 'EMF 5', ES: 'mano en el espejo', AZ: 'azufre' };
 const _pickUpL = pickUp; pickUp = function (w, i) { const n = i.slots.filter(Boolean).length, r = _pickUpL(w, i); if (r && i.slots.filter(Boolean).length > n) { const it = i.slots[i.hand] || i.slots.find(Boolean); blog(w, 'equipo', `${i.name} toma: ${it ? ITEMS[it.kind].n : 'algo'}`, i, i.id); } return r; };
 const _dropItemL = dropItem; dropItem = function (w, i, k) { const it = i.slots[k], r = _dropItemL(w, i, k); if (r && it && i.alive && !i.escaped) blog(w, 'equipo', `${i.name} deja: ${ITEMS[it.kind].n}`, i, i.id); return r; };
 const _useItemRawL = useItemRaw; useItemRaw = function (w, i) { const it = handItem(i), r = _useItemRawL(w, i); if (r && it && !['emf', 'termo', 'cam', 'grab'].includes(it.kind)) blog(w, 'equipo', `${i.name} usa: ${ITEMS[it.kind].n}`, i, i.id); return r; };
