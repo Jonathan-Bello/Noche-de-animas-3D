@@ -18,8 +18,10 @@ Las «frases robadas» que usa la casona se guardan solo en la memoria de la pes
 - `juego/`: la demo 3D (se genera; no se edita a mano).
 - `src/`: el código fuente.
   - `logic2.js`: reglas y bots, sin gráficos.
+  - `rules3.js`: reglas v1.1 (22 ánimas, casona con dado de 100, luces, salida, fotos, dinero).
   - `net.js`: sala en línea, sincronización y voz.
   - `chars3d.js` y `game3d.js`: modelos, render e interfaz.
+  - `casona3d.js`: lo que se ve y se oye de las reglas nuevas (sucesos, libreta, tragamonedas).
   - `shell2.html`: la página.
 - `prueba-voz/`: prueba de sala, micrófono, voz por cercanía, radio y teléfono.
 - `test/`: pruebas locales (`fakepeer.js` simula PeerJS entre pestañas).

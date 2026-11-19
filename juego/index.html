@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
-<title>Noche de Ánimas · Demo 3D v1.0 en línea</title>
+<title>Noche de Ánimas · Demo 3D v1.1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;800&family=Grenze:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -171,6 +171,21 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
 #onLobby img{width:30px;height:30px;border-radius:50%;object-fit:cover}
 #onStatus.ok{color:#8fd18f}#onStatus.bad{color:#ff9aa4}
 #radioInd{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:rgba(90,15,30,.85);border:1px solid var(--gold);color:var(--gold);padding:4px 12px;border-radius:999px;z-index:30}
+.photoflash{position:fixed;inset:0;background:#fff;opacity:.9;z-index:40;pointer-events:none;animation:pf .4s ease-out forwards}@keyframes pf{to{opacity:0}}
+.redsky{position:fixed;inset:0;background:rgba(160,0,0,.35);mix-blend-mode:multiply;z-index:38;pointer-events:none}
+#recon{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:45;display:flex;align-items:center;justify-content:center;font:600 1.6em Grenze,Georgia,serif;color:#ddd}
+#recon[hidden]{display:none}
+#slot{position:fixed;inset:0;z-index:60;background:rgba(7,5,15,.88);display:flex;align-items:center;justify-content:center;padding:16px}
+#slot .sbox{max-width:760px;background:#1a1430;border:2px solid var(--gold);border-radius:16px;padding:18px 22px;text-align:center}
+#slot h2{font-family:"Grenze Gotisch",Georgia,serif;color:var(--gold);margin:0 0 10px}
+#slot .reels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}#slot .reel{background:rgba(243,230,207,.06);border:1px solid rgba(242,176,78,.4);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:6px;min-height:120px;justify-content:space-between}
+#slot .reel b{font-size:1.05em}#slot button{background:rgba(243,230,207,.08);color:var(--bone);border:1px solid rgba(242,176,78,.5);border-radius:999px;padding:6px 12px}#slot button:disabled{opacity:.4}
+#slot #slotGo{background:var(--gold);color:var(--ink);font-weight:700}
+@media(max-width:640px){#slot .reels{grid-template-columns:1fr}}
+.jdots{display:inline-flex;gap:2px;margin:0 6px}.jd{display:inline-block;min-width:16px;height:16px;border-radius:50%;font:700 11px/16px sans-serif;color:#fff;text-align:center;font-style:normal}
+.cand.guess{outline:2px solid var(--gold);border-radius:8px}.guessbtn{background:var(--gold);color:var(--ink);border:0;border-radius:999px;padding:6px 14px;font-weight:700}
+.endt{width:100%;border-collapse:collapse;margin:8px 0}.endt td,.endt th{padding:4px 6px;border-bottom:1px solid rgba(243,230,207,.15);text-align:left}.endt tr.me{background:rgba(242,176,78,.12)}
+.floater.cas{color:#cfc0ff}
 </style>
 <script>window.ASSET_BASE = 'assets/';</script>
 </head>
@@ -180,7 +195,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
   <div class="picado"></div>
   <div class="wrap">
     <div class="hero"><img class="logo" src="assets/a/logo.webp" alt="Noche de Ánimas"><h1 hidden>Noche de Ánimas</h1>
-    <p class="sub">Demo 3D v1.0 en línea · terror analógico y núcleo v2: las pruebas se provocan y el ánima tiene hambre. Estilo de aristas duras.</p></div>
+    <p class="sub">Demo 3D v1.1 · terror analógico y núcleo v2: las pruebas se provocan y el ánima tiene hambre. Estilo de aristas duras.</p></div>
     <div class="card" id="online"><h2>Jugar en línea</h2>
       <p class="small">Hasta 4 investigadores; el ánima es un bot. Quien crea la sala es el anfitrión: su navegador corre la partida, así que debe quedarse hasta el final. Usa audífonos. Tu personaje es el que elijas abajo, en «Nueva noche».</p>
       <div class="onrow"><input id="onName" maxlength="16" placeholder="Tu nombre"><button id="onMic">🎙 Activar micrófono</button></div>
@@ -204,13 +219,13 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
         <li><b>Encuentra su cuarto</b> por las velas azules o el frío. Fuera de él, el ánima gasta presencia; si se agota, vuelve y queda inmóvil un rato.</li>
         <li><b>Cacería:</b> empieza según la cordura del grupo (cada ánima tiene su regla). Te alcanza = mueres. Cada segundo que te ve, corre más: <b>rompe su línea de vista</b> y escóndete antes de quedarte sin aliento. Escondido, <b>un aparato encendido en la mano te delata</b> (linterna incluida).</li>
         <li><b>El Rosario</b> se activa solo si te alcanza (o tú, a 3 m): el ánima queda ciega 5 s. La <b>Ruda</b> en una puerta le impide cruzarla 40 s; el <b>Copal</b> hace humo que no puede atravesar.</li>
-        <li><b>Nombrarla:</b> con 2 pruebas (evidencias o su sello), dile su nombre en el altar de la Capilla. Si aciertas empieza <b>la huida</b>: salgan por el Zaguán. Gana el equipo si escapa la mitad.</li>
+        <li><b>Terminar la noche:</b> marca en tu libreta qué ánima crees que es (🎯 tu apuesta) y <b>sal por el zaguán</b> (E dos veces en la puerta). El resultado se ve afuera, cada quien por su cuenta. Si el alba te agarra adentro empieza la <b>Hora del ánima</b>: 90 s con la salida trabada.</li><li><b>La casona también asusta</b> por su cuenta: pasos, teléfonos, la tele, dobles… No dan evidencias. Las herramientas nunca mienten.</li><li><b>Luces:</b> la instalación aguanta pocos focos a la vez; uno de más y se botan los fusibles.</li>
         <li><b>La apariencia del ánima es al azar</b> cada noche (mujer de blanco, sombra, niño…) y no dice cuál es: se deduce por lo que hace. Su nombre aparece al nombrarla.</li>
         <li><b>Sin sustos baratos:</b> usa audífonos. Los pasos, los portazos y el aliento en la nuca son la información.</li>
       </ul>
       <p class="note small">En celular: joystick abajo a la izquierda, botones abajo a la derecha y arrastra en la pantalla para mirar. Prototipo: modelos hechos en código, sin arte final. En línea: hasta 4 personas con voz por cercanía (mantén <kbd>V</kbd> para hablar por radio). Los lugares vacíos los ocupan bots.</p>
     </div>
-    <div class="card"><h2>Las 13 ánimas</h2><p class="small">Todas parten del Ánima en pena y cambian su perfil: cómo ven, oyen, se mueven, cazan y qué fenómenos usan.</p><div class="tablewrap" id="catalog"></div></div>
+    <div class="card"><h2>Las 22 ánimas</h2><p class="small">Todas parten del Ánima en pena y cambian su perfil: cómo ven, oyen, se mueven, cazan y qué fenómenos usan.</p><div class="tablewrap" id="catalog"></div></div>
     <div class="card"><h2>Simulador de equilibrio</h2>
       <p>Noches por ánima <select id="simN"><option>5</option><option selected>10</option><option>25</option></select> Investigadores <select id="simInv"><option>1</option><option>2</option><option selected>3</option><option>4</option></select> <button id="simBtn">Simular</button></p>
       <div class="tablewrap" id="simOut"></div></div>
@@ -954,7 +969,6 @@ function nearSpot(w, i) { let b = -1, bd = 0.9; w.spotsActive.forEach(k => { con
 function interact(w, i) {
   if (i.hidden >= 0) { i.hidden = -1; return 'salir'; }
   if (isStair[(i.y | 0) * W + (i.x | 0)]) { const nf = 1 - i.f; i.f = nf; w.noise(i, 6, 'stairs'); return 'escalera'; }
-  if (i.f === ALTAR_POS.f && d2(i, ALTAR_POS) < 2.2) return 'altar';
   if (resetFuse(w, i)) return 'fusibles';
   const s = nearSpot(w, i); if (s >= 0) { i.hidden = s; i.x = SPOTS[s].hx; i.y = SPOTS[s].hy; i.reading = null; return 'esconder'; }
   if (pickUp(w, i)) return 'tomar';
@@ -1433,7 +1447,7 @@ function step(w, dt, input) {
     if (!inHome(g)) g.outsideT += dt;
     const every = def.selloEvery || (def.id === 'pena' ? 60 : 0);
     if (every && g.outsideT >= every) { g.outsideT = 0; emitSello(w, g, def.id === 'llorona' ? 'charcos' : def.id === 'malaire' ? 'escarcha' : 'rezo'); }
-    if (def.id === 'chaneque' && !g.hunt && w.t > (g.selloCd.robo || 0)) { const v = exposedInvs(w).find(i => i.f === g.f && d2(i, g) < 1.4 && i.slots.some(s => s)); if (v) { const ks = v.slots.map((s, k) => s ? k : -1).filter(k => k >= 0); const k = pick(ks); const it = v.slots[k]; v.slots[k] = null; it.holder = null; const rr = pick(ROOM_LIST.filter(r => ROOM_CENTER[r.f][r.r] && !(r.f === v.f && r.r === roomOf(v)))); const p = randomIn(rr.f, rr.r); it.f = p.f; it.x = p.x; it.y = p.y; g.selloCd.robo = w.t + 20; w.say(`A ${v.name} le desapareció: ${ITEMS[it.kind].n}.`, 'a'); emitSello(w, it, 'reubicado'); } }
+    if (false && def.id === 'chaneque' && !g.hunt && w.t > (g.selloCd.robo || 0)) { const v = exposedInvs(w).find(i => i.f === g.f && d2(i, g) < 1.4 && i.slots.some(s => s)); if (v) { const ks = v.slots.map((s, k) => s ? k : -1).filter(k => k >= 0); const k = pick(ks); const it = v.slots[k]; v.slots[k] = null; it.holder = null; const rr = pick(ROOM_LIST.filter(r => ROOM_CENTER[r.f][r.r] && !(r.f === v.f && r.r === roomOf(v)))); const p = randomIn(rr.f, rr.r); it.f = p.f; it.x = p.x; it.y = p.y; g.selloCd.robo = w.t + 20; w.say(`A ${v.name} le desapareció: ${ITEMS[it.kind].n}.`, 'a'); emitSello(w, it, 'reubicado'); } }
     if (def.id === 'matla') { for (const i of exposedInvs(w)) { if (i.f === g.f && d2(i, g) <= 8 && isolated(w, i)) { i.matlaT = (i.matlaT || 0) + dt; if (i.matlaT >= 10 && selloOK(w)) { i.matlaT = 0; w.nextSello = w.t + CFG.selloGap; const p = { f: g.f, x: g.x, y: g.y }; w.sub(p, `«…${i.name}…»`, 14); w.ev('sello', { kind: 'nombre', f: g.f, x: g.x, y: g.y });  } } else i.matlaT = 0; } }
     if (def.id === 'cucuy' && g.pres > def.presMax / 2 && w.t > (g.selloCd.ropero || 0)) { const s = SPOTS.find(s => s.f === g.f && Math.hypot(s.x + 0.5 - g.x, s.y + 0.5 - g.y) < 1.6); if (s) { g.selloCd.ropero = w.t + 25; emitSello(w, { f: s.f, x: s.hx, y: s.hy }, 'ropero'); } }
     if (def.id === 'guardian' && w.t > (g.selloCd.monedas || 0) && exposedInvs(w).some(i => i.f === g.home.f && roomOf(i) === g.home.r)) { g.selloCd.monedas = w.t + 20; emitSello(w, ROOM_CENTER[g.home.f][g.home.r], 'monedas'); }
@@ -1442,7 +1456,7 @@ function step(w, dt, input) {
   if (def.id === 'guardian' && g.state !== 'despertando') exposedInvs(w).forEach(i => { if (i.f === g.home.f && roomOf(i) === g.home.r) w.haunt(i, 0.4 * dt); });
   if (def.id === 'planchada' && g.state !== 'despertando') exposedInvs(w).forEach(i => { if (i.f === g.f && i.san <= 25 && d2(i, g) < 3) i.san = Math.min(100, i.san + dt); });
   // Cucuy saca de escondites cazando
-  if (def.id === 'cucuy' && g.hunt) { const v = w.invs.find(i => i.alive && i.hidden >= 0 && SPOTS[i.hidden].f === g.f && Math.hypot(SPOTS[i.hidden].hx - g.x, SPOTS[i.hidden].hy - g.y) < 1.3); if (v) { g.pull = (g.pull || 0) + dt; if (g.pull >= 3) { v.hidden = -1; g.pull = 0; w.say(`¡El Cucuy sacó a ${v.name} del escondite!`, 'a'); } } else g.pull = 0; }
+  if (false && def.id === 'cucuy' && g.hunt) { const v = w.invs.find(i => i.alive && i.hidden >= 0 && SPOTS[i.hidden].f === g.f && Math.hypot(SPOTS[i.hidden].hx - g.x, SPOTS[i.hidden].hy - g.y) < 1.3); if (v) { g.pull = (g.pull || 0) + dt; if (g.pull >= 3) { v.hidden = -1; g.pull = 0; w.say(`¡El Cucuy sacó a ${v.name} del escondite!`, 'a'); } } else g.pull = 0; }
 
   // Percepción del ánima
   g.perceived.clear(); let anySeen = false;
@@ -1476,9 +1490,9 @@ function step(w, dt, input) {
       const hidLit = i.hidden >= 0 && elecOnW(w, i) && Math.hypot(SPOTS[i.hidden].hx - g.x, SPOTS[i.hidden].hy - g.y) < 1.2;
       if (!i.alive || i.escaped || i.f !== g.f || (i.hidden >= 0 && !hidLit) || (!hidLit && d2(i, g) > CFG.killDist)) continue;
       if (hidLit) { i.hidden = -1; w.say(`¡El ánima abrió el escondite de ${i.name}: su linterna seguía encendida!`, 'a'); w.ev('dragOut', { who: i.id }); }
-      if (def.noKillBelow && i.san <= def.noKillBelow) continue;
+      if (def.noKillBelow && i.san <= def.noKillBelow && alive(w).some(o => o.san > def.noKillBelow)) continue;
       const rk = i.slots.findIndex(s => s && s.kind === 'rosario');
-      if (rk >= 0 && !w.noHoly) { const it = i.slots[rk]; i.slots[rk] = null; w.items.splice(w.items.indexOf(it), 1); activateRosary(w, i); break; }
+      if (rk >= 0 && !w.noHoly) { const it = i.slots[rk]; it.uses = (it.uses === undefined ? 2 : it.uses) - 1; if (it.uses <= 0) { i.slots[rk] = null; w.items.splice(w.items.indexOf(it), 1); w.say(`El rosario de ${i.name} se rompió.`, 'a'); } activateRosary(w, i); break; }
       killInv(w, i); if (!g.hunt.huida) { endHunt(w, g); break; }
     }
   }
@@ -1509,8 +1523,8 @@ function step(w, dt, input) {
       if (!(i.ai.running)) i.stam = Math.min(100, i.stam + CFG.stamWalk * dt * 0.5);
     } else {
       w.actor = i; const p = hin.press;
-      for (let k = 0; k < 4; k++) if (p.has(String(k + 1))) i.hand = k;
-      if (p.has('wheelup')) i.hand = (i.hand + 3) % 4; if (p.has('wheeldown')) i.hand = (i.hand + 1) % 4;
+      const NS = i.slots.length; for (let k = 0; k < NS; k++) if (p.has(String(k + 1))) i.hand = k;
+      if (p.has('wheelup')) i.hand = (i.hand + NS - 1) % NS; if (p.has('wheeldown')) i.hand = (i.hand + 1) % NS;
       if (p.has('e')) { const res = interact(w, i); if (res === 'altar') w.ev('altar', { who: i.id }); }
       if (p.has('q')) toggleLight(w, i);
       if (p.has('f')) i.flash = !i.flash;
@@ -1567,7 +1581,7 @@ function killInv(w, i) {
   i.slots.forEach((s, k) => { if (s) dropItem(w, i, k); }); i.noclip = true;
 }
 function spiritControl(w, i, human, dt) {
-  const p = human.press; i.noclip = true;
+  const p = human.press; i.noclip = true; if (human.face !== undefined) i.face = human.face;
   if (human.mx || human.my) { const l = Math.hypot(human.mx, human.my); i.x = clamp(i.x + human.mx / l * 4 * dt, 0.5, W - 0.5); i.y = clamp(i.y + human.my / l * 4 * dt, 0.5, H - 0.5); }
   if (p.has('z')) i.f = 1 - i.f;
   if (p.has(' ') && w.t >= i.spirit.cd) { i.spirit.cd = w.t + 30; i.spirit.until = w.t + 3; i.spirit.x = i.x; i.spirit.y = i.y; i.spirit.f = i.f; w.say('Te manifiestas para estorbar al ánima.', 'i'); w.ev('manifest'); }
@@ -1575,6 +1589,421 @@ function spiritControl(w, i, human, dt) {
 }
 
 if (typeof module !== 'undefined') module.exports = { gPossess, gAnomaly, makeHallu, analogTick, gManifest, gHallu, spotNear, nearDoor, ALTAR_POS, ghostMotive, tempAt, SWITCHES, FUSE, SURFACES, gInterf, askSpirit, huntInfo, gApagon, gMudanza, NAMES, CURSED_PLACES, CURSED, cursedHunt, useItem, ITEM_PLACES, PROPS, CFG, EV, EV_KEYS, ITEMS, TOOLS, GHOSTS, GT, ROOMS, SPOTS, newWorld, step, pruebas, candidates, alive, W, H, grids, T, nameGhost, perceives };
+
+// ================= Reglas v1.1 (GDD §2.10–2.14 y §6.9) =================
+// Kit del ánima, 22 ánimas, la casona como ente con su dado de 100, límite de luces,
+// cacería roja, salir por el zaguán, Hora del ánima, fotos, dinero y tragamonedas.
+// Este archivo va después de logic2.js y ajusta sus funciones sin reescribirlo todo.
+
+const DIFF = { facil: { lights: 5, grace: 4, pay: 0.75 }, normal: { lights: 4, grace: 3, pay: 1 }, pesadilla: { lights: 3, grace: 2, pay: 1.5 } };
+const CFG0 = { huntGap: CFG.huntGap, huntGrace: CFG.huntGrace };
+const PAY = { ev: 20, obj: 25, live: 15 };
+ITEMS.fotocam = { n: 'Cámara instantánea', elec: true, hint: 'Espacio: tomas una foto (rollo de 6). Pagan las del ánima, sus rastros y lo raro de la casona.' };
+
+// ---------- Las 9 ánimas que faltaban del juego de cartas (evidencias de las cartas) ----------
+GHOSTS.push(
+  mk({ id: 'aparecido', n: 'Aparecido', ev: ['BC', 'OB', 'LU'],
+    passive: { n: 'Cara de otro', d: 'Cada noche copia el comportamiento de otra ánima, nunca sus evidencias.' },
+    sello: { n: 'Pasos de botas que se detienen en la puerta', parecido: 'Pasos' }, espanto: { n: 'Aparición final', d: 'Caza de inmediato.', use(w, g) { g.seenT = 99; } } }),
+  mk({ id: 'bruja', n: 'Bruja', ev: ['OB', 'ES', 'AZ'],
+    passive: { n: 'Contrahechizo', d: 'Si usan Rosario, Ruda o Copal cerca, se enfurece unos segundos (hace más y caza antes) y luego se debilita.' },
+    sello: { n: 'Huele a hierbas quemadas', parecido: 'Olor a azufre' }, espanto: { n: 'Aquelarre', d: 'Todos pierden 10 de cordura.', use(w) { alive(w).forEach(i => w.haunt(i, 10)); } } }),
+  mk({ id: 'yohual', n: 'Yohualtepuztli', ev: ['BC', 'OB', 'AZ'], hear: 16,
+    passive: { n: 'Hacha nocturna', d: 'Si alguien le grita fuerte (micrófono) durante la cacería, la detiene. Oye las voces más lejos.' },
+    sello: { n: 'Golpes secos, como de hacha', parecido: 'Portazo' }, espanto: { n: 'Hacha nocturna', d: 'Caza de inmediato.', use(w, g) { g.seenT = 99; } } }),
+  mk({ id: 'cihuateteo', n: 'Cihuateteo', ev: ['BC', 'CE', 'LU'], hunt: { type: 'avg', thr: 55 },
+    passive: { n: 'Bajan al atardecer', d: 'Muy activa al inicio de la noche y se calma después; solo ronda pasillos, galería y escaleras; a veces caza dos veces seguidas.' },
+    sello: { n: 'Un llanto de recién nacido en el pasillo', parecido: 'Susurro' }, espanto: { n: 'Encrucijada', d: 'Caza dos veces.', use(w, g) { g.seenT = 99; } } }),
+  mk({ id: 'xtabay', n: 'Xtabay', ev: ['CE', 'SU', 'ES'], freq: { v: 2 },
+    passive: { n: 'Canto de la ceiba', d: 'Si te quedas quieto oyendo su lamento, te jala hacia ella.' },
+    sello: { n: 'Huele a flores de xtabentún', parecido: 'Olor a azufre' }, espanto: { n: 'Canto de la ceiba', d: 'Todos pierden 8 de cordura.', use(w) { alive(w).forEach(i => w.haunt(i, 8)); } } }),
+  mk({ id: 'cadejo', n: 'El Cadejo Negro', ev: ['CE', 'LU', 'AZ'], top: 3.8,
+    passive: { n: 'Sigue el rastro', d: 'En la cacería sigue los pasos recientes de los investigadores: rápido de lejos y lento al alcanzarte.' },
+    sello: { n: 'Arrastre de cadenas', parecido: 'Pasos de cacería' }, espanto: { n: 'Arrastre de cadenas', d: 'Caza de inmediato.', use(w, g) { g.seenT = 99; } } }),
+  mk({ id: 'mulata', n: 'La Mulata de Córdoba', ev: ['SU', 'ES', 'AZ'],
+    passive: { n: 'El barco en la pared', d: 'Tiene dos puntos fijos en la casa y salta entre ellos al instante.' },
+    sello: { n: 'Huele a carbón', parecido: 'Olor a azufre' }, espanto: { n: 'El barco en la pared', d: 'Aparece junto a alguien.', use(w, g) { const v = pick(alive(w)); if (v) { g.f = v.f; g.x = v.x; g.y = v.y; snapWalkable(w, g); } } } }),
+  mk({ id: 'uaychivo', n: 'El Uay Chivo', ev: ['BC', 'SU', 'AZ'], hunt: { type: 'target', thr: 50 },
+    passive: { n: 'Mirada de cabra', d: 'Elige a una persona al inicio y va solo por ella toda la noche.' },
+    sello: { n: 'Balido lejano', parecido: 'Susurro' }, espanto: { n: 'Mirada de cabra', d: 'Su elegido pierde 15.', use(w, g) { const v = w.invs[g.prey]; if (v) w.haunt(v, 15); } } }),
+  mk({ id: 'charro', n: 'Charro Negro', ev: ['BC', 'CE', 'AZ'], top: 4.4,
+    passive: { n: 'Jinete', d: 'En la cacería es muy rápido en línea recta y lento al dar vuelta.' },
+    special: { n: 'Cabalgata', cd: 60, d: 'Cruza la planta muy rápido unos segundos.', use(w, g) { if (g.hunt) return false; g.galopeUntil = w.t + 3; return true; }, bot(w, g) { return Math.random() < 0.1; } },
+    sello: { n: 'Herraduras sobre piedra', parecido: 'Pasos' }, espanto: { n: 'Trato con el diablo', d: 'Caza de inmediato.', use(w, g) { g.seenT = 99; } } }),
+);
+GHOSTS.forEach(G => (GT[G.id] = G));
+
+// ---------- Perfil de cada ánima (GDD §6.9) ----------
+// voz: h hombre, m mujer, z al azar · can: posesión, apagón, huellas, interferencia · lleva: cerca, medio, lejos
+const PROF = {
+  pena: { voz: 'z', can: ['int'], mud: 1, veto: 'pasillo' },
+  nachito: { voz: 'h', can: [], mud: 2, veto: 'sombra' },
+  llorona: { voz: 'm', can: ['hue'], mud: 1, veto: 'foto' },
+  chaneque: { voz: 'h', can: [], lleva: 'lejos', mud: 2, veto: 'tv' },
+  matla: { voz: 'm', can: ['pos'], lleva: 'medio', mud: 1, veto: 'foto' },
+  cucuy: { voz: 'h', can: ['apa'], mud: 1, veto: 'doble' },
+  guardian: { voz: 'h', can: ['hue', 'int'], mud: 0, veto: 'pasos' },
+  nahual: { voz: 'h', can: ['hue'], mud: 2, veto: 'telefono' },
+  demonio: { voz: 'h', can: ['pos', 'int'], mud: 1, veto: 'zaguan' },
+  planchada: { voz: 'm', can: ['hue'], lleva: 'cerca', mud: 1, veto: 'cadaver' },
+  chocarrero: { voz: 'h', can: ['apa'], lleva: 'cerca', mud: 2, veto: 'nada' },
+  tlahuel: { voz: 'm', can: ['pos', 'apa'], mud: 1, veto: 'tecolote' },
+  malaire: { voz: 'z', can: ['pos', 'int'], mud: 2, veto: 'sombra' },
+  charro: { voz: 'h', can: ['apa'], mud: 1, veto: 'petalos' },
+  aparecido: { voz: 'z', can: ['apa', 'int'], mud: 1, veto: 'doble' },
+  bruja: { voz: 'm', can: ['int'], lleva: 'medio', mud: 1, veto: 'eco' },
+  yohual: { voz: 'h', can: ['hue'], mud: 1, veto: 'serenata' },
+  cihuateteo: { voz: 'm', can: ['apa'], mud: 1, veto: 'afuera' },
+  xtabay: { voz: 'm', can: ['pos'], mud: 1, veto: 'senuelo' },
+  cadejo: { voz: 'h', can: ['hue'], mud: 2, veto: 'anomalia' },
+  mulata: { voz: 'm', can: ['int'], lleva: 'lejos', mud: 1, veto: 'pasillo' },
+  uaychivo: { voz: 'h', can: ['pos'], mud: 1, veto: 'tvcam' },
+};
+const can = (g, k) => (PROF[g.def.id] || {}).can && PROF[g.def.id].can.includes(k);
+// Ajustes de las que ya existían (lo que pidió el GDD §6.9)
+Object.assign(GT.nachito, { darkFear: false, likesLight: true, passive: { n: 'Quiere luz', d: 'Busca cuartos con luz. A oscuras se enoja: come más y hace más. Nunca apaga focos.' }, sello: { n: 'Una risa de niño', parecido: 'Susurro' } });
+Object.assign(GT.llorona, { chillMult: undefined, passive: { n: 'Si la oyes lejos, está cerca', d: 'Muy rara vez, en la cacería, su sonido se oye lejos estando a tu lado.' } });
+Object.assign(GT.chaneque, { special: null, passive: { n: 'Son muchos', d: 'Se lleva objetos a otro piso. Cuando alguien tira algo, cae otro objeto lejos. Muy rara vez roba algo de tu equipo.' } });
+Object.assign(GT.matla, { special: null, passive: { n: 'Caza al que anda solo', d: 'Con el grupo junto casi no hace nada; con alguien solo se activa. Ciega entre 2 y 6 m.' } });
+Object.assign(GT.cucuy, { passive: { n: 'Debajo de la cama', d: 'Ve mejor a oscuras. Muy rara vez empieza la cacería desde un escondite.' } });
+Object.assign(GT.guardian, { passive: { n: 'Celoso de su oro', d: 'Nunca sale de su cuarto; entre más gente hay cerca, más hace y antes caza.' } });
+Object.assign(GT.nahual, { special: null, freq: Object.assign({}, GT.nahual.freq, { v: 1 }), passive: { n: 'Ruleta', d: 'Cada cacería es normal o de bestia: rápida y siguiendo tu olor.' }, sello: { n: 'Pisadas pesadas', parecido: 'Pasos de cacería' } });
+Object.assign(GT.demonio, { rosaryBlind: 10, passive: { n: 'Lo sagrado lo hiere más', d: 'Caza más y se repone rápido, pero el Rosario y el Copal le duran el doble.' } });
+Object.assign(GT.planchada, { passive: { n: 'Cuida a los enfermos', d: 'Respeta a quien tiene 25 o menos, salvo que todos estén así. A su lado se recupera cordura.' } });
+Object.assign(GT.chocarrero, { special: Object.assign({}, GT.chocarrero.special, { cd: 90 }) });
+Object.assign(GT.tlahuel, { passive: { n: 'Vuela', d: 'Va por el más débil y es más rápida contra quien tiene poca cordura. El tecolote nunca avisa su cacería.' } });
+Object.assign(GT.malaire, { near: 5, far: 14, passive: { n: 'Se ve poco', d: 'Cazando casi no se nota dónde está.' } });
+Object.assign(GT.pena, { passive: { n: 'Los rezos la calman', d: 'Cuando la frenan con el Rosario o el Copal, tarda el doble en volver a cazar.' } });
+GHOSTS.forEach(G => { if (!G.passive) G.passive = { n: '—', d: '' }; });
+
+// ---------- Mundo nuevo ----------
+const _newWorld = newWorld;
+newWorld = function (opt) {
+  const w = _newWorld(opt), g = w.g, P = PROF[g.def.id] || {}, M = (opt && opt.mods) || {};
+  const D = DIFF[w.opt.diff] || DIFF.normal;
+  CFG.huntGrace = D.grace; CFG.huntGap = CFG0.huntGap * (M.noche === 'luna' ? 0.7 : 1);
+  w.lightLimit = D.lights - (M.noche === 'vieja' ? 1 : 0); w.nightLen = w.opt.night + (M.noche === 'niebla' ? 60 : 0); w.opt.night = w.nightLen;
+  w.mods = M; w.casRate = M.noche === 'calma' ? 0.6 : 1; w.hearMult = M.noche === 'tormenta' ? 0.7 : 1;
+  g.mudanzas = P.mud === undefined ? 1 : P.mud; g.voice = P.voz === 'z' ? pick(['h', 'm']) : P.voz || 'h';
+  w.cas = { next: 50, used: [], knock: null }; w.photos = []; w.exitAsk = {};
+  w.obj = shuffle(['guarida', 'escondido', 'foto', 'SU', 'BC', 'CE']).slice(0, 3).map(k => ({ k, done: false }));
+  w.items.forEach(it => { if (it.kind === 'rosario') it.uses = 2; });
+  w.invs.forEach(i => { i.slots = [null, null, null]; i.hand = 0; }); // 3 lugares; la linterna viene incluida
+  // cámaras instantáneas en el maletín (rollo de 6)
+  const nCam = 2 + (M.casa === 'camara' ? 1 : 0); for (let k = 0; k < nCam; k++) w.items.push(Object.assign(newItem('fotocam', { f: 0, x: 20.3 + k * 0.95, y: 33.05 }), { h: 0.78, film: 6 + (M.trato === 'rollo' ? 6 : 0) }));
+  const addItem = (kind, n) => { const places = ITEM_PLACES[kind] || ITEM_PLACES.vela; for (let k = 0; k < n; k++) { const [f, rid] = places[k % places.length]; const p = onFurniture(f, RID[f][rid]); w.items.push(Object.assign(newItem(kind, p), { h: p.h, uses: kind === 'rosario' ? 2 : undefined })); } };
+  if (M.casa === 'velas') addItem('vela', 3); if (M.casa === 'te') addItem('te', 3);
+  if (M.casa === 'focos') w.items = w.items.filter(it => it.kind !== 'foco');
+  if (M.casa === 'radio' && !w.items.some(it => it.kind === 'radio')) { const [f, rid] = CURSED_PLACES.radio; const p = onFurniture(f, RID[f][rid]); w.items.push(Object.assign(newItem('radio', p), { h: p.h })); }
+  if (M.trato === 'copal') { const it = Object.assign(newItem('copal', w.invs[0]), {}); w.items.push(it); const k = w.invs[0].slots.findIndex(s => !s); if (k >= 0) { w.invs[0].slots[k] = it; it.holder = w.invs[0]; } }
+  if (M.trato === 'cordura') w.invs.forEach(i => (i.san = 90));
+  if (M.trato === 'hambre') g.pres = g.def.presMax * 0.5;
+  if (M.trato === 'sinluz') w.fuse[1] = false;
+  // perfiles especiales
+  if (g.def.id === 'aparecido') { const pool = GHOSTS.filter(G => !['aparecido', 'malaire'].includes(G.id)); const src = pick(pool); g.mimic = src.id;
+    for (const k of ['speed', 'huntStart', 'accel', 'top', 'near', 'far', 'farMin', 'hear', 'hunt', 'huntCd', 'noKillBelow', 'fly', 'speedNow', 'vision']) GT.aparecido[k] = src[k]; GT.aparecido.freq = Object.assign({}, src.freq); }
+  if (g.def.id === 'uaychivo') { const hs = w.invs.filter(i => !i.bot); g.prey = (hs.length ? pick(hs) : pick(w.invs)).id; }
+  if (g.def.id === 'mulata') { const rs = shuffle(HOME_CHOICES.slice()); g.portals = [rs[0], rs[1]].map(r => ROOM_CENTER[r.f][r.r]).map(c => ({ f: c.f !== undefined ? c.f : 0, x: c.x, y: c.y })); g.portals.forEach((p, k) => { const r = [rs[0], rs[1]][k]; p.f = r.f; }); }
+  if (g.def.id === 'bruja') { const r = pick(HOME_CHOICES); g.hex = r; }
+  return w;
+};
+
+// ---------- Habilidades limitadas ----------
+const _gPossess = gPossess, _gApagon = gApagon, _gInterf = gInterf, _gAnomaly = gAnomaly;
+gPossess = (w, g) => can(g, 'pos') && _gPossess(w, g);
+gApagon = (w, g) => can(g, 'apa') && _gApagon(w, g);
+gInterf = (w, g) => can(g, 'int') && _gInterf(w, g);
+gAnomaly = () => false;      // ahora es de la casona
+gHallu = () => false;        // el doble también
+function gHuellas(w, g) {    // huellas descalzas que avanzan hacia alguien que está solo
+  if (!can(g, 'hue') || g.hunt || w.t < (g.ready.hue || 0)) return false;
+  const v = exposedInvs(w).find(i => i.f === g.f && isolated(w, i) && d2(i, g) < 14); if (!v) return false;
+  g.ready.hue = w.t + 60; const n = 6; for (let k = 1; k <= n; k++) { const p = { f: v.f, x: g.x + (v.x - g.x) * k / (n + 1), y: g.y + (v.y - g.y) * k / (n + 1) }; w.ashes.push({ f: p.f, x: p.x, y: p.y, until: w.t + 90, stepped: true, prints: true, printsUntil: w.t + 90, t: w.t }); }
+  w.haunt(v, 4); w.ev('huellas', { f: v.f, x: v.x, y: v.y, who: v.id }); return true;
+}
+
+// ---------- Llevarse: toma algo que nadie ve y lo deja cerca, a media distancia o lejos ----------
+function watchedBy(w, p, R) { return alive(w).some(i => i.f === p.f && i.hidden < 0 && sees(i, p, R || 14)); }
+function llevarse(w, g, forceKind) {
+  const tier = forceKind || (PROF[g.def.id] || {}).lleva; if (!tier) return false;
+  const loose = w.items.filter(it => !it.holder && it.f === g.f && d2(it, g) < 6 && !watchedBy(w, it));
+  const it = pick(loose); if (!it) return false;
+  let rr; if (tier === 'cerca') { const r = roomAt(it.f, it.x, it.y); rr = { f: it.f, r: r >= 0 ? r : roomOf(g) }; }
+  else if (tier === 'medio') rr = pick(ROOM_LIST.filter(r => r.f === it.f && ROOM_CENTER[r.f][r.r]));
+  else rr = pick(ROOM_LIST.filter(r => r.f !== it.f && ROOM_CENTER[r.f][r.r]));
+  if (!rr || rr.r < 0) return false; const p = randomIn(rr.f, rr.r); it.f = p.f; it.x = p.x; it.y = p.y; it.h = 0;
+  w.ev('llevado', { f: p.f, x: p.x, y: p.y, tier }); return true;
+}
+const _throwItem = throwItem;
+throwItem = function (w, i, power) { const r = _throwItem(w, i, power); if (w.g.def.id === 'chaneque' && Math.random() < 0.35) { const o = pick(w.loose.filter(o => o.f === i.f && d2(o, i) > 8)); if (o) { o.from = { x: o.x, y: o.y, h: o.h }; o.h = 0; o.flyT = w.t; w.noise(o, 12, 'mover'); w.ev('mover', { f: o.f, x: o.x, y: o.y, id: o.id }); } } return r; };
+
+// ---------- Contrahechizo de la Bruja, rezos del Ánima en pena ----------
+function holyUsed(w, p) {
+  const g = w.g; if (!p) return;
+  if (g.def.id === 'bruja' && g.f === p.f && d2(g, p) < 10 && !g.hunt) { g.rageUntil = w.t + 20; g.weakUntil = w.t + 50; g.lastHuntEnd = -999; g.huntReady = 0; w.ev('rabia', { f: g.f, x: g.x, y: g.y }); }
+  if (g.def.id === 'pena') g.huntReady = Math.max(g.huntReady || 0, w.t + CFG.huntGap * 2);
+}
+const _activateRosary = activateRosary;
+activateRosary = function (w, by) { _activateRosary(w, by); holyUsed(w, by && by.f !== undefined ? by : w.g); if (w.g.def.id === 'pena') w.g.huntReady = w.t + CFG.huntGap * 2; };
+
+// ---------- Fotos ----------
+const _useItemRaw = useItemRaw;
+useItemRaw = function (w, i) {
+  const it = handItem(i);
+  if (it && (it.kind === 'copal' || it.kind === 'ruda')) { const r = _useItemRaw(w, i); if (r) holyUsed(w, i); return r; }
+  if (!it || it.kind !== 'fotocam') return _useItemRaw(w, i);
+  if (w.t < (it.cd || 0)) return false; if ((it.film || 0) <= 0) { w.say('Se acabó el rollo de esta cámara.', 'i'); return false; }
+  it.film--; it.cd = w.t + 1.2;
+  const inView = (p, R) => p && p.f === i.f && d2(p, i) <= (R || 12) && angDiff(Math.atan2(p.y - i.y, p.x - i.x), i.face) < 0.45 && los(i.f, i.x, i.y, p.x, p.y);
+  const g = w.g, shots = [];
+  const ghostSeen = (g.hunt || w.t < g.revealUntil || g.manifestUntil > w.t) && !g.def.invisible && inView(g);
+  if (ghostSeen) shots.push([g.hunt ? 'el ánima cazando' : 'el ánima', g.hunt ? 40 : 30, g]);
+  const pos = w.possess && w.invs[w.possess.who]; if (pos && pos !== i && inView(pos)) shots.push(['un poseído sin sombra', 25, pos]);
+  const pr = w.doors.find(d => d.f === i.f && (d.printsUntil || 0) > w.t && inView(d, 6)) || w.ashes.find(a => a.prints && (a.printsUntil || 0) > w.t && inView(a, 6)); if (pr && i.slots.some(s => s && s.kind === 'uv')) shots.push(['una huella', 10, pr]);
+  const mv = w.loose.find(o => w.t - o.flyT < 2.5 && inView(o, 10)); if (mv) shots.push(['un objeto movido', 10, mv]);
+  for (const k of ['decoy', 'hallu', 'corpse', 'kneel']) if (w[k] && w[k].until > w.t && inView(w[k], 20)) shots.push([{ decoy: 'una silueta en el pasillo', hallu: 'alguien que no estaba', corpse: 'un cuerpo en el piso', kneel: 'alguien rezando' }[k], 15, w[k]]);
+  let best = shots.sort((a, b) => b[1] - a[1])[0], pay = 0, what = 'nada raro', stars = 0;
+  if (best) { const dd = d2(best[2], i); stars = dd < 4 ? 3 : dd < 8 ? 2 : 1; pay = Math.round(best[1] * [0, 1, 1.5, 2][stars]); what = best[0]; }
+  const cursed = Math.random() < 0.05; if (cursed) { pay += 15; what = (best ? what + ' y ' : '') + 'una sombra al fondo'; w.haunt(i, 5); }
+  if (ghostSeen) { const o = w.obj.find(o => o.k === 'foto'); if (o) o.done = true; }
+  w.photos.push({ by: i.id, what, pay, stars, cursed, t: w.t });
+  w.ev('photo', { who: i.id, f: i.f, x: i.x, y: i.y, what, pay, stars, cursed });
+  w.say(pay ? `Foto: ${what}${stars ? ' ' + '★'.repeat(stars) : ''} · $${pay}.` : 'Foto: nada raro.', 'i'); return true;
+};
+
+// ---------- Luces: la instalación aguanta pocas a la vez ----------
+const litCount = w => w.lights.reduce((s, l, f) => s + Array.from(l).filter((v, r) => v && !isHall(f, r) && !(f === 0 && ['zaguan', 'patio'].includes(ROOMS[0][r].id))).length, 0);
+const _toggleLight = toggleLight;
+toggleLight = function (w, i) {
+  const r = _toggleLight(w, i);
+  if (r && litCount(w) > w.lightLimit) { w.fuse = [false, false]; w.lights.forEach(l => l.fill(0)); w.say('¡Se botaron los fusibles! Demasiados focos prendidos: hay que subirlos en la caja.', 'a'); w.ev('fuseBlow', FUSE); }
+  return r;
+};
+
+// ---------- Cacería: ruleta del Nahual, Cucuy desde un escondite, Llorona invertida… ----------
+const _startHunt = startHunt;
+startHunt = function (w, g) {
+  if (g.def.id === 'cucuy' && Math.random() < 0.2) { const t = exposedInvs(w).filter(i => i.f === g.f).sort((a, b) => d2(a, g) - d2(b, g))[0]; const s = t && SPOTS.filter(s => s.f === g.f).sort((a, b) => Math.hypot(a.hx - t.x, a.hy - t.y) - Math.hypot(b.hx - t.x, b.hy - t.y))[0]; if (s && Math.hypot(s.hx - t.x, s.hy - t.y) < 6) { g.x = s.hx; g.y = s.hy; const hid = w.invs.find(i => i.alive && i.hidden >= 0 && SPOTS[i.hidden] === s); if (hid) { hid.hidden = -1; } } }
+  const ok = _startHunt(w, g); if (!ok) return ok;
+  if (g.def.id === 'nahual' || (g.def.id === 'aparecido' && g.mimic === 'nahual')) g.hunt.beast = Math.random() < 0.5;
+  if (g.def.id === 'llorona') g.hunt.inv = Math.random() < 0.2;
+  g.lineT = 0; return ok;
+};
+const _endHunt = endHunt;
+endHunt = function (w, g) {
+  const was = g.hunt; const hiddenAlive = w.invs.filter(i => i.alive && i.hidden >= 0); _endHunt(w, g);
+  if (was && !was.huida) { if (hiddenAlive.length) { const o = w.obj.find(o => o.k === 'escondido'); if (o) o.done = true; }
+    if (g.def.id === 'cihuateteo' && !was.second && Math.random() < 0.3) g.secondHunt = w.t + 8; }
+};
+const _huntRuleOK = huntRuleOK;
+huntRuleOK = function (w, g) { if (g.def.hunt.type === 'target') { const v = w.invs[g.prey]; if (!v || !v.alive || v.escaped) { const a = alive(w); if (!a.length) return false; g.prey = pick(a).id; return false; } return v.san <= g.def.hunt.thr; } return _huntRuleOK(w, g); };
+const _ghostSpeed = ghostSpeed;
+ghostSpeed = function (w, g) {
+  let s = _ghostSpeed(w, g); const id = g.def.id === 'aparecido' ? g.mimic : g.def.id;
+  if (w.t < (g.rageUntil || 0)) s *= 1.25; else if (w.t < (g.weakUntil || 0)) s *= 0.8;
+  if (g.hunt && !g.hunt.huida) {
+    if (g.hunt.beast) s = Math.max(s, 3.6) * 1.1;
+    if (id === 'tlahuel') { const t = alive(w).filter(i => i.f === g.f).sort((a, b) => d2(a, g) - d2(b, g))[0]; if (t && t.san < 30) s *= 1.15; }
+    if (id === 'cadejo') { const t = alive(w).filter(i => i.f === g.f).sort((a, b) => d2(a, g) - d2(b, g))[0]; if (t) { const d = d2(t, g); s = d > 8 ? 3.8 : d < 3 ? 1.7 : s; } }
+    if (id === 'charro') s = Math.min(g.def.top, 2.2 + (g.lineT || 0) * 0.9);
+  }
+  if (g.galopeUntil > w.t) s *= 2;
+  if (w.phase === 'hora') s *= 1.15;
+  return s;
+};
+const _perceives = perceives;
+perceives = function (w, g, i) {
+  if (g.def.id === 'uaychivo' && g.hunt && g.prey !== undefined) return i.id === g.prey && i.alive && i.f === g.f && (i.hidden < 0 || _perceives(w, g, i));
+  if (g.hunt && i.alive && !i.escaped && i.f === g.f && i.hidden < 0 && w.t >= g.blindUntil) {
+    if (g.hunt.beast && d2(i, g) < 30) return true;                 // Nahual bestia: huele
+    if (g.def.id === 'cadejo' && w.t - (i.lastRun || -99) < 6) return true; // Cadejo: sigue tus pasos
+    if (g.def.id === 'bruja' && g.hex && i.f === g.hex.f && roomOf(i) === g.hex.r) return true;
+  }
+  if (g.def.id === 'yohual' && !g.hunt && i.talking && i.f === g.f && d2(i, g) < 16) return true;
+  return _perceives(w, g, i);
+};
+
+// ---------- Salir por el zaguán ----------
+const _interact = interact;
+interact = function (w, i) {
+  if (i.hidden < 0 && i.f === EXIT.f && d2(i, EXIT) < 1.6 && !i.bot) {
+    if (w.phase === 'hora') { w.say('La puerta del zaguán no abre. Aguanta hasta que salga el sol.', 'i'); return 'trabada'; }
+    if (w.cas.knock && w.t < w.cas.knock.until) { visitor(w, i); return 'visita'; }
+    if (w.exitAsk[i.id] && w.t - w.exitAsk[i.id] < 4) { leaveHouse(w, i); return 'salir'; }
+    w.exitAsk[i.id] = w.t; w.say(`¿Salir de la casona? ${i.guess ? 'Tu apuesta: ' + GT[i.guess].n + '. ' : 'Aún no marcas tu apuesta en la libreta. '}Pulsa E otra vez para salir.`, 'i'); return 'preguntar';
+  }
+  return _interact(w, i);
+};
+function leaveHouse(w, i) {
+  if (i.escaped) return; i.escaped = true; i.out = true; i.hidden = -1; i.slots.forEach((s, k) => { if (s) dropItem(w, i, k); });
+  w.say(`${i.name} salió de la casona${i.guess ? '' : ' sin apostar'}.`, 'a'); w.ev('escape', { who: i.id });
+}
+function visitor(w, i) {
+  const k = w.cas.knock; w.cas.knock = null; w.ev('visita', { who: i.id });
+  if (Math.random() < 0.5) { w.say('Abres el zaguán… no hay nadie. Solo el viento.', 'i'); w.haunt(i, 4); return; }
+  const truth = Math.random() < 0.5, other = pick(GHOSTS.filter(G => G !== w.g.def)), who = pick(['La vecina', 'Un señor con sombrero', 'Una niña con una vela', 'El sereno']);
+  const said = truth ? `«Dicen que no es ${other.n}»` : `«Dicen que no es ${w.g.def.n}»`;
+  w.say(`${who}: ${said}. Se da la vuelta y se pierde en la calle. (Puede ser verdad o mentira.)`, 'i');
+}
+
+// ---------- La casona: el otro ente (GDD §2.11) ----------
+const CAS = [ // [desde, hasta, suceso]
+  [1, 40, 'nada'], [41, 52, 'ambiente'], [53, 56, 'anomalia'], [57, 59, 'senuelo'], [60, 62, 'doble'], [63, 65, 'eco'], [66, 71, 'pasos'],
+  [72, 74, 'sombra'], [75, 76, 'sombralag'], [77, 79, 'puerta'], [80, 81, 'serenata'], [82, 84, 'zaguan'], [85, 86, 'foto'], [87, 88, 'cadaver'],
+  [89, 90, 'telefono'], [91, 91, 'tv'], [92, 92, 'tvcam'], [93, 93, 'barras'], [94, 94, 'radio'], [95, 95, 'reconectando'], [96, 96, 'clima'],
+  [97, 97, 'rezando'], [98, 98, 'ofrenda'], [99, 99, 'pasillo'], [100, 100, 'elige']];
+const CAS_ONCE = new Set(['rezando', 'ofrenda', 'pasillo', 'elige']);
+const AMBIENTES = ['vela', 'cempasuchil', 'campanas', 'perro', 'mecedora', 'estatica', 'afuera', 'petalos'];
+function casRoll(w) {
+  const g = w.g, veto = (PROF[g.def.id] || {}).veto; const a = alive(w).filter(i => !i.bot || true); if (!a.length) return;
+  let r = 1 + Math.floor(Math.random() * 100) + (a.reduce((s, i) => s + i.san, 0) / a.length < 50 ? 10 : 0); r = Math.min(100, r);
+  if (veto === 'nada' && r <= 10) r = 41 + Math.floor(Math.random() * 12);
+  let k = CAS.find(([lo, hi]) => r >= lo && r <= hi)[2];
+  if (k === 'elige') k = pick(['rezando', 'ofrenda', 'pasillo', 'tvcam', 'cadaver'].filter(x => !w.cas.used.includes(x)).concat(['ambiente']));
+  if (CAS_ONCE.has(k) && w.cas.used.includes(k)) k = 'ambiente';
+  if (k === veto || (k === 'ambiente' && veto === 'afuera' && false)) return; // la casona le teme: no pasa nada
+  w.cas.used.push(k);
+  const humans = a.filter(i => !i.bot); const v = pick(humans.length ? humans : a); if (!v) return;
+  casDo(w, k, v);
+}
+function casPoint(w, v, dmin, dmax, needView) {
+  for (let k = 0; k < 30; k++) { const ang = (needView ? v.face : Math.random() * 6.28) + (Math.random() - 0.5) * (needView ? 1.0 : 6.28), d = dmin + Math.random() * (dmax - dmin), p = { f: v.f, x: v.x + Math.cos(ang) * d, y: v.y + Math.sin(ang) * d };
+    if (walkableT(tileAt(p.f, p.x, p.y)) && (!needView || los(p.f, v.x, v.y, p.x, p.y))) return p; }
+  return null;
+}
+function casDo(w, k, v) {
+  const E = (data) => w.ev('cas', Object.assign({ k, who: v.id, f: v.f, x: v.x, y: v.y }, data || {}));
+  switch (k) {
+    case 'ambiente': { const a = pick(AMBIENTES); const r = roomOf(v); const tgt = a === 'petalos' ? (Math.random() < 0.5 ? ROOM_CENTER[w.g.home.f][w.g.home.r] : (w.items.find(it => !it.holder && ['rosario', 'copal', 'te'].includes(it.kind)) || ROOM_CENTER[w.g.home.f][w.g.home.r])) : null;
+      if (a === 'vela') { const vv = w.items.find(it => it.kind === 'vela' && it.lit && !it.holder); if (vv) vv.lit = false; }
+      E({ a, tgt: tgt ? { f: tgt.f, x: tgt.x, y: tgt.y } : null, room: r >= 0 ? ROOMS[v.f][r].n : '' });
+      if (a === 'petalos' && tgt) w.sub(v, 'Un caminito de pétalos de cempasúchil sale de aquí', 6); break; }
+    case 'anomalia': { const r = roomOf(v); if (r < 0) break; const p = randomIn(v.f, r); _gAnomaly(w, { f: v.f, x: p.x, y: p.y, state: 'libre', hunt: null, pres: 99, ready: {}, bot: true, def: w.g.def }); break; }
+    case 'senuelo': { const p = casPoint(w, v, 10, 18, true); if (!p) break; w.decoy = Object.assign(p, { until: w.t + 8, look: w.g.look, who: v.id }); E({ x: p.x, y: p.y }); break; }
+    case 'doble': makeHallu(w, v); break;
+    case 'eco': E(); break;
+    case 'pasos': E({ up: v.f === 0 }); break;
+    case 'sombra': { const p = casPoint(w, v, 3, 6, true); if (p) E({ x: p.x, y: p.y }); break; }
+    case 'sombralag': E(); break;
+    case 'puerta': { const d = w.doors.filter(d => d.f === v.f && d2(d, v) < 8 && !d.closed && !d.tiles.some(([x, y]) => w.invs.some(i => i.f === d.f && (i.x | 0) === x && (i.y | 0) === y))).sort((a, b) => d2(a, v) - d2(b, v))[0]; if (d) { d.closed = true; d.anim = 0; w.ev('doorToggle', { f: d.f, x: d.x, y: d.y, closed: true }); E({ x: d.x, y: d.y }); } break; }
+    case 'serenata': E({ f: EXIT.f, x: EXIT.x, y: EXIT.y + 3 }); break;
+    case 'zaguan': w.cas.knock = { until: w.t + 25 }; E({ f: EXIT.f, x: EXIT.x, y: EXIT.y }); break;
+    case 'foto': E(); w.actor = v; w.say('En un retrato de la familia… ahora apareces tú.', 'i'); w.actor = null; break;
+    case 'cadaver': { const p = casPoint(w, v, 5, 10, true); if (!p) break; w.corpse = Object.assign(p, { until: w.t + 20, char: v.char, who: v.id }); E({ x: p.x, y: p.y }); break; }
+    case 'telefono': { const ph = w.phone || (w.phone = ROOM_CENTER[0][RID[0].sala] || EXIT); E({ f: ph.f !== undefined ? ph.f : 0, x: ph.x, y: ph.y, near: v.f === 0 && d2(v, ph) < 10, distort: Math.random() < 0.1, leyenda: w.g.def.id === 'llorona' && Math.random() < 1 / 64 }); break; }
+    case 'tv': case 'tvcam': case 'barras': { const tv = w.tv || (w.tv = ROOM_CENTER[0][RID[0].sala] || EXIT); E({ f: 0, x: tv.x, y: tv.y, names: alive(w).map(i => i.name) }); break; }
+    case 'radio': E({ names: w.invs.map(i => i.name) }); break;
+    case 'reconectando': case 'clima': E(); break;
+    case 'rezando': { const rs = ROOM_LIST.filter(r => !w.lights[r.f][r.r] && !isHall(r.f, r.r) && ROOM_CENTER[r.f][r.r]); const rr = pick(rs); if (!rr) break; const p = randomIn(rr.f, rr.r); w.kneel = Object.assign(p, { until: w.t + 60, char: pick(NAMES)[2] }); E({ f: p.f, x: p.x, y: p.y }); break; }
+    case 'ofrenda': w.say(`En la ofrenda del altar apareció una foto de ${v.name}.`, 'a'); E({ f: ALTAR_POS.f, x: ALTAR_POS.x, y: ALTAR_POS.y, name: v.name }); break;
+    case 'pasillo': { const r = roomOf(v); if (r < 0 || !isHall(v.f, r) || !isolated(w, v)) break; const p = randomIn(v.f, r); if (d2(p, v) < 5) break; v.x = p.x; v.y = p.y; E(); break; }
+  }
+}
+function casonaTick(w, dt) {
+  if (w.phase !== 'night' || w.g.hunt || w.possess) return;
+  // anomalías: notarla quita cordura
+  for (const me of alive(w)) for (const a of w.anoms) if (a.f === me.f && !a.seen.has(me.id) && sees(me, a, 7)) { a.seen.add(me.id); w.haunt(me, 3); w.ev('anomSeen', { f: a.f, x: a.x, y: a.y, who: me.id }); }
+  // el señuelo se esfuma si te acercas
+  if (w.decoy && (w.t > w.decoy.until || alive(w).some(i => i.f === w.decoy.f && d2(i, w.decoy) < 6))) { const seen = alive(w).filter(i => i.f === w.decoy.f && sees(i, w.decoy, 20)); seen.forEach(i => w.haunt(i, 2)); w.decoy = null; }
+  if (w.corpse && w.t > w.corpse.until) w.corpse = null; if (w.kneel && w.t > w.kneel.until) w.kneel = null;
+  w.cas.next -= dt * w.casRate; if (w.cas.next <= 0) { w.cas.next = 60; casRoll(w); }
+}
+
+// ---------- Tic de reglas (cada paso) ----------
+function rulesTick(w, dt) {
+  const g = w.g, id = g.def.id === 'aparecido' ? g.mimic : g.def.id;
+  casonaTick(w, dt);
+  if (w.hearMult < 1 && g.heard.length && Math.random() < 0.3) g.heard.pop(); // tormenta: la lluvia tapa los pasos
+  // el tecolote: cuando empieza la obligación de cazar, 1 de cada 6 veces canta (nunca miente)
+  const urging = (g.urge || 0) > 0; if (urging && !g.urgeOn && w.phase === 'night') { if (g.def.id !== 'tlahuel' && Math.random() < 1 / 6) w.ev('tecolote', { f: g.f, x: g.x, y: g.y }); } g.urgeOn = urging;
+  if (g.state !== 'libre' || w.phase !== 'night') return;
+  const free = w.t >= g.ai.nextAct;
+  // huellas, llevarse
+  if (g.bot && free && Math.random() < dt * 0.05 && gHuellas(w, g)) g.ai.nextAct = w.t + actGap(w);
+  if (!g.hunt && w.t > (g.llevaT || 40)) { g.llevaT = w.t + rnd(35, 55); llevarse(w, g); }
+  if (id === 'chaneque' && !g.hunt && w.t > (g.roboT || 150)) { g.roboT = w.t + rnd(150, 240); if (Math.random() < 0.4) { const v = pick(exposedInvs(w).filter(i => i.slots.some((s, k) => s && k !== i.hand))); if (v) { const ks = v.slots.map((s, k) => s && k !== v.hand ? k : -1).filter(k => k >= 0); const k = pick(ks), it = v.slots[k]; v.slots[k] = null; it.holder = null; const rr = pick(ROOM_LIST.filter(r => ROOM_CENTER[r.f][r.r])); const p = randomIn(rr.f, rr.r); it.f = p.f; it.x = p.x; it.y = p.y; it.h = 0; } } }
+  // Nachito quiere luz
+  if (g.def.likesLight && !g.hunt) { const hr = g.home; if (!w.lights[hr.f][hr.r]) { const lit = HOME_CHOICES.filter(h => w.lights[h.f][h.r]).sort((a, b) => d2(ROOM_CENTER[a.f][a.r], g) - d2(ROOM_CENTER[b.f][b.r], g))[0];
+      if (lit && w.t > (g.lightMoveT || 0)) { g.lightMoveT = w.t + 40; g.home = lit; g.occ = {}; g.ai.wander = ROOM_CENTER[lit.f][lit.r]; }
+      else if (!lit) { g.pres -= CFG.hunger.drain * dt; g.ai.nextAct -= dt * 0.8; } } }
+  // Guardián: no sale de su cuarto; más gente cerca, más poder
+  if (id === 'guardian') { const n = alive(w).filter(i => i.f === g.home.f && roomOf(i) === g.home.r).length; if (n >= 2) g.ai.nextAct -= dt * (n - 1) * 0.6; if (!inHome(g) && !g.hunt) g.returning = true; }
+  // Cihuateteo: fuerte al atardecer, calmada después; solo pasillos
+  if (id === 'cihuateteo') { const ph = w.t / w.nightLen; g.ai.nextAct -= dt * (ph < 0.33 ? 0.6 : ph > 0.66 ? -0.4 : 0); if (g.ai.wander && !g.hunt && !isHall(g.ai.wander.f, roomAt(g.ai.wander.f, g.ai.wander.x, g.ai.wander.y))) { const h = pick(ROOM_LIST.filter(r => isHall(r.f, r.r) && ROOM_CENTER[r.f][r.r])); if (h) g.ai.wander = randomIn(h.f, h.r); } }
+  if (g.secondHunt && w.t >= g.secondHunt && !g.hunt) { g.secondHunt = 0; g.lastHuntEnd = -999; g.huntReady = 0; const ok = _startHunt(w, g); if (ok) { g.hunt.second = true; g.hunt.until = w.t + 10; } }
+  // Mulata: salta entre sus dos puntos
+  if (id === 'mulata' && g.portals && w.t > (g.portalT || 0)) { const k = g.portals.findIndex(p => p.f === g.f && d2(p, g) < 1.5); if (k >= 0 && Math.random() < (g.hunt ? 0.25 : 0.5)) { const o = g.portals[1 - k]; g.f = o.f; g.x = o.x; g.y = o.y; snapWalkable(w, g); g.portalT = w.t + 20; } else if (!g.hunt && Math.random() < dt * 0.05) g.ai.wander = Object.assign({}, pick(g.portals)); }
+  // Charro: suma tiempo en línea recta
+  if (g.hunt) { const df = Math.abs(angDiff(g.face, g.lastFace || g.face)); g.lineT = df < 0.08 ? (g.lineT || 0) + dt : df > 0.5 ? 0 : Math.max(0, (g.lineT || 0) - dt); g.lastFace = g.face; }
+  // Xtabay: si te quedas quieto oyéndola, te jala
+  if (id === 'xtabay' && !g.hunt && w.t - (g.lastSusurro || -99) < 8) for (const i of exposedInvs(w)) { if (i.f !== g.f || d2(i, g) > 8) { i.stillT = 0; continue; } const mv = Math.hypot(i.vx || 0, i.vy || 0); i.stillT = mv < 0.2 ? (i.stillT || 0) + dt : 0; if (i.stillT > 2) { i.pullT = (i.pullT || 0) + dt; if (i.pullT > 1) { i.pullT = 0; const a = Math.atan2(g.y - i.y, g.x - i.x); tryMove(w, i, Math.cos(a) * 0.4, Math.sin(a) * 0.4); w.haunt(i, 1.5); } } }
+  // Yohualtepuztli: un grito lo detiene
+  if (id === 'yohual' && g.hunt && !g.hunt.huida && w.t > g.hunt.t0 + 2 && alive(w).some(i => i.f === g.f && d2(i, g) < 10 && i.loud)) { w.say('¡Alguien le gritó de frente y el hacha nocturna se detuvo!', 'a'); _endHunt(w, g); g.stunUntil = w.t + 3; }
+  // Bruja: su cuarto embrujado
+  // Uay Chivo: si muere su elegido, elige otro
+  if (g.def.id === 'uaychivo') { const v = w.invs[g.prey]; if (!v || !v.alive || v.escaped) { const a = alive(w); if (a.length) g.prey = pick(a).id; } }
+  // Llorona: susurros = llanto
+  for (const i of alive(w)) if (Math.hypot(i.vx || 0, i.vy || 0) > CFG.walk + 0.3) i.lastRun = w.t;
+}
+const _gSusurro = gSusurro;
+gSusurro = function (w, g) { const r = _gSusurro(w, g); if (r) { g.lastSusurro = w.t; w.ev('lamento', { f: g.f, x: g.x, y: g.y, voz: g.voice, llorona: g.def.id === 'llorona' }); } return r; };
+const _askSpirit = askSpirit;
+askSpirit = function (w, i, it) { const r = _askSpirit(w, i, it); if (w.g.def.id === 'llorona' && Math.random() < 1 / 64) w.ev('cas', { k: 'leyenda', who: i.id, f: i.f, x: i.x, y: i.y }); return r; };
+
+// ---------- Bots: se van por el zaguán con su apuesta ----------
+botTeam = function (w) {
+  const c = w.objDiscard ? candidates(w, true) : candidates(w), p = pruebas(w); const bots = alive(w).filter(i => i.bot); if (!bots.length || w.phase !== 'night') return;
+  const humansIn = w.invs.some(i => !i.bot && i.alive && !i.escaped), left = w.nightLen - w.t;
+  const ready = p >= 3 || (p >= 2 && c.length === 1) || (left < 75 && p >= 1) || left < 40;
+  if (!ready) return;
+  for (const b of bots) if (!b.leave) { b.guess = (c.length ? pick(c) : pick(GHOSTS)).id; if (!humansIn || left < 60) b.leave = true; }
+  if (humansIn && !w.team.hinted) { w.say(`${bots[0].name}: «${c.length === 1 ? 'Tiene que ser ' + c[0].n : 'Puede ser ' + c.slice(0, 3).map(x => x.n).join(', ')}. Cuando quieran, salimos por el zaguán».`, 'a'); w.team.hinted = true; }
+};
+
+// ---------- Fin de la noche: Hora del ánima, amanecer y resultados ----------
+function startHora(w) {
+  const g = w.g; w.phase = 'hora'; w.hora = { until: w.t + 90 }; w.opt.night = 1e9;
+  if (g.state !== 'libre') { g.state = 'libre'; } endPossess(w);
+  g.hunt = { until: Infinity, t0: w.t - 10, huida: true, hora: true }; g.pres = g.def.presMax; snapWalkable(w, g); g.seenT = 0; g.slowMult = 1.15;
+  w.hiddenTried = new Set(); w.say('¡Llegó el alba y siguen adentro! La salida se trabó: aguanten 90 segundos.', 'a'); w.ev('hora');
+}
+function horaTick(w, dt) {
+  const g = w.g; g.pres = g.def.presMax;
+  // esconderse ya no es seguro: la mitad de las veces te saca
+  for (const i of w.invs) if (i.alive && i.hidden >= 0) { const s = SPOTS[i.hidden]; if (s.f === g.f && Math.hypot(s.hx - g.x, s.hy - g.y) < 1.2 && !w.hiddenTried.has(i.hidden)) { w.hiddenTried.add(i.hidden); if (Math.random() < 0.5) { i.hidden = -1; w.say(`¡El ánima sacó a ${i.name} del escondite!`, 'a'); } } }
+  if (w.t >= w.hora.until) { w.phase = 'amanecer'; w.amanecer = { until: w.t + 45 }; g.hunt = null; g.state = 'descanso'; g.restUntil = Infinity; w.say('Sale el sol. La puerta del zaguán se abre: ¡salgan!', 'a'); w.ev('amanece'); }
+}
+function finishNight(w) {
+  const res = w.invs.map(i => { const out = !!i.out && i.alive, ok = i.guess === w.g.def.id; return { id: i.id, name: i.name, bot: i.bot, out, alive: i.alive, guess: i.guess || null, ok }; });
+  const win = res.some(r => r.out && r.ok) ? 'inv' : 'ghost';
+  const evid = w.g.def.ev.filter(k => w.obs[k]).length;
+  w.obj.forEach(o => { if (['SU', 'BC', 'CE'].includes(o.k)) o.done = !!w.obs[o.k]; });
+  const objDone = w.obj.filter(o => o.done).length, M = w.mods || {}, curse = ['cordura', 'hambre', 'sinluz'].includes(M.trato) ? 1.2 : 1, dm = (DIFF[w.opt.diff] || DIFF.normal).pay;
+  const pay = {}; res.forEach(r => { const fotos = w.photos.filter(p => p.by === r.id).reduce((s, p) => s + p.pay, 0); let base = evid * PAY.ev + objDone * PAY.obj + (r.out ? PAY.live : 0) + fotos;
+    const mult = r.guess ? (r.ok ? (evid >= 3 ? 2 : evid === 2 ? 1.5 : 1) : 0.5) : 0.5; pay[r.id] = Math.round(base * mult * dm * curse); r.pay = pay[r.id]; r.fotos = fotos; });
+  const okOut = res.filter(r => r.out && r.ok).map(r => r.name);
+  w.over = { win, res, pay, evid, objDone, cause: win === 'inv' ? `${okOut.join(', ')} salió con la apuesta correcta` : res.some(r => r.out) ? 'Nadie que salió acertó' : 'Nadie salió con vida' };
+}
+const _step = step;
+step = function (w, dt, input) {
+  if (w.over) return;
+  if (w.phase === 'night' && w.t + dt >= w.nightLen && alive(w).length) startHora(w);
+  // los bots que ya se van caminan al zaguán (el motor no los mueve este paso)
+  for (const b of w.invs) if (b.bot && b.leave && b.alive && !b.escaped && w.phase !== 'hora') b.stunUntil = w.t + dt * 1.5;
+  if (w.phase === 'hora' || w.phase === 'amanecer') w.opt.night = 1e9;
+  _step(w, dt, input);
+  if (w.over && /No quedó ningún investigador/.test(w.over.cause || '')) w.over = null;
+  if (w.over) return;
+  for (const b of w.invs) if (b.bot && b.leave && b.alive && !b.escaped && w.phase !== 'hora') { if (navTo(w, b, EXIT, CFG.walk, dt) || (b.f === EXIT.f && d2(b, EXIT) < 1.2)) leaveHouse(w, b); }
+  if (w.phase === 'hora') horaTick(w, dt);
+  if (w.phase === 'amanecer' && w.t > w.amanecer.until) alive(w).forEach(i => leaveHouse(w, i));
+  rulesTick(w, dt);
+  const inside = alive(w), humansIn = inside.filter(i => !i.bot);
+  const anyHuman = w.invs.some(i => !i.bot);
+  if (!inside.length || (anyHuman && !humansIn.length && !w.invs.some(i => !i.bot && i.alive && !i.escaped))) {
+    if (anyHuman && inside.length) inside.forEach(b => { b.guess = b.guess || null; }); finishNight(w);
+  }
+};
 
 // ================= En línea: sala con código, anfitrión y voz =================
 // El navegador de quien crea la sala es el anfitrión: corre la partida (casona, ánima bot y reglas)
@@ -1767,7 +2196,7 @@ function netHostInputs(w, localIdx, localInput) {
     if (!d) { by[i.id] = { mx: 0, my: 0, sprint: false, press: new Set() }; continue; }
     const poseOk = d.pe === i.pe && i.alive && i.hidden < 0 && !i.possessed;
     if (poseOk && typeof d.x === 'number') { i.x = d.x; i.y = d.y; i.vx = d.vx || 0; i.vy = d.vy || 0; i.stam = d.stam; i.tired = !!d.tired; i._ax = d.x; i._ay = d.y; i._af = i.f; } else { i._ax = i.x; i._ay = i.y; i._af = i.f; }
-    i.radio = !!d.radio;
+    i.radio = !!d.radio; i.loud = !!d.loud; i.talking = !!d.talk; if (d.guess !== undefined) i.guess = d.guess; if (d.jr) i.journal = d.jr;
     by[i.id] = { mx: i.alive ? 0 : d.mx || 0, my: i.alive ? 0 : d.my || 0, sprint: !!d.sprint, moving: !!d.moving, face: d.face, press: d.press || new Set(), throwPower: d.tp };
     for (const a of d.acts || []) netAct(w, i, a);
     d.press = new Set(); d.acts = [];
@@ -1790,8 +2219,8 @@ function netBroadcast(w) {
 }
 function netSendInput(inp, me, acts) {
   const c = NET.hostConn; if (!c || !c.open) return;
-  c.send({ t: 'in', x: me.x, y: me.y, vx: me.vx, vy: me.vy, stam: me.stam, tired: me.tired, face: inp.face, sprint: inp.sprint, moving: !!(inp.mx || inp.my), mx: inp.mx, my: inp.my, tp: inp.throwPower, radio: !!me.radio, press: [...NET.pressAcc], acts, pe: NET.localPe });
-  NET.pressAcc.clear();
+  c.send({ t: 'in', x: me.x, y: me.y, vx: me.vx, vy: me.vy, stam: me.stam, tired: me.tired, face: inp.face, sprint: inp.sprint, moving: !!(inp.mx || inp.my), mx: inp.mx, my: inp.my, tp: inp.throwPower, radio: !!me.radio, loud: !!me.loud, talk: !!me.talking, guess: NET.myGuess, jr: NET.journalOut || null, press: [...NET.pressAcc], acts, pe: NET.localPe });
+  NET.pressAcc.clear(); NET.journalOut = null;
 }
 
 // ---------- Voz por cercanía ----------
@@ -2947,7 +3376,7 @@ function contextHint(i) {
   if (i.hidden >= 0) return `Escondido. ${elecOnW(w, i) ? '<b class="warn">¡Tu aparato encendido te delata!</b> Apaga la linterna (F) o cambia de ranura. ' : ''}<kbd>E</kbd> salir`;
   const t = []; const h = handItem(i), touch = matchMedia('(pointer: coarse)').matches;
   if (h) { t.push(`<kbd>${touch ? 'Usar' : 'Clic'}</kbd> ${USE_VERB[h.kind] || 'usar'}`); t.push(`<kbd>${touch ? 'Dejar' : 'G'}</kbd> ${h.kind === 'rosario' && w.doors.some(d => d.f === i.f && Math.hypot(d.x - i.x, d.y - i.y) < 1.6) ? 'colgar en la puerta' : 'dejar aquí'}`); t.push(`<kbd>${touch ? 'Aventar' : 'R'}</kbd> aventar`); }
-  else t.push(`<kbd>${touch ? 'Ranura' : '1–4'}</kbd> elegir objeto`);
+  else t.push(`<kbd>${touch ? 'Ranura' : '1–3'}</kbd> elegir objeto`);
   const sw = nearSwitch(i); if (sw) t.push(`<kbd>${touch ? 'Luz' : 'Q'}</kbd> ${w.burnt[i.f][sw.r] ? (h && h.kind === 'foco' ? 'cambiar el foco' : 'foco fundido') : !w.fuse[i.f] ? 'sin corriente' : w.lights[i.f][sw.r] ? 'apagar la luz' : 'prender la luz'}`);
   return t.join(' · ') || '&nbsp;';
 }
@@ -3379,6 +3808,227 @@ $('#onMic').onclick = async () => { if (!audio) initAudio(); const ok = await VO
 document.addEventListener('click', e => { const b = e.target.closest('.seg[data-name="char"] button'); if (!b) return; setTimeout(() => { if (NET.mode === 'guest' && NET.hostConn && NET.hostConn.open) NET.hostConn.send({ t: 'char', char: menuOpt.char, name: onName() }); if (NET.mode === 'host' && NET.lobby[0]) { NET.lobby[0].char = menuOpt.char; NET.lobby[0].name = onName(); netLobbyChanged(); } }, 0); });
 menu();
 window.__game = { get w() { return w; }, get scene() { return scene; }, start, menuOpt, step, get ME() { return ME; }, NET, VOICE };
+
+// ================= Casona v1.1: lo que se ve y se oye de las reglas nuevas =================
+// Sucesos de la casona, voces del ánima por género, fotos, libreta con colores, apuesta y salida,
+// Hora del ánima, dinero y tragamonedas. Va después de game3d.js (mismo módulo).
+
+const WALLET_KEY = 'nda_dinero';
+const wallet = { get() { try { return +localStorage.getItem(WALLET_KEY) || 0; } catch (e) { return 0; } }, add(v) { try { localStorage.setItem(WALLET_KEY, String(Math.max(0, this.get() + v))); } catch (e) {} } };
+const casLocal = { corpseGone: 0, kneelGone: 0, decoyKey: null, tvMode: null, tvUntil: 0, tvNames: [], reconUntil: 0 };
+let casMeshes = { decoy: null, corpse: null, kneel: null, kneelLight: null, shadow: null, shadowUntil: 0, tv: null, tvTex: null, tvCtx: null };
+const eyesImg = new Image(); eyesImg.src = ASSET + 'a/presencia.webp';
+
+// ---------- sonidos de la casona (sintetizados; reemplazables por audio real) ----------
+const CSFX = {
+  owl(p) { [0, 0.55].forEach(d => { tone(330, 0.45, 'sine', 0.05, p, -40, d); tone(165, 0.45, 'sine', 0.02, p, -20, d); }); },
+  howl(p) { tone(420, 2.4, 'sawtooth', 0.025, p, 260); tone(410, 2.4, 'sine', 0.03, p, 240, 0.05); },
+  marbles(p) { let tt = 0; for (let k = 0; k < 14; k++) { tt += 0.06 + k * 0.012; tone(2400 + Math.random() * 600, 0.02, 'square', 0.03, p, 0, tt); } },
+  steps(p) { for (let k = 0; k < 5; k++) noise(0.14, 'lowpass', 260, 1, 0.22, p, k * 0.45, 0.02); },
+  knock(p) { for (let k = 0; k < 3; k++) noise(0.1, 'lowpass', 180, 1, 0.5, p, k * 0.35, 0.005); },
+  ring(p) { for (let k = 0; k < 3; k++) { tone(440, 0.45, 'sine', 0.08, p, 0, k * 1.1); tone(480, 0.45, 'sine', 0.08, p, 0, k * 1.1); } },
+  serenata(p) { const n = [196, 247, 294, 392, 294, 247, 220, 262, 330, 440, 330, 262]; n.forEach((f, k) => tone(f, 0.5, 'triangle', 0.09, p, 0, k * 0.35)); setTimeout(() => { noise(0.8, 'bandpass', 1600, 0.6, 0.4, p); tone(900, 0.7, 'sawtooth', 0.2, p, -500); }, n.length * 350 + 200); },
+  static(p, d) { noise(d || 1.4, 'bandpass', 3000, 0.4, 0.18, p, 0, 0.05); },
+  thunder() { noise(2.2, 'lowpass', 120, 0.7, 0.6, null, 0, 0.02); },
+  shutter(p) { noise(0.05, 'highpass', 4000, 0.8, 0.3, p); tone(1800, 0.04, 'square', 0.05, p, 0, 0.06); },
+  wet(p) { for (let k = 0; k < 4; k++) noise(0.08, 'bandpass', 700, 3, 0.15, p, k * 0.4); },
+  lamento(p, voz) { if (voz === 'm') { tone(620, 1.4, 'sine', 0.07, p, -220); tone(640, 1.4, 'triangle', 0.03, p, -230, 0.05); } else { tone(170, 1.6, 'sawtooth', 0.05, p, -50); noise(1.2, 'lowpass', 400, 1, 0.08, p, 0, 0.3); } },
+  llanto(p) { for (let j = 0; j < 3; j++) tone(700 - j * 60, 0.7, 'sawtooth', 0.12, p, -300, j * 0.6); },
+};
+const AMB_TXT = { vela: 'Una veladora se apagó sola', cempasuchil: 'Huele a cempasúchil', campanas: 'Campanadas a deshoras', perro: 'Un perro aúlla a lo lejos', mecedora: 'Una mecedora se mece sola', estatica: 'Se oye estática en este cuarto', afuera: 'Afuera, un niño juega con una pelota', petalos: 'Un caminito de pétalos de cempasúchil' };
+
+function casEvents() {
+  if (!w) return; const V = viewer(), mine = e => e.who === ME;
+  for (const e of w.events) {
+    const p = e.f !== undefined ? { f: e.f, x: e.x, y: e.y } : null;
+    if (e.type === 'photo') { if (mine(e)) { const el = document.createElement('div'); el.className = 'photoflash'; $('#game').appendChild(el); setTimeout(() => el.remove(), 400); toast(e.pay ? `📷 ${e.what} ${'★'.repeat(e.stars || 0)} · <b>$${e.pay}</b>` : '📷 Nada raro en la foto.', '', 2.5); if (e.cursed) glitch(0.6); } if (audio && !audio.muted) CSFX.shutter(p); continue; }
+    if (!audio || audio.muted) { if (e.type === 'cas' && mine(e) && e.k === 'reconectando') casLocal.reconUntil = performance.now() + 2000; continue; }
+    switch (e.type) {
+      case 'tecolote': { const a = Math.random() * 6.28; CSFX.owl(V ? { f: V.f, x: V.x + Math.cos(a) * 22, y: V.y + Math.sin(a) * 22 } : null); break; }
+      case 'lamento': if (e.llorona) CSFX.llanto(p); else CSFX.lamento(p, e.voz); break;
+      case 'fuseBlow': tone(70, 0.5, 'square', 0.25, p); noise(0.3, 'highpass', 3000, 0.5, 0.3, p); shake(0.3); break;
+      case 'hora': [0, 1.4, 2.8].forEach(d => setTimeout(() => SFX.bell(null), d * 1000)); shake(0.5); flashUI('nuca'); break;
+      case 'amanece': SFX.bell(null); tone(880, 0.2, 'sine', 0.05, null, 300, 0.4); break;
+      case 'escape': SFX.door(p); break;
+      case 'visita': SFX.door({ f: EXIT.f, x: EXIT.x, y: EXIT.y }); break;
+      case 'huellas': CSFX.wet(p); break;
+      case 'cas': casSound(e, p, V); break;
+    }
+  }
+}
+function casSound(e, p, V) {
+  const mine = e.who === ME;
+  switch (e.k) {
+    case 'ambiente': { const a = e.a; if (a === 'campanas') SFX.bell(p); else if (a === 'perro') CSFX.howl({ f: e.f, x: e.x + 18, y: e.y }); else if (a === 'mecedora') SFX.creak(p); else if (a === 'estatica') CSFX.static(p); else if (a === 'afuera') { SFX.giggle && SFX.giggle({ f: 0, x: EXIT.x, y: EXIT.y + 3 }); for (let k = 0; k < 3; k++) tone(140, 0.08, 'sine', 0.12, { f: 0, x: EXIT.x, y: EXIT.y + 3 }, -40, k * 0.5); } else if (a === 'vela') noise(0.3, 'highpass', 2000, 0.6, 0.1, p);
+      if (mine && AMB_TXT[a]) floater(AMB_TXT[a], 'cas'); break; }
+    case 'pasos': if (mine) { const q = { f: e.f, x: e.x + (Math.random() - 0.5) * 3, y: e.y + (Math.random() - 0.5) * 3 }; Math.random() < 0.5 ? CSFX.marbles(q) : CSFX.steps(q); } break;
+    case 'sombralag': if (mine) glitch(0.45); break;
+    case 'sombra': if (mine) { spawnShadow(e); tone(48, 1, 'sine', 0.2, null, -10); } break;
+    case 'serenata': CSFX.serenata(p); break;
+    case 'zaguan': CSFX.knock(p); break;
+    case 'foto': if (mine) tone(52, 1.2, 'sine', 0.2, null, -12); break;
+    case 'telefono': CSFX.ring(p); if (mine && e.near) setTimeout(() => { if (e.leyenda) { duck(1); speak('¡Ay, mis hijos!', { pitch: 0.1, rate: 0.6 }); } else if (!VOICE.playClip(p, e.distort)) speak(pick(['¿Hay alguien ahí?', 'Ven… aquí…', 'Ya te vi']), { pitch: 0.2, rate: 0.7 }); }, 3400); break;
+    case 'eco': if (mine && V) { const a = Math.random() * 6.28; VOICE.playClip({ f: V.f, x: V.x + Math.cos(a) * 9, y: V.y + Math.sin(a) * 9 }, Math.random() < 0.1); } break;
+    case 'leyenda': duck(1); setTimeout(() => speak('¡Ay, mis hijos!', { pitch: 0.1, rate: 0.6 }), 900); CSFX.llanto(p); break;
+    case 'tv': case 'tvcam': case 'barras': tvShow(e); break;
+    case 'radio': CSFX.static(null, 4); duck(1.2); setTimeout(() => speak(`…reportan como desaparecidos a: ${(e.names || []).join(', ')}. Si los ven, no les abran…`, { pitch: 0.5, rate: 0.85 }), 1200); break;
+    case 'reconectando': if (mine) { casLocal.reconUntil = performance.now() + 2000; CSFX.steps(V ? { f: V.f, x: V.x + 2, y: V.y } : null); } break;
+    case 'clima': if (mine) { const el = document.createElement('div'); el.className = 'redsky'; $('#game').appendChild(el); setTimeout(() => el.remove(), 2000); CSFX.thunder(); glitch(0.4); } break;
+    case 'ofrenda': SFX.bell(p); break;
+    case 'pasillo': if (mine) { glitch(0.7); tone(60, 0.6, 'sine', 0.2, null, -15); } break;
+    case 'puerta': SFX.door(p); break;
+    case 'rezando': break;
+    case 'cadaver': if (mine) casLocal.corpseGone = 0; break;
+  }
+}
+const _playEvents = playEvents; playEvents = function () { casEvents(); _playEvents(); };
+
+// ---------- figuras: señuelo, cuerpo, persona rezando, sombra sin dueño, televisión ----------
+function spawnShadow(e) {
+  if (!casMeshes.shadow) { const s = new THREE.Shape(); s.moveTo(-0.22, 0); s.lineTo(-0.2, 1.2); s.lineTo(-0.32, 1.35); s.lineTo(-0.12, 1.5); s.absarc(0, 1.68, 0.16, -1.2, Math.PI + 1.2, false); s.lineTo(0.32, 1.35); s.lineTo(0.2, 1.2); s.lineTo(0.22, 0); s.lineTo(-0.22, 0);
+    casMeshes.shadow = new THREE.Mesh(new THREE.ShapeGeometry(s), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.85, side: THREE.DoubleSide, depthWrite: false })); scene.add(casMeshes.shadow); }
+  const V = viewer(); if (!V) return; const m = casMeshes.shadow; m.visible = true; m.position.set(e.x, e.f * FH + 0.02, e.y); m.rotation.y = -Math.atan2(V.y - e.y, V.x - e.x) + Math.PI / 2; casMeshes.shadowUntil = performance.now() + 2500;
+}
+function ensureTV() {
+  if (casMeshes.tv || !w) return; const r = ROOMS[0][RID[0].sala]; if (!r) return; const [x0, y0, x1, y1] = r.r;
+  const c = document.createElement('canvas'); c.width = 256; c.height = 192; const ctx = c.getContext('2d'); ctx.fillStyle = '#050505'; ctx.fillRect(0, 0, 256, 192);
+  const tex = new THREE.CanvasTexture(c); const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.7, 0.6), LambertFlat({ color: 0x3a2a1a })); body.position.y = 0.35; g.add(body);
+  const scr = new THREE.Mesh(new THREE.PlaneGeometry(0.66, 0.5), new THREE.MeshBasicMaterial({ map: tex })); scr.position.set(0, 0.38, 0.31); g.add(scr);
+  const stand = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.55, 0.55), LambertFlat({ color: 0x4a3420 })); stand.position.y = -0.27; g.add(stand);
+  g.position.set(x0 + 1.0, 0.55, (y0 + y1) / 2 + 0.5); g.rotation.y = Math.PI / 2; scene.add(g);
+  casMeshes.tv = g; casMeshes.tvTex = tex; casMeshes.tvCtx = ctx; w.tv = { f: 0, x: x0 + 1.0, y: (y0 + y1) / 2 + 0.5 };
+}
+function tvShow(e) { ensureTV(); casLocal.tvMode = e.k; casLocal.tvUntil = performance.now() + (e.k === 'tv' ? 14000 : 9000); casLocal.tvNames = e.names || []; const p = w.tv;
+  if (e.k === 'tv') { CSFX.static(p, 0.8); setTimeout(() => speak(`Interrumpimos la transmisión. Reportan un asesinato en la casona del final de la calle. Las víctimas: ${(e.names || []).join(', ')}.`, { pitch: 0.6, rate: 0.95 }), 900); }
+  if (e.k === 'barras') tone(1000, 4, 'sine', 0.05, p); if (e.k === 'tvcam') CSFX.static(p, 0.5); }
+function tvDraw(now) {
+  const ctx = casMeshes.tvCtx; if (!ctx) return; const mode = now < casLocal.tvUntil ? casLocal.tvMode : null;
+  if (!mode) { if (casLocal.tvDrawn !== 'off') { ctx.fillStyle = '#050505'; ctx.fillRect(0, 0, 256, 192); casMeshes.tvTex.needsUpdate = true; casLocal.tvDrawn = 'off'; } return; }
+  casLocal.tvDrawn = mode; const left = casLocal.tvUntil - now;
+  if (mode === 'barras') { ['#c0c0c0', '#c0c000', '#00c0c0', '#00c000', '#c000c0', '#c00000', '#0000c0'].forEach((c, k) => { ctx.fillStyle = c; ctx.fillRect(k * 37, 0, 37, 130); }); ctx.fillStyle = '#000'; ctx.fillRect(0, 130, 256, 62); ctx.fillStyle = '#fff'; ctx.font = 'bold 13px monospace'; ctx.fillText('3:33 · SI OYES TU NOMBRE,', 12, 156); ctx.fillText('NO CONTESTES', 12, 176); }
+  else if (mode === 'tvcam') { ctx.fillStyle = '#0b0f0b'; ctx.fillRect(0, 0, 256, 192); for (let k = 0; k < 400; k++) { ctx.fillStyle = `rgba(200,255,200,${Math.random() * 0.12})`; ctx.fillRect(Math.random() * 256, Math.random() * 192, 2, 2); }
+    ctx.fillStyle = '#d33'; ctx.beginPath(); ctx.arc(14, 14, 5, 0, 7); ctx.fill(); ctx.fillStyle = '#cfc'; ctx.font = '12px monospace'; ctx.fillText('EN VIVO · CÁMARA 3', 24, 18);
+    for (const i of w.invs) if (i.alive && !i.escaped) { ctx.fillStyle = i.color; const x = i.x / W * 236 + 10, y = i.y / H * 150 + 30; ctx.fillRect(x - 3, y - 6, 6, 12); ctx.fillStyle = '#cfc'; ctx.fillText(i.name, x + 5, y); } }
+  else { ctx.fillStyle = '#10204a'; ctx.fillRect(0, 0, 256, 192); ctx.fillStyle = '#fff'; ctx.font = 'bold 14px sans-serif'; ctx.fillText('NOTICIAS · ÚLTIMA HORA', 12, 26); ctx.font = '12px sans-serif'; ctx.fillText('Asesinato en la casona', 12, 52); casLocal.tvNames.slice(0, 4).forEach((n, k) => ctx.fillText('· ' + n, 16, 74 + k * 16));
+    if (left < 2500 && eyesImg.complete) ctx.drawImage(eyesImg, 0, 0, 256, 192); for (let k = 0; k < 200; k++) { ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.15})`; ctx.fillRect(Math.random() * 256, Math.random() * 192, 2, 1); } }
+  casMeshes.tvTex.needsUpdate = true;
+}
+function casScene(t, dt) {
+  if (!w || !scene) return; const V = viewer(), now = performance.now(); ensureTV(); tvDraw(now);
+  if (casMeshes.shadow && now > casMeshes.shadowUntil) casMeshes.shadow.visible = false;
+  // señuelo: la silueta del ánima al fondo del pasillo; se esfuma si te acercas
+  const dc = w.decoy; if (dc && V) { const key = dc.x + ':' + dc.y; if (!casMeshes.decoy || casLocal.decoyKey !== w.g.look) { if (casMeshes.decoy) scene.remove(casMeshes.decoy.g); casMeshes.decoy = makeGhostRig(w.g.look, ''); scene.add(casMeshes.decoy.g); casLocal.decoyKey = w.g.look; }
+    const d = V.f === dc.f ? Math.hypot(V.x - dc.x, V.y - dc.y) : 99; const m = casMeshes.decoy; m.g.visible = d >= 6 && d <= 22 && V.f === dc.f; m.g.position.set(dc.x, dc.f * FH, dc.y); m.g.rotation.y = -Math.atan2(V.y - dc.y, V.x - dc.x) + Math.PI / 2; animateGhostRig(m, { x: dc.x + dc.f * 100, y: dc.y, t, dt, hunt: false, op: 0.85 }); }
+  else if (casMeshes.decoy) casMeshes.decoy.g.visible = false;
+  // un cuerpo tirado con tu ropa: desaparece al mirarlo de frente
+  const cp = w.corpse; if (cp && V && casLocal.corpseGone !== cp.until) { if (!casMeshes.corpse || casMeshes.corpse.char !== cp.char) { if (casMeshes.corpse) scene.remove(casMeshes.corpse.r.g); const r = makeCharacter(cp.char); r.mats.forEach(mm => { mm.color.multiplyScalar(0.45); }); scene.add(r.g); casMeshes.corpse = { r, char: cp.char }; }
+    const r = casMeshes.corpse.r; r.g.visible = V.f === cp.f; r.g.position.set(cp.x, cp.f * FH + 0.15, cp.y); r.g.rotation.set(-Math.PI / 2, 0, 0.6);
+    const look = angDiff(Math.atan2(cp.y - V.y, cp.x - V.x), yaw) < 0.3 && Math.hypot(V.x - cp.x, V.y - cp.y) < 9; if (look) { cp.lookT = (cp.lookT || 0) + dt; if (cp.lookT > 0.6) { casLocal.corpseGone = cp.until; r.g.visible = false; tone(50, 0.8, 'sine', 0.2, null, -10); } } }
+  else if (casMeshes.corpse) casMeshes.corpse.r.g.visible = false;
+  // alguien de rodillas rezando con una veladora, en un cuarto oscuro
+  const kn = w.kneel; if (kn && V && casLocal.kneelGone !== kn.until) { if (!casMeshes.kneel) { const r = makeCharacter(kn.char); r.mats.forEach(mm => mm.color.multiplyScalar(0.6)); scene.add(r.g); const L = new THREE.PointLight(0xffb050, 2, 4); scene.add(L); casMeshes.kneel = r; casMeshes.kneelLight = L; }
+    const r = casMeshes.kneel; r.g.visible = V.f === kn.f; r.g.position.set(kn.x, kn.f * FH - 0.45, kn.y); r.g.rotation.y = 0.8; casMeshes.kneelLight.position.set(kn.x + 0.4, kn.f * FH + 0.3, kn.y + 0.2); casMeshes.kneelLight.visible = r.g.visible; casMeshes.kneelLight.intensity = 1.6 + Math.sin(t * 13) * 0.4;
+    if (V.f === kn.f && Math.hypot(V.x - kn.x, V.y - kn.y) < 4) { casLocal.kneelGone = kn.until; r.g.visible = false; casMeshes.kneelLight.visible = false; noise(0.3, 'highpass', 2500, 0.5, 0.15, null); } }
+  else if (casMeshes.kneel) { casMeshes.kneel.g.visible = false; casMeshes.kneelLight.visible = false; }
+  $('#recon').hidden = now > casLocal.reconUntil;
+}
+const _updateScene = updateScene; updateScene = function (t, dt) { _updateScene(t, dt); casScene(t, dt); };
+const _buildHouse = buildHouse; buildHouse = function () { casMeshes = { decoy: null, corpse: null, kneel: null, kneelLight: null, shadow: null, shadowUntil: 0, tv: null, tvTex: null, tvCtx: null }; Object.assign(casLocal, { corpseGone: 0, kneelGone: 0, decoyKey: null, tvMode: null, tvUntil: 0, tvDrawn: null }); _buildHouse(); };
+
+// ---------- la Llorona: muy rara vez, en la cacería, sus pasos se oyen lejos estando cerca ----------
+const _huntAudio = huntAudio;
+huntAudio = function (dt) {
+  const g = w && w.g, V = viewer();
+  if (g && g.hunt && g.hunt.inv && V && V.f === g.f) { const gx = g.x, gy = g.y, d = Math.hypot(V.x - gx, V.y - gy) || 0.01, d2_ = Math.max(1.5, 24 - d); g.x = V.x + (gx - V.x) / d * d2_; g.y = V.y + (gy - V.y) / d * d2_; _huntAudio(dt); g.x = gx; g.y = gy; return; }
+  _huntAudio(dt);
+};
+
+// ---------- voz propia: ¿estoy hablando o gritando? (para el Yohualtepuztli) ----------
+setInterval(() => { if (!w || !VOICE.on) return; const me = w.invs[ME]; if (!me) return; const l = VOICE.level || 0; me.talking = l > 0.03; if (l > 0.14) casLocal.loudUntil = performance.now() + 600; me.loud = performance.now() < (casLocal.loudUntil || 0); }, 100);
+
+// ---------- libreta con colores y apuesta ----------
+function myJournal() { return { c: Object.keys(w.conf || {}), d: Object.keys(w.discard || {}).filter(k => w.discard[k]), g: Object.keys(w.discardG || {}).filter(k => w.discardG[k]) }; }
+function syncJournal() { if (!w) return; const j = myJournal(); const me = w.invs[ME]; if (NET.mode === 'guest') NET.journalOut = j; else if (me) me.journal = j; }
+function myGuess() { return NET.mode === 'guest' ? NET.myGuess : w && w.invs[ME] && w.invs[ME].guess; }
+function setGuess(id) { if (NET.mode === 'guest') NET.myGuess = id; else if (w) w.invs[ME].guess = id; toast(`Tu apuesta: <b>${GT[id].n}</b>. Para terminar, sal por el zaguán.`, '', 3); }
+journalHTML = function (canName) {
+  const c = candidates(w, true), p = pruebas(w), others = w.invs.filter(i => i.id !== ME && !i.bot && i.journal);
+  const dots = (k, kind) => others.map(i => { const j = i.journal; const st = (kind === 'ev' ? (j.c.includes(k) ? '✓' : j.d.includes(k) ? '✗' : '') : (j.g.includes(k) ? '✗' : '')); return st ? `<i class="jd" style="background:${i.color}" title="${i.name}">${st}</i>` : ''; }).join('');
+  let h = `<h3>Evidencias <small>clic: marcar ✓ → tachar ✗ → borrar · los puntos de color son las marcas de tus compañeros</small></h3>`;
+  EV_KEYS.forEach(k => { const st = w.conf[k] ? 'si' : w.discard[k] ? 'no' : 'na';
+    h += `<div class="ev ${st}" data-ev="${k}"><span>${cardImg(EV[k].tool, 'mci')}${EV[k].n}<small>${ITEMS[EV[k].tool].n}</small></span><span class="jdots">${dots(k, 'ev')}</span><b>${st === 'si' ? '✓' : st === 'no' ? '✗' : '?'}</b></div>`; });
+  const gs = myGuess();
+  h += `<p class="hint">Marcadas: <b>${p}</b>. Nadie te avisa si una lectura es real. ${gs ? `Tu apuesta: <b>${GT[gs].n}</b>.` : 'Elige un ánima y márcala como tu apuesta.'} Para terminar la noche, <b>sal por el zaguán</b>: el resultado se ve afuera.</p>`;
+  h += `<h3>Ánimas posibles (${c.length})</h3>`;
+  GHOSTS.forEach(G => { const ok = c.includes(G) && !(w.discardG && w.discardG[G.id]); h += `<div class="cand ${ok ? '' : 'out'} ${gs === G.id ? 'guess' : ''}" data-g="${G.id}"><span>${G.n}${gs === G.id ? ' 🎯' : ''}<button class="gx" title="Tachar o destachar">${w.discardG && w.discardG[G.id] ? '↺' : '✗'}</button><small>${G.ev.map(k => EV[k].n).join(' · ')}</small></span><span class="jdots">${dots(G.id, 'g')}</span></div>`; });
+  if (jSel) { const G = GT[jSel]; h = h.replace(`data-g="${jSel}">`, `data-g="${jSel}" class="sel">`); h += `<h3>${G.n}</h3><p><button class="guessbtn" data-guess="${G.id}">🎯 Esta es mi apuesta</button></p><p class="small"><b>${G.passive.n}.</b> ${G.passive.d}</p>`; }
+  const obj = (w.obj || []).map(o => `${o.done ? '✅' : '⬜'} ${{ guarida: 'Encontrar su guarida antes del minuto 5', escondido: 'Sobrevivir a una cacería escondido', foto: 'Tomarle una foto al ánima', SU: 'Que la grabadora conteste', BC: 'Medir bajo cero', CE: 'Ver sus huellas con la UV' }[o.k]}`).join('<br>');
+  h += `<h3>Objetivos de la noche <small>$25 cada uno</small></h3><p class="small">${obj}</p>`;
+  h += `<h3>La casa</h3><p class="small">La instalación aguanta <b>${w.lightLimit}</b> focos prendidos a la vez; uno más y se botan los fusibles. Tu cámara instantánea tiene rollo de 6: las fotos del ánima, sus rastros y lo raro de la casona pagan.</p>`;
+  return h;
+};
+$('#journal').addEventListener('click', e => { const b = e.target.closest('[data-guess]'); if (b) { setGuess(b.dataset.guess); $('#journalIn').innerHTML = journalHTML(false); return; } setTimeout(syncJournal, 0); });
+showNaming = function () {};
+
+// ---------- barra superior: Hora del ánima, amanecer, dinero ----------
+const _hud = hud;
+hud = function () {
+  _hud(); const me = w.invs[ME];
+  if (w.phase === 'hora') $('#top').innerHTML = `<span class="hora">5:59 a. m.</span><span><b>¡HORA DEL ÁNIMA!</b> La salida está trabada: aguanten <b>${fmt(Math.max(0, w.hora.until - w.t))}</b></span><span class="huntb">¡CACERÍA!</span>`;
+  else if (w.phase === 'amanecer') $('#top').innerHTML = `<span class="hora">6:00 a. m.</span><span>Sale el sol: <b>salgan por el zaguán</b></span>`;
+  if (w.opt.role === 'inv' && me) { const gs = myGuess(); const lit = litCount(w); const extra = `<div class="row small">🎯 ${gs ? GT[gs].n : '<em>sin apuesta</em> (libreta)'} · 💡 ${lit}/${w.lightLimit} focos · 📷 ${me.slots.filter(s => s && s.kind === 'fotocam').map(s => s.film).join(', ') || '—'}</div>`; const L = $('#left'); if (L && !L.querySelector('.casx')) L.insertAdjacentHTML('beforeend', `<div class="casx">${extra}</div>`); }
+};
+
+// ---------- final: quién salió, quién acertó y cuánto ganó ----------
+showEnd = function () {
+  freeMouse(); const o = w.over; $('#modal').hidden = false; const me = w.invs[ME];
+  if (!o.res) return; const mine = o.res.find(r => r.id === ME);
+  if (!o.paidLocal && mine && w.opt.role === 'inv') { wallet.add(mine.pay || 0); o.paidLocal = true; }
+  const youWin = w.opt.role === 'inv' ? !!(mine && mine.out && mine.ok) : o.win === 'ghost';
+  $('#modalIn').innerHTML = `<img class="endart" src="${ASSET}a/${o.win === 'inv' ? 'final_vivos' : 'final_anima'}.webp" alt=""><h2>${w.opt.role === 'bots' ? (o.win === 'inv' ? 'Ganan los investigadores' : 'Gana el ánima') : youWin ? '¡Acertaste y saliste con vida!' : 'Perdiste'}</h2><p class="big">${o.cause}</p>
+    <p>Era <b>${w.g.def.n}</b> (${w.g.def.ev.map(k => EV[k].n).join(', ')}), con voz de ${w.g.voice === 'm' ? 'mujer' : 'hombre'} y su guarida en ${ROOMS[w.g.home.f][w.g.home.r].n}.${w.g.mimic ? ` Esta noche copiaba a ${GT[w.g.mimic].n}.` : ''}</p>
+    <table class="endt"><thead><tr><th>Investigador</th><th>Salió</th><th>Apuesta</th><th>Fotos</th><th>Ganó</th></tr></thead><tbody>${o.res.map(r => `<tr${r.id === ME ? ' class="me"' : ''}><td>${r.name}${r.bot ? ' <small>(bot)</small>' : ''}</td><td>${r.out ? 'Sí' : r.alive ? 'No' : 'Murió'}</td><td>${r.guess ? GT[r.guess].n + (r.ok ? ' ✓' : ' ✗') : '—'}</td><td>$${r.fotos || 0}</td><td><b>$${r.pay}</b></td></tr>`).join('')}</tbody></table>
+    <p class="small">Evidencias reales encontradas: ${o.evid} ($20 c/u) · objetivos: ${o.objDone} de 3 ($25 c/u) · salir con vida $15 · acertar multiplica (×2 con 3 evidencias), fallar o no apostar ×0,5.</p>
+    <p>Tu dinero: <b>$${wallet.get()}</b></p>
+    <div class="btns">${NET.mode === 'guest' ? '' : '<button id="again">Jugar otra</button>'}<button id="tomenu" class="ghostbtn">Menú</button></div>`;
+  const ag = $('#again'); if (ag) ag.onclick = () => start(); $('#tomenu').onclick = () => toMenu();
+};
+
+// ---------- la ruleta de la noche ahora dice también la tragamonedas y los objetivos ----------
+nightRoulette = function () {
+  const cnt = {}; w.items.filter(it => !TOOLS.includes(it.kind)).forEach(it => (cnt[it.kind] = (cnt[it.kind] || 0) + 1));
+  const rn = rr => `${ROOMS[rr.f][rr.r].n} (${rr.f ? 'planta alta' : 'planta baja'})`; const M = w.mods || {};
+  const el = document.createElement('div'); el.id = 'ruleta'; el.innerHTML = `<div class="rbox"><h3>Esta noche</h3>${M.casa ? `<p>🎰 ${SLOT.casa.find(x => x.id === M.casa).n} · ${SLOT.noche.find(x => x.id === M.noche).n} · ${SLOT.trato.find(x => x.id === M.trato).n}</p>` : ''}<p>🕯 <b>Altar:</b> ${rn(w.altarRoom)} · ⚡ <b>Fusibles:</b> ${rn(w.fuseRoom)} · 💡 aguanta <b>${w.lightLimit}</b> focos</p>
+    <p><b>En la casa hay:</b></p><div class="rgrid">${Object.entries(cnt).map(([k, n]) => `<span>${cardImg(k, 'mci')}${ITEMS[k].n} ×${n}</span>`).join('')}</div><p class="small">Llevas 3 lugares de equipo y la linterna. Para terminar, marca tu apuesta en la libreta y <b>sal por el zaguán</b> antes del alba.</p><button>A la casona</button></div>`;
+  $('#game').appendChild(el); el.querySelector('button').onclick = () => el.remove(); setTimeout(() => el.remove(), 14000);
+};
+
+// ---------- tragamonedas al inicio de la noche ----------
+const SLOT = {
+  casa: [{ id: 'velas', n: 'Más veladoras' }, { id: 'radio', n: 'Una radio en la casa' }, { id: 'camara', n: 'Una cámara de más' }, { id: 'focos', n: 'Sin focos de repuesto' }, { id: 'te', n: 'Más té de tila' }],
+  noche: [{ id: 'tormenta', n: 'Tormenta: el ánima oye menos' }, { id: 'luna', n: 'Luna llena: cacerías más seguidas' }, { id: 'niebla', n: 'Niebla: la noche dura 1 min más' }, { id: 'vieja', n: 'Instalación vieja: un foco menos' }, { id: 'calma', n: 'Noche tranquila: la casona hace menos' }],
+  trato: [{ id: 'rollo', n: '+1 rollo de fotos', b: true }, { id: 'copal', n: 'Empiezan con un Copal', b: true }, { id: 'cordura', n: 'Cordura inicial −10 (paga ×1,2)' }, { id: 'hambre', n: 'El ánima empieza hambrienta (paga ×1,2)' }, { id: 'sinluz', n: 'Sin luz arriba (paga ×1,2)' }],
+};
+let slotSpins = 0;
+function slotRoll(k) { menuOpt.mods = menuOpt.mods || {}; menuOpt.mods[k] = pick(SLOT[k]).id; }
+function showSlot(done) {
+  menuOpt.mods = {}; slotSpins = 0; ['casa', 'noche', 'trato'].forEach(slotRoll);
+  const el = document.createElement('div'); el.id = 'slot'; document.body.appendChild(el);
+  const cost = () => [30, 60, 120][Math.min(2, slotSpins)];
+  const draw = () => { const M = menuOpt.mods, cash = wallet.get();
+    el.innerHTML = `<div class="sbox"><h2>🎰 La tragamonedas de la noche</h2><div class="reels">${['casa', 'noche', 'trato'].map(k => `<div class="reel"><small>${{ casa: 'La casa', noche: 'La noche', trato: 'El trato' }[k]}</small><b>${SLOT[k].find(x => x.id === M[k]).n}</b><button data-one="${k}" ${cash < 20 ? 'disabled' : ''}>Girar este · $20</button></div>`).join('')}</div>
+      <p>Tu dinero: <b>$${cash}</b></p><div class="btns"><button id="spinAll" ${cash < cost() ? 'disabled' : ''}>Girar los tres · $${cost()}</button><button id="slotGo">¡A la casona!</button></div><p class="small">El dinero se gana en cada noche: evidencias, objetivos, fotos y salir con vida. Nunca compra ventaja para deducir.</p></div>`;
+    el.querySelectorAll('[data-one]').forEach(b => b.onclick = () => { if (wallet.get() < 20) return; wallet.add(-20); slotRoll(b.dataset.one); tone(600, 0.1, 'square', 0.05, null); draw(); });
+    el.querySelector('#spinAll').onclick = () => { const c = cost(); if (wallet.get() < c) return; wallet.add(-c); slotSpins++; ['casa', 'noche', 'trato'].forEach(slotRoll); tone(500, 0.3, 'square', 0.05, null, 400); draw(); };
+    el.querySelector('#slotGo').onclick = () => { el.remove(); done(); }; };
+  draw();
+}
+const _start = start;
+start = function (netStart) { if (!netStart && NET.mode !== 'guest' && !start.skipSlot && menuOpt.role !== 'bots') { if (!audio) initAudio(); showSlot(() => { start.skipSlot = true; try { _start(); } finally { start.skipSlot = false; } }); return; } if (menuOpt.role === 'bots') menuOpt.mods = {}; _start(netStart); syncJournal(); };
+{ const box = document.createElement('p'); box.className = 'small'; box.id = 'walletLine'; const opts = $('#opts'); if (opts && opts.parentElement) opts.parentElement.insertBefore(box, $('#play')); const upd = () => { box.innerHTML = `💰 Tu dinero: <b>$${wallet.get()}</b> · al empezar gira la tragamonedas de la noche.`; }; upd(); setInterval(upd, 2000); }
+document.body.insertAdjacentHTML('beforeend', '<div id="recon" hidden><div>Reconectando…</div></div>');
+EMOJI.fotocam = '📷';
 
 document.getElementById('loading').remove();
 </script>

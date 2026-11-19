@@ -714,7 +714,6 @@ function nearSpot(w, i) { let b = -1, bd = 0.9; w.spotsActive.forEach(k => { con
 function interact(w, i) {
   if (i.hidden >= 0) { i.hidden = -1; return 'salir'; }
   if (isStair[(i.y | 0) * W + (i.x | 0)]) { const nf = 1 - i.f; i.f = nf; w.noise(i, 6, 'stairs'); return 'escalera'; }
-  if (i.f === ALTAR_POS.f && d2(i, ALTAR_POS) < 2.2) return 'altar';
   if (resetFuse(w, i)) return 'fusibles';
   const s = nearSpot(w, i); if (s >= 0) { i.hidden = s; i.x = SPOTS[s].hx; i.y = SPOTS[s].hy; i.reading = null; return 'esconder'; }
   if (pickUp(w, i)) return 'tomar';
@@ -1193,7 +1192,7 @@ function step(w, dt, input) {
     if (!inHome(g)) g.outsideT += dt;
     const every = def.selloEvery || (def.id === 'pena' ? 60 : 0);
     if (every && g.outsideT >= every) { g.outsideT = 0; emitSello(w, g, def.id === 'llorona' ? 'charcos' : def.id === 'malaire' ? 'escarcha' : 'rezo'); }
-    if (def.id === 'chaneque' && !g.hunt && w.t > (g.selloCd.robo || 0)) { const v = exposedInvs(w).find(i => i.f === g.f && d2(i, g) < 1.4 && i.slots.some(s => s)); if (v) { const ks = v.slots.map((s, k) => s ? k : -1).filter(k => k >= 0); const k = pick(ks); const it = v.slots[k]; v.slots[k] = null; it.holder = null; const rr = pick(ROOM_LIST.filter(r => ROOM_CENTER[r.f][r.r] && !(r.f === v.f && r.r === roomOf(v)))); const p = randomIn(rr.f, rr.r); it.f = p.f; it.x = p.x; it.y = p.y; g.selloCd.robo = w.t + 20; w.say(`A ${v.name} le desapareció: ${ITEMS[it.kind].n}.`, 'a'); emitSello(w, it, 'reubicado'); } }
+    if (false && def.id === 'chaneque' && !g.hunt && w.t > (g.selloCd.robo || 0)) { const v = exposedInvs(w).find(i => i.f === g.f && d2(i, g) < 1.4 && i.slots.some(s => s)); if (v) { const ks = v.slots.map((s, k) => s ? k : -1).filter(k => k >= 0); const k = pick(ks); const it = v.slots[k]; v.slots[k] = null; it.holder = null; const rr = pick(ROOM_LIST.filter(r => ROOM_CENTER[r.f][r.r] && !(r.f === v.f && r.r === roomOf(v)))); const p = randomIn(rr.f, rr.r); it.f = p.f; it.x = p.x; it.y = p.y; g.selloCd.robo = w.t + 20; w.say(`A ${v.name} le desapareció: ${ITEMS[it.kind].n}.`, 'a'); emitSello(w, it, 'reubicado'); } }
     if (def.id === 'matla') { for (const i of exposedInvs(w)) { if (i.f === g.f && d2(i, g) <= 8 && isolated(w, i)) { i.matlaT = (i.matlaT || 0) + dt; if (i.matlaT >= 10 && selloOK(w)) { i.matlaT = 0; w.nextSello = w.t + CFG.selloGap; const p = { f: g.f, x: g.x, y: g.y }; w.sub(p, `«…${i.name}…»`, 14); w.ev('sello', { kind: 'nombre', f: g.f, x: g.x, y: g.y });  } } else i.matlaT = 0; } }
     if (def.id === 'cucuy' && g.pres > def.presMax / 2 && w.t > (g.selloCd.ropero || 0)) { const s = SPOTS.find(s => s.f === g.f && Math.hypot(s.x + 0.5 - g.x, s.y + 0.5 - g.y) < 1.6); if (s) { g.selloCd.ropero = w.t + 25; emitSello(w, { f: s.f, x: s.hx, y: s.hy }, 'ropero'); } }
     if (def.id === 'guardian' && w.t > (g.selloCd.monedas || 0) && exposedInvs(w).some(i => i.f === g.home.f && roomOf(i) === g.home.r)) { g.selloCd.monedas = w.t + 20; emitSello(w, ROOM_CENTER[g.home.f][g.home.r], 'monedas'); }
@@ -1202,7 +1201,7 @@ function step(w, dt, input) {
   if (def.id === 'guardian' && g.state !== 'despertando') exposedInvs(w).forEach(i => { if (i.f === g.home.f && roomOf(i) === g.home.r) w.haunt(i, 0.4 * dt); });
   if (def.id === 'planchada' && g.state !== 'despertando') exposedInvs(w).forEach(i => { if (i.f === g.f && i.san <= 25 && d2(i, g) < 3) i.san = Math.min(100, i.san + dt); });
   // Cucuy saca de escondites cazando
-  if (def.id === 'cucuy' && g.hunt) { const v = w.invs.find(i => i.alive && i.hidden >= 0 && SPOTS[i.hidden].f === g.f && Math.hypot(SPOTS[i.hidden].hx - g.x, SPOTS[i.hidden].hy - g.y) < 1.3); if (v) { g.pull = (g.pull || 0) + dt; if (g.pull >= 3) { v.hidden = -1; g.pull = 0; w.say(`¡El Cucuy sacó a ${v.name} del escondite!`, 'a'); } } else g.pull = 0; }
+  if (false && def.id === 'cucuy' && g.hunt) { const v = w.invs.find(i => i.alive && i.hidden >= 0 && SPOTS[i.hidden].f === g.f && Math.hypot(SPOTS[i.hidden].hx - g.x, SPOTS[i.hidden].hy - g.y) < 1.3); if (v) { g.pull = (g.pull || 0) + dt; if (g.pull >= 3) { v.hidden = -1; g.pull = 0; w.say(`¡El Cucuy sacó a ${v.name} del escondite!`, 'a'); } } else g.pull = 0; }
 
   // Percepción del ánima
   g.perceived.clear(); let anySeen = false;
@@ -1236,9 +1235,9 @@ function step(w, dt, input) {
       const hidLit = i.hidden >= 0 && elecOnW(w, i) && Math.hypot(SPOTS[i.hidden].hx - g.x, SPOTS[i.hidden].hy - g.y) < 1.2;
       if (!i.alive || i.escaped || i.f !== g.f || (i.hidden >= 0 && !hidLit) || (!hidLit && d2(i, g) > CFG.killDist)) continue;
       if (hidLit) { i.hidden = -1; w.say(`¡El ánima abrió el escondite de ${i.name}: su linterna seguía encendida!`, 'a'); w.ev('dragOut', { who: i.id }); }
-      if (def.noKillBelow && i.san <= def.noKillBelow) continue;
+      if (def.noKillBelow && i.san <= def.noKillBelow && alive(w).some(o => o.san > def.noKillBelow)) continue;
       const rk = i.slots.findIndex(s => s && s.kind === 'rosario');
-      if (rk >= 0 && !w.noHoly) { const it = i.slots[rk]; i.slots[rk] = null; w.items.splice(w.items.indexOf(it), 1); activateRosary(w, i); break; }
+      if (rk >= 0 && !w.noHoly) { const it = i.slots[rk]; it.uses = (it.uses === undefined ? 2 : it.uses) - 1; if (it.uses <= 0) { i.slots[rk] = null; w.items.splice(w.items.indexOf(it), 1); w.say(`El rosario de ${i.name} se rompió.`, 'a'); } activateRosary(w, i); break; }
       killInv(w, i); if (!g.hunt.huida) { endHunt(w, g); break; }
     }
   }
@@ -1269,8 +1268,8 @@ function step(w, dt, input) {
       if (!(i.ai.running)) i.stam = Math.min(100, i.stam + CFG.stamWalk * dt * 0.5);
     } else {
       w.actor = i; const p = hin.press;
-      for (let k = 0; k < 4; k++) if (p.has(String(k + 1))) i.hand = k;
-      if (p.has('wheelup')) i.hand = (i.hand + 3) % 4; if (p.has('wheeldown')) i.hand = (i.hand + 1) % 4;
+      const NS = i.slots.length; for (let k = 0; k < NS; k++) if (p.has(String(k + 1))) i.hand = k;
+      if (p.has('wheelup')) i.hand = (i.hand + NS - 1) % NS; if (p.has('wheeldown')) i.hand = (i.hand + 1) % NS;
       if (p.has('e')) { const res = interact(w, i); if (res === 'altar') w.ev('altar', { who: i.id }); }
       if (p.has('q')) toggleLight(w, i);
       if (p.has('f')) i.flash = !i.flash;
@@ -1327,7 +1326,7 @@ function killInv(w, i) {
   i.slots.forEach((s, k) => { if (s) dropItem(w, i, k); }); i.noclip = true;
 }
 function spiritControl(w, i, human, dt) {
-  const p = human.press; i.noclip = true;
+  const p = human.press; i.noclip = true; if (human.face !== undefined) i.face = human.face;
   if (human.mx || human.my) { const l = Math.hypot(human.mx, human.my); i.x = clamp(i.x + human.mx / l * 4 * dt, 0.5, W - 0.5); i.y = clamp(i.y + human.my / l * 4 * dt, 0.5, H - 0.5); }
   if (p.has('z')) i.f = 1 - i.f;
   if (p.has(' ') && w.t >= i.spirit.cd) { i.spirit.cd = w.t + 30; i.spirit.until = w.t + 3; i.spirit.x = i.x; i.spirit.y = i.y; i.spirit.f = i.f; w.say('Te manifiestas para estorbar al ánima.', 'i'); w.ev('manifest'); }

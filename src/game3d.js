@@ -772,7 +772,7 @@ function contextHint(i) {
   if (i.hidden >= 0) return `Escondido. ${elecOnW(w, i) ? '<b class="warn">¡Tu aparato encendido te delata!</b> Apaga la linterna (F) o cambia de ranura. ' : ''}<kbd>E</kbd> salir`;
   const t = []; const h = handItem(i), touch = matchMedia('(pointer: coarse)').matches;
   if (h) { t.push(`<kbd>${touch ? 'Usar' : 'Clic'}</kbd> ${USE_VERB[h.kind] || 'usar'}`); t.push(`<kbd>${touch ? 'Dejar' : 'G'}</kbd> ${h.kind === 'rosario' && w.doors.some(d => d.f === i.f && Math.hypot(d.x - i.x, d.y - i.y) < 1.6) ? 'colgar en la puerta' : 'dejar aquí'}`); t.push(`<kbd>${touch ? 'Aventar' : 'R'}</kbd> aventar`); }
-  else t.push(`<kbd>${touch ? 'Ranura' : '1–4'}</kbd> elegir objeto`);
+  else t.push(`<kbd>${touch ? 'Ranura' : '1–3'}</kbd> elegir objeto`);
   const sw = nearSwitch(i); if (sw) t.push(`<kbd>${touch ? 'Luz' : 'Q'}</kbd> ${w.burnt[i.f][sw.r] ? (h && h.kind === 'foco' ? 'cambiar el foco' : 'foco fundido') : !w.fuse[i.f] ? 'sin corriente' : w.lights[i.f][sw.r] ? 'apagar la luz' : 'prender la luz'}`);
   return t.join(' · ') || '&nbsp;';
 }

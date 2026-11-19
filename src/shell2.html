@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
-<title>Noche de Ánimas · Demo 3D v1.0 en línea</title>
+<title>Noche de Ánimas · Demo 3D v1.1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;800&family=Grenze:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -171,6 +171,21 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
 #onLobby img{width:30px;height:30px;border-radius:50%;object-fit:cover}
 #onStatus.ok{color:#8fd18f}#onStatus.bad{color:#ff9aa4}
 #radioInd{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:rgba(90,15,30,.85);border:1px solid var(--gold);color:var(--gold);padding:4px 12px;border-radius:999px;z-index:30}
+.photoflash{position:fixed;inset:0;background:#fff;opacity:.9;z-index:40;pointer-events:none;animation:pf .4s ease-out forwards}@keyframes pf{to{opacity:0}}
+.redsky{position:fixed;inset:0;background:rgba(160,0,0,.35);mix-blend-mode:multiply;z-index:38;pointer-events:none}
+#recon{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:45;display:flex;align-items:center;justify-content:center;font:600 1.6em Grenze,Georgia,serif;color:#ddd}
+#recon[hidden]{display:none}
+#slot{position:fixed;inset:0;z-index:60;background:rgba(7,5,15,.88);display:flex;align-items:center;justify-content:center;padding:16px}
+#slot .sbox{max-width:760px;background:#1a1430;border:2px solid var(--gold);border-radius:16px;padding:18px 22px;text-align:center}
+#slot h2{font-family:"Grenze Gotisch",Georgia,serif;color:var(--gold);margin:0 0 10px}
+#slot .reels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}#slot .reel{background:rgba(243,230,207,.06);border:1px solid rgba(242,176,78,.4);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:6px;min-height:120px;justify-content:space-between}
+#slot .reel b{font-size:1.05em}#slot button{background:rgba(243,230,207,.08);color:var(--bone);border:1px solid rgba(242,176,78,.5);border-radius:999px;padding:6px 12px}#slot button:disabled{opacity:.4}
+#slot #slotGo{background:var(--gold);color:var(--ink);font-weight:700}
+@media(max-width:640px){#slot .reels{grid-template-columns:1fr}}
+.jdots{display:inline-flex;gap:2px;margin:0 6px}.jd{display:inline-block;min-width:16px;height:16px;border-radius:50%;font:700 11px/16px sans-serif;color:#fff;text-align:center;font-style:normal}
+.cand.guess{outline:2px solid var(--gold);border-radius:8px}.guessbtn{background:var(--gold);color:var(--ink);border:0;border-radius:999px;padding:6px 14px;font-weight:700}
+.endt{width:100%;border-collapse:collapse;margin:8px 0}.endt td,.endt th{padding:4px 6px;border-bottom:1px solid rgba(243,230,207,.15);text-align:left}.endt tr.me{background:rgba(242,176,78,.12)}
+.floater.cas{color:#cfc0ff}
 </style>
 <script>window.ASSET_BASE = '/*ASSET*/';</script>
 </head>
@@ -180,7 +195,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
   <div class="picado"></div>
   <div class="wrap">
     <div class="hero"><img class="logo" src="/*ASSET*/a/logo.webp" alt="Noche de Ánimas"><h1 hidden>Noche de Ánimas</h1>
-    <p class="sub">Demo 3D v1.0 en línea · terror analógico y núcleo v2: las pruebas se provocan y el ánima tiene hambre. Estilo de aristas duras.</p></div>
+    <p class="sub">Demo 3D v1.1 · terror analógico y núcleo v2: las pruebas se provocan y el ánima tiene hambre. Estilo de aristas duras.</p></div>
     <div class="card" id="online"><h2>Jugar en línea</h2>
       <p class="small">Hasta 4 investigadores; el ánima es un bot. Quien crea la sala es el anfitrión: su navegador corre la partida, así que debe quedarse hasta el final. Usa audífonos. Tu personaje es el que elijas abajo, en «Nueva noche».</p>
       <div class="onrow"><input id="onName" maxlength="16" placeholder="Tu nombre"><button id="onMic">🎙 Activar micrófono</button></div>
@@ -204,13 +219,13 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
         <li><b>Encuentra su cuarto</b> por las velas azules o el frío. Fuera de él, el ánima gasta presencia; si se agota, vuelve y queda inmóvil un rato.</li>
         <li><b>Cacería:</b> empieza según la cordura del grupo (cada ánima tiene su regla). Te alcanza = mueres. Cada segundo que te ve, corre más: <b>rompe su línea de vista</b> y escóndete antes de quedarte sin aliento. Escondido, <b>un aparato encendido en la mano te delata</b> (linterna incluida).</li>
         <li><b>El Rosario</b> se activa solo si te alcanza (o tú, a 3 m): el ánima queda ciega 5 s. La <b>Ruda</b> en una puerta le impide cruzarla 40 s; el <b>Copal</b> hace humo que no puede atravesar.</li>
-        <li><b>Nombrarla:</b> con 2 pruebas (evidencias o su sello), dile su nombre en el altar de la Capilla. Si aciertas empieza <b>la huida</b>: salgan por el Zaguán. Gana el equipo si escapa la mitad.</li>
+        <li><b>Terminar la noche:</b> marca en tu libreta qué ánima crees que es (🎯 tu apuesta) y <b>sal por el zaguán</b> (E dos veces en la puerta). El resultado se ve afuera, cada quien por su cuenta. Si el alba te agarra adentro empieza la <b>Hora del ánima</b>: 90 s con la salida trabada.</li><li><b>La casona también asusta</b> por su cuenta: pasos, teléfonos, la tele, dobles… No dan evidencias. Las herramientas nunca mienten.</li><li><b>Luces:</b> la instalación aguanta pocos focos a la vez; uno de más y se botan los fusibles.</li>
         <li><b>La apariencia del ánima es al azar</b> cada noche (mujer de blanco, sombra, niño…) y no dice cuál es: se deduce por lo que hace. Su nombre aparece al nombrarla.</li>
         <li><b>Sin sustos baratos:</b> usa audífonos. Los pasos, los portazos y el aliento en la nuca son la información.</li>
       </ul>
       <p class="note small">En celular: joystick abajo a la izquierda, botones abajo a la derecha y arrastra en la pantalla para mirar. Prototipo: modelos hechos en código, sin arte final. En línea: hasta 4 personas con voz por cercanía (mantén <kbd>V</kbd> para hablar por radio). Los lugares vacíos los ocupan bots.</p>
     </div>
-    <div class="card"><h2>Las 13 ánimas</h2><p class="small">Todas parten del Ánima en pena y cambian su perfil: cómo ven, oyen, se mueven, cazan y qué fenómenos usan.</p><div class="tablewrap" id="catalog"></div></div>
+    <div class="card"><h2>Las 22 ánimas</h2><p class="small">Todas parten del Ánima en pena y cambian su perfil: cómo ven, oyen, se mueven, cazan y qué fenómenos usan.</p><div class="tablewrap" id="catalog"></div></div>
     <div class="card"><h2>Simulador de equilibrio</h2>
       <p>Noches por ánima <select id="simN"><option>5</option><option selected>10</option><option>25</option></select> Investigadores <select id="simInv"><option>1</option><option>2</option><option selected>3</option><option>4</option></select> <button id="simBtn">Simular</button></p>
       <div class="tablewrap" id="simOut"></div></div>

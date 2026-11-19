@@ -189,7 +189,7 @@ function netHostInputs(w, localIdx, localInput) {
     if (!d) { by[i.id] = { mx: 0, my: 0, sprint: false, press: new Set() }; continue; }
     const poseOk = d.pe === i.pe && i.alive && i.hidden < 0 && !i.possessed;
     if (poseOk && typeof d.x === 'number') { i.x = d.x; i.y = d.y; i.vx = d.vx || 0; i.vy = d.vy || 0; i.stam = d.stam; i.tired = !!d.tired; i._ax = d.x; i._ay = d.y; i._af = i.f; } else { i._ax = i.x; i._ay = i.y; i._af = i.f; }
-    i.radio = !!d.radio;
+    i.radio = !!d.radio; i.loud = !!d.loud; i.talking = !!d.talk; if (d.guess !== undefined) i.guess = d.guess; if (d.jr) i.journal = d.jr;
     by[i.id] = { mx: i.alive ? 0 : d.mx || 0, my: i.alive ? 0 : d.my || 0, sprint: !!d.sprint, moving: !!d.moving, face: d.face, press: d.press || new Set(), throwPower: d.tp };
     for (const a of d.acts || []) netAct(w, i, a);
     d.press = new Set(); d.acts = [];
@@ -212,8 +212,8 @@ function netBroadcast(w) {
 }
 function netSendInput(inp, me, acts) {
   const c = NET.hostConn; if (!c || !c.open) return;
-  c.send({ t: 'in', x: me.x, y: me.y, vx: me.vx, vy: me.vy, stam: me.stam, tired: me.tired, face: inp.face, sprint: inp.sprint, moving: !!(inp.mx || inp.my), mx: inp.mx, my: inp.my, tp: inp.throwPower, radio: !!me.radio, press: [...NET.pressAcc], acts, pe: NET.localPe });
-  NET.pressAcc.clear();
+  c.send({ t: 'in', x: me.x, y: me.y, vx: me.vx, vy: me.vy, stam: me.stam, tired: me.tired, face: inp.face, sprint: inp.sprint, moving: !!(inp.mx || inp.my), mx: inp.mx, my: inp.my, tp: inp.throwPower, radio: !!me.radio, loud: !!me.loud, talk: !!me.talking, guess: NET.myGuess, jr: NET.journalOut || null, press: [...NET.pressAcc], acts, pe: NET.localPe });
+  NET.pressAcc.clear(); NET.journalOut = null;
 }
 
 // ---------- Voz por cercanía ----------
