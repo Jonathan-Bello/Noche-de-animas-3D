@@ -444,7 +444,7 @@ function toolTick(w, dt) {
       case 'emf': if (w.t >= it.emfUntil) { let lv = 1, dur = 0.5; if (near <= 3) { if (has('LU') && chance(CFG.emfP, dt)) { lv = 5; dur = 3; } else { lv = 2 + ((Math.random() * 2) | 0); dur = 1; } } else if (near <= 6 && Math.random() < 0.15) lv = 2;
         if (interf(p) && lv < 4 && Math.random() < 0.5) { lv = 4; dur = 1.5; } it.emfLvl = lv; it.emfUntil = w.t + dur; if (lv === 5) { w.ev('emf', Object.assign({ lvl: 5 }, p)); observe(w, 'LU', held || witnessOf(w, p, 6), 'EMF 5'); } } break;
       case 'espejo': if (!it.holder && w.t > it.markUntil && w.t > (it.fogUntil || 0)) { if (has('ES') && ras >= CFG.esp.min && chance(CFG.esp.p, dt, 60)) { it.markUntil = w.t + 30; w.ev('espejo', p); } else if ((ras >= CFG.esp.min || interf(p)) && chance(0.2, dt, 60)) it.fogUntil = w.t + 20; }
-        if (w.t < it.markUntil) observe(w, 'ES', held || witnessOf(w, p, 2.5), 'una mano en el vaho del espejo'); break;
+        if (w.t < it.markUntil) observe(w, 'ES', held || witnessOf(w, p, 8), 'una mano en el vaho del espejo'); break;
       case 'gases': if (near <= 3) it.gasAcc += dt; if (it.gasAcc >= 5) { it.gasAcc = 0; if (has('AZ') && Math.random() < CFG.gasP) { it.redUntil = w.t + 30; w.ev('gases', p); } else it.yellowUntil = w.t + 12; }
         if (w.t < it.redUntil) observe(w, 'AZ', held || witnessOf(w, p, 5), 'la aguja en rojo'); break;
       case 'cam': if (!it.holder && !it.photo && ras >= CFG.cam.min && chance(CFG.cam.p, dt, 60)) it.photo = has('OB') ? 'flota' : Math.random() < 0.35 ? 'borrosa' : null;

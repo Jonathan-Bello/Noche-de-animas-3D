@@ -224,3 +224,21 @@ botTeam = function (w) {
   if (!w.team.leaveSaid) { w.team.leaveSaid = true; w.stats.leaveP = p; w.stats.leaveC = c.length; w.stats.sure = sure;
     bsay(w, bots[0], sure ? `Tiene que ser ${best.n}. ${humansIn ? 'Cuando quieran, a la camioneta.' : 'Vámonos.'}` : `No estamos seguros… ${c.length > 1 ? 'puede ser ' + c.slice(0, 3).map(x => x.n).join(', ') : best.n}.`, true); }
 };
+
+// ---------- Bots: la luz con cabeza (no botar los fusibles) ----------
+// al salir de un cuarto que queda vacío, apagan la luz; antes de prender una, si ya casi se botan los fusibles, no la prenden (o apagan la de un cuarto vacío)
+const roomEmpty = (w, f, r) => !alive(w).some(i => i.f === f && roomOf(i) === r);
+function botLightOff(w, b, f, r, why) { const sw = SWITCHES[f] && SWITCHES[f][r]; if (!sw || !w.lights[f][r]) return false; w.lights[f][r] = 0; w.ev('switch', sw); blog(w, 'equipo', `${b.name} apaga la luz de ${rName(f, r)} (${why})`, b, b.id); return true; }
+const _lightUp5 = lightUp;
+lightUp = function (w, b) {
+  const r = roomOf(b); if (r < 0 || w.lights[b.f][r] || isHall(b.f, r)) return _lightUp5(w, b);
+  if (litCount(w) >= (w.lightLimit || 99) - 1) { // ya casi: apaga primero una vacía; si no hay, se queda a oscuras
+    const spare = ROOM_LIST.find(x => w.lights[x.f][x.r] && !isHall(x.f, x.r) && roomEmpty(w, x.f, x.r));
+    if (!spare || !botLightOff(w, b, spare.f, spare.r, 'para no botar los fusibles')) return; }
+  return _lightUp5(w, b);
+};
+const _rulesTick5b = rulesTick;
+rulesTick = function (w, dt) { _rulesTick5b(w, dt); if (w.phase !== 'night') return;
+  for (const b of alive(w)) { if (!b.bot) continue; const r = roomOf(b), last = b.ai.lastRoom;
+    if (r >= 0 && last && (last.r !== r || last.f !== b.f)) { if (w.lights[last.f][last.r] && !isHall(last.f, last.r) && roomEmpty(w, last.f, last.r) && !(w.team.home && w.team.home.f === last.f && w.team.home.r === last.r && alive(w).some(i => i.ai && i.ai.state === 'watch'))) botLightOff(w, b, last.f, last.r, 'ya no hay nadie'); }
+    if (r >= 0) b.ai.lastRoom = { f: b.f, r }; } };

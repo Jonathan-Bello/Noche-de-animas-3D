@@ -15,8 +15,8 @@ Agregados en la v1.3:
 - FilmCow: aleteo (libro agitándose), soplido (aire comprimido), tomar objeto (libro), botón, campanita de vidrio, pestillo, matraca.
 - Colección CC0: risas (MMRetroArcadeSoundsPack "Laugh", MadameBerry "Laugh").
 - Sonic Pi (CC0): bombos graves usados como latido, chasquido.
-PENDIENTES (provisionales): el tecolote usa el graznido de un cuervo; falta un tecolote real. Las voces de la tele, la radio
-y "¡Ay, mis hijos!" siguen siendo voz sintética del navegador.
+PENDIENTES (provisionales): el tecolote usa el graznido de un cuervo; falta un tecolote real.
+v1.6: se quitó toda la voz sintética del navegador. Donde antes "hablaba" se usan frases grabadas de los jugadores o sonidos grabados (eco, respiración).
 
 Agregados en la v1.4 (radio): BB 2HTC Samples Vol 4 "Weird" (CC0): Growly, Echo Fade, Heavy Breathing, Breath Riser, Zombies; "30 CC0 SFX loops" noise_03.
 Si se agrega assets/s/llorona.mp3 (una voz grabada diciendo «¡Ay, mis hijos!»), el juego la usa en lugar del coro genérico.

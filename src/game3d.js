@@ -248,7 +248,7 @@ function makeItemMesh(it) {
   const ind = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshBasicMaterial({ color: 0xff2020 })); ind.position.y = 0.32; ind.visible = false; g.add(ind);
   let beam = null; if (it.kind === 'uv' || it.kind === 'cam') { beam = new THREE.Mesh(new THREE.ConeGeometry(it.kind === 'uv' ? 1.6 : 2.4, 6, 16, 1, true), new THREE.MeshBasicMaterial({ color: it.kind === 'uv' ? 0x9a5cff : 0xaaaaaa, transparent: true, opacity: it.kind === 'uv' ? 0.08 : 0.04, depthWrite: false, side: THREE.DoubleSide })); beam.rotation.z = Math.PI / 2; beam.position.set(3, 0.3, 0); const piv = new THREE.Group(); piv.add(beam); g.add(piv); beam = piv; }
   let flame = null; if (it.kind === 'vela') { flame = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshBasicMaterial({ color: COL.gold })); flame.position.y = 0.33; flame.scale.y = 1.8; g.add(flame); }
-  let mark = null; if (it.kind === 'espejo') { mark = new THREE.Mesh(new THREE.PlaneGeometry(0.3, 0.3), new THREE.MeshBasicMaterial({ map: handT, transparent: true, depthWrite: false, side: THREE.DoubleSide })); mark.position.set(0, 0.25, 0.03); mark.visible = false; g.add(mark); }
+  let mark = null; if (it.kind === 'espejo') { mark = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.42), new THREE.MeshBasicMaterial({ map: handT, transparent: true, depthWrite: false, side: THREE.DoubleSide })); mark.position.set(0, 0.25, 0.03); mark.visible = false; g.add(mark); }
   scene.add(g); return { g, m, halo, ind, beam, flame, mark };
 }
 
@@ -392,7 +392,7 @@ function updateScene(t, dt) {
     if (it.kind === 'cam') { im.ind.visible = Math.sin(t * 2) > 0.6; im.ind.material.color.setHex(0xff2020); }
     if (it.kind === 'grab') im.ind.visible = false;
     if (it.kind === 'vela' && im.flame) im.flame.visible = it.lit;
-    if (it.kind === 'espejo' && im.mark) { const V2 = viewer(); im.mark.visible = t < it.markUntil && !!V2 && V2.f === it.f && Math.hypot(V2.x - it.x, V2.y - it.y) < 1.6; }
+    if (it.kind === 'espejo' && im.mark) { const V2 = viewer(); im.mark.visible = t < it.markUntil && !!V2 && V2.f === it.f && Math.hypot(V2.x - it.x, V2.y - it.y) < 9 && los(V2.f, V2.x, V2.y, it.x, it.y); } // la mano se ve desde lejos
     if (im.beam) im.beam.visible = true;
   }
   for (const [id, im] of itemMeshes) if (!seenIds.has(id)) { scene.remove(im.g); itemMeshes.delete(id); }

@@ -188,3 +188,12 @@ function volApply() { if (audio && audio.master) audio.master.gain.value = 0.8 *
   const btn = $('#volBtn'); if (btn) btn.onclick = e => { e.stopPropagation(); $('#volPanel').hidden = !$('#volPanel').hidden; }; }
 const _initAudioV = initAudio; initAudio = function () { _initAudioV(); volApply(); };
 VOICE.vol = VOL.voz;
+
+// ---------- sin voces de computadora: todo lo que antes "hablaba" con síntesis de voz ----------
+// usa frases grabadas de los jugadores (distorsionadas) o sonidos grabados
+speak = function (text, o) {
+  try { if (audio && audio.muted) return; const V = typeof viewer === 'function' ? viewer() : null, p = V ? { f: V.f, x: V.x + 2, y: V.y + 1 } : null;
+    if (/mis hijos/i.test(text || '')) { S(SND_FILES.includes('llorona') ? 'llorona' : ['scream_fc1', 'scream_fc2'], p, { vol: 0.8, rate: 0.85 }); return; }
+    if (typeof VOICE !== 'undefined' && VOICE.clips && VOICE.clips.length && VOICE.playClip(p, Math.random() < 0.5, {})) return;
+    S(['r_echo', 'weird1', 'weird3', 'breath1', 'r_breath'], p, { vol: 0.7, vary: 0.1 }); } catch (e) {}
+};
