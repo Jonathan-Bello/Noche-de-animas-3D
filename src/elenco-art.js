@@ -60,7 +60,7 @@ function finalizeHardEdgedGeometry(g){
   const outer=ringVertices(rows,angles),inner=ringVertices(rows,angles,t),N=outer.length,v=[...outer,...inner],ix=[],edges=new Map();
   function edge(a,b){const key=Math.min(a,b)+':'+Math.max(a,b);const old=edges.get(key);if(old)old.count++;else edges.set(key,{a,b,count:1});}
   for(let k=0;k<rows.length-1;k++)for(let j=0;j<edgeCount;j++){
-    if(cutArmpits&&k>=2&&(j===1||j===5))continue;
+    if(cutArmpits&&rows[k].y>=.27&&rows[k+1].y<=.40&&(j===1||j===5))continue;
     const p=k*n+j,q=k*n+(j+1)%n,r=p+n,s=q+n;
     ix.push(p,q,r,q,s,r,p+N,r+N,q+N,q+N,r+N,s+N);
     edge(p,q);edge(q,s);edge(s,r);edge(r,p);
@@ -211,10 +211,13 @@ function vest(p,b,c,pockets=false){const g=group(p,'chaleco_con_sisas');shell(g,
  return g;
 }
 function coat(r,c,long=false){const b=CHARS[r.id].build||1,g=group(r.acc,'saco_con_sisas'),base=long?-.55:-.18;
- shell(g,'prenda_abierta_con_grosor',rows([[base,.225,.16],[.02,.184,.142],[.17,.17,.134],[.30,.205,.149],[.40,.226,.143],[.475,.142,.113]],b),c,8,.019,Array.from({length:8},(_,i)=>Math.PI/8+i*Math.PI/4),true);
+ const profile=rows([[base,.225,.16],[.02,.184,.142],[.17,.17,.134],[.30,.205,.149],[.40,.226,.143],[.475,.142,.113],[.51,.085,.079]],b);
+ const surface=(x,y)=>{let i=0;while(i<profile.length-2&&y>profile[i+1].y)i++;const a=profile[i],z=profile[i+1],t=THREE.MathUtils.clamp((y-a.y)/(z.y-a.y),0,1),w=THREE.MathUtils.lerp(a.w,z.w,t),d=THREE.MathUtils.lerp(a.d,z.d,t);return d*Math.cos(Math.PI/8)-Math.max(0,Math.abs(x)-w*Math.sin(Math.PI/8))*d/w+.002;};
+ const coatMesh=shell(g,'prenda_abierta_con_grosor',profile,c,8,.019,Array.from({length:8},(_,i)=>Math.PI/8+i*Math.PI/4),true);
  const lap=mat(long?0x796c51:0x632333);
- for(const sd of[-1,1])panel(g,'solapa_ancha',[[sd*.07,.49],[sd*.163,.41],[sd*.121,.35],[sd*.153,.32],[sd*.063,.12]],lap,.147*b);
- if(long){box(g,'cinturon_posterior',0,.09,-.164*b,.31*b,.026,.012,lap);for(const sd of[-1,1])box(g,'bolsillo_abrigo',sd*.16,-.1,.148*b,.068,.022,.012,lap);}
+ for(const sd of[-1,1])polygon(g,'solapa_ancha',[[sd*.07,.49],[sd*.163,.41],[sd*.121,.35],[sd*.153,.32],[sd*.063,.12]],.006,lap,0,[],surface);
+ r.reviewCoat=g;
+ if(long){const belt=box(g,'cinturon_posterior',0,.09,0,.31*b,.026,.012,lap);belt.geometry=new THREE.BoxGeometry(.31*b,.026,.012,4,1,1);const bp=belt.geometry.attributes.position;for(let i=0;i<bp.count;i++)bp.setZ(i,bp.getZ(i)-surface(bp.getX(i),bp.getY(i)+.09)-.003);for(const sd of[-1,1])box(g,'bolsillo_abrigo',sd*.16,-.1,.148*b,.068,.022,.012,lap);}
  return g;
 }
 function hair(r,S){r.hair.clear();const g=r.hair,c=mat(S.hair.c),shade=mat(new THREE.Color(S.hair.c).multiplyScalar(1.18)),id=r.id;
@@ -229,7 +232,7 @@ function hair(r,S){r.hair.clear();const g=r.hair,c=mat(S.hair.c),shade=mat(new T
   const len=id==='ines'?.41:.46,points=[];for(let j=0;j<9;j++)points.push([j%2?.012:-.012,.12-j*len/8,-.13-j*.009]);
   // One continuous braid, with alternating angular cross sections and a sealed tip.
   const vertices=[],indices=[];for(let j=0;j<points.length;j++){const[x,y,z]=points[j],w=.045-j*.0032;for(let k=0;k<6;k++){const a=k*Math.PI/3+(j%2?.35:-.35);vertices.push([x+Math.cos(a)*w,y,z+Math.sin(a)*w*.8]);}}
-  for(let j=0;j<8;j++)for(let k=0;k<6;k++){const a=j*6+k,b=j*6+(k+1)%6;indices.push(a,b,a+6,b,b+6,a+6);}for(let k=1;k<5;k++)indices.push(48,48+k,48+k+1);const braid=mesh(g,'trenza_continua_sin_bolas',geo(vertices,indices),c);
+  for(let j=0;j<8;j++)for(let k=0;k<6;k++){const a=j*6+k,b=j*6+(k+1)%6;indices.push(a,b,a+6,b,b+6,a+6);}for(let k=1;k<5;k++)indices.push(48,48+k,48+k+1,0,k+1,k);const braid=mesh(g,'trenza_continua_sin_bolas',geo(vertices,indices),c);
   braid.userData.rearLengthMeters=len;
   if(id==='amalia'){ribbon(g,'mechon_cana',[[.04,.27,-.095],[.065,.21,-.115],[.023,.12,-.159],[-.01,-.12,-.20]],.013,mat(0xaaa39c));facetedMass(g,'cana_sien',[[-.08,.235],[-.095,.20],[-.092,.16],[-.08,.19],[-.063,.24]],mat(0xaaa39c),.005);}
   else flower(g,'flor_naranja',-.104,.164,.025,.035,mat(0xe0782a));
@@ -286,7 +289,7 @@ function skirt(r,S){for(const o of [...r.hips.children])if(o.isMesh)r.hips.remov
  const id=r.id,c=mat(S.bottom.c),trim=mat(id==='ines'?0x8c1e3c:id==='amalia'?0x989646:0xe4c39a);
  const ring=id==='ines'?[[.02,.145,.11],[-.14,.21,.145],[-.34,.255,.17],[-.755,.31,.19]]:id==='amalia'?[[.02,.145,.108],[-.18,.19,.132],[-.4,.235,.155],[-.77,.265,.18]]:[[.02,.14,.107],[-.17,.19,.14],[-.43,.23,.155],[-.76,.293,.188]];
  const g=group(r.hips,'falda_una_sola_superficie');
- const skirtMesh=mesh(g,'falda_plegada_con_bajo',loftGeo(ring,16,{a0:0,pleat:.06}),c);skirtMesh.material.side=THREE.DoubleSide;r.reviewSkirt=g;
+ const skirtMesh=mesh(g,'falda_plegada_con_bajo',NDACharacterMeshQC.pleatedSkirtGeometry(ring),c);skirtMesh.material.side=THREE.DoubleSide;r.reviewSkirt=g;
  for(const [y,w,d]of ring.slice(2)){shell(g,'cenefa_integrada',rows([[y+.023,w-.002,d-.001],[y+.006,w+.001,d+.001]]),trim,8,.004);}
  if(id==='ines')for(const [y,w,d]of[[-.21,.226,.157],[-.40,.27,.18]])shell(g,'volante_angular',rows([[y+.045,w-.014,d-.006],[y,w,d]]),c,8,.006);
  if(id==='devota')for(let j=-3;j<=3;j++)flower(g,'bordado_bajo_falda',j*.055,-.70,.187,.014,trim);
@@ -374,5 +377,5 @@ function animateCharacter(r,s){
 
 return {makeReviewCharacter,animateCharacter};
 })();
-function makeCharacter(id){return NDAElencoArt.makeReviewCharacter(CHARS[id]?id:'ines');}
-function animateCharacter(r,s){return NDAElencoArt.animateCharacter(r,s);}
+function makeCharacter(id){return NDACharacterMeshQC.prepare(NDAElencoArt.makeReviewCharacter(CHARS[id]?id:'ines'));}
+function animateCharacter(r,s){NDAElencoArt.animateCharacter(r,s);NDACharacterMeshQC.update(r);}

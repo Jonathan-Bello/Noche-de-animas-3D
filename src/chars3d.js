@@ -74,7 +74,7 @@ function makeBaseCharacter(id) {
     const foot = mesh(loftGeo([[0, 0.052, 0.07, 0.03], [0.055, 0.05, 0.075, 0.035], [0.075, 0.042, 0.05, 0.0]], 6, { capB: true, capT: true, a0: Math.PI / 6 }), shoe, kn, 0, -0.47, 0.02);
     foot.scale.set(1, 1, 1.25); p.userData.knee = kn; return p; });
   // cadera
-  if (!S.bottom.skirt) mesh(loftGeo([[0.04, 0.15 * b, 0.105 * b], [-0.06, 0.165 * b, 0.11 * b], [-0.13, 0.15 * b, 0.1 * b]], 8, { capB: true }), pantsM, hips);
+  if (!S.bottom.skirt) mesh(loftGeo([[0.04, 0.15 * b, 0.105 * b], [-0.06, 0.165 * b, 0.11 * b], [-0.13, 0.15 * b, 0.1 * b]], 8, { capB: true, capT: true }), pantsM, hips);
   else { const len = S.bottom.skirt; mesh(loftGeo([[0.05, 0.145 * b, 0.105 * b], [-0.08, 0.2 * b, 0.16 * b], [-len * 0.55, 0.27 * b, 0.23 * b], [-len, 0.31 * b, 0.28 * b]], 10, { pleat: 0.09, jag: 0.012 }), L(S.bottom.c), hips);
     mesh(loftGeo([[-len + 0.1, 0.285 * b, 0.255 * b], [-len + 0.06, 0.3 * b, 0.27 * b]], 10, { pleat: 0.09 }), L(S.trim || S.bottom.c), hips); }
   // ---- torso: pecho trapezoidal, cintura estrecha ----
