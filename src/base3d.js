@@ -141,6 +141,7 @@ function updateBase(t, dt) {
     if (it.kind === 'emf' && im.leds) { const on = t < it.emfUntil + 0.25, lv = on ? it.emfLvl : 1; im.leds.forEach((l, k) => { l.material.color.setHex(k < lv ? [0x40ff60, 0x90ff40, 0xffe040, 0xff9020, 0xff2020][k] : 0x202020); }); im.ind.visible = false; }
     if (it.kind === 'cam' && im.tri) { const placed = !it.onTable; im.tri.visible = placed; im.body.position.y = placed ? 1.32 : 0.12; im.ind.position.y = placed ? 1.46 : 0.26; if (im.beam) { im.beam.visible = placed; im.beam.position.y = placed ? 1.32 : 0.3; } }
     if (it.kind === 'espejo' && im.mark) { im.mark.position.set(0, 0.42, 0.02); }
+    if (it.kind === 'uv' && im.beam) im.beam.visible = false; // en la mesa o en el piso está apagada
   }
   // las teles de la base: una cámara por cuadro, solo si alguien está cerca
   baseTVs.forEach(tv => tv.mat.uniforms.t.value = t);
@@ -177,7 +178,7 @@ makeItemMesh = function (it) {
       box(0.035, 0.24, 0.03, 0x5a3a20, 0, 0.13, 0); box(0.16, 0.025, 0.12, 0x4a2c18, 0, 0.012, 0); } break;
     case 'cam': if (it.id === undefined) { // en la mano: el tripié plegado, como un palo junto a la cámara
         box(0.3, 0.16, 0.14, 0x2a2a2e, 0, 0.1, 0); const ln = cyl(0.05, 0.12, 0x111111, 0.2, 0.1, 0, 0, Math.PI / 2, 10); const st = cyl(0.025, 0.62, 0x161414, -0.12, 0.0, 0, 0, Math.PI / 2, 6); im.ind.visible = false; break; }
-      { const tri = new THREE.Group(); g.add(tri); [0, 2.09, 4.19].forEach(a => { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1.35, 4), L(0x161414)); leg.position.set(Math.cos(a) * 0.2, 0.62, Math.sin(a) * 0.2); leg.rotation.set(Math.sin(a) * 0.3, 0, -Math.cos(a) * 0.3); tri.add(leg); });
+      { const tri = new THREE.Group(); g.add(tri); [0, 2.09, 4.19].forEach(a => { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1.35, 4), L(0x161414)); leg.position.set(Math.cos(a) * 0.2, 0.62, Math.sin(a) * 0.2); leg.rotation.set(-Math.sin(a) * 0.3, 0, Math.cos(a) * 0.3); tri.add(leg); });
       const body = new THREE.Group(); g.add(body); const add = (sx, sy, sz, c, x, y, z, e) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), L(c, e)); m.position.set(x, y, z); m.castShadow = true; body.add(m); return m; };
       add(0.3, 0.16, 0.14, 0x2a2a2e, 0, 0, 0); add(0.1, 0.06, 0.08, 0x161618, -0.08, 0.1, 0); const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.055, 0.12, 10), L(0x111111)); lens.rotation.z = Math.PI / 2; lens.position.set(0.2, 0, 0); body.add(lens);
       const gl = new THREE.Mesh(new THREE.CircleGeometry(0.04, 10), new THREE.MeshBasicMaterial({ color: 0x3050a0 })); gl.position.set(0.261, 0, 0); gl.rotation.y = Math.PI / 2; body.add(gl);
@@ -202,3 +203,18 @@ casSound = function (e, p, V) {
   }
   _casSound4(e, p, V);
 };
+
+// ---------- dónde estoy y la bitácora del líder ----------
+let roomTagEl = null, blogEl = null, blogOpen = false, blogSeen = 0, blogDrawT = 0;
+function hudExtras(t) {
+  const game = $('#game'); if (!game) return;
+  if (!roomTagEl) { roomTagEl = document.createElement('div'); roomTagEl.id = 'roomTag'; game.appendChild(roomTagEl);
+    blogEl = document.createElement('div'); blogEl.id = 'blog'; blogEl.innerHTML = '<button id="blogBtn" title="Bitácora de la casa (solo la ves tú, el líder)">📜 <span></span></button><div id="blogList" hidden></div>'; game.appendChild(blogEl);
+    blogEl.querySelector('#blogBtn').onclick = e => { e.stopPropagation(); blogOpen = !blogOpen; blogEl.querySelector('#blogList').hidden = !blogOpen; blogDrawT = 0; }; }
+  const V = viewer(); roomTagEl.textContent = V ? `${roomName(V) || '—'} · ${elevOf(V) > 0.02 && elevOf(V) < 0.98 ? 'entre pisos' : V.f ? 'planta alta' : 'planta baja'}` : '';
+  const lead = NET.mode !== 'guest' && w.bitacora; blogEl.hidden = !lead; if (!lead) return;
+  const L = w.bitacora, nNew = L.length - blogSeen; blogEl.querySelector('#blogBtn span').textContent = blogOpen ? 'Bitácora' : nNew > 0 ? nNew : '';
+  if (blogOpen) { blogSeen = L.length; if (t > blogDrawT) { blogDrawT = t + 0.5;
+    blogEl.querySelector('#blogList').innerHTML = '<b>Bitácora de la casa</b> <span class="small">(solo tú la ves)</span>' + L.slice(-14).reverse().map(e => `<div class="be ${e.kind === 'ánima' ? 'bg' : e.kind === 'cacería' ? 'bh' : ''}"><i>${clockStr(e.t)}</i> <b>${e.kind === 'casa' ? '🏚' : e.kind === 'cacería' ? '⚠' : '👻'}</b> ${e.txt}${e.room ? ` <span>· ${e.room}</span>` : ''}</div>`).join(''); } }
+}
+const _updateScene5 = updateScene; updateScene = function (t, dt) { _updateScene5(t, dt); try { hudExtras(t); } catch (e) {} };

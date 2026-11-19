@@ -39,6 +39,9 @@ select{background:var(--ink);color:var(--bone);border:1px solid rgba(243,230,207
 /* juego */
 #stage canvas{position:fixed;inset:0;display:block;touch-action:none}
 .panel{position:fixed;background:rgba(18,13,34,.82);border:1px solid rgba(242,176,78,.3);border-radius:12px;padding:9px 12px;font-size:14px}
+#roomTag{position:fixed;top:52px;left:50%;transform:translateX(-50%);font-size:11px;color:#f3e6cf;opacity:.75;background:rgba(18,13,34,.6);padding:1px 10px;border-radius:999px;pointer-events:none;z-index:5;white-space:nowrap}
+#blog{position:fixed;left:8px;bottom:70px;z-index:6;max-width:min(360px,80vw)}#blogBtn{background:rgba(18,13,34,.85);color:#f2b04e;border:1px solid rgba(242,176,78,.35);border-radius:999px;font-size:12px;padding:3px 10px;cursor:pointer}
+#blogList{margin-top:6px;background:rgba(18,13,34,.92);border:1px solid rgba(242,176,78,.3);border-radius:10px;padding:8px 10px;font-size:11.5px;color:#f3e6cf;max-height:42vh;overflow:auto}#blogList .be{padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06)}#blogList .be i{color:#9a8fb8;font-style:normal}#blogList .be span{color:#9a8fb8}#blogList .bg{color:#c9b8ff}#blogList .bh{color:#ff8a7a}
 #top{position:fixed;top:8px;left:50%;transform:translateX(-50%);display:flex;gap:14px;align-items:center;background:rgba(18,13,34,.85);border:1px solid rgba(242,176,78,.3);border-radius:999px;padding:5px 16px;font-size:15px;white-space:nowrap;z-index:3}
 .hora{font-family:"Grenze Gotisch",Georgia,serif;color:var(--gold);font-size:1.25em}
 .huntb{color:#ff6b78;font-weight:600;animation:pulse .5s infinite alternate}@keyframes pulse{to{opacity:.35}}
@@ -208,7 +211,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
     <div class="card"><h2>Personajes</h2><p class="small">Los cinco investigadores y los ocho testigos de la casona (roles de las cartas), con modelo 3D y animaciones. Por ahora los roles se juegan como personajes; sus habilidades de las cartas aún no están en el videojuego.</p><button id="galBtn">Ver modelos y animaciones en 3D</button></div>
     <div class="card"><h2>Cómo se juega</h2>
       <div class="ctl">
-        <div><b>Investigador</b><br><kbd>WASD</kbd>moverte · <kbd>Shift</kbd>correr (gasta aliento)<br><kbd>Clic</kbd>/<kbd>Espacio</kbd> usar lo que tienes en la mano · <kbd>1</kbd>–<kbd>4</kbd> o rueda: ranura<br><kbd>E</kbd> tomar, esconderte, escalera, altar · <kbd>G</kbd> dejar en el piso<br>Mantener <kbd>clic derecho</kbd> o <kbd>R</kbd> y soltar: aventar · <kbd>Q</kbd> luz del cuarto · <kbd>F</kbd> linterna · <kbd>Tab</kbd> libreta · <kbd>I</kbd> más información · <kbd>M</kbd> sonido<br><kbd>Ratón</kbd> mirar (clic para fijar el cursor; <kbd>Esc</kbd> lo suelta) · <kbd>←</kbd><kbd>→</kbd> girar</div>
+        <div><b>Investigador</b><br><kbd>WASD</kbd>moverte · <kbd>Shift</kbd>correr (gasta aliento)<br><kbd>Clic</kbd>/<kbd>Espacio</kbd> usar lo que tienes en la mano · <kbd>1</kbd>–<kbd>3</kbd> o rueda: ranura<br><kbd>E</kbd> tomar, esconderte, puertas, camioneta · <kbd>G</kbd> dejar en el piso<br>Mantener <kbd>clic derecho</kbd> o <kbd>R</kbd> y soltar: aventar · <kbd>Q</kbd> luz del cuarto · <kbd>F</kbd> linterna · <kbd>Tab</kbd> libreta · <kbd>I</kbd> más información · <kbd>M</kbd> sonido<br><kbd>Ratón</kbd> mirar (clic para fijar el cursor; <kbd>Esc</kbd> lo suelta) · <kbd>←</kbd><kbd>→</kbd> girar</div>
         <div><b>Ánima</b><br><kbd>WASD</kbd>moverte · <kbd>ratón</kbd>hacia dónde miras (tu cono de visión)<br><kbd>Q</kbd> escalofrío · <kbd>E</kbd> apagar luz · <kbd>F</kbd> portazo · <kbd>C</kbd> mover objeto · <kbd>T</kbd> usar un objeto de la casa (piano, mecedora, grifo…) · <kbd>V</kbd> susurro<br><kbd>R</kbd> habilidad · <kbd>H</kbd> cazar · <kbd>B</kbd> volver a tu cuarto · <kbd>Z</kbd> escalera · <kbd>X</kbd> Espanto (en la huida)<br><b>Espíritu</b> (al morir): <kbd>Espacio</kbd> manifestarte · <kbd>Z</kbd> cambiar de piso</div>
       </div>
       <ul class="rules">
@@ -349,9 +352,15 @@ const SPOT_DEFS = [
   [[2, 1], [12, 7], [28, 1], [43, 1], [48, 1], [56, 7], [1, 11], [12, 18], [57, 11], [57, 28], [2, 37], [12, 32], [43, 31], [32, 37]],
 ];
 const STAIRS = [[26, 36, 28, 38], [46, 36, 48, 38]];
+// escaleras de verdad: una rampa de 3 casillas. La primera escalera sube hacia el este y la segunda hacia el oeste.
+// En la casilla de en medio se cambia de piso; la planta baja no pisa el tramo de arriba y la alta no pisa el de abajo.
+const STAIR_DIR = [1, -1];
+const stairAt = (x, y) => { for (let k = 0; k < STAIRS.length; k++) { const [x0, y0, x1, y1] = STAIRS[k]; if (x >= x0 && x < x1 + 1 && y >= y0 && y < y1 + 1) return k; } return -1; };
+const stairP = (k, x) => { const [x0, , x1] = STAIRS[k], p = (x - x0) / (x1 + 1 - x0); return Math.max(0, Math.min(1, STAIR_DIR[k] > 0 ? p : 1 - p)); };
+const elevOf = e => { const k = stairAt(e.x, e.y); return k >= 0 ? stairP(k, e.x) : e.f; };
 const ALTAR_POS = { f: 0, x: 6.5, y: 2.6 };
 const EXIT = { f: 0, x: 22.5, y: 38.4 };
-const ZAG = { f: 0, x: 22.5, y: 38.4 };
+const ZAG = { f: 0, x: 23, y: 38.4 };
 const MALETIN = { f: 0, x: 21.5, y: 33.6 };
 // Objetos de la casa con los que interactúa el ánima (no estorban el paso)
 const PROPS = [
@@ -371,6 +380,11 @@ const grids = [new Uint8Array(FL).fill(T.WALL), new Uint8Array(FL).fill(T.WALL)]
 const roomGrid = [new Int8Array(FL).fill(-1), new Int8Array(FL).fill(-1)];
 const isStair = new Uint8Array(FL);
 STAIRS.forEach(([x0, y0, x1, y1]) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) isStair[y * W + x] = 1; });
+const isStairMid = new Uint8Array(W * H), STAIR_BLOCK = new Uint8Array(2 * W * H);
+STAIRS.forEach(([x0, y0, x1, y1], k) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) { const third = STAIR_DIR[k] > 0 ? x - x0 : x1 - x; if (third === 1) isStairMid[y * W + x] = 1; if (third === 2) STAIR_BLOCK[y * W + x] = 1; if (third === 0) STAIR_BLOCK[W * H + y * W + x] = 1; } });
+const stairSideBlock = (a, b) => a !== b && ((isStairMid[a] && !isStair[b]) || (isStairMid[b] && !isStair[a]));
+function stairFlip(w, e, quiet) { if (!e || (e.kind === 'ghost' && ethereal(e))) return; const k = stairAt(e.x, e.y); if (k < 0) return; const p = stairP(k, e.x);
+  if (e.f === 0 && p > 0.52) quiet ? (e.f = 1) : changeFloor(w, e, 1); else if (e.f === 1 && p < 0.48) quiet ? (e.f = 0) : changeFloor(w, e, 0); }
 for (let f = 0; f < 2; f++) {
   const g = grids[f], fill = (x0, y0, x1, y1, v) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) g[y * W + x] = v; };
   ROOMS[f].forEach(r => fill(r.r[0], r.r[1], r.r[2], r.r[3], T.FLOOR));
@@ -438,10 +452,10 @@ function buildField(target, mode, mask) {
   dist[target] = 0; q[t++] = target;
   while (h < t) {
     const u = q[h++], f = u >= FL ? 1 : 0, i = u - f * FL, x = i % W, y = (i / W) | 0, du = dist[u] + 1;
-    const tryN = v => { if (dist[v] !== 65535) return; const vf = v >= FL ? 1 : 0, vi = v - vf * FL; if (!walkableT(grids[vf][vi]) || (mask && mask[v])) return; dist[v] = du; q[t++] = v; };
+    const tryN = v => { if (dist[v] !== 65535) return; const vf = v >= FL ? 1 : 0, vi = v - vf * FL; if (!walkableT(grids[vf][vi]) || (mask && mask[v])) return; if (mode !== 'fly' && (STAIR_BLOCK[v] || (vf === f && stairSideBlock(i, vi)))) return; dist[v] = du; q[t++] = v; };
     if (x > 0) tryN(u - 1); if (x < W - 1) tryN(u + 1); if (y > 0) tryN(u - W); if (y < H - 1) tryN(u + W);
     const other = f ? u - FL : u + FL;
-    if (isStair[i] || (mode === 'fly' && walkableT(grids[1 - f][i]))) tryN(other);
+    if ((mode !== 'fly' && isStairMid[i]) || (mode === 'fly' && walkableT(grids[1 - f][i]))) tryN(other);
   }
   return dist;
 }
@@ -459,6 +473,7 @@ function solidFor(w, e, f, tx, ty) {
   if (ethereal(e)) { if (tx < 1 || ty < 1 || tx >= W - 1 || ty >= H - 1 || t === T.VOID) return true; const n = f * FL + ty * W + tx; return !!w.ghostMask[n] && !w.ghostMask[nodeOf(e)]; }
   if (!walkableT(t)) return true;
   const n = f * FL + ty * W + tx;
+  if (!(e.kind === 'ghost' && e.def.fly) && (STAIR_BLOCK[n] || stairSideBlock((e.y | 0) * W + (e.x | 0), ty * W + tx))) return true;
   if (e.kind === 'inv' && !e.bot && w.doorTile) { const dd = w.doorTile.get(n); if (dd && dd.closed) return true; }
   if (e.kind === 'ghost' && w.ghostMask[n] && !w.ghostMask[nodeOf(e)]) return true;
   if (e.kind === 'inv' && w.invMask[n]) return true;
@@ -503,7 +518,7 @@ function navTo(w, e, tg, speed, dt) {
     const d = fld[n] + (dx && dy ? 0.4 : 0); if (d < bd) { bd = d; best = n; bx = nx; by = ny; }
   }
   const other = (1 - f) * FL + cy * W + cx;
-  if (fld[other] < bd && fld[other] < fld[cn]) { changeFloor(w, e, 1 - f); return false; }
+  if (fld[other] < bd && fld[other] < fld[cn]) { const k = stairAt(e.x, e.y); if (k >= 0 && mode === 'walk') { const [x0, , x1] = STAIRS[k], up = f === 0; steer(w, e, (STAIR_DIR[k] > 0) === up ? x1 + 0.5 : x0 + 0.5, cy + 0.5, speed, dt); return false; } changeFloor(w, e, 1 - f); return false; }
   if (best < 0) return steer(w, e, tg.x, tg.y, speed, dt);
   steer(w, e, bx + 0.5, by + 0.5, speed, dt); return false;
 }
@@ -689,7 +704,8 @@ function newWorld(opt) {
   { // ruleta de la noche: altar y caja de fusibles en cuartos al azar
     const pool = HOME_CHOICES.filter(h => !(h.f === 0 && ['zaguan'].includes(ROOMS[0][h.r].id)));
     const ar = pick(pool), ac = ROOM_CENTER[ar.f][ar.r]; ALTAR_POS.f = ar.f; ALTAR_POS.x = ac.x; ALTAR_POS.y = ac.y; w.altarRoom = ar;
-    const fr = pick(pool.filter(h => !(h.f === ar.f && h.r === ar.r))); const ft = shuffle(ROOM_TILES[fr.f][fr.r].slice()).find(([x, y]) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => grids[fr.f][(y + dy) * W + x + dx] === T.WALL)) || ROOM_TILES[fr.f][fr.r][0];
+    const fr = pick(pool.filter(h => !(h.f === ar.f && h.r === ar.r))); const nearDoorT = (x, y) => DOOR_DEFS.some(([o, dx, dy]) => Math.abs(x - (o === 'V' ? dx : dx + 0.5)) <= (o === 'V' ? 1 : 1.5) && Math.abs(y - (o === 'V' ? dy + 0.5 : dy)) <= (o === 'V' ? 1.5 : 1));
+    const ft = shuffle(ROOM_TILES[fr.f][fr.r].slice()).find(([x, y]) => !nearDoorT(x, y) && !isStair[y * W + x] && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => grids[fr.f][(y + dy) * W + x + dx] === T.WALL)) || ROOM_TILES[fr.f][fr.r][0];
     const wd = [[1, 0], [-1, 0], [0, 1], [0, -1]].find(([dx, dy]) => grids[fr.f][(ft[1] + dy) * W + ft[0] + dx] === T.WALL) || [0, -1];
     FUSE.f = fr.f; FUSE.x = ft[0] + 0.5 + wd[0] * 0.38; FUSE.y = ft[1] + 0.5 + wd[1] * 0.38; FUSE.face = Math.atan2(-wd[1], -wd[0]); w.fuseRoom = fr;
   }
@@ -975,7 +991,6 @@ function hangRosary(w, i) { const it = handItem(i); if (!it || it.kind !== 'rosa
 function nearSpot(w, i) { let b = -1, bd = 0.9; w.spotsActive.forEach(k => { const s = SPOTS[k]; if (s.f !== i.f) return; const d = Math.hypot(s.hx - i.x, s.hy - i.y); if (d < bd && !w.invs.some(o => o.alive && o.hidden === k)) { bd = d; b = k; } }); return b; }
 function interact(w, i) {
   if (i.hidden >= 0) { i.hidden = -1; return 'salir'; }
-  if (isStair[(i.y | 0) * W + (i.x | 0)]) { const nf = 1 - i.f; i.f = nf; w.noise(i, 6, 'stairs'); return 'escalera'; }
   if (resetFuse(w, i)) return 'fusibles';
   const s = nearSpot(w, i); if (s >= 0) { i.hidden = s; i.x = SPOTS[s].hx; i.y = SPOTS[s].hy; i.reading = null; return 'esconder'; }
   if (pickUp(w, i)) return 'tomar';
@@ -2177,6 +2192,7 @@ function botMonitor(w, dt) {
 const _stepB = step;
 step = function (w, dt, input) {
   _stepB(w, dt, input);
+  for (const i of w.invs) if (i.alive && !i.escaped) stairFlip(w, i); stairFlip(w, w.g);
   const xd = w.doors.find(d => d.ext); if (xd && xd.locked && w.phase !== 'hora') { xd.locked = false; xd.closed = false; xd.anim = 1; }
   const home = w.team && w.team.home; if (!home) return;
   for (const b of alive(w)) if (b.bot) { const k = b.slots.findIndex(s => s && (s.kind === 'cam' || s.kind === 'espejo')); if (k >= 0 && b.f === home.f && roomOf(b) === home.r) { const c = ROOM_CENTER[home.f][home.r]; if (c) b.face = Math.atan2(c.y - b.y, c.x - b.x); dropItem(w, b, k); } }
@@ -2192,6 +2208,35 @@ interact = function (w, i) {
 // la maldición no te sigue afuera
 const _cursedHunt = cursedHunt;
 cursedHunt = function (w, target, why) { if (target && target.f === 0 && target.y >= 39) target = null; return _cursedHunt(w, target, why); };
+
+// ---------- Bitácora del líder: qué hace la casa y el ánima (solo la ve quien crea la sala) ----------
+const CAS_TXT = { nada: 'tiró… nada', ambiente: 'ruido de ambiente', anomalia: 'dejó una anomalía', senuelo: 'señuelo: la silueta del ánima al fondo', doble: 'un doble de un compañero', eco: 'eco: una frase lejana', pasos: 'pasos o canicas arriba',
+  sombra: 'una sombra sin dueño', sombralag: 'la sombra que se retrasa', puerta: 'cerró una puerta', serenata: 'serenata afuera que se corta', zaguan: 'tocan el zaguán', foto: 'tu cara en un retrato', cadaver: 'un cadáver con su ropa',
+  telefono: 'suena un teléfono', tv: 'noticiero en una tele', tvcam: 'tele de vigilancia', barras: 'barras de colores 3:33', radio: 'radio con desaparecidos', reconectando: '«Reconectando…»', clima: 'clima con falla', rezando: 'alguien rezando con veladora',
+  ofrenda: 'foto en la ofrenda', pasillo: 'pasillo que se repite', estatua: 'doble quieto de un compañero', estatuaGrito: 'tocaron al doble quieto: ¡grito!', estatuaHabla: 'el doble quieto contestó con su voz', ecoya: 'eco al instante (falla de wifi)', leyenda: 'grito de La Llorona (1 entre 64)' };
+const G_TXT = { door: 'movió una puerta', portazo: 'dio un portazo', move: 'aventó o movió un objeto', switch: 'prendió o apagó una luz', manifest: 'se manifestó', chill: 'escalofrío', whisper: 'susurró', special: 'usó su habilidad', espejo: 'marcó el espejo' };
+const roomName = p => { if (!p || p.f === undefined) return ''; if (stairAt(p.x, p.y) >= 0) return 'Escalera'; const r = roomAt(p.f, p.x, p.y); return r >= 0 ? ROOMS[p.f][r].n : ''; };
+function blog(w, kind, txt, p) { (w.bitacora || (w.bitacora = [])).push({ t: w.t, kind, txt, room: roomName(p) }); if (w.bitacora.length > 80) w.bitacora.shift(); }
+const _newWorldB = newWorld;
+newWorld = function (opt) {
+  const w = _newWorldB(opt); w.bitacora = []; const ev0 = w.ev;
+  w.ev = (type, data) => { ev0(type, data); const d = data || {}, who = d.who !== undefined && w.invs[d.who] ? w.invs[d.who].name : '';
+    if (type === 'cas') blog(w, 'casa', (CAS_TXT[d.k] || d.k) + (who ? ' → ' + who : ''), d);
+    else if (type === 'hunt') blog(w, 'cacería', d.cursed ? '¡CACERÍA MALDITA!' : '¡Empieza una cacería!', w.g);
+    else if (type === 'tecolote') blog(w, 'ánima', 'cantó el tecolote: ya puede cazar', w.g);
+    else if (type === 'fuseBlow') blog(w, 'casa', 'se botaron los fusibles', FUSE);
+    else if (type === 'anomSeen') blog(w, 'casa', 'alguien vio una anomalía' + (who ? ' → ' + who : ''), d);
+    else if (type === 'lamento') blog(w, 'ánima', 'un lamento', d); };
+  return w;
+};
+const _ghostEventB = ghostEvent;
+ghostEvent = function (w, g, type, extra) { _ghostEventB(w, g, type, extra); if (G_TXT[type] && w.bitacora) blog(w, 'ánima', G_TXT[type], g); };
+// la casona dice si alguien lo notó o si vuelve a tirar
+const _casonaTick4 = casonaTick4;
+casonaTick4 = function (w, dt) { const pd = w.cas.pend; _casonaTick4(w, dt); if (pd && !w.cas.pend && w.bitacora) { const ok = w.t < pd.t + 5 && casNoticed(w, pd).length; blog(w, 'casa', ok ? `lo notaron (−${CAS_SAN[pd.k] || 1} de cordura)` : 'nadie lo notó en 5 s: vuelve a tirar', pd.p); } };
+const _casRollB = casRoll;
+casRoll = function (w) { const n = w.cas.used.length; _casRollB(w); if (!w.bitacora) return; const k = w.cas.used.length > n ? w.cas.used[w.cas.used.length - 1] : null;
+  if (!k) blog(w, 'casa', 'tiró un suceso que esta ánima le prohíbe: nada'); else if (k === 'nada') blog(w, 'casa', 'tiró… nada'); else if (k === 'anomalia') blog(w, 'casa', 'dejó una anomalía (se queda)', w.anoms[w.anoms.length - 1]); };
 
 // ================= En línea: sala con código, anfitrión y voz =================
 // El navegador de quien crea la sala es el anfitrión: corre la partida (casona, ánima bot y reglas)
@@ -2276,7 +2321,7 @@ function netGuestData(d) {
 }
 
 // ---------- serializar el mundo ----------
-const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team']);
+const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'bitacora']);
 function netEnc(w, full) {
   const invs = new Set(w.invs), its = new Set(w.items), dr = new Map(w.doors.map((d, k) => [d, k]));
   const R = v => Math.round(v * 1000) / 1000;
@@ -2333,13 +2378,13 @@ function netApply(w, pkt, meIdx) {
     const i = w.invs[k]; if (!i) return;
     if (k === meIdx) {
       const forced = o.pe !== NET.localPe || !o.alive || o.hidden >= 0 || o.possessed;
-      if (forced) { NET.localPe = o.pe; put(i, o); } else put(i, o, POSE);
+      if (forced) { NET.localPe = o.pe; put(i, o); } else { const lf = i.f; put(i, o, POSE); if (stairAt(i.x, i.y) >= 0) i.f = lf; }
     } else {
-      const tx = o.x, ty = o.y, far = i.f !== o.f || Math.hypot((i.x || 0) - tx, (i.y || 0) - ty) > 3;
+      const tx = o.x, ty = o.y, far = (i.f !== o.f && stairAt(tx, ty) < 0) || Math.hypot((i.x || 0) - tx, (i.y || 0) - ty) > 3;
       put(i, o, POSE); i._tx = tx; i._ty = ty; i._tf = o.face; if (far || i.x === undefined) { i.x = tx; i.y = ty; i.face = o.face; }
     }
   });
-  { const g = w.g, o = s.g, far = g.f !== o.f || Math.hypot(g.x - o.x, g.y - o.y) > 3; put(g, o, POSE); g._tx = o.x; g._ty = o.y; g._tf = o.face; if (far) { g.x = o.x; g.y = o.y; g.face = o.face; } }
+  { const g = w.g, o = s.g, far = (g.f !== o.f && stairAt(o.x, o.y) < 0) || Math.hypot(g.x - o.x, g.y - o.y) > 3; put(g, o, POSE); g._tx = o.x; g._ty = o.y; g._tf = o.face; if (far) { g.x = o.x; g.y = o.y; g.face = o.face; } }
   for (const k in s) { if (['items', 'doors', 'loose', 'invs', 'g', 'ALTAR', 'FUSE'].includes(k)) continue; w[k] = D(s[k]); }
   for (const e of pkt.ev || []) w.events.push(D(e));
   for (const l of pkt.lg || []) { w.log.push(l); if (w.log.length > 120) w.log.shift(); }
@@ -2368,6 +2413,7 @@ function netLocalMove(w, i, inp, dt) {
     const ox = i.x, oy = i.y; tryMove(w, i, i.vx * dt, i.vy * dt); if (Math.abs(i.x - ox) < 1e-5) i.vx *= 0.5; if (Math.abs(i.y - oy) < 1e-5) i.vy *= 0.5;
   }
   if (inp.face !== undefined) i.face = inp.face;
+  stairFlip(w, i, true);
   return true;
 }
 // anfitrión: guarda eventos y mensajes para mandarlos a los invitados
@@ -2914,6 +2960,10 @@ let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 900, equip: 'norma
 // Escultura vectorial: todo mate y de caras planas, sin la textura de grano (GDD §9.3)
 function LambertFlat(o) { o = Object.assign({}, o || {}); if (o.map && o.map === paper) delete o.map; return new THREE.MeshStandardMaterial(Object.assign({ flatShading: true, roughness: 0.95, metalness: 0 }, o)); }
 // ---------- Construcción de la casa ----------
+// un rectángulo menos los huecos de las escaleras
+function holeRects(list) { let out = list.slice(); for (const [a, b, c, d] of STAIRS) { const nx = []; for (const [x0, y0, x1, y1] of out) { if (c < x0 || a > x1 || d < y0 || b > y1) { nx.push([x0, y0, x1, y1]); continue; }
+  if (y0 < b) nx.push([x0, y0, x1, b - 1]); if (y1 > d) nx.push([x0, d + 1, x1, y1]); const yy0 = Math.max(y0, b), yy1 = Math.min(y1, d); if (x0 < a) nx.push([x0, yy0, a - 1, yy1]); if (x1 > c) nx.push([c + 1, yy0, x1, yy1]); } out = nx; } return out; }
+const elv = e => elevOf(e) * FH;
 function buildHouse() {
   scene = new THREE.Scene(); scene.background = new THREE.Color(COL.night); scene.fog = new THREE.Fog(COL.night, 16, 38);
   paper = paperTex(); handT = handTex();
@@ -2926,7 +2976,7 @@ function buildHouse() {
     // pisos por cuarto
     ROOMS[f].forEach((r, i) => {
       if (r.id === 'vacio' || r.id === 'afuera1') return; const parts = r.id === 'galeria' ? [[15, 10, 44, 12], [15, 27, 44, 29], [15, 13, 17, 26], [42, 13, 44, 26]] : [r.r];
-      parts.forEach(([x0, y0, x1, y1]) => { const w_ = x1 - x0 + 1, h_ = y1 - y0 + 1;
+      (f === 1 ? holeRects(parts) : parts).forEach(([x0, y0, x1, y1]) => { const w_ = x1 - x0 + 1, h_ = y1 - y0 + 1;
       const m = new THREE.Mesh(new THREE.PlaneGeometry(w_, h_), LambertFlat({ color: FLOOR_COL[r.id] || 0x504040 }));
       m.rotation.x = -Math.PI / 2; m.position.set(x0 + w_ / 2, 0.001 * (i + 1), y0 + h_ / 2); m.receiveShadow = true; G.add(m); });
     });
@@ -2935,7 +2985,7 @@ function buildHouse() {
     // muros: tramos horizontales de casillas de muro que tocan algo caminable
     const touches = (x, y) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]].some(([dx, dy]) => { const t = tileAt(f, x + dx, y + dy); return t !== T.WALL; });
     for (let y = 0; y < H; y++) { let x = 0; while (x < W) {
-      const gap = (xx) => f === 0 && y === 39 && xx >= 21 && xx <= 23;
+      const gap = (xx) => f === 0 && y === 39 && xx >= 22 && xx <= 23;
       if (grid[y * W + x] === T.WALL && touches(x, y) && !gap(x)) { let x2 = x; while (x2 + 1 < W && grid[y * W + x2 + 1] === T.WALL && touches(x2 + 1, y) && !gap(x2 + 1)) x2++;
         const len = x2 - x + 1; const g = new THREE.Group(); g.position.set(x + len / 2, 0, y + 0.5);
         const b1 = new BoxBatch(); b1.add(0, WALL_H / 2, 0, len, WALL_H, 1); const m = b1.mesh(wallMat);
@@ -2953,24 +3003,29 @@ function buildHouse() {
       if (t === T.WATER) B('water').add(cx, 0.35, cz, 1, 0.7, 1);
       if (t === T.ALTAR) { B('altar').add(cx, 0.55, cz, 1, 1.1, 1); B('flower').add(cx, 1.18, cz, 0.6, 0.18, 0.4); }
       if (t === T.PILLAR) B('bone').add(cx, WALL_H / 2, cz, 0.6, WALL_H, 0.6);
-      if (t === T.STAIR) { const sx = x, sy = y; const st = STAIRS.find(([a, b, c, d]) => sx >= a && sx <= c && sy >= b && sy <= d); const k = sy - st[1];
-        if (f === 0) { for (let s2 = 0; s2 < 4; s2++) { const hh = (k * 4 + s2 + 1) / 12 * FH; B(s2 % 2 ? 'wood' : 'stepE').add(cx, hh / 2, y + s2 * 0.25 + 0.125, 1, hh, 0.25); }
-          if (sx === st[0]) B('rail').add(x + 0.04, (k * 4 + 2) / 12 * FH + 0.9, cz, 0.06, 0.06, 1.0); if (sx === st[2]) B('rail').add(x + 0.96, (k * 4 + 2) / 12 * FH + 0.9, cz, 0.06, 0.06, 1.0); }
-        else if (k === 0) B('rail').add(cx, 0.5, y + 0.05, 1, 1, 0.08); }
       if (t === T.VOID) { for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (walkableT(tileAt(f, x + dx, y + dy))) B('rail').add(cx + dx * 0.46, 0.5, cz + dy * 0.46, dx ? 0.08 : 1, 1, dy ? 0.08 : 1); }
     }
     const mats = { stepE: lam(0xb8902a), wood: lam(0x7a4a28), wood2: lam(0x4a2c18), bookR: lam(0xa23b3b), bookB: lam(0x3b6aa2), bookG: lam(0x5f8a4a), bookY: lam(0xc9a24a), sheet: lam(0xe8d7b8),
       water: LambertFlat({ color: 0x1f3a6c, emissive: 0x0a1a3a }), altar: lam(COL.wine2), flower: lam(COL.gold, { emissive: 0x3a2000 }), bone: lam(COL.bone), rail: lam(0x3a2414) };
     Object.entries(batches).forEach(([k, b]) => G.add(b.mesh(mats[k])));
+    // escaleras: 16 escalones de verdad y barandal inclinado; arriba, barandal alrededor del hueco
+    STAIRS.forEach(([x0, y0, x1, y1], k) => { const dir = STAIR_DIR[k], L = x1 + 1 - x0, N = 16, run = L / N, rise = FH / N, zc = (y0 + y1 + 1) / 2, wd = y1 + 1 - y0;
+      if (f === 0) { const sb = new BoxBatch(), nb = new BoxBatch();
+        for (let s2 = 0; s2 < N; s2++) { const d = (s2 + 0.5) * run, x = dir > 0 ? x0 + d : x1 + 1 - d, hh = (s2 + 1) * rise; sb.add(x, hh - 0.06, zc, run, 0.12, wd); nb.add(x, hh / 2 - 0.06, zc, run, hh - 0.12, wd - 0.2); }
+        G.add(sb.mesh(mats.stepE)); G.add(nb.mesh(mats.wood2));
+        const len = Math.hypot(L, FH), ang = Math.atan2(FH, L) * dir; const rail = new THREE.Mesh(new THREE.BoxGeometry(len, 0.07, 0.07), mats.rail); rail.position.set((x0 + x1 + 1) / 2, FH / 2 + 0.95, y0 + 0.08); rail.rotation.z = ang; G.add(rail);
+        const pb = new BoxBatch(); for (let s2 = 0; s2 <= N; s2 += 2) { const d = s2 * run, x = dir > 0 ? x0 + d : x1 + 1 - d; pb.add(x, s2 * rise + 0.48, y0 + 0.08, 0.05, 0.95, 0.05); } G.add(pb.mesh(mats.rail)); }
+      else { const rb = new BoxBatch(); const lowEnd = dir > 0 ? x0 : x1 + 1; rb.add(lowEnd, 0.5, zc, 0.08, 1, wd); for (let s2 = 0; s2 < 2; s2++) { const xx = dir > 0 ? x0 + s2 + 0.5 : x1 - s2 + 0.5; rb.add(xx, 0.5, y0 + 0.04, 1, 1, 0.08); rb.add(xx, 0.98, y0 + 0.04, 1, 0.06, 0.12); } G.add(rb.mesh(mats.rail)); } });
     // techos y vigas (el patio y el vacío quedan abiertos al cielo)
     const ceilMat = LambertFlat({ color: f ? 0x2e2238 : 0x3a2a2a, map: paper, side: THREE.DoubleSide });
-    const ceil = (x0, y0, x1, y1) => { const cw = x1 - x0 + 1, ch = y1 - y0 + 1; const m = new THREE.Mesh(new THREE.PlaneGeometry(cw, ch), ceilMat); m.rotation.x = Math.PI / 2; m.position.set(x0 + cw / 2, FH - 0.01, y0 + ch / 2); m.userData.f = f; ceilMeshes.push(m); G.add(m); };
+    const ceil = (...rr) => (f === 0 ? holeRects([rr]) : [rr]).forEach(([x0, y0, x1, y1]) => { const cw = x1 - x0 + 1, ch = y1 - y0 + 1; const m = new THREE.Mesh(new THREE.PlaneGeometry(cw, ch), ceilMat); m.rotation.x = Math.PI / 2; m.position.set(x0 + cw / 2, FH - 0.01, y0 + ch / 2); m.userData.f = f; ceilMeshes.push(m); G.add(m); });
     ROOMS[f].forEach(r => { if (['patio', 'vacio', 'corredor', 'galeria', 'afuera', 'afuera1'].includes(r.id)) return; ceil(...r.r); });
     ceil(15, 10, 44, 12); ceil(15, 27, 44, 29); ceil(15, 13, 17, 26); ceil(42, 13, 44, 26);
     DOOR_DEFS.forEach(([o, x, y]) => o === 'V' ? ceil(x, y, x, y + 1) : ceil(x, y, x + 1, y));
     const beams = new BoxBatch();
     ROOMS[f].forEach(r => { if (['patio', 'vacio', 'afuera', 'afuera1'].includes(r.id)) return; const [x0, y0, x1, y1] = r.r;
       if (r.id === 'corredor' || r.id === 'galeria') { for (let x = 15; x <= 44; x += 3) { beams.add(x + 0.5, FH - 0.15, 11.5, 0.22, 0.22, 3); beams.add(x + 0.5, FH - 0.15, 28, 0.22, 0.22, 3); } return; }
+      if (STAIRS.some(([a, b, c, d]) => a >= x0 && c <= x1 && b >= y0 && d <= y1)) return;
       for (let x = x0 + 1; x < x1; x += 2) beams.add(x + 0.5, FH - 0.15, (y0 + y1 + 1) / 2, 0.22, 0.22, y1 - y0 + 1); });
     const bm = beams.mesh(lam(0x2a160c)); bm.castShadow = false; G.add(bm);
     // velas de cada cuarto y focos
@@ -2979,7 +3034,7 @@ function buildHouse() {
       const base = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.3, 8), lam(COL.bone)); base.position.y = 0.15; cg.add(base);
       const fl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.06, 1), new THREE.MeshBasicMaterial({ color: COL.gold })); fl.position.y = 0.36; fl.scale.y = 1.8; cg.add(fl);
       G.add(cg); candleMeshes.push({ f, r: i, flame: fl });
-      const lamp = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 1), new THREE.MeshBasicMaterial({ color: 0x3a3020 })); lamp.position.set(c.x, FH - 0.35, c.y); G.add(lamp); lampMeshes.push({ f, r: i, m: lamp });
+      const lamp = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 1), new THREE.MeshBasicMaterial({ color: 0x3a3020 })); lamp.position.set(c.x, FH - 0.35, c.y); G.add(lamp); { const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.3, 4), lam(0x161414)); cord.position.set(c.x, FH - 0.12, c.y); G.add(cord); const shade = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.18, 8, 1, true), lam(0x7a4a28, { side: THREE.DoubleSide })); shade.position.set(c.x, FH - 0.24, c.y); G.add(shade); } lampMeshes.push({ f, r: i, m: lamp });
     });
   }
   // escondites (posibles): activos con puerta entreabierta, inactivos con candado
@@ -3001,19 +3056,18 @@ function buildHouse() {
   SWITCHES.forEach(list => list.forEach(sw => { if (!sw) return; const g = new THREE.Group(); g.position.set(sw.x, 1.25, sw.y); if (sw.o === 'V') g.rotation.y = sw.side < 0 ? -Math.PI / 2 : Math.PI / 2; else g.rotation.y = sw.side < 0 ? Math.PI : 0;
     const plate = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.18, 0.025), lam(COL.bone)); g.add(plate); const lever = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.07, 0.04), lam(0x3a2414)); lever.position.z = 0.02; g.add(lever);
     floorGroups[sw.f].add(g); switchMeshes.push({ s: sw, g, lever }); }));
-  { const g = new THREE.Group(); g.position.set(FUSE.x, 0, FUSE.y); g.rotation.y = -(FUSE.face || 0) + Math.PI / 2; const post = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.4, 0.16), lam(0x3a2414)); post.position.y = 0.7; g.add(post);
-    const box = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.55, 0.16), lam(0x5a5a5a)); box.position.set(0, 1.45, 0.02); box.castShadow = true; g.add(box);
+  { const g = new THREE.Group(); g.position.set(FUSE.x, 0, FUSE.y); g.rotation.y = -(FUSE.face || 0) + Math.PI / 2;     const box = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.55, 0.16), lam(0x5a5a5a)); box.position.set(0, 1.45, 0.02); box.castShadow = true; g.add(box);
     const lampF = new THREE.Mesh(new THREE.OctahedronGeometry(0.04), new THREE.MeshBasicMaterial({ color: 0x40c060 })); lampF.position.set(0.12, 1.62, 0.12); g.add(lampF); floorGroups[FUSE.f].add(g); fuseMesh = { g, lamp: lampF }; }
   // objetos sueltos de cada cuarto (lo que el ánima puede aventar)
   looseMeshes = w.loose.map(o => { const m = makeLooseMesh(o.kind, lam); floorGroups[o.f].add(m); return m; });
   // maletín, altar, salida
   
-  { const pg = new THREE.Group(); pg.position.set(22.5, 0, 39.5); floorGroups[0].add(pg);
+  { const pg = new THREE.Group(); pg.position.set(23, 0, 39.5); floorGroups[0].add(pg);
     const wood = LambertFlat({ color: 0x4a2c18, map: paper, emissive: 0x000000 }), stone = lam(COL.bone);
-    [-1.6, 1.6].forEach(x => { const post = new THREE.Mesh(new THREE.BoxGeometry(0.3, FH, 1), stone); post.position.set(x, FH / 2, 0); post.castShadow = true; pg.add(post); });
-    const lintel = new THREE.Mesh(new THREE.BoxGeometry(3.5, 0.5, 1), stone); lintel.position.set(0, FH - 0.25, 0); pg.add(lintel);
-    const leaves = [-1, 1].map(sd => { const piv = new THREE.Group(); piv.position.set(sd * 1.45, 0, -0.1); const leaf = new THREE.Mesh(new THREE.BoxGeometry(1.42, 2.65, 0.12), wood); leaf.position.set(-sd * 0.71, 1.33, 0); leaf.castShadow = true; piv.add(leaf);
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.02, 6, 12), lam(COL.gold)); ring.position.set(-sd * 1.2, 1.3, -0.08); piv.add(ring); pg.add(piv); return piv; });
+    [-1.15, 1.15].forEach(x => { const post = new THREE.Mesh(new THREE.BoxGeometry(0.3, FH, 1), stone); post.position.set(x, FH / 2, 0); post.castShadow = true; pg.add(post); });
+    const lintel = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.5, 1), stone); lintel.position.set(0, FH - 0.25, 0); pg.add(lintel);
+    const leaves = [-1, 1].map(sd => { const piv = new THREE.Group(); piv.position.set(sd * 1.0, 0, -0.1); const leaf = new THREE.Mesh(new THREE.BoxGeometry(0.98, 2.65, 0.12), wood); leaf.position.set(-sd * 0.49, 1.33, 0); leaf.castShadow = true; piv.add(leaf);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.02, 6, 12), lam(COL.gold)); ring.position.set(-sd * 0.8, 1.3, -0.08); piv.add(ring); pg.add(piv); return piv; });
     exitMesh = { material: wood, leaves }; }
   altarGlow = new THREE.Mesh(new THREE.IcosahedronGeometry(0.4, 1), new THREE.MeshBasicMaterial({ color: COL.gold, transparent: true, opacity: 0.35 })); altarGlow.position.set(ALTAR_POS.x, 1.5, ALTAR_POS.y); floorGroups[ALTAR_POS.f].add(altarGlow);
   { // altar de muertos (cuarto al azar)
@@ -3294,17 +3348,17 @@ function updateScene(t, dt) {
   const amb = vk === 'ghost' ? 2.6 : vk === 'spirit' || vk === 'all' ? 2.0 : 0.9;
   ambient.intensity = amb; ambient.color.setHex(vk === 'ghost' ? 0x5070a0 : 0x3a3060); scene.fog.near = vk === 'inv' ? 14 : 30; scene.fog.far = vk === 'inv' ? 34 : 80;
   // linterna del jugador
-  if (V && V.kind === 'inv' && V.alive) { const on = V.flash && t >= V.flashOffUntil && V.hidden < 0; flash.intensity = !on ? 0 : g.hunt && sees(V, g, 12) && Math.random() < 0.25 ? 4 : 18; flash.position.set(V.x + Math.cos(V.face + 0.6) * 0.3, V.f * FH + 1.3, V.y + Math.sin(V.face + 0.6) * 0.3); if (V === me0() && viewKind() === 'inv') { const dir = camLook.clone().sub(camera.position).normalize(); if (menuOpt.cam === 'fp') flash.position.copy(camera.position).addScaledVector(dir, 0.25).add(new THREE.Vector3(Math.cos(V.face + 1.4) * 0.18, -0.25, Math.sin(V.face + 1.4) * 0.18)); flash.target.position.copy(flash.position).addScaledVector(dir, 8); } else flash.target.position.set(V.x + Math.cos(V.face) * 7, V.f * FH + 1.0, V.y + Math.sin(V.face) * 7); }
+  if (V && V.kind === 'inv' && V.alive) { const on = V.flash && t >= V.flashOffUntil && V.hidden < 0; flash.intensity = !on ? 0 : g.hunt && sees(V, g, 12) && Math.random() < 0.25 ? 4 : 18; flash.position.set(V.x + Math.cos(V.face + 0.6) * 0.3, elv(V) + 1.3, V.y + Math.sin(V.face + 0.6) * 0.3); if (V === me0() && viewKind() === 'inv') { const dir = camLook.clone().sub(camera.position).normalize(); if (menuOpt.cam === 'fp') flash.position.copy(camera.position).addScaledVector(dir, 0.25).add(new THREE.Vector3(Math.cos(V.face + 1.4) * 0.18, -0.25, Math.sin(V.face + 1.4) * 0.18)); flash.target.position.copy(flash.position).addScaledVector(dir, 8); } else flash.target.position.set(V.x + Math.cos(V.face) * 7, elv(V) + 1.0, V.y + Math.sin(V.face) * 7); }
   else flash.intensity = 0;
   const others = w.invs.filter(i => i !== V && i.alive && !i.escaped && i.flash && t >= i.flashOffUntil && i.hidden < 0 && (i.f === vf || vf === 1));
-  botFlashes.forEach((s, k) => { const i = others[k]; s.intensity = i ? 10 : 0; if (i) { s.position.set(i.x, i.f * FH + 1.1, i.y); s.target.position.set(i.x + Math.cos(i.face) * 6, i.f * FH, i.y + Math.sin(i.face) * 6); } });
+  botFlashes.forEach((s, k) => { const i = others[k]; s.intensity = i ? 10 : 0; if (i) { s.position.set(i.x, elv(i) + 1.1, i.y); s.target.position.set(i.x + Math.cos(i.face) * 6, i.f * FH, i.y + Math.sin(i.face) * 6); } });
   // investigadores
   while (invMeshes.length < w.invs.length) { const r = makeCharacter(w.invs[invMeshes.length].char, paper); scene.add(r.g); invMeshes.push(r); }
   w.invs.forEach((i, k) => { const m = invMeshes[k]; const isDead = !i.alive;
     let vis = !i.escaped && (i.f === vf || vf === 1) && i.hidden < 0;
     if (vk === 'ghost' && !isDead) vis = vis && w.g.perceived.has(i);
     if (isDead) vis = (vk === 'spirit' || vk === 'all' || vk === 'ghost') && (i.f === vf || vf === 1);
-    m.g.visible = vis; m.g.position.set(i.x, i.f * FH, i.y); m.g.rotation.y = -i.face + Math.PI / 2;
+    m.g.visible = vis; m.g.position.set(i.x, elv(i), i.y); m.g.rotation.y = -i.face + Math.PI / 2;
     const fpSelf = menuOpt.cam === 'fp' && vk === 'inv' && i === V && i.alive; m.head.visible = m.hair.visible = !fpSelf; m.torso.children[0].visible = !fpSelf;
     const hk0 = i.slots[i.hand] ? i.slots[i.hand].kind : null;
     const ph0 = m.ph;
@@ -3322,7 +3376,7 @@ function updateScene(t, dt) {
   if (ghostMesh.label) ghostMesh.label.visible = false;
   ghostMesh.mat.emissive.setHex(g.hunt ? 0x802020 : 0x405070);
     { const gl = w.t < (g.revealUntil || 0); if (ghostMesh.glossy !== gl) { ghostMesh.glossy = gl; ghostMesh.fade.forEach(m => { m.roughness = gl ? 0.08 : 0.95; m.metalness = gl ? 0.55 : 0; m.flatShading = !gl; m.needsUpdate = true; }); } } ghostMesh.eyeMat.color.setHex(g.hunt ? 0xff3b4a : COL.gold);
-  ghostMesh.g.position.set(g.x, g.f * FH, g.y); ghostMesh.g.rotation.y = -g.face + Math.PI / 2;
+  ghostMesh.g.position.set(g.x, elv(g), g.y); ghostMesh.g.rotation.y = -g.face + Math.PI / 2;
   // alucinación: un doble tal cual; 1 de cada 10, monstruoso
   { const h = w.hallu, mine = h && V && V.kind === 'inv' && V.id === h.who && vk === 'inv';
     if (mine) { const key = h.char + h.variant + h.t0; if (!halluMesh || halluMesh.key !== key) { if (halluMesh) scene.remove(halluMesh.r.g); const r = makeCharacter(h.char); scene.add(r.g); halluMesh = { r, key, lx: h.x, ly: h.y };
@@ -3396,10 +3450,10 @@ let yaw = -Math.PI / 2, pitch = -0.12;
 // Cámara de hombro: detrás y a la derecha del personaje; se acerca si un muro estorba
 function updateCamera(dt) {
   const V = viewer(); if (!V) return; const vk = viewKind();
-  if (vk === 'all') { const target = new THREE.Vector3(V.x, V.f * FH + 0.8, V.y), want = new THREE.Vector3(V.x, V.f * FH + 16, V.y + 9);
+  if (vk === 'all') { const target = new THREE.Vector3(V.x, elv(V) + 0.8, V.y), want = new THREE.Vector3(V.x, elv(V) + 16, V.y + 9);
     camPos.lerp(want, Math.min(1, dt * 5)); camLook.lerp(target, Math.min(1, dt * 6)); if (camPos.distanceTo(want) > 20) { camPos.copy(want); camLook.copy(target); }
     camera.position.copy(camPos); camera.lookAt(camLook); return; }
-  const fx = Math.cos(yaw), fy = Math.sin(yaw), rx = -fy, ry = fx; const base = V.f * FH;
+  const fx = Math.cos(yaw), fy = Math.sin(yaw), rx = -fy, ry = fx; const base = elv(V);
   const head = { x: V.x, y: V.y }, back = vk === 'ghost' ? 3.4 : 2.6, side = 0.62;
   let wx = V.x - fx * back + rx * side, wy = V.y - fy * back + ry * side;
   // colisión con muros en el plano
@@ -3439,7 +3493,7 @@ function env(g, t0, a, peak, dec) { g.gain.setValueAtTime(0.0001, t0); g.gain.ex
 function tone(freq, dur, type, vol, pos, slide, when) { if (!audio || audio.muted) return; const ctx = audio.ctx, t0 = ctx.currentTime + (when || 0); const o = ctx.createOscillator(), g = ctx.createGain(); o.type = type || 'sine'; o.frequency.setValueAtTime(freq, t0); if (slide) o.frequency.exponentialRampToValueAtTime(Math.max(20, freq + slide), t0 + dur); env(g, t0, 0.01, vol || 0.1, dur); o.connect(g); g.connect(out(pos)); o.start(t0); o.stop(t0 + dur + 0.05); }
 function noise(dur, ftype, freq, q, vol, pos, when, attack) { if (!audio || audio.muted) return; attack = attack || 0.01; const ctx = audio.ctx, t0 = ctx.currentTime + (when || 0); const s = ctx.createBufferSource(); s.buffer = audio.noise; s.loop = true; const f = ctx.createBiquadFilter(); f.type = ftype; f.frequency.value = freq; f.Q.value = q || 1; const g = ctx.createGain(); env(g, t0, attack, vol || 0.1, dur); s.connect(f); f.connect(g); g.connect(out(pos)); s.start(t0, Math.random()); s.stop(t0 + dur + attack + 0.1); }
 function updateListener() {
-  if (!audio) return; const L = audio.ctx.listener, V = viewer(); if (!V) return; const x = V.x, y = V.f * FH + 1.2, z = V.y;
+  if (!audio) return; const L = audio.ctx.listener, V = viewer(); if (!V) return; const x = V.x, y = elv(V) + 1.2, z = V.y;
   if (L.positionX) { L.positionX.value = x; L.positionY.value = y; L.positionZ.value = z; L.forwardX.value = 0; L.forwardY.value = 0; L.forwardZ.value = -1; L.upX.value = 0; L.upY.value = 1; L.upZ.value = 0; }
   else { L.setPosition(x, y, z); L.setOrientation(0, 0, -1, 0, 1, 0); }
 }
@@ -3578,7 +3632,6 @@ function journalHTML(canName) {
 function primaryAction(i) {
   if (!i.alive) return null; if (i.hidden >= 0) return { k: 'E', txt: 'Salir del escondite', btn: 'Salir' };
   const ti = (i.y | 0) * W + (i.x | 0);
-  if (grids[i.f][ti] === T.STAIR) return { k: 'E', txt: i.f ? 'Bajar la escalera' : 'Subir la escalera', btn: i.f ? 'Bajar' : 'Subir' };
   if (i.f === ALTAR_POS.f && Math.hypot(i.x - ALTAR_POS.x, i.y - ALTAR_POS.y) < 2.2) return { k: 'E', txt: 'Nombrar al ánima en el altar', btn: 'Altar' };
   if (i.f === FUSE.f && Math.hypot(i.x - FUSE.x, i.y - FUSE.y) < 1.6 && !w.fuse.every(Boolean)) return { k: 'E', txt: 'Subir los fusibles', btn: 'Fusibles' };
   const s = nearSpot(w, i); if (s >= 0) return { k: 'E', txt: 'Esconderte' + (elecOnW(w, i) ? ' (¡apaga la linterna!)' : ''), btn: 'Esconder' };
@@ -4026,7 +4079,7 @@ $('#onMic').onclick = async () => { if (!audio) initAudio(); const ok = await VO
 // si cambias de personaje dentro de la sala, avísale al anfitrión
 document.addEventListener('click', e => { const b = e.target.closest('.seg[data-name="char"] button'); if (!b) return; setTimeout(() => { if (NET.mode === 'guest' && NET.hostConn && NET.hostConn.open) NET.hostConn.send({ t: 'char', char: menuOpt.char, name: onName() }); if (NET.mode === 'host' && NET.lobby[0]) { NET.lobby[0].char = menuOpt.char; NET.lobby[0].name = onName(); netLobbyChanged(); } }, 0); });
 menu();
-window.__game = { get w() { return w; }, get scene() { return scene; }, start, menuOpt, step, get ME() { return ME; }, NET, VOICE };
+window.__game = { get w() { return w; }, setYaw(v) { yaw = v; }, get scene() { return scene; }, start, menuOpt, step, get ME() { return ME; }, NET, VOICE };
 
 // ================= Casona v1.1: lo que se ve y se oye de las reglas nuevas =================
 // Sucesos de la casona, voces del ánima por género, fotos, libreta con colores, apuesta y salida,
@@ -4392,6 +4445,7 @@ function updateBase(t, dt) {
     if (it.kind === 'emf' && im.leds) { const on = t < it.emfUntil + 0.25, lv = on ? it.emfLvl : 1; im.leds.forEach((l, k) => { l.material.color.setHex(k < lv ? [0x40ff60, 0x90ff40, 0xffe040, 0xff9020, 0xff2020][k] : 0x202020); }); im.ind.visible = false; }
     if (it.kind === 'cam' && im.tri) { const placed = !it.onTable; im.tri.visible = placed; im.body.position.y = placed ? 1.32 : 0.12; im.ind.position.y = placed ? 1.46 : 0.26; if (im.beam) { im.beam.visible = placed; im.beam.position.y = placed ? 1.32 : 0.3; } }
     if (it.kind === 'espejo' && im.mark) { im.mark.position.set(0, 0.42, 0.02); }
+    if (it.kind === 'uv' && im.beam) im.beam.visible = false; // en la mesa o en el piso está apagada
   }
   // las teles de la base: una cámara por cuadro, solo si alguien está cerca
   baseTVs.forEach(tv => tv.mat.uniforms.t.value = t);
@@ -4428,7 +4482,7 @@ makeItemMesh = function (it) {
       box(0.035, 0.24, 0.03, 0x5a3a20, 0, 0.13, 0); box(0.16, 0.025, 0.12, 0x4a2c18, 0, 0.012, 0); } break;
     case 'cam': if (it.id === undefined) { // en la mano: el tripié plegado, como un palo junto a la cámara
         box(0.3, 0.16, 0.14, 0x2a2a2e, 0, 0.1, 0); const ln = cyl(0.05, 0.12, 0x111111, 0.2, 0.1, 0, 0, Math.PI / 2, 10); const st = cyl(0.025, 0.62, 0x161414, -0.12, 0.0, 0, 0, Math.PI / 2, 6); im.ind.visible = false; break; }
-      { const tri = new THREE.Group(); g.add(tri); [0, 2.09, 4.19].forEach(a => { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1.35, 4), L(0x161414)); leg.position.set(Math.cos(a) * 0.2, 0.62, Math.sin(a) * 0.2); leg.rotation.set(Math.sin(a) * 0.3, 0, -Math.cos(a) * 0.3); tri.add(leg); });
+      { const tri = new THREE.Group(); g.add(tri); [0, 2.09, 4.19].forEach(a => { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1.35, 4), L(0x161414)); leg.position.set(Math.cos(a) * 0.2, 0.62, Math.sin(a) * 0.2); leg.rotation.set(-Math.sin(a) * 0.3, 0, Math.cos(a) * 0.3); tri.add(leg); });
       const body = new THREE.Group(); g.add(body); const add = (sx, sy, sz, c, x, y, z, e) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), L(c, e)); m.position.set(x, y, z); m.castShadow = true; body.add(m); return m; };
       add(0.3, 0.16, 0.14, 0x2a2a2e, 0, 0, 0); add(0.1, 0.06, 0.08, 0x161618, -0.08, 0.1, 0); const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.055, 0.12, 10), L(0x111111)); lens.rotation.z = Math.PI / 2; lens.position.set(0.2, 0, 0); body.add(lens);
       const gl = new THREE.Mesh(new THREE.CircleGeometry(0.04, 10), new THREE.MeshBasicMaterial({ color: 0x3050a0 })); gl.position.set(0.261, 0, 0); gl.rotation.y = Math.PI / 2; body.add(gl);
@@ -4453,6 +4507,21 @@ casSound = function (e, p, V) {
   }
   _casSound4(e, p, V);
 };
+
+// ---------- dónde estoy y la bitácora del líder ----------
+let roomTagEl = null, blogEl = null, blogOpen = false, blogSeen = 0, blogDrawT = 0;
+function hudExtras(t) {
+  const game = $('#game'); if (!game) return;
+  if (!roomTagEl) { roomTagEl = document.createElement('div'); roomTagEl.id = 'roomTag'; game.appendChild(roomTagEl);
+    blogEl = document.createElement('div'); blogEl.id = 'blog'; blogEl.innerHTML = '<button id="blogBtn" title="Bitácora de la casa (solo la ves tú, el líder)">📜 <span></span></button><div id="blogList" hidden></div>'; game.appendChild(blogEl);
+    blogEl.querySelector('#blogBtn').onclick = e => { e.stopPropagation(); blogOpen = !blogOpen; blogEl.querySelector('#blogList').hidden = !blogOpen; blogDrawT = 0; }; }
+  const V = viewer(); roomTagEl.textContent = V ? `${roomName(V) || '—'} · ${elevOf(V) > 0.02 && elevOf(V) < 0.98 ? 'entre pisos' : V.f ? 'planta alta' : 'planta baja'}` : '';
+  const lead = NET.mode !== 'guest' && w.bitacora; blogEl.hidden = !lead; if (!lead) return;
+  const L = w.bitacora, nNew = L.length - blogSeen; blogEl.querySelector('#blogBtn span').textContent = blogOpen ? 'Bitácora' : nNew > 0 ? nNew : '';
+  if (blogOpen) { blogSeen = L.length; if (t > blogDrawT) { blogDrawT = t + 0.5;
+    blogEl.querySelector('#blogList').innerHTML = '<b>Bitácora de la casa</b> <span class="small">(solo tú la ves)</span>' + L.slice(-14).reverse().map(e => `<div class="be ${e.kind === 'ánima' ? 'bg' : e.kind === 'cacería' ? 'bh' : ''}"><i>${clockStr(e.t)}</i> <b>${e.kind === 'casa' ? '🏚' : e.kind === 'cacería' ? '⚠' : '👻'}</b> ${e.txt}${e.room ? ` <span>· ${e.room}</span>` : ''}</div>`).join(''); } }
+}
+const _updateScene5 = updateScene; updateScene = function (t, dt) { _updateScene5(t, dt); try { hudExtras(t); } catch (e) {} };
 
 document.getElementById('loading').remove();
 </script>

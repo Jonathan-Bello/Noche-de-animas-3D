@@ -93,9 +93,15 @@ const SPOT_DEFS = [
   [[2, 1], [12, 7], [28, 1], [43, 1], [48, 1], [56, 7], [1, 11], [12, 18], [57, 11], [57, 28], [2, 37], [12, 32], [43, 31], [32, 37]],
 ];
 const STAIRS = [[26, 36, 28, 38], [46, 36, 48, 38]];
+// escaleras de verdad: una rampa de 3 casillas. La primera escalera sube hacia el este y la segunda hacia el oeste.
+// En la casilla de en medio se cambia de piso; la planta baja no pisa el tramo de arriba y la alta no pisa el de abajo.
+const STAIR_DIR = [1, -1];
+const stairAt = (x, y) => { for (let k = 0; k < STAIRS.length; k++) { const [x0, y0, x1, y1] = STAIRS[k]; if (x >= x0 && x < x1 + 1 && y >= y0 && y < y1 + 1) return k; } return -1; };
+const stairP = (k, x) => { const [x0, , x1] = STAIRS[k], p = (x - x0) / (x1 + 1 - x0); return Math.max(0, Math.min(1, STAIR_DIR[k] > 0 ? p : 1 - p)); };
+const elevOf = e => { const k = stairAt(e.x, e.y); return k >= 0 ? stairP(k, e.x) : e.f; };
 const ALTAR_POS = { f: 0, x: 6.5, y: 2.6 };
 const EXIT = { f: 0, x: 22.5, y: 38.4 };
-const ZAG = { f: 0, x: 22.5, y: 38.4 };
+const ZAG = { f: 0, x: 23, y: 38.4 };
 const MALETIN = { f: 0, x: 21.5, y: 33.6 };
 // Objetos de la casa con los que interactúa el ánima (no estorban el paso)
 const PROPS = [
@@ -115,6 +121,11 @@ const grids = [new Uint8Array(FL).fill(T.WALL), new Uint8Array(FL).fill(T.WALL)]
 const roomGrid = [new Int8Array(FL).fill(-1), new Int8Array(FL).fill(-1)];
 const isStair = new Uint8Array(FL);
 STAIRS.forEach(([x0, y0, x1, y1]) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) isStair[y * W + x] = 1; });
+const isStairMid = new Uint8Array(W * H), STAIR_BLOCK = new Uint8Array(2 * W * H);
+STAIRS.forEach(([x0, y0, x1, y1], k) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) { const third = STAIR_DIR[k] > 0 ? x - x0 : x1 - x; if (third === 1) isStairMid[y * W + x] = 1; if (third === 2) STAIR_BLOCK[y * W + x] = 1; if (third === 0) STAIR_BLOCK[W * H + y * W + x] = 1; } });
+const stairSideBlock = (a, b) => a !== b && ((isStairMid[a] && !isStair[b]) || (isStairMid[b] && !isStair[a]));
+function stairFlip(w, e, quiet) { if (!e || (e.kind === 'ghost' && ethereal(e))) return; const k = stairAt(e.x, e.y); if (k < 0) return; const p = stairP(k, e.x);
+  if (e.f === 0 && p > 0.52) quiet ? (e.f = 1) : changeFloor(w, e, 1); else if (e.f === 1 && p < 0.48) quiet ? (e.f = 0) : changeFloor(w, e, 0); }
 for (let f = 0; f < 2; f++) {
   const g = grids[f], fill = (x0, y0, x1, y1, v) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) g[y * W + x] = v; };
   ROOMS[f].forEach(r => fill(r.r[0], r.r[1], r.r[2], r.r[3], T.FLOOR));
@@ -182,10 +193,10 @@ function buildField(target, mode, mask) {
   dist[target] = 0; q[t++] = target;
   while (h < t) {
     const u = q[h++], f = u >= FL ? 1 : 0, i = u - f * FL, x = i % W, y = (i / W) | 0, du = dist[u] + 1;
-    const tryN = v => { if (dist[v] !== 65535) return; const vf = v >= FL ? 1 : 0, vi = v - vf * FL; if (!walkableT(grids[vf][vi]) || (mask && mask[v])) return; dist[v] = du; q[t++] = v; };
+    const tryN = v => { if (dist[v] !== 65535) return; const vf = v >= FL ? 1 : 0, vi = v - vf * FL; if (!walkableT(grids[vf][vi]) || (mask && mask[v])) return; if (mode !== 'fly' && (STAIR_BLOCK[v] || (vf === f && stairSideBlock(i, vi)))) return; dist[v] = du; q[t++] = v; };
     if (x > 0) tryN(u - 1); if (x < W - 1) tryN(u + 1); if (y > 0) tryN(u - W); if (y < H - 1) tryN(u + W);
     const other = f ? u - FL : u + FL;
-    if (isStair[i] || (mode === 'fly' && walkableT(grids[1 - f][i]))) tryN(other);
+    if ((mode !== 'fly' && isStairMid[i]) || (mode === 'fly' && walkableT(grids[1 - f][i]))) tryN(other);
   }
   return dist;
 }
@@ -203,6 +214,7 @@ function solidFor(w, e, f, tx, ty) {
   if (ethereal(e)) { if (tx < 1 || ty < 1 || tx >= W - 1 || ty >= H - 1 || t === T.VOID) return true; const n = f * FL + ty * W + tx; return !!w.ghostMask[n] && !w.ghostMask[nodeOf(e)]; }
   if (!walkableT(t)) return true;
   const n = f * FL + ty * W + tx;
+  if (!(e.kind === 'ghost' && e.def.fly) && (STAIR_BLOCK[n] || stairSideBlock((e.y | 0) * W + (e.x | 0), ty * W + tx))) return true;
   if (e.kind === 'inv' && !e.bot && w.doorTile) { const dd = w.doorTile.get(n); if (dd && dd.closed) return true; }
   if (e.kind === 'ghost' && w.ghostMask[n] && !w.ghostMask[nodeOf(e)]) return true;
   if (e.kind === 'inv' && w.invMask[n]) return true;
@@ -247,7 +259,7 @@ function navTo(w, e, tg, speed, dt) {
     const d = fld[n] + (dx && dy ? 0.4 : 0); if (d < bd) { bd = d; best = n; bx = nx; by = ny; }
   }
   const other = (1 - f) * FL + cy * W + cx;
-  if (fld[other] < bd && fld[other] < fld[cn]) { changeFloor(w, e, 1 - f); return false; }
+  if (fld[other] < bd && fld[other] < fld[cn]) { const k = stairAt(e.x, e.y); if (k >= 0 && mode === 'walk') { const [x0, , x1] = STAIRS[k], up = f === 0; steer(w, e, (STAIR_DIR[k] > 0) === up ? x1 + 0.5 : x0 + 0.5, cy + 0.5, speed, dt); return false; } changeFloor(w, e, 1 - f); return false; }
   if (best < 0) return steer(w, e, tg.x, tg.y, speed, dt);
   steer(w, e, bx + 0.5, by + 0.5, speed, dt); return false;
 }
@@ -433,7 +445,8 @@ function newWorld(opt) {
   { // ruleta de la noche: altar y caja de fusibles en cuartos al azar
     const pool = HOME_CHOICES.filter(h => !(h.f === 0 && ['zaguan'].includes(ROOMS[0][h.r].id)));
     const ar = pick(pool), ac = ROOM_CENTER[ar.f][ar.r]; ALTAR_POS.f = ar.f; ALTAR_POS.x = ac.x; ALTAR_POS.y = ac.y; w.altarRoom = ar;
-    const fr = pick(pool.filter(h => !(h.f === ar.f && h.r === ar.r))); const ft = shuffle(ROOM_TILES[fr.f][fr.r].slice()).find(([x, y]) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => grids[fr.f][(y + dy) * W + x + dx] === T.WALL)) || ROOM_TILES[fr.f][fr.r][0];
+    const fr = pick(pool.filter(h => !(h.f === ar.f && h.r === ar.r))); const nearDoorT = (x, y) => DOOR_DEFS.some(([o, dx, dy]) => Math.abs(x - (o === 'V' ? dx : dx + 0.5)) <= (o === 'V' ? 1 : 1.5) && Math.abs(y - (o === 'V' ? dy + 0.5 : dy)) <= (o === 'V' ? 1.5 : 1));
+    const ft = shuffle(ROOM_TILES[fr.f][fr.r].slice()).find(([x, y]) => !nearDoorT(x, y) && !isStair[y * W + x] && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => grids[fr.f][(y + dy) * W + x + dx] === T.WALL)) || ROOM_TILES[fr.f][fr.r][0];
     const wd = [[1, 0], [-1, 0], [0, 1], [0, -1]].find(([dx, dy]) => grids[fr.f][(ft[1] + dy) * W + ft[0] + dx] === T.WALL) || [0, -1];
     FUSE.f = fr.f; FUSE.x = ft[0] + 0.5 + wd[0] * 0.38; FUSE.y = ft[1] + 0.5 + wd[1] * 0.38; FUSE.face = Math.atan2(-wd[1], -wd[0]); w.fuseRoom = fr;
   }
@@ -719,7 +732,6 @@ function hangRosary(w, i) { const it = handItem(i); if (!it || it.kind !== 'rosa
 function nearSpot(w, i) { let b = -1, bd = 0.9; w.spotsActive.forEach(k => { const s = SPOTS[k]; if (s.f !== i.f) return; const d = Math.hypot(s.hx - i.x, s.hy - i.y); if (d < bd && !w.invs.some(o => o.alive && o.hidden === k)) { bd = d; b = k; } }); return b; }
 function interact(w, i) {
   if (i.hidden >= 0) { i.hidden = -1; return 'salir'; }
-  if (isStair[(i.y | 0) * W + (i.x | 0)]) { const nf = 1 - i.f; i.f = nf; w.noise(i, 6, 'stairs'); return 'escalera'; }
   if (resetFuse(w, i)) return 'fusibles';
   const s = nearSpot(w, i); if (s >= 0) { i.hidden = s; i.x = SPOTS[s].hx; i.y = SPOTS[s].hy; i.reading = null; return 'esconder'; }
   if (pickUp(w, i)) return 'tomar';

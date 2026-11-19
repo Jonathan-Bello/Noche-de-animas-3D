@@ -164,6 +164,7 @@ function botMonitor(w, dt) {
 const _stepB = step;
 step = function (w, dt, input) {
   _stepB(w, dt, input);
+  for (const i of w.invs) if (i.alive && !i.escaped) stairFlip(w, i); stairFlip(w, w.g);
   const xd = w.doors.find(d => d.ext); if (xd && xd.locked && w.phase !== 'hora') { xd.locked = false; xd.closed = false; xd.anim = 1; }
   const home = w.team && w.team.home; if (!home) return;
   for (const b of alive(w)) if (b.bot) { const k = b.slots.findIndex(s => s && (s.kind === 'cam' || s.kind === 'espejo')); if (k >= 0 && b.f === home.f && roomOf(b) === home.r) { const c = ROOM_CENTER[home.f][home.r]; if (c) b.face = Math.atan2(c.y - b.y, c.x - b.x); dropItem(w, b, k); } }
@@ -179,3 +180,32 @@ interact = function (w, i) {
 // la maldición no te sigue afuera
 const _cursedHunt = cursedHunt;
 cursedHunt = function (w, target, why) { if (target && target.f === 0 && target.y >= 39) target = null; return _cursedHunt(w, target, why); };
+
+// ---------- Bitácora del líder: qué hace la casa y el ánima (solo la ve quien crea la sala) ----------
+const CAS_TXT = { nada: 'tiró… nada', ambiente: 'ruido de ambiente', anomalia: 'dejó una anomalía', senuelo: 'señuelo: la silueta del ánima al fondo', doble: 'un doble de un compañero', eco: 'eco: una frase lejana', pasos: 'pasos o canicas arriba',
+  sombra: 'una sombra sin dueño', sombralag: 'la sombra que se retrasa', puerta: 'cerró una puerta', serenata: 'serenata afuera que se corta', zaguan: 'tocan el zaguán', foto: 'tu cara en un retrato', cadaver: 'un cadáver con su ropa',
+  telefono: 'suena un teléfono', tv: 'noticiero en una tele', tvcam: 'tele de vigilancia', barras: 'barras de colores 3:33', radio: 'radio con desaparecidos', reconectando: '«Reconectando…»', clima: 'clima con falla', rezando: 'alguien rezando con veladora',
+  ofrenda: 'foto en la ofrenda', pasillo: 'pasillo que se repite', estatua: 'doble quieto de un compañero', estatuaGrito: 'tocaron al doble quieto: ¡grito!', estatuaHabla: 'el doble quieto contestó con su voz', ecoya: 'eco al instante (falla de wifi)', leyenda: 'grito de La Llorona (1 entre 64)' };
+const G_TXT = { door: 'movió una puerta', portazo: 'dio un portazo', move: 'aventó o movió un objeto', switch: 'prendió o apagó una luz', manifest: 'se manifestó', chill: 'escalofrío', whisper: 'susurró', special: 'usó su habilidad', espejo: 'marcó el espejo' };
+const roomName = p => { if (!p || p.f === undefined) return ''; if (stairAt(p.x, p.y) >= 0) return 'Escalera'; const r = roomAt(p.f, p.x, p.y); return r >= 0 ? ROOMS[p.f][r].n : ''; };
+function blog(w, kind, txt, p) { (w.bitacora || (w.bitacora = [])).push({ t: w.t, kind, txt, room: roomName(p) }); if (w.bitacora.length > 80) w.bitacora.shift(); }
+const _newWorldB = newWorld;
+newWorld = function (opt) {
+  const w = _newWorldB(opt); w.bitacora = []; const ev0 = w.ev;
+  w.ev = (type, data) => { ev0(type, data); const d = data || {}, who = d.who !== undefined && w.invs[d.who] ? w.invs[d.who].name : '';
+    if (type === 'cas') blog(w, 'casa', (CAS_TXT[d.k] || d.k) + (who ? ' → ' + who : ''), d);
+    else if (type === 'hunt') blog(w, 'cacería', d.cursed ? '¡CACERÍA MALDITA!' : '¡Empieza una cacería!', w.g);
+    else if (type === 'tecolote') blog(w, 'ánima', 'cantó el tecolote: ya puede cazar', w.g);
+    else if (type === 'fuseBlow') blog(w, 'casa', 'se botaron los fusibles', FUSE);
+    else if (type === 'anomSeen') blog(w, 'casa', 'alguien vio una anomalía' + (who ? ' → ' + who : ''), d);
+    else if (type === 'lamento') blog(w, 'ánima', 'un lamento', d); };
+  return w;
+};
+const _ghostEventB = ghostEvent;
+ghostEvent = function (w, g, type, extra) { _ghostEventB(w, g, type, extra); if (G_TXT[type] && w.bitacora) blog(w, 'ánima', G_TXT[type], g); };
+// la casona dice si alguien lo notó o si vuelve a tirar
+const _casonaTick4 = casonaTick4;
+casonaTick4 = function (w, dt) { const pd = w.cas.pend; _casonaTick4(w, dt); if (pd && !w.cas.pend && w.bitacora) { const ok = w.t < pd.t + 5 && casNoticed(w, pd).length; blog(w, 'casa', ok ? `lo notaron (−${CAS_SAN[pd.k] || 1} de cordura)` : 'nadie lo notó en 5 s: vuelve a tirar', pd.p); } };
+const _casRollB = casRoll;
+casRoll = function (w) { const n = w.cas.used.length; _casRollB(w); if (!w.bitacora) return; const k = w.cas.used.length > n ? w.cas.used[w.cas.used.length - 1] : null;
+  if (!k) blog(w, 'casa', 'tiró un suceso que esta ánima le prohíbe: nada'); else if (k === 'nada') blog(w, 'casa', 'tiró… nada'); else if (k === 'anomalia') blog(w, 'casa', 'dejó una anomalía (se queda)', w.anoms[w.anoms.length - 1]); };

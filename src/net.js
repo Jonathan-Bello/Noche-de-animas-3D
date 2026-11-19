@@ -81,7 +81,7 @@ function netGuestData(d) {
 }
 
 // ---------- serializar el mundo ----------
-const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team']);
+const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'bitacora']);
 function netEnc(w, full) {
   const invs = new Set(w.invs), its = new Set(w.items), dr = new Map(w.doors.map((d, k) => [d, k]));
   const R = v => Math.round(v * 1000) / 1000;
@@ -138,13 +138,13 @@ function netApply(w, pkt, meIdx) {
     const i = w.invs[k]; if (!i) return;
     if (k === meIdx) {
       const forced = o.pe !== NET.localPe || !o.alive || o.hidden >= 0 || o.possessed;
-      if (forced) { NET.localPe = o.pe; put(i, o); } else put(i, o, POSE);
+      if (forced) { NET.localPe = o.pe; put(i, o); } else { const lf = i.f; put(i, o, POSE); if (stairAt(i.x, i.y) >= 0) i.f = lf; }
     } else {
-      const tx = o.x, ty = o.y, far = i.f !== o.f || Math.hypot((i.x || 0) - tx, (i.y || 0) - ty) > 3;
+      const tx = o.x, ty = o.y, far = (i.f !== o.f && stairAt(tx, ty) < 0) || Math.hypot((i.x || 0) - tx, (i.y || 0) - ty) > 3;
       put(i, o, POSE); i._tx = tx; i._ty = ty; i._tf = o.face; if (far || i.x === undefined) { i.x = tx; i.y = ty; i.face = o.face; }
     }
   });
-  { const g = w.g, o = s.g, far = g.f !== o.f || Math.hypot(g.x - o.x, g.y - o.y) > 3; put(g, o, POSE); g._tx = o.x; g._ty = o.y; g._tf = o.face; if (far) { g.x = o.x; g.y = o.y; g.face = o.face; } }
+  { const g = w.g, o = s.g, far = (g.f !== o.f && stairAt(o.x, o.y) < 0) || Math.hypot(g.x - o.x, g.y - o.y) > 3; put(g, o, POSE); g._tx = o.x; g._ty = o.y; g._tf = o.face; if (far) { g.x = o.x; g.y = o.y; g.face = o.face; } }
   for (const k in s) { if (['items', 'doors', 'loose', 'invs', 'g', 'ALTAR', 'FUSE'].includes(k)) continue; w[k] = D(s[k]); }
   for (const e of pkt.ev || []) w.events.push(D(e));
   for (const l of pkt.lg || []) { w.log.push(l); if (w.log.length > 120) w.log.shift(); }
@@ -173,6 +173,7 @@ function netLocalMove(w, i, inp, dt) {
     const ox = i.x, oy = i.y; tryMove(w, i, i.vx * dt, i.vy * dt); if (Math.abs(i.x - ox) < 1e-5) i.vx *= 0.5; if (Math.abs(i.y - oy) < 1e-5) i.vy *= 0.5;
   }
   if (inp.face !== undefined) i.face = inp.face;
+  stairFlip(w, i, true);
   return true;
 }
 // anfitrión: guarda eventos y mensajes para mandarlos a los invitados
