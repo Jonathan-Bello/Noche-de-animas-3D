@@ -102,7 +102,7 @@ function buildHouse() {
     const G = floorGroups[f], grid = grids[f];
     // pisos por cuarto
     ROOMS[f].forEach((r, i) => {
-      if (r.id === 'vacio') return; const parts = r.id === 'galeria' ? [[15, 10, 44, 12], [15, 27, 44, 29], [15, 13, 17, 26], [42, 13, 44, 26]] : [r.r];
+      if (r.id === 'vacio' || r.id === 'afuera1') return; const parts = r.id === 'galeria' ? [[15, 10, 44, 12], [15, 27, 44, 29], [15, 13, 17, 26], [42, 13, 44, 26]] : [r.r];
       parts.forEach(([x0, y0, x1, y1]) => { const w_ = x1 - x0 + 1, h_ = y1 - y0 + 1;
       const m = new THREE.Mesh(new THREE.PlaneGeometry(w_, h_), LambertFlat({ color: FLOOR_COL[r.id] || 0x504040 }));
       m.rotation.x = -Math.PI / 2; m.position.set(x0 + w_ / 2, 0.001 * (i + 1), y0 + h_ / 2); m.receiveShadow = true; G.add(m); });
@@ -142,16 +142,16 @@ function buildHouse() {
     // techos y vigas (el patio y el vacío quedan abiertos al cielo)
     const ceilMat = LambertFlat({ color: f ? 0x2e2238 : 0x3a2a2a, map: paper, side: THREE.DoubleSide });
     const ceil = (x0, y0, x1, y1) => { const cw = x1 - x0 + 1, ch = y1 - y0 + 1; const m = new THREE.Mesh(new THREE.PlaneGeometry(cw, ch), ceilMat); m.rotation.x = Math.PI / 2; m.position.set(x0 + cw / 2, FH - 0.01, y0 + ch / 2); m.userData.f = f; ceilMeshes.push(m); G.add(m); };
-    ROOMS[f].forEach(r => { if (['patio', 'vacio', 'corredor', 'galeria'].includes(r.id)) return; ceil(...r.r); });
+    ROOMS[f].forEach(r => { if (['patio', 'vacio', 'corredor', 'galeria', 'afuera', 'afuera1'].includes(r.id)) return; ceil(...r.r); });
     ceil(15, 10, 44, 12); ceil(15, 27, 44, 29); ceil(15, 13, 17, 26); ceil(42, 13, 44, 26);
     DOOR_DEFS.forEach(([o, x, y]) => o === 'V' ? ceil(x, y, x, y + 1) : ceil(x, y, x + 1, y));
     const beams = new BoxBatch();
-    ROOMS[f].forEach(r => { if (['patio', 'vacio'].includes(r.id)) return; const [x0, y0, x1, y1] = r.r;
+    ROOMS[f].forEach(r => { if (['patio', 'vacio', 'afuera', 'afuera1'].includes(r.id)) return; const [x0, y0, x1, y1] = r.r;
       if (r.id === 'corredor' || r.id === 'galeria') { for (let x = 15; x <= 44; x += 3) { beams.add(x + 0.5, FH - 0.15, 11.5, 0.22, 0.22, 3); beams.add(x + 0.5, FH - 0.15, 28, 0.22, 0.22, 3); } return; }
       for (let x = x0 + 1; x < x1; x += 2) beams.add(x + 0.5, FH - 0.15, (y0 + y1 + 1) / 2, 0.22, 0.22, y1 - y0 + 1); });
     const bm = beams.mesh(lam(0x2a160c)); bm.castShadow = false; G.add(bm);
     // velas de cada cuarto y focos
-    ROOMS[f].forEach((r, i) => { const c = ROOM_CENTER[f][i]; if (!c) return;
+    ROOMS[f].forEach((r, i) => { const c = ROOM_CENTER[f][i]; if (!c || r.id === 'afuera' || r.id === 'afuera1') return;
       const cg = new THREE.Group(); cg.position.set(c.x, 0, c.y);
       const base = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.3, 8), lam(COL.bone)); base.position.y = 0.15; cg.add(base);
       const fl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.06, 1), new THREE.MeshBasicMaterial({ color: COL.gold })); fl.position.y = 0.36; fl.scale.y = 1.8; cg.add(fl);
@@ -184,7 +184,7 @@ function buildHouse() {
   // objetos sueltos de cada cuarto (lo que el ánima puede aventar)
   looseMeshes = w.loose.map(o => { const m = makeLooseMesh(o.kind, lam); floorGroups[o.f].add(m); return m; });
   // maletín, altar, salida
-  const mal = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.4, 0.6), lam(0x2a2a30)); mal.position.set(MALETIN.x, 0.2, MALETIN.y - 0.8); mal.castShadow = true; floorGroups[0].add(mal);
+  
   { const pg = new THREE.Group(); pg.position.set(22.5, 0, 39.5); floorGroups[0].add(pg);
     const wood = LambertFlat({ color: 0x4a2c18, map: paper, emissive: 0x000000 }), stone = lam(COL.bone);
     [-1.6, 1.6].forEach(x => { const post = new THREE.Mesh(new THREE.BoxGeometry(0.3, FH, 1), stone); post.position.set(x, FH / 2, 0); post.castShadow = true; pg.add(post); });
@@ -340,7 +340,7 @@ function buildDecor(lam) {
 }
 function doorMeshesBuild() {
   doorMeshes = [];
-  w.doors.forEach(d => {
+  w.doors.forEach(d => { if (d.ext) return;
     const piv = new THREE.Group(); const [t0] = d.tiles;
     if (d.o === 'V') piv.position.set(t0[0] + 0.5, 0, t0[1]); else piv.position.set(t0[0], 0, t0[1] + 0.5);
     const panel = new THREE.Mesh(new THREE.BoxGeometry(d.o === 'V' ? 0.08 : 1.9, 2.2, d.o === 'V' ? 1.9 : 0.08), LambertFlat({ color: 0x5b3a20, map: paper }));
@@ -444,7 +444,7 @@ function ghostOpacity(t, V, vk) {
 function updateScene(t, dt) {
   const V = viewer(), vk = viewKind(), g = w.g;
   const vf = V ? V.f : 0;
-  floorGroups[1].visible = vf === 1 || (V && V.f === 0 && roomId(V) === 'patio');
+  floorGroups[1].visible = vf === 1 || (V && V.f === 0 && (roomId(V) === 'patio' || V.y >= 39));
   floorGroups[0].visible = true;
   // muros recortados entre la cámara y el personaje
   for (const r of wallRuns) { const cut = vk === 'all' && r.f === vf && V && r.y > V.y - 0.5 && r.y - V.y < 9 && r.x1 >= V.x - 9 && r.x0 <= V.x + 9; const s = cut ? 0.22 : 1; r.g.scale.y += (s - r.g.scale.y) * Math.min(1, dt * 8); }
@@ -534,8 +534,8 @@ function updateScene(t, dt) {
   updateFx(t, vf); updateProps(t, vf); updateLoose(t);
   for (const m of ceilMeshes) m.visible = camera.position.y < m.userData.f * FH + FH - 0.05;
   // salida y altar
-  exitMesh.material.emissive.setHex(w.phase === 'huida' ? (t < w.exitBlockedUntil ? 0x400000 : 0x302008) : 0x000000);
-  const open = w.phase === 'huida' && t >= w.exitBlockedUntil ? 1.4 : 0; exitMesh.leaves.forEach((l, k) => { const tg = (k ? -1 : 1) * open; l.rotation.y += (tg - l.rotation.y) * Math.min(1, dt * 3); });
+  const xd = w.doors.find(d => d.ext); exitMesh.material.emissive.setHex(xd && xd.locked ? 0x400000 : 0x000000);
+  const open = xd && !xd.closed ? 1.4 : 0; exitMesh.leaves.forEach((l, k) => { const tg = (k ? -1 : 1) * open; l.rotation.y += (tg - l.rotation.y) * Math.min(1, dt * 3); });
   altarGlow.material.opacity = w.phase === 'night' ? 0.18 + Math.sin(t * 3) * 0.08 : 0.08;
   // marcas de lo que oye el ánima humana
   if (vk === 'ghost') { while (heardMarks.length < 6) { const m = new THREE.Mesh(new THREE.RingGeometry(0.4, 0.55, 24), new THREE.MeshBasicMaterial({ color: 0x9ad0ff, transparent: true, depthWrite: false, side: THREE.DoubleSide })); m.rotation.x = -Math.PI / 2; scene.add(m); heardMarks.push(m); }

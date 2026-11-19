@@ -64,17 +64,17 @@ const CFG = {
 };
 
 // ---------- La casona ----------
-const W = 60, H = 40, FL = W * H;
-const T = { FLOOR: 0, WALL: 1, TABLE: 2, CLOSET: 3, WATER: 4, PILLAR: 5, ALTAR: 6, BED: 7, SHELF: 8, VOID: 9, STAIR: 10 };
+const W = 60, H = 60, FL = W * H; // y 40–58: afuera (la base de los investigadores)
+const T = { FLOOR: 0, WALL: 1, TABLE: 2, CLOSET: 3, WATER: 4, PILLAR: 5, ALTAR: 6, BED: 7, SHELF: 8, VOID: 9, STAIR: 10, BUSH: 11, GATE: 12, VAN: 13 };
 const walkableT = t => t === T.FLOOR || t === T.STAIR;
 const sightBlockT = t => t === T.WALL || t === T.CLOSET || t === T.SHELF;
-const RECTS = [[1, 1, 13, 8], [15, 1, 29, 8], [31, 1, 44, 8], [46, 1, 58, 8], [1, 10, 13, 19], [1, 21, 13, 29], [46, 10, 58, 19], [46, 21, 58, 29], [1, 31, 13, 38], [15, 31, 29, 38], [31, 31, 44, 38], [46, 31, 58, 38], [18, 13, 41, 26], [15, 10, 44, 29]];
+const RECTS = [[1, 1, 13, 8], [15, 1, 29, 8], [31, 1, 44, 8], [46, 1, 58, 8], [1, 10, 13, 19], [1, 21, 13, 29], [46, 10, 58, 19], [46, 21, 58, 29], [1, 31, 13, 38], [15, 31, 29, 38], [31, 31, 44, 38], [46, 31, 58, 38], [18, 13, 41, 26], [15, 10, 44, 29], [1, 40, 58, 58]];
 const ROOMS = [
-  ['capilla', 'Capilla', 'biblioteca', 'Biblioteca', 'sala', 'Sala', 'recp', 'Recámara principal', 'comedor', 'Comedor', 'cocina', 'Cocina', 'recn', 'Recámara de niños', 'bano', 'Baño', 'despensa', 'Despensa', 'zaguan', 'Zaguán', 'estudio', 'Estudio', 'servicio', 'Cuarto de servicio', 'patio', 'Patio', 'corredor', 'Corredor'],
-  ['juegos', 'Cuarto de juegos', 'costura', 'Cuarto de costura', 'musica', 'Sala de música', 'huespedes', 'Recámara de huéspedes', 'abuelo', 'Recámara del abuelo', 'banoalto', 'Baño alto', 'oratorio', 'Oratorio', 'nana', 'Cuarto de la nana', 'desvan', 'Desván', 'rellano', 'Rellano', 'archivo', 'Archivo', 'azotehuela', 'Azotehuela', 'vacio', 'Vacío del patio', 'galeria', 'Galería'],
+  ['capilla', 'Capilla', 'biblioteca', 'Biblioteca', 'sala', 'Sala', 'recp', 'Recámara principal', 'comedor', 'Comedor', 'cocina', 'Cocina', 'recn', 'Recámara de niños', 'bano', 'Baño', 'despensa', 'Despensa', 'zaguan', 'Zaguán', 'estudio', 'Estudio', 'servicio', 'Cuarto de servicio', 'patio', 'Patio', 'corredor', 'Corredor', 'afuera', 'Afuera (la base)'],
+  ['juegos', 'Cuarto de juegos', 'costura', 'Cuarto de costura', 'musica', 'Sala de música', 'huespedes', 'Recámara de huéspedes', 'abuelo', 'Recámara del abuelo', 'banoalto', 'Baño alto', 'oratorio', 'Oratorio', 'nana', 'Cuarto de la nana', 'desvan', 'Desván', 'rellano', 'Rellano', 'archivo', 'Archivo', 'azotehuela', 'Azotehuela', 'vacio', 'Vacío del patio', 'galeria', 'Galería', 'afuera1', '(afuera)'],
 ].map(l => RECTS.map((r, i) => ({ id: l[i * 2], n: l[i * 2 + 1], r })));
 const RID = [{}, {}]; ROOMS.forEach((rs, f) => rs.forEach((r, i) => (RID[f][r.id] = i)));
-const NO_HOME = [['zaguan', 'patio', 'corredor'], ['rellano', 'azotehuela', 'vacio', 'galeria']];
+const NO_HOME = [['zaguan', 'patio', 'corredor', 'afuera'], ['rellano', 'azotehuela', 'vacio', 'galeria', 'afuera1']];
 const HALLS = [['corredor', 'patio'], ['galeria']];
 const WATER_ROOMS = [['cocina', 'bano', 'patio'], ['banoalto']];
 const BEDROOMS = [['recp', 'recn', 'servicio'], ['huespedes', 'abuelo', 'nana']];
@@ -95,6 +95,7 @@ const SPOT_DEFS = [
 const STAIRS = [[26, 36, 28, 38], [46, 36, 48, 38]];
 const ALTAR_POS = { f: 0, x: 6.5, y: 2.6 };
 const EXIT = { f: 0, x: 22.5, y: 38.4 };
+const ZAG = { f: 0, x: 22.5, y: 38.4 };
 const MALETIN = { f: 0, x: 21.5, y: 33.6 };
 // Objetos de la casa con los que interactúa el ánima (no estorban el paso)
 const PROPS = [
@@ -121,7 +122,11 @@ for (let f = 0; f < 2; f++) {
   DOOR_DEFS.forEach(([o, x, y]) => { g[y * W + x] = T.FLOOR; if (o === 'V') g[(y + 1) * W + x] = T.FLOOR; else g[y * W + x + 1] = T.FLOOR; });
   FURN[f].forEach(([v, x0, y0, x1, y1]) => fill(x0, y0, x1, y1, v));
   if (f === 0) [[18, 13], [22, 13], [26, 13], [30, 13], [34, 13], [38, 13], [41, 13], [18, 26], [22, 26], [26, 26], [30, 26], [34, 26], [38, 26], [41, 26], [18, 17], [18, 22], [41, 17], [41, 22]].forEach(([x, y]) => (g[y * W + x] = T.PILLAR));
-  if (f === 1) fill(18, 13, 41, 26, T.VOID);
+  if (f === 1) { fill(18, 13, 41, 26, T.VOID); fill(0, 40, 59, 59, T.VOID); }
+  if (f === 0) { // afuera: camino de piedra, arbustos, la base con la camioneta y la reja
+    fill(0, 40, 59, 59, T.VOID); fill(21, 39, 24, 49, T.FLOOR); g[39 * W + 21] = T.WALL; g[39 * W + 24] = T.WALL; fill(12, 50, 34, 56, T.FLOOR);
+    for (let y = 40; y <= 57; y++) for (let x = 0; x < W; x++) if (g[y * W + x] === T.VOID && [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, 1]].some(([dx, dy]) => g[(y + dy) * W + x + dx] === T.FLOOR)) g[y * W + x] = T.BUSH;
+    fill(12, 57, 34, 57, T.GATE); fill(28, 51, 32, 54, T.VAN); fill(14, 51, 19, 51, T.TABLE); fill(14, 55, 19, 55, T.TABLE); }
   for (let i = 0; i < FL; i++) if (isStair[i]) g[i] = T.STAIR;
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (walkableT(g[y * W + x]) && roomGrid[f][y * W + x] < 0)
     for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const r = roomGrid[f][(y + dy) * W + x + dx]; if (r >= 0) { roomGrid[f][y * W + x] = r; break; } }
@@ -167,7 +172,7 @@ for (let f = 0; f < 2; f++) ROOMS[f].forEach((rm, r) => {
 const FUSE = { f: 0, x: 0, y: 0 };
 const HOME_CHOICES = []; ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!NO_HOME[f].includes(r.id)) HOME_CHOICES.push({ f, r: i }); }));
 { const zc = ROOM_CENTER[0][RID[0].zaguan]; FUSE.x = zc.x + 2.5; FUSE.y = zc.y - 0.5; }
-const ROOM_LIST = []; ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (r.id !== 'vacio') ROOM_LIST.push({ f, r: i }); }));
+const ROOM_LIST = []; ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!['vacio', 'afuera', 'afuera1'].includes(r.id)) ROOM_LIST.push({ f, r: i }); }));
 
 // ---------- Navegación (campos de distancia bajo demanda) ----------
 const NN = 2 * FL;
@@ -194,6 +199,7 @@ const nodeOf = e => e.f * FL + (e.y | 0) * W + (e.x | 0);
 const ethereal = e => e.kind === 'ghost' && !e.hunt && e.state !== 'despertando';
 function solidFor(w, e, f, tx, ty) {
   const t = tileAt(f, tx, ty);
+  if (e.kind === 'ghost' && ty >= 39) return true; // el ánima no sale de la casona
   if (ethereal(e)) { if (tx < 1 || ty < 1 || tx >= W - 1 || ty >= H - 1 || t === T.VOID) return true; const n = f * FL + ty * W + tx; return !!w.ghostMask[n] && !w.ghostMask[nodeOf(e)]; }
   if (!walkableT(t)) return true;
   const n = f * FL + ty * W + tx;
@@ -439,7 +445,7 @@ function newWorld(opt) {
   w.ev = (type, data) => w.events.push(Object.assign({ type }, data || {}));
   w.noise = (p, r, kind) => { w.noises.push({ f: p.f, x: p.x, y: p.y, r, kind, t: w.t }); w.ev('noise', { kind, f: p.f, x: p.x, y: p.y }); };
   w.sub = (p, text, r) => w.subs.push({ f: p.f, x: p.x, y: p.y, text, r: r || 12, t: w.t });
-  ROOMS.forEach((rs, f) => rs.forEach((rm, r) => { if (!ROOM_TILES[f][r].length) return; w.cold[f][r] = randomIn(f, r); if (isHall(f, r) || ['vacio', 'zaguan'].includes(rm.id)) return; const n = SURFACES[f][r].length ? 2 + (Math.random() < 0.5 ? 1 : 0) : 0; for (let k = 0; k < n; k++) { const p = onFurniture(f, r); w.loose.push({ id: w.loose.length, kind: pick(LOOSE_KINDS), f, x: p.x, y: p.y, h: p.h, rot: Math.random() * 6.28, flyT: -99, from: null }); } }));
+  ROOMS.forEach((rs, f) => rs.forEach((rm, r) => { if (!ROOM_TILES[f][r].length) return; w.cold[f][r] = randomIn(f, r); if (isHall(f, r) || ['vacio', 'zaguan', 'afuera'].includes(rm.id)) return; const n = SURFACES[f][r].length ? 2 + (Math.random() < 0.5 ? 1 : 0) : 0; for (let k = 0; k < n; k++) { const p = onFurniture(f, r); w.loose.push({ id: w.loose.length, kind: pick(LOOSE_KINDS), f, x: p.x, y: p.y, h: p.h, rot: Math.random() * 6.28, flyT: -99, from: null }); } }));
   w.fxAdd = (kind, p, extra) => w.fx.push(Object.assign({ kind, f: p.f, x: p.x, y: p.y, t: w.t, ttl: 30 }, extra || {}));
   w.haunt = (i, amt) => { if (!i.alive) return; const s0 = i.san; i.san = Math.max(0, i.san - amt * w.force * (w.g.def.haunteMult ? w.g.def.haunteMult(w, w.g, i) : 1)); const g = w.g; if (g && w.phase === 'night' && g.state === 'libre') g.pres = Math.min(g.def.presMax, g.pres + (s0 - i.san) / Math.max(1, w.force) * CFG.hunger.feed * 1.5); };
   // Investigadores
@@ -1066,7 +1072,7 @@ function botGhost(w, g, dt) {
   if (seen) { if (!ai.target || w.t - ai.target.t > 3) ai.seenSince = w.t; ai.target = { f: seen.f, x: seen.x, y: seen.y, t: w.t, who: seen }; }
   const heard = g.heard.length ? g.heard[g.heard.length - 1] : null;
   if (w.phase === 'huida') {
-    if (!g.espantoUsed && (seen && sd < 10 || alive(w).some(i => i.f === 0 && d2(i, EXIT) < 10))) gEspanto(w, g);
+    if (!g.espantoUsed && (seen && sd < 10 || alive(w).some(i => i.f === 0 && d2(i, ZAG) < 6))) gEspanto(w, g);
     if (g.def.special && g.def.special.bot(w, g)) gSpecial(w, g);
     const near = alive(w).sort((a, b) => (a.f !== g.f) - (b.f !== g.f) || d2(a, g) - d2(b, g))[0];
     navTo(w, g, seen || (ai.target && w.t - ai.target.t < 6 ? ai.target : null) || near || { f: 0, x: 22.5, y: 34.5 }, sp, dt); return;

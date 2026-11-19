@@ -180,7 +180,7 @@ useItemRaw = function (w, i) {
 };
 
 // ---------- Luces: la instalación aguanta pocas a la vez ----------
-const litCount = w => w.lights.reduce((s, l, f) => s + Array.from(l).filter((v, r) => v && !isHall(f, r) && !(f === 0 && ['zaguan', 'patio'].includes(ROOMS[0][r].id))).length, 0);
+const litCount = w => w.lights.reduce((s, l, f) => s + Array.from(l).filter((v, r) => v && !isHall(f, r) && !(f === 0 && ['zaguan', 'patio', 'afuera'].includes(ROOMS[0][r].id))).length, 0);
 const _toggleLight = toggleLight;
 toggleLight = function (w, i) {
   const r = _toggleLight(w, i);
@@ -234,17 +234,16 @@ perceives = function (w, g, i) {
 // ---------- Salir por el zaguán ----------
 const _interact = interact;
 interact = function (w, i) {
-  if (i.hidden < 0 && i.f === EXIT.f && d2(i, EXIT) < 1.6 && !i.bot) {
-    if (w.phase === 'hora') { w.say('La puerta del zaguán no abre. Aguanta hasta que salga el sol.', 'i'); return 'trabada'; }
-    if (w.cas.knock && w.t < w.cas.knock.until) { visitor(w, i); return 'visita'; }
+  if (i.hidden < 0 && !i.bot && i.f === 0 && w.cas.knock && w.t < w.cas.knock.until && d2(i, ZAG) < 1.8) { visitor(w, i); return 'visita'; }
+  if (i.hidden < 0 && i.f === EXIT.f && d2(i, EXIT) < 1.8 && !i.bot) {
     if (w.exitAsk[i.id] && w.t - w.exitAsk[i.id] < 4) { leaveHouse(w, i); return 'salir'; }
-    w.exitAsk[i.id] = w.t; w.say(`¿Salir de la casona? ${i.guess ? 'Tu apuesta: ' + GT[i.guess].n + '. ' : 'Aún no marcas tu apuesta en la libreta. '}Pulsa E otra vez para salir.`, 'i'); return 'preguntar';
+    w.exitAsk[i.id] = w.t; w.say(`¿Subirte a la camioneta y terminar tu noche? ${i.guess ? 'Tu apuesta: ' + GT[i.guess].n + '. ' : 'Aún no marcas tu apuesta en la libreta. '}Pulsa E otra vez.`, 'i'); return 'preguntar';
   }
   return _interact(w, i);
 };
 function leaveHouse(w, i) {
   if (i.escaped) return; i.escaped = true; i.out = true; i.hidden = -1; i.slots.forEach((s, k) => { if (s) dropItem(w, i, k); });
-  w.say(`${i.name} salió de la casona${i.guess ? '' : ' sin apostar'}.`, 'a'); w.ev('escape', { who: i.id });
+  w.say(`${i.name} se subió a la camioneta${i.guess ? '' : ' sin apostar'}.`, 'a'); w.ev('escape', { who: i.id });
 }
 function visitor(w, i) {
   const k = w.cas.knock; w.cas.knock = null; w.ev('visita', { who: i.id });
@@ -294,8 +293,8 @@ function casDo(w, k, v) {
     case 'sombra': { const p = casPoint(w, v, 3, 6, true); if (p) E({ x: p.x, y: p.y }); break; }
     case 'sombralag': E(); break;
     case 'puerta': { const d = w.doors.filter(d => d.f === v.f && d2(d, v) < 8 && !d.closed && !d.tiles.some(([x, y]) => w.invs.some(i => i.f === d.f && (i.x | 0) === x && (i.y | 0) === y))).sort((a, b) => d2(a, v) - d2(b, v))[0]; if (d) { d.closed = true; d.anim = 0; w.ev('doorToggle', { f: d.f, x: d.x, y: d.y, closed: true }); E({ x: d.x, y: d.y }); } break; }
-    case 'serenata': E({ f: EXIT.f, x: EXIT.x, y: EXIT.y + 3 }); break;
-    case 'zaguan': w.cas.knock = { until: w.t + 25 }; E({ f: EXIT.f, x: EXIT.x, y: EXIT.y }); break;
+    case 'serenata': E({ f: 0, x: ZAG.x, y: ZAG.y + 4 }); break;
+    case 'zaguan': w.cas.knock = { until: w.t + 25 }; E({ f: 0, x: ZAG.x, y: ZAG.y }); break;
     case 'foto': E(); w.actor = v; w.say('En un retrato de la familia… ahora apareces tú.', 'i'); w.actor = null; break;
     case 'cadaver': { const p = casPoint(w, v, 5, 10, true); if (!p) break; w.corpse = Object.assign(p, { until: w.t + 20, char: v.char, who: v.id }); E({ x: p.x, y: p.y }); break; }
     case 'telefono': { const ph = w.phone || (w.phone = ROOM_CENTER[0][RID[0].sala] || EXIT); E({ f: ph.f !== undefined ? ph.f : 0, x: ph.x, y: ph.y, near: v.f === 0 && d2(v, ph) < 10, distort: Math.random() < 0.1, leyenda: w.g.def.id === 'llorona' && Math.random() < 1 / 64 }); break; }
@@ -365,7 +364,7 @@ botTeam = function (w) {
   const ready = p >= 3 || (p >= 2 && c.length === 1) || (left < 75 && p >= 1) || left < 40;
   if (!ready) return;
   for (const b of bots) if (!b.leave) { b.guess = (c.length ? pick(c) : pick(GHOSTS)).id; if (!humansIn || left < 60) b.leave = true; }
-  if (humansIn && !w.team.hinted) { w.say(`${bots[0].name}: «${c.length === 1 ? 'Tiene que ser ' + c[0].n : 'Puede ser ' + c.slice(0, 3).map(x => x.n).join(', ')}. Cuando quieran, salimos por el zaguán».`, 'a'); w.team.hinted = true; }
+  if (humansIn && !w.team.hinted) { w.say(`${bots[0].name}: «${c.length === 1 ? 'Tiene que ser ' + c[0].n : 'Puede ser ' + c.slice(0, 3).map(x => x.n).join(', ')}. Cuando quieran, nos subimos a la camioneta».`, 'a'); w.team.hinted = true; }
 };
 
 // ---------- Fin de la noche: Hora del ánima, amanecer y resultados ----------
@@ -379,7 +378,7 @@ function horaTick(w, dt) {
   const g = w.g; g.pres = g.def.presMax;
   // esconderse ya no es seguro: la mitad de las veces te saca
   for (const i of w.invs) if (i.alive && i.hidden >= 0) { const s = SPOTS[i.hidden]; if (s.f === g.f && Math.hypot(s.hx - g.x, s.hy - g.y) < 1.2 && !w.hiddenTried.has(i.hidden)) { w.hiddenTried.add(i.hidden); if (Math.random() < 0.5) { i.hidden = -1; w.say(`¡El ánima sacó a ${i.name} del escondite!`, 'a'); } } }
-  if (w.t >= w.hora.until) { w.phase = 'amanecer'; w.amanecer = { until: w.t + 45 }; g.hunt = null; g.state = 'descanso'; g.restUntil = Infinity; w.say('Sale el sol. La puerta del zaguán se abre: ¡salgan!', 'a'); w.ev('amanece'); }
+  if (w.t >= w.hora.until) { w.phase = 'amanecer'; w.amanecer = { until: w.t + 45 }; g.hunt = null; g.state = 'descanso'; g.restUntil = Infinity; w.say('Sale el sol. La puerta de la casona se abre: ¡salgan!', 'a'); w.ev('amanece'); }
 }
 function finishNight(w) {
   const res = w.invs.map(i => { const out = !!i.out && i.alive, ok = i.guess === w.g.def.id; return { id: i.id, name: i.name, bot: i.bot, out, alive: i.alive, guess: i.guess || null, ok }; });

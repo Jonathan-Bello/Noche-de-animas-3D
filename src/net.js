@@ -68,6 +68,7 @@ function netGuestConn(c) {
 function netHostData(c, d) {
   if (!d || typeof d !== 'object') return;
   if (d.t === 'in') { const prev = NET.inputs.get(c.peer); const acc = prev ? prev.press : new Set(); (d.press || []).forEach(k => acc.add(k)); NET.inputs.set(c.peer, Object.assign({}, d, { press: acc, acts: (prev && prev.acts || []).concat(d.acts || []) })); }
+  if (d.t === 'clip' && typeof d.d === 'string' && d.d.length < 60000) { const W_ = window.__game && window.__game.w, inv = W_ && W_.invs.find(i => i.peer === c.peer); if (inv) { VOICE.gotClip(inv.id, d.tag, d.d); for (const o of NET.conns.values()) if (o.open && o !== c) o.send({ t: 'clip', who: inv.id, tag: d.tag, d: d.d }); } }
   if (d.t === 'char') { const p = NET.lobby.find(p => p.peer === c.peer); if (p) { p.char = d.char; p.name = String(d.name || p.name).slice(0, 16); netLobbyChanged(); } }
 }
 function netGuestData(d) {
@@ -76,6 +77,7 @@ function netGuestData(d) {
   else if (d.t === 'full') netStatus(d.why, false);
   else if (d.t === 'start') { NET.started = true; if (NET.cb.start) NET.cb.start(d); }
   else if (d.t === 'snap') { if (NET.cb.snap) NET.cb.snap(d); }
+  else if (d.t === 'clip') VOICE.gotClip(d.who, d.tag, d.d);
 }
 
 // ---------- serializar el mundo ----------
@@ -285,13 +287,42 @@ const VOICE = {
       else { spT += blk; if (rms < Math.max(0.015, noise * 2)) silent += blk; else silent = 0; if (silent > 0.45) { speaking = false; const dur = spT - silent + 0.15; if (dur > 0.35 && dur < 3.2) this.keep(dur + silent); } else if (spT > 4) speaking = false; }
     };
   },
-  keep(back) { const n = Math.min(this.ring.length, Math.ceil((back + 0.1) * this.sr)), out = new Float32Array(n); for (let i = 0; i < n; i++) out[i] = this.ring[(this.ringPos - n + i + this.ring.length) % this.ring.length]; this.clips.push(out); while (this.clips.length > 5) this.clips.shift(); },
-  // la casona usa una frase: sonido de bocina; 1 de cada 10, al revés y grave
-  playClip(pos, distort) {
-    if (!this.clips.length) return false; const a = this.ac(), c = this.clips[Math.floor(Math.random() * this.clips.length)];
-    const b = a.createBuffer(1, c.length, this.sr), d = b.getChannelData(0); if (distort) for (let i = 0; i < d.length; i++) d[i] = c[d.length - 1 - i]; else d.set(c);
+  keep(back) {
+    const n = Math.min(this.ring.length, Math.ceil((back + 0.1) * this.sr)), out = new Float32Array(n); for (let i = 0; i < n; i++) out[i] = this.ring[(this.ringPos - n + i + this.ring.length) % this.ring.length];
+    const clip = { d: out, sr: this.sr, tag: this.tagOf(out, this.sr, back), t: performance.now() }; this.clips.push(clip); while (this.clips.length > 5) this.clips.shift(); this.share(clip);
+  },
+  // ¿qué clase de frase es? grito (muy fuerte), llamado (corta, como un nombre), pregunta (el tono sube al final) o frase
+  tagOf(x, sr, dur) {
+    let pk = 0; for (let i = 0; i < x.length; i += 64) { let s = 0; const e = Math.min(x.length, i + 512); for (let j = i; j < e; j++) s += x[j] * x[j]; pk = Math.max(pk, Math.sqrt(s / Math.max(1, e - i))); }
+    if (pk > 0.22) return 'grito'; if (dur < 0.9) return 'llamado';
+    const f0 = (c) => { const N = Math.min(2048, Math.floor(sr * 0.045)), st = Math.max(0, Math.min(x.length - N, Math.floor(c))); let best = 0, bl = 0, e0 = 0; for (let i = 0; i < N; i++) e0 += x[st + i] * x[st + i]; if (e0 < 1e-4) return 0;
+      for (let L = Math.floor(sr / 400); L < Math.floor(sr / 75) && L < N; L++) { let s = 0; for (let i = 0; i < N - L; i++) s += x[st + i] * x[st + i + L]; if (s > best) { best = s; bl = L; } } return best / e0 > 0.35 && bl ? sr / bl : 0; };
+    const mid = f0(x.length * 0.45), end = f0(x.length - sr * 0.5); return mid && end && end > mid * 1.1 ? 'pregunta' : 'frase';
+  },
+  // en línea: la frase viaja comprimida (8 kHz, 8 bits) para que la casona la use con la voz de ese jugador; solo vive en la memoria
+  byInv: {}, shareT: 0,
+  share(clip) {
+    if (NET.mode === 'off' || performance.now() - this.shareT < 6000) return; this.shareT = performance.now();
+    const step = clip.sr / 8000, n = Math.floor(clip.d.length / step), q = new Int8Array(n); let pk = 0.001; for (let i = 0; i < clip.d.length; i++) pk = Math.max(pk, Math.abs(clip.d[i]));
+    for (let i = 0; i < n; i++) q[i] = Math.max(-127, Math.min(127, Math.round(clip.d[Math.floor(i * step)] / pk * 110)));
+    let bin = ''; for (let i = 0; i < n; i++) bin += String.fromCharCode(q[i] & 255); const d = btoa(bin);
+    if (NET.mode === 'host') { const who = window.__game ? window.__game.ME : 0; this.gotClip(who, clip.tag, d); for (const c of NET.conns.values()) if (c.open) c.send({ t: 'clip', who, tag: clip.tag, d }); }
+    else if (NET.hostConn && NET.hostConn.open) NET.hostConn.send({ t: 'clip', tag: clip.tag, d });
+  },
+  gotClip(who, tag, d) {
+    try { const bin = atob(d), f = new Float32Array(bin.length); for (let i = 0; i < bin.length; i++) { const v = bin.charCodeAt(i); f[i] = (v > 127 ? v - 256 : v) / 140; }
+      const L = this.byInv[who] || (this.byInv[who] = []); L.push({ d: f, sr: 8000, tag, t: performance.now() }); while (L.length > 4) L.shift(); } catch (e) {}
+  },
+  pick(list, prefer) { if (!list || !list.length) return null; const a = prefer ? list.filter(c => prefer.includes(c.tag)) : []; if (a.length) return a[Math.floor(Math.random() * a.length)]; const b = list.filter(c => c.tag !== 'grito'); return (b.length ? b : list)[Math.floor(Math.random() * (b.length ? b : list).length)]; },
+  // la casona usa una frase: sonido de bocina; 1 de cada 10, al revés y grave; «wifi»: se entrecorta
+  playClip(pos, distort, o) {
+    o = o || {}; const list = o.who !== undefined ? this.byInv[o.who] : this.clips;
+    const c = o.last ? (this.clips.length && performance.now() - this.clips[this.clips.length - 1].t < 8000 ? this.clips[this.clips.length - 1] : null) : this.pick(list, o.prefer);
+    if (!c) return false; const a = this.ac(), src = c.d || c, sr = c.sr || this.sr;
+    const b = a.createBuffer(1, src.length, sr), d = b.getChannelData(0); if (distort) for (let i = 0; i < d.length; i++) d[i] = src[d.length - 1 - i]; else d.set(src);
+    if (o.wifi) { const seg = Math.floor(sr * 0.06); for (let s0 = seg; s0 < d.length - seg; s0 += seg) { const r = Math.random(); if (r < 0.22) d.copyWithin(s0, s0 - seg, s0); else if (r < 0.3) d.fill(0, s0, s0 + seg); } for (let i = 0; i < d.length; i++) d[i] = Math.round(d[i] * 10) / 10; }
     const s = a.createBufferSource(); s.buffer = b; if (distort) s.playbackRate.value = 0.72;
-    const hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 400; const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3000; const g = a.createGain(); g.gain.value = 1.1;
-    s.connect(hp).connect(lp).connect(g).connect(pos && window.__out ? window.__out(pos) : a.destination); s.start(a.currentTime + 0.2); return true;
+    const hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = o.wifi ? 600 : 400; const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = o.wifi ? 2600 : 3000; const g = a.createGain(); g.gain.value = o.vol || 1.1;
+    s.connect(hp).connect(lp).connect(g).connect(pos && window.__out ? window.__out(pos) : a.destination); s.start(a.currentTime + (o.delay || 0.2)); return true;
   },
 };

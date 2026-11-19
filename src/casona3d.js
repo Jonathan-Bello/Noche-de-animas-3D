@@ -39,7 +39,7 @@ function casEvents() {
       case 'hora': [0, 1.4, 2.8].forEach(d => setTimeout(() => SFX.bell(null), d * 1000)); shake(0.5); flashUI('nuca'); break;
       case 'amanece': SFX.bell(null); tone(880, 0.2, 'sine', 0.05, null, 300, 0.4); break;
       case 'escape': SFX.door(p); break;
-      case 'visita': SFX.door({ f: EXIT.f, x: EXIT.x, y: EXIT.y }); break;
+      case 'visita': SFX.door({ f: 0, x: ZAG.x, y: ZAG.y }); break;
       case 'huellas': CSFX.wet(p); break;
       case 'cas': casSound(e, p, V); break;
     }
@@ -140,7 +140,7 @@ setInterval(() => { if (!w || !VOICE.on) return; const me = w.invs[ME]; if (!me)
 function myJournal() { return { c: Object.keys(w.conf || {}), d: Object.keys(w.discard || {}).filter(k => w.discard[k]), g: Object.keys(w.discardG || {}).filter(k => w.discardG[k]) }; }
 function syncJournal() { if (!w) return; const j = myJournal(); const me = w.invs[ME]; if (NET.mode === 'guest') NET.journalOut = j; else if (me) me.journal = j; }
 function myGuess() { return NET.mode === 'guest' ? NET.myGuess : w && w.invs[ME] && w.invs[ME].guess; }
-function setGuess(id) { if (NET.mode === 'guest') NET.myGuess = id; else if (w) w.invs[ME].guess = id; toast(`Tu apuesta: <b>${GT[id].n}</b>. Para terminar, sal por el zaguán.`, '', 3); }
+function setGuess(id) { if (NET.mode === 'guest') NET.myGuess = id; else if (w) w.invs[ME].guess = id; toast(`Tu apuesta: <b>${GT[id].n}</b>. Para terminar, súbete a la camioneta.`, '', 3); }
 journalHTML = function (canName) {
   const c = candidates(w, true), p = pruebas(w), others = w.invs.filter(i => i.id !== ME && !i.bot && i.journal);
   const dots = (k, kind) => others.map(i => { const j = i.journal; const st = (kind === 'ev' ? (j.c.includes(k) ? '✓' : j.d.includes(k) ? '✗' : '') : (j.g.includes(k) ? '✗' : '')); return st ? `<i class="jd" style="background:${i.color}" title="${i.name}">${st}</i>` : ''; }).join('');
@@ -148,7 +148,7 @@ journalHTML = function (canName) {
   EV_KEYS.forEach(k => { const st = w.conf[k] ? 'si' : w.discard[k] ? 'no' : 'na';
     h += `<div class="ev ${st}" data-ev="${k}"><span>${cardImg(EV[k].tool, 'mci')}${EV[k].n}<small>${ITEMS[EV[k].tool].n}</small></span><span class="jdots">${dots(k, 'ev')}</span><b>${st === 'si' ? '✓' : st === 'no' ? '✗' : '?'}</b></div>`; });
   const gs = myGuess();
-  h += `<p class="hint">Marcadas: <b>${p}</b>. Nadie te avisa si una lectura es real. ${gs ? `Tu apuesta: <b>${GT[gs].n}</b>.` : 'Elige un ánima y márcala como tu apuesta.'} Para terminar la noche, <b>sal por el zaguán</b>: el resultado se ve afuera.</p>`;
+  h += `<p class="hint">Marcadas: <b>${p}</b>. Nadie te avisa si una lectura es real. ${gs ? `Tu apuesta: <b>${GT[gs].n}</b>.` : 'Elige un ánima y márcala como tu apuesta.'} Para terminar la noche, <b>súbete a la camioneta</b>: el resultado se ve afuera.</p>`;
   h += `<h3>Ánimas posibles (${c.length})</h3>`;
   GHOSTS.forEach(G => { const ok = c.includes(G) && !(w.discardG && w.discardG[G.id]); h += `<div class="cand ${ok ? '' : 'out'} ${gs === G.id ? 'guess' : ''}" data-g="${G.id}"><span>${G.n}${gs === G.id ? ' 🎯' : ''}<button class="gx" title="Tachar o destachar">${w.discardG && w.discardG[G.id] ? '↺' : '✗'}</button><small>${G.ev.map(k => EV[k].n).join(' · ')}</small></span><span class="jdots">${dots(G.id, 'g')}</span></div>`; });
   if (jSel) { const G = GT[jSel]; h = h.replace(`data-g="${jSel}">`, `data-g="${jSel}" class="sel">`); h += `<h3>${G.n}</h3><p><button class="guessbtn" data-guess="${G.id}">🎯 Esta es mi apuesta</button></p><p class="small"><b>${G.passive.n}.</b> ${G.passive.d}</p>`; }
@@ -165,7 +165,7 @@ const _hud = hud;
 hud = function () {
   _hud(); const me = w.invs[ME];
   if (w.phase === 'hora') $('#top').innerHTML = `<span class="hora">5:59 a. m.</span><span><b>¡HORA DEL ÁNIMA!</b> La salida está trabada: aguanten <b>${fmt(Math.max(0, w.hora.until - w.t))}</b></span><span class="huntb">¡CACERÍA!</span>`;
-  else if (w.phase === 'amanecer') $('#top').innerHTML = `<span class="hora">6:00 a. m.</span><span>Sale el sol: <b>salgan por el zaguán</b></span>`;
+  else if (w.phase === 'amanecer') $('#top').innerHTML = `<span class="hora">6:00 a. m.</span><span>Sale el sol: <b>salgan y súbanse a la camioneta</b></span>`;
   if (w.opt.role === 'inv' && me) { const gs = myGuess(); const lit = litCount(w); const extra = `<div class="row small">🎯 ${gs ? GT[gs].n : '<em>sin apuesta</em> (libreta)'} · 💡 ${lit}/${w.lightLimit} focos · 📷 ${me.slots.filter(s => s && s.kind === 'fotocam').map(s => s.film).join(', ') || '—'}</div>`; const L = $('#left'); if (L && !L.querySelector('.casx')) L.insertAdjacentHTML('beforeend', `<div class="casx">${extra}</div>`); }
 };
 
@@ -189,7 +189,7 @@ nightRoulette = function () {
   const cnt = {}; w.items.filter(it => !TOOLS.includes(it.kind)).forEach(it => (cnt[it.kind] = (cnt[it.kind] || 0) + 1));
   const rn = rr => `${ROOMS[rr.f][rr.r].n} (${rr.f ? 'planta alta' : 'planta baja'})`; const M = w.mods || {};
   const el = document.createElement('div'); el.id = 'ruleta'; el.innerHTML = `<div class="rbox"><h3>Esta noche</h3>${M.casa ? `<p>🎰 ${SLOT.casa.find(x => x.id === M.casa).n} · ${SLOT.noche.find(x => x.id === M.noche).n} · ${SLOT.trato.find(x => x.id === M.trato).n}</p>` : ''}<p>🕯 <b>Altar:</b> ${rn(w.altarRoom)} · ⚡ <b>Fusibles:</b> ${rn(w.fuseRoom)} · 💡 aguanta <b>${w.lightLimit}</b> focos</p>
-    <p><b>En la casa hay:</b></p><div class="rgrid">${Object.entries(cnt).map(([k, n]) => `<span>${cardImg(k, 'mci')}${ITEMS[k].n} ×${n}</span>`).join('')}</div><p class="small">Llevas 3 lugares de equipo y la linterna. Para terminar, marca tu apuesta en la libreta y <b>sal por el zaguán</b> antes del alba.</p><button>A la casona</button></div>`;
+    <p><b>En la casa hay:</b></p><div class="rgrid">${Object.entries(cnt).map(([k, n]) => `<span>${cardImg(k, 'mci')}${ITEMS[k].n} ×${n}</span>`).join('')}</div><p class="small">Llevas 3 lugares de equipo y la linterna; el equipo está en la mesa de la base. Para terminar, marca tu apuesta en la libreta y <b>súbete a la camioneta</b> antes del alba.</p><button>A la casona</button></div>`;
   $('#game').appendChild(el); el.querySelector('button').onclick = () => el.remove(); setTimeout(() => el.remove(), 14000);
 };
 

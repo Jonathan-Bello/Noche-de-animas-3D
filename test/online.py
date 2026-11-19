@@ -22,7 +22,7 @@ async def main():
         await g.fill('#onName','Invi'); await g.fill('#onCode', code); await g.click('#onJoin'); await g.wait_for_timeout(800)
         print('lobby host', await h.inner_text('#onLobby'))
         print('status guest', await g.inner_text('#onStatus'))
-        await h.click('#onStart'); await h.wait_for_timeout(1500)
+        await h.click("#onStart"); await h.wait_for_timeout(600); await h.click("#slotGo"); await h.wait_for_timeout(1500); print("ERRS", errs[:5]); print(await h.evaluate("!!__game.w")); await h.screenshot(path="/tmp/host.png")
         info = await g.evaluate("(()=>{const w=__game.w; return {ME:__game.ME, n:w&&w.invs.length, names:w&&w.invs.map(i=>i.name+(i.bot?'(bot)':'')), ghost:w&&w.g.def.id, t:w&&w.t}})()")
         print('guest after start', json.dumps(info, ensure_ascii=False))
         # guest walks forward 3 s; host checks guest position
