@@ -229,7 +229,8 @@ function collides(w, e, x, y) {
 function tryMove(w, e, dx, dy) {
   if (e.kind === 'ghost' && e.def.darkFear && e.hunt && !e.hunt.huida && enteringDark(w, e, e.x + dx, e.y + dy)) return;
   if (e.noclip) { e.x = clamp(e.x + dx, 0.5, W - 0.5); e.y = clamp(e.y + dy, 0.5, H - 0.5); return; }
-  if (!collides(w, e, e.x + dx, e.y)) e.x += dx; if (!collides(w, e, e.x, e.y + dy)) e.y += dy;
+  for (const k of [1, 0.5, 0.25]) if (!collides(w, e, e.x + dx * k, e.y)) { e.x += dx * k; break; }
+  for (const k of [1, 0.5, 0.25]) if (!collides(w, e, e.x, e.y + dy * k)) { e.y += dy * k; break; }
 }
 function steer(w, e, px, py, speed, dt) {
   const dx = px - e.x, dy = py - e.y, l = Math.hypot(dx, dy); if (l < 0.04) return true;
@@ -432,7 +433,7 @@ function newItem(kind, p) { const it = { id: ITEM_ID++, kind, f: p.f, x: p.x, y:
   if (kind === 'muneca') { it.pins = 10; it.heart = (Math.random() * 10) | 0; } if (kind === 'pentagrama') it.candles = 0; if (kind === 'pan') it.eat = 0; return it; }
 
 function newWorld(opt) {
-  opt = Object.assign({ role: 'inv', nInv: 3, ghost: 'random', night: 900, equip: 'normal', diff: 'normal', cursed: 'random' }, opt);
+  opt = Object.assign({ role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'random' }, opt);
   const n = opt.nInv;
   const w = { t: 0, opt, invs: [], items: [], doors: [], clouds: [], fx: [], ashes: [], noCopalUntil: 0, pendingCursed: null, subs: [], log: [], events: [], noises: [],
     lights: [new Uint8Array(ROOMS[0].length), new Uint8Array(ROOMS[1].length)], conf: {}, discard: {}, selloSeen: false,
@@ -989,11 +990,12 @@ function botInv(w, b, dt) {
     if (lm && gk >= 0 && lm.f === b.f && d2(lm, b) < 9) { b.hand = gk; if (w.t >= (b.slots[gk].cd || 0)) useItem(w, b); }
     else if (!ai.study) { const ek = b.slots.findIndex(s => s && s.kind === 'emf'); if (ek >= 0) b.hand = ek; } }
   // recoger consumibles cercanos
-  if (b.slots.includes(null)) { const it = w.items.find(t => !t.holder && t.f === b.f && !TOOLS.includes(t.kind) && !['vela', 'pan'].includes(t.kind) && !ITEMS[t.kind].cursed && d2(t, b) < 6);
+  if (b.slots.filter(x => !x).length >= 1 && !(b.f === 0 && b.y >= 39)) { const it = w.items.find(t => !t.holder && t.f === b.f && ['te', 'rosario', 'copal'].includes(t.kind) && !b.slots.some(x => x && x.kind === t.kind) && d2(t, b) < 6);
     if (it) { if (d2(it, b) < 1.2) { const e = b.slots.indexOf(null); b.hand = e; pickUp(w, b); } else { moveBot(w, b, approach(it), CFG.walk * sp, dt); return; } } }
   ai.think -= dt;
   if (ai.lure && w.t < ai.lure.until && !g.hunt) { if (moveBot(w, b, ai.lure, CFG.walk * sp, dt) || d2(ai.lure, b) < 1.2 && b.f === ai.lure.f) { if (ai.lure.fuse) resetFuse(w, b); ai.lure = null; } return; }
   // estados
+  if (botResupply(w, b, dt, sp)) return;
   if (ai.state === 'gear') {
     const want = ai.wantTools.filter(k => !b.slots.some(s => s && s.kind === k));
     const it = w.items.find(t => !t.holder && want.includes(t.kind));
@@ -1036,7 +1038,7 @@ function botInv(w, b, dt) {
 }
 // explorar: detenerse en cada cuarto con el termómetro quieto hasta que se asiente
 function botTermoSweep(w, b, dt) {
-  const k = b.slots.findIndex(s => s && s.kind === 'termo'), r = roomOf(b); if (k < 0 || r < 0 || isHall(b.f, r)) return false;
+  const k = b.slots.findIndex(s => s && s.kind === 'termo'), r = roomOf(b); if (k < 0 || r < 0 || isHall(b.f, r) || ['afuera', 'zaguan'].includes(ROOMS[b.f][r].id)) return false;
   const key = b.f + ':' + r; b.ai.termoDone = b.ai.termoDone || {}; if ((b.ai.termoDone[key] || -99) > w.t - 45) return false;
   const c = w.cold[b.f][r]; b.hand = k; if (!b.ai.sweep || b.ai.sweep.key !== key) b.ai.sweep = { key, p: Math.random() < 0.6 && c ? { f: b.f, x: c.x + rnd(-1, 1), y: c.y + rnd(-1, 1) } : randomIn(b.f, r), t: 0 };
   const sw = b.ai.sweep; if (d2(sw.p, b) > 0.5) { if (navTo(w, b, sw.p, CFG.walk, dt) || !walkableT(tileAt(sw.p.f, sw.p.x, sw.p.y))) sw.p = { f: b.f, x: b.x, y: b.y }; return true; }

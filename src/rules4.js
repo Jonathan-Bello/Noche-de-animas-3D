@@ -12,7 +12,7 @@ ITEMS.cam = { n: 'Cámara de video', tool: 'OB', elec: true, hint: 'Déjala con 
 ITEMS.espejo = Object.assign({}, ITEMS.espejo, { hint: 'Déjalo con G en un cuarto. Si el ánima tiene esta evidencia, tarde o temprano deja una mano marcada en el vaho.' });
 ITEMS.emf = Object.assign({}, ITEMS.emf, { hint: 'Marca 2 a 4 donde el ánima tocó algo (puertas, objetos, luces) durante 20 s. El 5 solo lo dan las ánimas con esta evidencia.' });
 ITEMS.grab = Object.assign({}, ITEMS.grab, { hint: 'Clic: haces una pregunta. Solo contesta a oscuras, con 1 o 2 personas en el cuarto y el ánima cerca.' });
-CFG.emfP = 0; CFG.cam.p = 0; CFG.esp.p = 0;
+CFG.emfP = 0; CFG.cam.p = 0; CFG.esp.p = 0; CFG.uv.p = 0.5; CFG.uv.re = 40;
 const AGE = { nachito: 'niño', chaneque: 'niño', llorona: 'joven', matla: 'joven', xtabay: 'joven', planchada: 'adulta', mulata: 'adulta', cihuateteo: 'joven', bruja: 'vieja', tlahuel: 'vieja', pena: 'adulto', cucuy: 'viejo', guardian: 'viejo', nahual: 'adulto', demonio: 'viejo', chocarrero: 'adulto', malaire: 'viejo', charro: 'adulto', aparecido: 'adulto', yohual: 'viejo', cadejo: 'viejo', uaychivo: 'viejo' };
 // cuánto asusta cada suceso de la casona a quien lo nota
 const CAS_SAN = { ambiente: 1, pasos: 2, sombra: 3, sombralag: 2, puerta: 2, serenata: 2, zaguan: 2, foto: 3, cadaver: 4, telefono: 3, tv: 3, tvcam: 4, barras: 2, radio: 3, reconectando: 2, clima: 2, rezando: 4, ofrenda: 3, pasillo: 4, senuelo: 2, doble: 3, eco: 3, estatua: 2, ecoya: 3 };
@@ -103,8 +103,8 @@ function camTick(w, dt) {
 function espejoTick(w, dt) {
   const g = w.g; if (g.state !== 'libre' || w.phase !== 'night') return;
   for (const it of w.items) if (it.kind === 'espejo' && !it.holder && w.t >= (it.markUntil || 0) && it.f === g.f && d2(it, g) < 4) {
-    it.diceT = (it.diceT || 0) + dt; if (it.diceT < 10) continue; it.diceT = 0;
-    if (g.def.ev.includes('ES') && Math.random() < 1 / 20) { it.markUntil = Infinity; w.ev('espejo', { f: it.f, x: it.x, y: it.y }); ghostEvent(w, g, 'espejo'); }
+    it.diceT = (it.diceT || 0) + dt; if (it.diceT < 8) continue; it.diceT = 0;
+    if (g.def.ev.includes('ES') && Math.random() < 1 / 12) { it.markUntil = Infinity; w.ev('espejo', { f: it.f, x: it.x, y: it.y }); ghostEvent(w, g, 'espejo'); }
   }
 }
 
@@ -166,8 +166,9 @@ step = function (w, dt, input) {
   _stepB(w, dt, input);
   for (const i of w.invs) if (i.alive && !i.escaped) stairFlip(w, i); stairFlip(w, w.g);
   const xd = w.doors.find(d => d.ext); if (xd && xd.locked && w.phase !== 'hora') { xd.locked = false; xd.closed = false; xd.anim = 1; }
-  const home = w.team && w.team.home; if (!home) return;
-  for (const b of alive(w)) if (b.bot) { const k = b.slots.findIndex(s => s && (s.kind === 'cam' || s.kind === 'espejo')); if (k >= 0 && b.f === home.f && roomOf(b) === home.r) { const c = ROOM_CENTER[home.f][home.r]; if (c) b.face = Math.atan2(c.y - b.y, c.x - b.x); dropItem(w, b, k); } }
+  const home = w.team && w.team.home, hot = (w.emfSrc || []).filter(e => w.t - (e.until - 20) < 25).pop(), hotR = hot ? { f: hot.f, r: roomAt(hot.f, hot.x, hot.y) } : null;
+  for (const b of alive(w)) if (b.bot && !(b.f === 0 && b.y >= 39)) { const k = b.slots.findIndex(s => s && ['cam', 'espejo', 'gases'].includes(s.kind)); if (k < 0) continue; const r = roomOf(b), here = home ? b.f === home.f && r === home.r : hotR && hotR.r >= 0 && b.f === hotR.f && r === hotR.r && !isHall(b.f, r);
+    if (here) { const c = ROOM_CENTER[b.f][r]; if (c) b.face = Math.atan2(c.y - b.y, c.x - b.x); const it = b.slots[k]; dropItem(w, b, k); blog(w, 'equipo', `${b.name} deja ${ITEMS[it.kind].n} en ${roomName(b)} ${home ? '(la guarida)' : '(ahí hubo actividad hace poco)'}`, b, b.id); } }
 };
 // la puerta de la casona se traba en la Hora del ánima; afuera el ánima no puede salir
 const _startHora = startHora;
@@ -189,18 +190,6 @@ const CAS_TXT = { nada: 'tiró… nada', ambiente: 'ruido de ambiente', anomalia
 const G_TXT = { door: 'movió una puerta', portazo: 'dio un portazo', move: 'aventó o movió un objeto', switch: 'prendió o apagó una luz', manifest: 'se manifestó', chill: 'escalofrío', whisper: 'susurró', special: 'usó su habilidad', espejo: 'marcó el espejo' };
 const roomName = p => { if (!p || p.f === undefined) return ''; if (stairAt(p.x, p.y) >= 0) return 'Escalera'; const r = roomAt(p.f, p.x, p.y); return r >= 0 ? ROOMS[p.f][r].n : ''; };
 function blog(w, kind, txt, p) { (w.bitacora || (w.bitacora = [])).push({ t: w.t, kind, txt, room: roomName(p) }); if (w.bitacora.length > 80) w.bitacora.shift(); }
-const _newWorldB = newWorld;
-newWorld = function (opt) {
-  const w = _newWorldB(opt); w.bitacora = []; const ev0 = w.ev;
-  w.ev = (type, data) => { ev0(type, data); const d = data || {}, who = d.who !== undefined && w.invs[d.who] ? w.invs[d.who].name : '';
-    if (type === 'cas') blog(w, 'casa', (CAS_TXT[d.k] || d.k) + (who ? ' → ' + who : ''), d);
-    else if (type === 'hunt') blog(w, 'cacería', d.cursed ? '¡CACERÍA MALDITA!' : '¡Empieza una cacería!', w.g);
-    else if (type === 'tecolote') blog(w, 'ánima', 'cantó el tecolote: ya puede cazar', w.g);
-    else if (type === 'fuseBlow') blog(w, 'casa', 'se botaron los fusibles', FUSE);
-    else if (type === 'anomSeen') blog(w, 'casa', 'alguien vio una anomalía' + (who ? ' → ' + who : ''), d);
-    else if (type === 'lamento') blog(w, 'ánima', 'un lamento', d); };
-  return w;
-};
 const _ghostEventB = ghostEvent;
 ghostEvent = function (w, g, type, extra) { _ghostEventB(w, g, type, extra); if (G_TXT[type] && w.bitacora) blog(w, 'ánima', G_TXT[type], g); };
 // la casona dice si alguien lo notó o si vuelve a tirar
@@ -209,3 +198,134 @@ casonaTick4 = function (w, dt) { const pd = w.cas.pend; _casonaTick4(w, dt); if 
 const _casRollB = casRoll;
 casRoll = function (w) { const n = w.cas.used.length; _casRollB(w); if (!w.bitacora) return; const k = w.cas.used.length > n ? w.cas.used[w.cas.used.length - 1] : null;
   if (!k) blog(w, 'casa', 'tiró un suceso que esta ánima le prohíbe: nada'); else if (k === 'nada') blog(w, 'casa', 'tiró… nada'); else if (k === 'anomalia') blog(w, 'casa', 'dejó una anomalía (se queda)', w.anoms[w.anoms.length - 1]); };
+
+// ================= v1.3 =================
+// ---------- periodo de gracia: el ánima no caza en las primeras horas (fácil 2 h, normal 1 h, pesadilla nada) ----------
+const GRACE_H = { facil: 2, normal: 1, pesadilla: 0 };
+const _newWorldG = newWorld;
+newWorld = function (opt) { const w = _newWorldG(opt); w.huntFreeAt = (GRACE_H[w.opt.diff] !== undefined ? GRACE_H[w.opt.diff] : 1) * w.nightLen / 7; return w; };
+const _startHuntG = startHunt;
+startHunt = function (w, g) { if (w.t < (w.huntFreeAt || 0) && !(g.hunt && g.hunt.huida)) return false; return _startHuntG(w, g); };
+
+// ---------- bots: llevan 2 herramientas y un lugar libre; regresan a la base a cambiar equipo ----------
+const _newWorldBots = newWorld;
+newWorld = function (opt) {
+  const w = _newWorldBots(opt); const bots = w.invs.filter(i => i.bot), tl = shuffle(TOOLS.slice());
+  bots.forEach((b, k) => { b.ai.wantTools = tl.filter((_, j) => j % bots.length === k).slice(0, 2); b.ai.nextResupply = rnd(150, 210); });
+  return w;
+};
+const toolNeeded = (w, kind) => { const k = ITEMS[kind] && ITEMS[kind].tool; return k && !w.obs[k] && !(w.team && w.team.ruled && w.team.ruled.has && w.team.ruled.has(k)); };
+function botResupply(w, b, dt, sp) {
+  const ai = b.ai, g = w.g; if (g.hunt || b.leave || w.phase !== 'night') return false;
+  if (ai.state !== 'resupply') {
+    const lowSan = b.san < 45 && !b.slots.some(x => x && x.kind === 'te') && w.items.some(t => !t.holder && t.kind === 'te' && t.f === 0 && t.y >= 50);
+    const free = b.slots.filter(x => !x).length, waiting = w.items.some(t => !t.holder && TOOLS.includes(t.kind) && t.f === 0 && t.y >= 50 && toolNeeded(w, t.kind));
+    const useless = b.slots.some(x => x && TOOLS.includes(x.kind) && !toolNeeded(w, x.kind));
+    if (ai.state !== 'gear' && (lowSan || (w.t > ai.nextResupply && (waiting && (free >= 1 || useless))))) { ai.state = 'resupply'; ai.prevState = ai.state; ai.why = lowSan ? 'por té de tila (cordura baja)' : useless ? 'a cambiar herramientas que ya no sirven' : 'por herramientas que nadie ha usado'; }
+    else return false;
+  }
+  const spot = { f: 0, x: MALETIN.x, y: 54.2 };
+  if (!(b.f === 0 && d2(b, spot) < 1.3)) { moveBot(w, b, spot, CFG.walk * sp, dt); return true; }
+  // en la mesa: dejar lo que ya no sirve y tomar lo que falta
+  b.slots.forEach((x, k) => { if (x && TOOLS.includes(x.kind) && !toolNeeded(w, x.kind)) { b.face = Math.PI / 2; dropItem(w, b, k); Object.assign(x, { f: 0, x: 14.4 + Math.random() * 5, y: 55.3, h: 0.78 }); blog(w, 'equipo', `${b.name} deja en la mesa: ${ITEMS[x.kind].n} (esa evidencia ya se sabe)`, b); } });
+  const take = kinds => { for (const kd of kinds) { if (!b.slots.includes(null)) return; const t = w.items.find(t => !t.holder && t.kind === kd && t.f === 0 && t.y >= 50); if (t) { t.x = b.x; t.y = b.y; t.f = b.f; b.hand = b.slots.indexOf(null); pickUp(w, b); } } };
+  if (b.san < 60 && !b.slots.some(x => x && x.kind === 'te')) take(['te']);
+  take(shuffle(TOOLS.filter(k => toolNeeded(w, k) && !w.invs.some(o => o.alive && o.slots.some(x => x && x.kind === k)) && !w.items.some(t => t.kind === k && !(t.f === 0 && t.y >= 50)))));
+  ai.state = w.team.home ? 'setup' : 'explore'; ai.goal = null; ai.nextResupply = w.t + rnd(150, 210); return true;
+}
+
+// ---------- bitácora detallada: casa, ánima y cada persona ----------
+let BITA_MAX = 300;
+function blog2(w, kind, txt, p, who) { if (!w.bitacora) return; w.bitacora.push({ t: w.t, kind, txt, room: roomName(p), who }); if (w.bitacora.length > BITA_MAX) w.bitacora.splice(0, w.bitacora.length - BITA_MAX); }
+blog = blog2;
+// la casa: la tirada completa, qué intentó y cómo le fue
+casRoll = function (w) {
+  const g = w.g, veto = (PROF[g.def.id] || {}).veto, a = alive(w); if (!a.length) return;
+  const inside = a.filter(i => !(i.f === 0 && i.y >= 39)), tries = w.cas.reroll || 0; w.cas.reroll = 0; w.cas.retry = false; w.cas.retryWhy = '';
+  if (!inside.length) { blog(w, 'casa', '🎲 No tira: todos están afuera.'); return; }
+  const avg = a.reduce((s, i) => s + i.san, 0) / a.length, r0 = 1 + Math.floor(Math.random() * 100); let r = Math.min(100, r0 + (avg < 50 ? 10 : 0));
+  if (veto === 'nada' && r <= 10) r = 41 + Math.floor(Math.random() * 12);
+  let k = CAS.find(([lo, hi]) => r >= lo && r <= hi)[2], note = '';
+  if (k === 'elige') { k = pick(['rezando', 'ofrenda', 'pasillo', 'tvcam', 'cadaver'].filter(x => !w.cas.used.includes(x)).concat(['ambiente'])); note = ' (sacó «elige» y escogió esto)'; }
+  if (CAS_ONCE.has(k) && w.cas.used.includes(k)) { note = ` («${CAS_TXT[k]}» ya salió esta noche: se cambia por ambiente)`; k = 'ambiente'; }
+  const tir = `🎲 ${r0}${avg < 50 ? ' +10 por cordura baja' : ''}${tries ? ` (tiro ${tries + 1})` : ''}`;
+  if (k === veto) { blog(w, 'casa', `${tir} → «${CAS_TXT[k]}», pero esta ánima lo prohíbe: no pasa nada.`); return; }
+  w.cas.used.push(k);
+  if (k === 'nada') { blog(w, 'casa', `${tir} → nada.`); return; }
+  const humans = inside.filter(i => !i.bot), v = pick(humans.length ? humans : inside), n0 = w.events.length, h0 = w.hallu, an0 = w.anoms.length;
+  casDo(w, k, v);
+  const ev = w.events.slice(n0).find(e => e.type === 'cas'), done = !w.cas.retry && (ev || (k === 'doble' && w.hallu !== h0) || (k === 'anomalia' && w.anoms.length > an0));
+  if (!done) { blog(w, 'casa', `${tir} → intentó «${CAS_TXT[k]}» con ${v.name}, pero ${w.cas.retryWhy || 'no encontró dónde hacerlo'}${tries < 2 ? '. Vuelve a tirar.' : '. Se rinde.'}`, v); if (tries < 2) { w.cas.next = 0; w.cas.reroll = tries + 1; } return; }
+  blog(w, 'casa', `${tir} → «${CAS_TXT[k]}» con ${v.name}${note}.`, ev || w.hallu || v);
+  if (k === 'anomalia') return;
+  w.cas.pend = { k, t: w.t, who: v.id, p: ev ? { f: ev.f, x: ev.x, y: ev.y } : { f: v.f, x: v.x, y: v.y }, tries };
+};
+const _casDoWhy = casDo;
+casDo = function (w, k, v) { _casDoWhy(w, k, v); if (w.cas.retry && !w.cas.retryWhy) w.cas.retryWhy = ['tv', 'tvcam', 'barras', 'telefono', 'radio'].includes(k) ? `no hay ${k === 'telefono' ? 'teléfono' : k === 'radio' ? 'radio' : 'tele'} cerca de esa persona` : k === 'estatua' ? 'no había lugar a la vista' : k === 'ecoya' ? 'esa persona no ha hablado en los últimos 4 s' : 'no encontró dónde hacerlo'; };
+casonaTick4 = (function (base) { return function (w, dt) { const pd = w.cas.pend, seen = pd && w.t >= pd.t + 0.3 ? casNoticed(w, pd) : []; base(w, dt);
+  if (pd && !w.cas.pend) { if (seen.length) blog(w, 'casa', `   «${CAS_TXT[pd.k]}»: lo notó ${seen.map(i => i.name).join(', ')} (−${CAS_SAN[pd.k] || 1} de cordura).`, pd.p); else blog(w, 'casa', `   «${CAS_TXT[pd.k]}»: nadie lo notó en 5 s${pd.tries < 2 ? ' → vuelve a tirar' : ''}.`, pd.p); } }; })(_casonaTick4);
+// eventos: la casa (los que no son tirada), el ánima y las personas
+const _newWorldL = newWorld;
+newWorld = function (opt) {
+  const w = _newWorldL(opt); w.bitacora = []; const ev0 = w.ev;
+  w.ev = (type, data) => { ev0(type, data); const d = data || {}, P = d.who !== undefined && w.invs[d.who], who = P ? P.name : '';
+    if (type === 'cas' && ['estatuaGrito', 'estatuaHabla', 'leyenda'].includes(d.k)) blog(w, 'casa', `   ${CAS_TXT[d.k]}${who ? ' → ' + who : ''}`, d);
+    else if (type === 'hunt') blog(w, 'cacería', `¡${d.cursed ? 'CACERÍA MALDITA' : 'Empieza una cacería'}! ${w.g.ai && w.g.ai.target && w.g.ai.target.who ? 'Va tras ' + w.g.ai.target.who.name : ''}`, w.g);
+    else if (type === 'tecolote') blog(w, 'ánima', 'cantó el tecolote: ya tiene ganas de cazar', w.g);
+    else if (type === 'fuseBlow') blog(w, 'casa', '⚡ se botaron los fusibles (demasiados focos)', FUSE);
+    else if (type === 'anomSeen') blog(w, 'casa', `   ${who || 'alguien'} vio una anomalía (−3 de cordura)`, d);
+    else if (type === 'lamento') blog(w, 'ánima', 'un lamento', d);
+    else if (type === 'death') blog(w, 'cacería', `☠ ${who || 'alguien'} murió`, P || d);
+    else if (type === 'escape') blog(w, 'equipo', `${who} se subió a la camioneta${P && P.guess ? ' · apuesta: ' + GT[P.guess].n : ' sin apostar'}`, P);
+    else if (type === 'visita') blog(w, 'equipo', `${who} abrió el zaguán`, ZAG); };
+  // lo que ve el equipo
+  w.says = []; const say0 = w.say; w.say = (txt, ch) => { say0(txt, ch); if (ch === 'i' && w.actor) blog(w, 'equipo', `${w.actor.name}: ${String(txt).replace(/<[^>]+>/g, '')}`, w.actor, w.actor.id); };
+  return w;
+};
+const _observeL = observe;
+observe = function (w, k, by, how) { const had = !!w.obs[k]; _observeL(w, k, by, how); if (by && by.alive && w.g.def.ev.includes(k) && !(w.seenBy && w.seenBy[k + by.id])) { (w.seenBy = w.seenBy || {})[k + by.id] = 1; blog(w, 'equipo', `🔎 ${by.name} vio evidencia: ${EVN[k] || k} (${how})${had ? '' : ' — primera vez esta noche'}`, by, by.id); } };
+const EVN = { BC: 'bajo cero', CE: 'ceniza con UV', SU: 'susurros', OB: 'objetos/silueta en cámara', LU: 'EMF 5', ES: 'mano en el espejo', AZ: 'azufre' };
+const _pickUpL = pickUp; pickUp = function (w, i) { const n = i.slots.filter(Boolean).length, r = _pickUpL(w, i); if (r && i.slots.filter(Boolean).length > n) { const it = i.slots[i.hand] || i.slots.find(Boolean); blog(w, 'equipo', `${i.name} toma: ${it ? ITEMS[it.kind].n : 'algo'}`, i, i.id); } return r; };
+const _dropItemL = dropItem; dropItem = function (w, i, k) { const it = i.slots[k], r = _dropItemL(w, i, k); if (r && it && i.alive && !i.escaped) blog(w, 'equipo', `${i.name} deja: ${ITEMS[it.kind].n}`, i, i.id); return r; };
+const _useItemRawL = useItemRaw; useItemRaw = function (w, i) { const it = handItem(i), r = _useItemRawL(w, i); if (r && it && !['emf', 'termo', 'cam', 'grab'].includes(it.kind)) blog(w, 'equipo', `${i.name} usa: ${ITEMS[it.kind].n}`, i, i.id); return r; };
+const _toggleLightL = toggleLight; toggleLight = function (w, i) { const r0 = roomOf(i), before = r0 >= 0 ? w.lights[i.f][r0] : null, r = _toggleLightL(w, i); if (r0 >= 0 && w.lights[i.f][r0] !== before) blog(w, 'equipo', `${i.name} ${w.lights[i.f][r0] ? 'prende' : 'apaga'} la luz`, i, i.id); return r; };
+
+// qué hace cada quien (y por qué está quieto)
+function doingOf(w, b) {
+  const ai = b.ai || {}, g = w.g, R = p => p && p.f !== undefined ? roomName(p) || 'un pasillo' : '';
+  if (!b.alive) return 'es espíritu'; if (b.escaped) return 'está en la camioneta';
+  if (b.hidden >= 0) return 'está escondido';
+  if (!b.bot) { const h = handItem(b); return `está en ${R(b) || 'la casa'}${h ? ' con ' + ITEMS[h.kind].n : ''}`; }
+  if (g.hunt && ai.react) return 'huye de la cacería';
+  if (b.leave) return `va a la camioneta para apostar por ${b.guess ? GT[b.guess].n : '¿?'}`;
+  if (b.monitor) return 'va a ver las teles de la base';
+  if (ai.lure && ai.lure.fuse) return 'va a subir los fusibles';
+  if (ai.state === 'resupply') return `regresa a la base ${ai.why || ''}`;
+  if (ai.state === 'gear') return `toma su equipo (${(ai.wantTools || []).map(k => ITEMS[k].n).join(', ')})`;
+  if (ai.state === 'setup') { const it = b.slots[ai.placeK]; return `pone ${it ? ITEMS[it.kind].n : 'equipo'} en la guarida (${R(w.team.home && ROOM_CENTER[w.team.home.f][w.team.home.r] && Object.assign({ f: w.team.home.f }, ROOM_CENTER[w.team.home.f][w.team.home.r]))})`; }
+  if (ai.state === 'watch') return ai.study ? `estudia la guarida con ${ITEMS[ai.study.kind] ? ITEMS[ai.study.kind].n : ai.study.kind}` : 'ronda la guarida';
+  if (ai.sweep) return `mide la temperatura en ${R(b)}`;
+  return `explora rumbo a ${R(ai.goal) || '¿?'}${w.team.home ? '' : ' (buscan la guarida)'}`;
+}
+function teamWatch(w, dt) {
+  if (!w.bitacora || w.phase === 'hora' && false) return;
+  for (const b of w.invs) { const d = doingOf(w, b), m = b._log || (b._log = { d: '', t: -9, x: b.x, y: b.y, st: 0, stLog: 0 });
+    if (d !== m.d && w.t - m.t > 2.5) { if (b.bot || /espíritu|camioneta|escondido/.test(d)) blog(w, 'equipo', `${b.name} ${d}`, b, b.id); m.d = d; m.t = w.t; }
+    // ¿quieto?
+    const mv = Math.hypot(b.x - m.x, b.y - m.y); m.x = b.x; m.y = b.y;
+    if (b.alive && !b.escaped && b.hidden < 0 && mv < 0.01) m.st += dt; else m.st = 0;
+    if (b.bot && m.st > 8 && w.t - m.stLog > 20 && !/estudia|mide|teles/.test(d)) { m.stLog = w.t; const ai = b.ai;
+      const why = w.t < (b.stunUntil || 0) ? 'está aturdido o esperando' : b.reading ? 'está leyendo algo' : w.ritual && w.ritual.by === b ? 'hace un ritual' : ai.goal && pathLen(w, b, ai.goal) >= 999 ? `no encuentra camino a ${roomName(ai.goal) || 'su destino'}` : ai.goal ? `no avanza hacia ${roomName(ai.goal) || 'su destino'} (algo le estorba)` : 'no tiene nada que hacer';
+      blog(w, 'equipo', `⏸ ${b.name} lleva ${Math.round(m.st)} s quieto: ${why}`, b, b.id); }
+    // personas: cambios de cuarto
+    if (!b.bot && b.alive && !b.escaped) { const rn = roomName(b); if (rn !== m.room) { m.roomT = (m.roomT || 0) + dt; if (m.roomT > 3) { m.room = rn; m.roomT = 0; blog(w, 'equipo', `${b.name} entra a ${rn || 'un pasillo'}`, b, b.id); } } else m.roomT = 0; }
+  }
+}
+// el ánima: qué quiere y por qué
+function ghostWatch(w, dt) {
+  const g = w.g; if (!g.bot || w.phase !== 'night') return; g._wT = (g._wT || 0) - dt; if (g._wT > 0) return; g._wT = 1;
+  const m = ghostMotive(w, g), hunger = Math.round((1 - g.pres / g.def.presMax) * 100);
+  const txt = { rondar: 'ronda tranquila', acechar: 'acecha: le hablaron o preguntaron hace poco', alimentarse: `tiene hambre (${hunger} %)${m.prey ? ' y busca a ' + m.prey.name : ''}`, enganar: 'quiere engañar: hay gente o equipo en su guarida', cazar: `quiere cazar${w.t < w.huntFreeAt ? ', pero aún es temprano (periodo de gracia)' : ''}` }[m.state];
+  if (m.state !== g._mot) { g._mot = m.state; blog(w, 'ánima', `👻 ${txt}`, g); }
+}
+const _rulesTickL = rulesTick; rulesTick = function (w, dt) { _rulesTickL(w, dt); try { teamWatch(w, dt); ghostWatch(w, dt); } catch (e) {} };

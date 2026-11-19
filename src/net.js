@@ -269,9 +269,9 @@ const VOICE = {
         v = v * v;
       }
       if (o.escaped || me.escaped) v = 0;
-      e.vol = v; e.g.gain.setTargetAtTime(v, now, 0.08); e.lp.frequency.setTargetAtTime(muff ? 900 : 12000, now, 0.1);
+      e.vol = v; e.g.gain.setTargetAtTime(v * (this.vol === undefined ? 1 : this.vol), now, 0.08); e.lp.frequency.setTargetAtTime(muff ? 900 : 12000, now, 0.1);
       if (e.pan) { const ang = Math.atan2(o.y - me.y, o.x - me.x) - yaw; e.pan.pan.setTargetAtTime(Math.max(-1, Math.min(1, Math.sin(ang))) * 0.7, now, 0.1); }
-      e.gr.gain.setTargetAtTime(o.radio && o.alive && me.alive ? 0.9 : 0, now, 0.05);
+      e.gr.gain.setTargetAtTime(o.radio && o.alive && me.alive ? 0.9 * (this.vol === undefined ? 1 : this.vol) : 0, now, 0.05);
     }
   },
   // frases robadas: frases cortas entre pausas, solo en la memoria de esta pestaña (máximo 5)

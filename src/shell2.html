@@ -39,6 +39,9 @@ select{background:var(--ink);color:var(--bone);border:1px solid rgba(243,230,207
 /* juego */
 #stage canvas{position:fixed;inset:0;display:block;touch-action:none}
 .panel{position:fixed;background:rgba(18,13,34,.82);border:1px solid rgba(242,176,78,.3);border-radius:12px;padding:9px 12px;font-size:14px}
+#volBtn{position:fixed;top:8px;right:96px;background:rgba(18,13,34,.85);color:var(--bone);border:1px solid rgba(242,176,78,.3);border-radius:999px;width:38px;height:38px;z-index:5}
+#volPanel{position:fixed;top:52px;right:8px;z-index:7;background:rgba(18,13,34,.95);border:1px solid rgba(242,176,78,.35);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;color:var(--bone);font-size:13px}#volPanel label{display:flex;justify-content:space-between;gap:10px;align-items:center}#volPanel[hidden]{display:none}
+#blogList{width:min(520px,92vw)!important;max-height:58vh!important;font-size:12.5px!important}#blogList .bf{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}#blogList .bf button{background:rgba(255,255,255,.06);color:var(--bone);border:1px solid rgba(242,176,78,.3);border-radius:999px;padding:2px 8px;font-size:12px;cursor:pointer}#blogList .bf button.on{background:rgba(242,176,78,.35)}#blogList .be.bt{color:#a8e0b8}#blogList .be.bc{color:#f2c48e}
 #roomTag{position:fixed;top:52px;left:50%;transform:translateX(-50%);font-size:11px;color:#f3e6cf;opacity:.75;background:rgba(18,13,34,.6);padding:1px 10px;border-radius:999px;pointer-events:none;z-index:5;white-space:nowrap}
 #blog{position:fixed;left:8px;bottom:70px;z-index:6;max-width:min(360px,80vw)}#blogBtn{background:rgba(18,13,34,.85);color:#f2b04e;border:1px solid rgba(242,176,78,.35);border-radius:999px;font-size:12px;padding:3px 10px;cursor:pointer}
 #blogList{margin-top:6px;background:rgba(18,13,34,.92);border:1px solid rgba(242,176,78,.3);border-radius:10px;padding:8px 10px;font-size:11.5px;color:#f3e6cf;max-height:42vh;overflow:auto}#blogList .be{padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06)}#blogList .be i{color:#9a8fb8;font-style:normal}#blogList .be span{color:#9a8fb8}#blogList .bg{color:#c9b8ff}#blogList .bh{color:#ff8a7a}
@@ -202,6 +205,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
     <div class="card" id="online"><h2>Jugar en línea</h2>
       <p class="small">Hasta 4 investigadores; el ánima es un bot. Quien crea la sala es el anfitrión: su navegador corre la partida, así que debe quedarse hasta el final. Usa audífonos. Tu personaje es el que elijas abajo, en «Nueva noche».</p>
       <div class="onrow"><input id="onName" maxlength="16" placeholder="Tu nombre"><button id="onMic">🎙 Activar micrófono</button></div>
+      <label class="small onrow" style="gap:6px"><input type="checkbox" id="onSpec"> Solo observar (crear la sala sin jugar: veo a todos y la bitácora)</label>
       <div class="onrow"><button id="onHost">Crear sala</button><span class="small">o</span><input id="onCode" maxlength="4" placeholder="Código"><button id="onJoin">Entrar</button></div>
       <p id="onStatus" class="small"></p>
       <div id="onLobby"></div>
@@ -239,7 +243,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
   <div id="stage"></div>
   <div id="vignette"></div>
   <div id="top"></div>
-  <button id="quit" title="Menú">✕</button><button id="jbtn" title="Libreta (Tab)">📖</button><button id="mute" title="Sonido (M)">🔊</button>
+  <button id="quit" title="Menú">✕</button><button id="jbtn" title="Libreta (Tab)">📖</button><button id="mute" title="Sonido (M)">🔊</button><button id="volBtn" title="Volumen">🎚</button><div id="volPanel" hidden><label>Efectos <input type="range" id="volFx" min="0" max="1.5" step="0.05"></label><label>Voces <input type="range" id="volVoz" min="0" max="1.5" step="0.05"></label></div>
   <div id="mini" class="panel" title="Toca o pulsa I para ver más"></div>
   <div id="left" class="panel"></div>
   <div id="feed"></div>

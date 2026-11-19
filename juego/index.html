@@ -39,6 +39,9 @@ select{background:var(--ink);color:var(--bone);border:1px solid rgba(243,230,207
 /* juego */
 #stage canvas{position:fixed;inset:0;display:block;touch-action:none}
 .panel{position:fixed;background:rgba(18,13,34,.82);border:1px solid rgba(242,176,78,.3);border-radius:12px;padding:9px 12px;font-size:14px}
+#volBtn{position:fixed;top:8px;right:96px;background:rgba(18,13,34,.85);color:var(--bone);border:1px solid rgba(242,176,78,.3);border-radius:999px;width:38px;height:38px;z-index:5}
+#volPanel{position:fixed;top:52px;right:8px;z-index:7;background:rgba(18,13,34,.95);border:1px solid rgba(242,176,78,.35);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;color:var(--bone);font-size:13px}#volPanel label{display:flex;justify-content:space-between;gap:10px;align-items:center}#volPanel[hidden]{display:none}
+#blogList{width:min(520px,92vw)!important;max-height:58vh!important;font-size:12.5px!important}#blogList .bf{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}#blogList .bf button{background:rgba(255,255,255,.06);color:var(--bone);border:1px solid rgba(242,176,78,.3);border-radius:999px;padding:2px 8px;font-size:12px;cursor:pointer}#blogList .bf button.on{background:rgba(242,176,78,.35)}#blogList .be.bt{color:#a8e0b8}#blogList .be.bc{color:#f2c48e}
 #roomTag{position:fixed;top:52px;left:50%;transform:translateX(-50%);font-size:11px;color:#f3e6cf;opacity:.75;background:rgba(18,13,34,.6);padding:1px 10px;border-radius:999px;pointer-events:none;z-index:5;white-space:nowrap}
 #blog{position:fixed;left:8px;bottom:70px;z-index:6;max-width:min(360px,80vw)}#blogBtn{background:rgba(18,13,34,.85);color:#f2b04e;border:1px solid rgba(242,176,78,.35);border-radius:999px;font-size:12px;padding:3px 10px;cursor:pointer}
 #blogList{margin-top:6px;background:rgba(18,13,34,.92);border:1px solid rgba(242,176,78,.3);border-radius:10px;padding:8px 10px;font-size:11.5px;color:#f3e6cf;max-height:42vh;overflow:auto}#blogList .be{padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06)}#blogList .be i{color:#9a8fb8;font-style:normal}#blogList .be span{color:#9a8fb8}#blogList .bg{color:#c9b8ff}#blogList .bh{color:#ff8a7a}
@@ -202,6 +205,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
     <div class="card" id="online"><h2>Jugar en línea</h2>
       <p class="small">Hasta 4 investigadores; el ánima es un bot. Quien crea la sala es el anfitrión: su navegador corre la partida, así que debe quedarse hasta el final. Usa audífonos. Tu personaje es el que elijas abajo, en «Nueva noche».</p>
       <div class="onrow"><input id="onName" maxlength="16" placeholder="Tu nombre"><button id="onMic">🎙 Activar micrófono</button></div>
+      <label class="small onrow" style="gap:6px"><input type="checkbox" id="onSpec"> Solo observar (crear la sala sin jugar: veo a todos y la bitácora)</label>
       <div class="onrow"><button id="onHost">Crear sala</button><span class="small">o</span><input id="onCode" maxlength="4" placeholder="Código"><button id="onJoin">Entrar</button></div>
       <p id="onStatus" class="small"></p>
       <div id="onLobby"></div>
@@ -239,7 +243,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
   <div id="stage"></div>
   <div id="vignette"></div>
   <div id="top"></div>
-  <button id="quit" title="Menú">✕</button><button id="jbtn" title="Libreta (Tab)">📖</button><button id="mute" title="Sonido (M)">🔊</button>
+  <button id="quit" title="Menú">✕</button><button id="jbtn" title="Libreta (Tab)">📖</button><button id="mute" title="Sonido (M)">🔊</button><button id="volBtn" title="Volumen">🎚</button><div id="volPanel" hidden><label>Efectos <input type="range" id="volFx" min="0" max="1.5" step="0.05"></label><label>Voces <input type="range" id="volVoz" min="0" max="1.5" step="0.05"></label></div>
   <div id="mini" class="panel" title="Toca o pulsa I para ver más"></div>
   <div id="left" class="panel"></div>
   <div id="feed"></div>
@@ -488,7 +492,8 @@ function collides(w, e, x, y) {
 function tryMove(w, e, dx, dy) {
   if (e.kind === 'ghost' && e.def.darkFear && e.hunt && !e.hunt.huida && enteringDark(w, e, e.x + dx, e.y + dy)) return;
   if (e.noclip) { e.x = clamp(e.x + dx, 0.5, W - 0.5); e.y = clamp(e.y + dy, 0.5, H - 0.5); return; }
-  if (!collides(w, e, e.x + dx, e.y)) e.x += dx; if (!collides(w, e, e.x, e.y + dy)) e.y += dy;
+  for (const k of [1, 0.5, 0.25]) if (!collides(w, e, e.x + dx * k, e.y)) { e.x += dx * k; break; }
+  for (const k of [1, 0.5, 0.25]) if (!collides(w, e, e.x, e.y + dy * k)) { e.y += dy * k; break; }
 }
 function steer(w, e, px, py, speed, dt) {
   const dx = px - e.x, dy = py - e.y, l = Math.hypot(dx, dy); if (l < 0.04) return true;
@@ -691,7 +696,7 @@ function newItem(kind, p) { const it = { id: ITEM_ID++, kind, f: p.f, x: p.x, y:
   if (kind === 'muneca') { it.pins = 10; it.heart = (Math.random() * 10) | 0; } if (kind === 'pentagrama') it.candles = 0; if (kind === 'pan') it.eat = 0; return it; }
 
 function newWorld(opt) {
-  opt = Object.assign({ role: 'inv', nInv: 3, ghost: 'random', night: 900, equip: 'normal', diff: 'normal', cursed: 'random' }, opt);
+  opt = Object.assign({ role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'random' }, opt);
   const n = opt.nInv;
   const w = { t: 0, opt, invs: [], items: [], doors: [], clouds: [], fx: [], ashes: [], noCopalUntil: 0, pendingCursed: null, subs: [], log: [], events: [], noises: [],
     lights: [new Uint8Array(ROOMS[0].length), new Uint8Array(ROOMS[1].length)], conf: {}, discard: {}, selloSeen: false,
@@ -1248,11 +1253,12 @@ function botInv(w, b, dt) {
     if (lm && gk >= 0 && lm.f === b.f && d2(lm, b) < 9) { b.hand = gk; if (w.t >= (b.slots[gk].cd || 0)) useItem(w, b); }
     else if (!ai.study) { const ek = b.slots.findIndex(s => s && s.kind === 'emf'); if (ek >= 0) b.hand = ek; } }
   // recoger consumibles cercanos
-  if (b.slots.includes(null)) { const it = w.items.find(t => !t.holder && t.f === b.f && !TOOLS.includes(t.kind) && !['vela', 'pan'].includes(t.kind) && !ITEMS[t.kind].cursed && d2(t, b) < 6);
+  if (b.slots.filter(x => !x).length >= 1 && !(b.f === 0 && b.y >= 39)) { const it = w.items.find(t => !t.holder && t.f === b.f && ['te', 'rosario', 'copal'].includes(t.kind) && !b.slots.some(x => x && x.kind === t.kind) && d2(t, b) < 6);
     if (it) { if (d2(it, b) < 1.2) { const e = b.slots.indexOf(null); b.hand = e; pickUp(w, b); } else { moveBot(w, b, approach(it), CFG.walk * sp, dt); return; } } }
   ai.think -= dt;
   if (ai.lure && w.t < ai.lure.until && !g.hunt) { if (moveBot(w, b, ai.lure, CFG.walk * sp, dt) || d2(ai.lure, b) < 1.2 && b.f === ai.lure.f) { if (ai.lure.fuse) resetFuse(w, b); ai.lure = null; } return; }
   // estados
+  if (botResupply(w, b, dt, sp)) return;
   if (ai.state === 'gear') {
     const want = ai.wantTools.filter(k => !b.slots.some(s => s && s.kind === k));
     const it = w.items.find(t => !t.holder && want.includes(t.kind));
@@ -1295,7 +1301,7 @@ function botInv(w, b, dt) {
 }
 // explorar: detenerse en cada cuarto con el termómetro quieto hasta que se asiente
 function botTermoSweep(w, b, dt) {
-  const k = b.slots.findIndex(s => s && s.kind === 'termo'), r = roomOf(b); if (k < 0 || r < 0 || isHall(b.f, r)) return false;
+  const k = b.slots.findIndex(s => s && s.kind === 'termo'), r = roomOf(b); if (k < 0 || r < 0 || isHall(b.f, r) || ['afuera', 'zaguan'].includes(ROOMS[b.f][r].id)) return false;
   const key = b.f + ':' + r; b.ai.termoDone = b.ai.termoDone || {}; if ((b.ai.termoDone[key] || -99) > w.t - 45) return false;
   const c = w.cold[b.f][r]; b.hand = k; if (!b.ai.sweep || b.ai.sweep.key !== key) b.ai.sweep = { key, p: Math.random() < 0.6 && c ? { f: b.f, x: c.x + rnd(-1, 1), y: c.y + rnd(-1, 1) } : randomIn(b.f, r), t: 0 };
   const sw = b.ai.sweep; if (d2(sw.p, b) > 0.5) { if (navTo(w, b, sw.p, CFG.walk, dt) || !walkableT(tileAt(sw.p.f, sw.p.x, sw.p.y))) sw.p = { f: b.f, x: b.x, y: b.y }; return true; }
@@ -2041,7 +2047,7 @@ ITEMS.cam = { n: 'Cámara de video', tool: 'OB', elec: true, hint: 'Déjala con 
 ITEMS.espejo = Object.assign({}, ITEMS.espejo, { hint: 'Déjalo con G en un cuarto. Si el ánima tiene esta evidencia, tarde o temprano deja una mano marcada en el vaho.' });
 ITEMS.emf = Object.assign({}, ITEMS.emf, { hint: 'Marca 2 a 4 donde el ánima tocó algo (puertas, objetos, luces) durante 20 s. El 5 solo lo dan las ánimas con esta evidencia.' });
 ITEMS.grab = Object.assign({}, ITEMS.grab, { hint: 'Clic: haces una pregunta. Solo contesta a oscuras, con 1 o 2 personas en el cuarto y el ánima cerca.' });
-CFG.emfP = 0; CFG.cam.p = 0; CFG.esp.p = 0;
+CFG.emfP = 0; CFG.cam.p = 0; CFG.esp.p = 0; CFG.uv.p = 0.5; CFG.uv.re = 40;
 const AGE = { nachito: 'niño', chaneque: 'niño', llorona: 'joven', matla: 'joven', xtabay: 'joven', planchada: 'adulta', mulata: 'adulta', cihuateteo: 'joven', bruja: 'vieja', tlahuel: 'vieja', pena: 'adulto', cucuy: 'viejo', guardian: 'viejo', nahual: 'adulto', demonio: 'viejo', chocarrero: 'adulto', malaire: 'viejo', charro: 'adulto', aparecido: 'adulto', yohual: 'viejo', cadejo: 'viejo', uaychivo: 'viejo' };
 // cuánto asusta cada suceso de la casona a quien lo nota
 const CAS_SAN = { ambiente: 1, pasos: 2, sombra: 3, sombralag: 2, puerta: 2, serenata: 2, zaguan: 2, foto: 3, cadaver: 4, telefono: 3, tv: 3, tvcam: 4, barras: 2, radio: 3, reconectando: 2, clima: 2, rezando: 4, ofrenda: 3, pasillo: 4, senuelo: 2, doble: 3, eco: 3, estatua: 2, ecoya: 3 };
@@ -2132,8 +2138,8 @@ function camTick(w, dt) {
 function espejoTick(w, dt) {
   const g = w.g; if (g.state !== 'libre' || w.phase !== 'night') return;
   for (const it of w.items) if (it.kind === 'espejo' && !it.holder && w.t >= (it.markUntil || 0) && it.f === g.f && d2(it, g) < 4) {
-    it.diceT = (it.diceT || 0) + dt; if (it.diceT < 10) continue; it.diceT = 0;
-    if (g.def.ev.includes('ES') && Math.random() < 1 / 20) { it.markUntil = Infinity; w.ev('espejo', { f: it.f, x: it.x, y: it.y }); ghostEvent(w, g, 'espejo'); }
+    it.diceT = (it.diceT || 0) + dt; if (it.diceT < 8) continue; it.diceT = 0;
+    if (g.def.ev.includes('ES') && Math.random() < 1 / 12) { it.markUntil = Infinity; w.ev('espejo', { f: it.f, x: it.x, y: it.y }); ghostEvent(w, g, 'espejo'); }
   }
 }
 
@@ -2195,8 +2201,9 @@ step = function (w, dt, input) {
   _stepB(w, dt, input);
   for (const i of w.invs) if (i.alive && !i.escaped) stairFlip(w, i); stairFlip(w, w.g);
   const xd = w.doors.find(d => d.ext); if (xd && xd.locked && w.phase !== 'hora') { xd.locked = false; xd.closed = false; xd.anim = 1; }
-  const home = w.team && w.team.home; if (!home) return;
-  for (const b of alive(w)) if (b.bot) { const k = b.slots.findIndex(s => s && (s.kind === 'cam' || s.kind === 'espejo')); if (k >= 0 && b.f === home.f && roomOf(b) === home.r) { const c = ROOM_CENTER[home.f][home.r]; if (c) b.face = Math.atan2(c.y - b.y, c.x - b.x); dropItem(w, b, k); } }
+  const home = w.team && w.team.home, hot = (w.emfSrc || []).filter(e => w.t - (e.until - 20) < 25).pop(), hotR = hot ? { f: hot.f, r: roomAt(hot.f, hot.x, hot.y) } : null;
+  for (const b of alive(w)) if (b.bot && !(b.f === 0 && b.y >= 39)) { const k = b.slots.findIndex(s => s && ['cam', 'espejo', 'gases'].includes(s.kind)); if (k < 0) continue; const r = roomOf(b), here = home ? b.f === home.f && r === home.r : hotR && hotR.r >= 0 && b.f === hotR.f && r === hotR.r && !isHall(b.f, r);
+    if (here) { const c = ROOM_CENTER[b.f][r]; if (c) b.face = Math.atan2(c.y - b.y, c.x - b.x); const it = b.slots[k]; dropItem(w, b, k); blog(w, 'equipo', `${b.name} deja ${ITEMS[it.kind].n} en ${roomName(b)} ${home ? '(la guarida)' : '(ahí hubo actividad hace poco)'}`, b, b.id); } }
 };
 // la puerta de la casona se traba en la Hora del ánima; afuera el ánima no puede salir
 const _startHora = startHora;
@@ -2218,18 +2225,6 @@ const CAS_TXT = { nada: 'tiró… nada', ambiente: 'ruido de ambiente', anomalia
 const G_TXT = { door: 'movió una puerta', portazo: 'dio un portazo', move: 'aventó o movió un objeto', switch: 'prendió o apagó una luz', manifest: 'se manifestó', chill: 'escalofrío', whisper: 'susurró', special: 'usó su habilidad', espejo: 'marcó el espejo' };
 const roomName = p => { if (!p || p.f === undefined) return ''; if (stairAt(p.x, p.y) >= 0) return 'Escalera'; const r = roomAt(p.f, p.x, p.y); return r >= 0 ? ROOMS[p.f][r].n : ''; };
 function blog(w, kind, txt, p) { (w.bitacora || (w.bitacora = [])).push({ t: w.t, kind, txt, room: roomName(p) }); if (w.bitacora.length > 80) w.bitacora.shift(); }
-const _newWorldB = newWorld;
-newWorld = function (opt) {
-  const w = _newWorldB(opt); w.bitacora = []; const ev0 = w.ev;
-  w.ev = (type, data) => { ev0(type, data); const d = data || {}, who = d.who !== undefined && w.invs[d.who] ? w.invs[d.who].name : '';
-    if (type === 'cas') blog(w, 'casa', (CAS_TXT[d.k] || d.k) + (who ? ' → ' + who : ''), d);
-    else if (type === 'hunt') blog(w, 'cacería', d.cursed ? '¡CACERÍA MALDITA!' : '¡Empieza una cacería!', w.g);
-    else if (type === 'tecolote') blog(w, 'ánima', 'cantó el tecolote: ya puede cazar', w.g);
-    else if (type === 'fuseBlow') blog(w, 'casa', 'se botaron los fusibles', FUSE);
-    else if (type === 'anomSeen') blog(w, 'casa', 'alguien vio una anomalía' + (who ? ' → ' + who : ''), d);
-    else if (type === 'lamento') blog(w, 'ánima', 'un lamento', d); };
-  return w;
-};
 const _ghostEventB = ghostEvent;
 ghostEvent = function (w, g, type, extra) { _ghostEventB(w, g, type, extra); if (G_TXT[type] && w.bitacora) blog(w, 'ánima', G_TXT[type], g); };
 // la casona dice si alguien lo notó o si vuelve a tirar
@@ -2238,6 +2233,137 @@ casonaTick4 = function (w, dt) { const pd = w.cas.pend; _casonaTick4(w, dt); if 
 const _casRollB = casRoll;
 casRoll = function (w) { const n = w.cas.used.length; _casRollB(w); if (!w.bitacora) return; const k = w.cas.used.length > n ? w.cas.used[w.cas.used.length - 1] : null;
   if (!k) blog(w, 'casa', 'tiró un suceso que esta ánima le prohíbe: nada'); else if (k === 'nada') blog(w, 'casa', 'tiró… nada'); else if (k === 'anomalia') blog(w, 'casa', 'dejó una anomalía (se queda)', w.anoms[w.anoms.length - 1]); };
+
+// ================= v1.3 =================
+// ---------- periodo de gracia: el ánima no caza en las primeras horas (fácil 2 h, normal 1 h, pesadilla nada) ----------
+const GRACE_H = { facil: 2, normal: 1, pesadilla: 0 };
+const _newWorldG = newWorld;
+newWorld = function (opt) { const w = _newWorldG(opt); w.huntFreeAt = (GRACE_H[w.opt.diff] !== undefined ? GRACE_H[w.opt.diff] : 1) * w.nightLen / 7; return w; };
+const _startHuntG = startHunt;
+startHunt = function (w, g) { if (w.t < (w.huntFreeAt || 0) && !(g.hunt && g.hunt.huida)) return false; return _startHuntG(w, g); };
+
+// ---------- bots: llevan 2 herramientas y un lugar libre; regresan a la base a cambiar equipo ----------
+const _newWorldBots = newWorld;
+newWorld = function (opt) {
+  const w = _newWorldBots(opt); const bots = w.invs.filter(i => i.bot), tl = shuffle(TOOLS.slice());
+  bots.forEach((b, k) => { b.ai.wantTools = tl.filter((_, j) => j % bots.length === k).slice(0, 2); b.ai.nextResupply = rnd(150, 210); });
+  return w;
+};
+const toolNeeded = (w, kind) => { const k = ITEMS[kind] && ITEMS[kind].tool; return k && !w.obs[k] && !(w.team && w.team.ruled && w.team.ruled.has && w.team.ruled.has(k)); };
+function botResupply(w, b, dt, sp) {
+  const ai = b.ai, g = w.g; if (g.hunt || b.leave || w.phase !== 'night') return false;
+  if (ai.state !== 'resupply') {
+    const lowSan = b.san < 45 && !b.slots.some(x => x && x.kind === 'te') && w.items.some(t => !t.holder && t.kind === 'te' && t.f === 0 && t.y >= 50);
+    const free = b.slots.filter(x => !x).length, waiting = w.items.some(t => !t.holder && TOOLS.includes(t.kind) && t.f === 0 && t.y >= 50 && toolNeeded(w, t.kind));
+    const useless = b.slots.some(x => x && TOOLS.includes(x.kind) && !toolNeeded(w, x.kind));
+    if (ai.state !== 'gear' && (lowSan || (w.t > ai.nextResupply && (waiting && (free >= 1 || useless))))) { ai.state = 'resupply'; ai.prevState = ai.state; ai.why = lowSan ? 'por té de tila (cordura baja)' : useless ? 'a cambiar herramientas que ya no sirven' : 'por herramientas que nadie ha usado'; }
+    else return false;
+  }
+  const spot = { f: 0, x: MALETIN.x, y: 54.2 };
+  if (!(b.f === 0 && d2(b, spot) < 1.3)) { moveBot(w, b, spot, CFG.walk * sp, dt); return true; }
+  // en la mesa: dejar lo que ya no sirve y tomar lo que falta
+  b.slots.forEach((x, k) => { if (x && TOOLS.includes(x.kind) && !toolNeeded(w, x.kind)) { b.face = Math.PI / 2; dropItem(w, b, k); Object.assign(x, { f: 0, x: 14.4 + Math.random() * 5, y: 55.3, h: 0.78 }); blog(w, 'equipo', `${b.name} deja en la mesa: ${ITEMS[x.kind].n} (esa evidencia ya se sabe)`, b); } });
+  const take = kinds => { for (const kd of kinds) { if (!b.slots.includes(null)) return; const t = w.items.find(t => !t.holder && t.kind === kd && t.f === 0 && t.y >= 50); if (t) { t.x = b.x; t.y = b.y; t.f = b.f; b.hand = b.slots.indexOf(null); pickUp(w, b); } } };
+  if (b.san < 60 && !b.slots.some(x => x && x.kind === 'te')) take(['te']);
+  take(shuffle(TOOLS.filter(k => toolNeeded(w, k) && !w.invs.some(o => o.alive && o.slots.some(x => x && x.kind === k)) && !w.items.some(t => t.kind === k && !(t.f === 0 && t.y >= 50)))));
+  ai.state = w.team.home ? 'setup' : 'explore'; ai.goal = null; ai.nextResupply = w.t + rnd(150, 210); return true;
+}
+
+// ---------- bitácora detallada: casa, ánima y cada persona ----------
+let BITA_MAX = 300;
+function blog2(w, kind, txt, p, who) { if (!w.bitacora) return; w.bitacora.push({ t: w.t, kind, txt, room: roomName(p), who }); if (w.bitacora.length > BITA_MAX) w.bitacora.splice(0, w.bitacora.length - BITA_MAX); }
+blog = blog2;
+// la casa: la tirada completa, qué intentó y cómo le fue
+casRoll = function (w) {
+  const g = w.g, veto = (PROF[g.def.id] || {}).veto, a = alive(w); if (!a.length) return;
+  const inside = a.filter(i => !(i.f === 0 && i.y >= 39)), tries = w.cas.reroll || 0; w.cas.reroll = 0; w.cas.retry = false; w.cas.retryWhy = '';
+  if (!inside.length) { blog(w, 'casa', '🎲 No tira: todos están afuera.'); return; }
+  const avg = a.reduce((s, i) => s + i.san, 0) / a.length, r0 = 1 + Math.floor(Math.random() * 100); let r = Math.min(100, r0 + (avg < 50 ? 10 : 0));
+  if (veto === 'nada' && r <= 10) r = 41 + Math.floor(Math.random() * 12);
+  let k = CAS.find(([lo, hi]) => r >= lo && r <= hi)[2], note = '';
+  if (k === 'elige') { k = pick(['rezando', 'ofrenda', 'pasillo', 'tvcam', 'cadaver'].filter(x => !w.cas.used.includes(x)).concat(['ambiente'])); note = ' (sacó «elige» y escogió esto)'; }
+  if (CAS_ONCE.has(k) && w.cas.used.includes(k)) { note = ` («${CAS_TXT[k]}» ya salió esta noche: se cambia por ambiente)`; k = 'ambiente'; }
+  const tir = `🎲 ${r0}${avg < 50 ? ' +10 por cordura baja' : ''}${tries ? ` (tiro ${tries + 1})` : ''}`;
+  if (k === veto) { blog(w, 'casa', `${tir} → «${CAS_TXT[k]}», pero esta ánima lo prohíbe: no pasa nada.`); return; }
+  w.cas.used.push(k);
+  if (k === 'nada') { blog(w, 'casa', `${tir} → nada.`); return; }
+  const humans = inside.filter(i => !i.bot), v = pick(humans.length ? humans : inside), n0 = w.events.length, h0 = w.hallu, an0 = w.anoms.length;
+  casDo(w, k, v);
+  const ev = w.events.slice(n0).find(e => e.type === 'cas'), done = !w.cas.retry && (ev || (k === 'doble' && w.hallu !== h0) || (k === 'anomalia' && w.anoms.length > an0));
+  if (!done) { blog(w, 'casa', `${tir} → intentó «${CAS_TXT[k]}» con ${v.name}, pero ${w.cas.retryWhy || 'no encontró dónde hacerlo'}${tries < 2 ? '. Vuelve a tirar.' : '. Se rinde.'}`, v); if (tries < 2) { w.cas.next = 0; w.cas.reroll = tries + 1; } return; }
+  blog(w, 'casa', `${tir} → «${CAS_TXT[k]}» con ${v.name}${note}.`, ev || w.hallu || v);
+  if (k === 'anomalia') return;
+  w.cas.pend = { k, t: w.t, who: v.id, p: ev ? { f: ev.f, x: ev.x, y: ev.y } : { f: v.f, x: v.x, y: v.y }, tries };
+};
+const _casDoWhy = casDo;
+casDo = function (w, k, v) { _casDoWhy(w, k, v); if (w.cas.retry && !w.cas.retryWhy) w.cas.retryWhy = ['tv', 'tvcam', 'barras', 'telefono', 'radio'].includes(k) ? `no hay ${k === 'telefono' ? 'teléfono' : k === 'radio' ? 'radio' : 'tele'} cerca de esa persona` : k === 'estatua' ? 'no había lugar a la vista' : k === 'ecoya' ? 'esa persona no ha hablado en los últimos 4 s' : 'no encontró dónde hacerlo'; };
+casonaTick4 = (function (base) { return function (w, dt) { const pd = w.cas.pend, seen = pd && w.t >= pd.t + 0.3 ? casNoticed(w, pd) : []; base(w, dt);
+  if (pd && !w.cas.pend) { if (seen.length) blog(w, 'casa', `   «${CAS_TXT[pd.k]}»: lo notó ${seen.map(i => i.name).join(', ')} (−${CAS_SAN[pd.k] || 1} de cordura).`, pd.p); else blog(w, 'casa', `   «${CAS_TXT[pd.k]}»: nadie lo notó en 5 s${pd.tries < 2 ? ' → vuelve a tirar' : ''}.`, pd.p); } }; })(_casonaTick4);
+// eventos: la casa (los que no son tirada), el ánima y las personas
+const _newWorldL = newWorld;
+newWorld = function (opt) {
+  const w = _newWorldL(opt); w.bitacora = []; const ev0 = w.ev;
+  w.ev = (type, data) => { ev0(type, data); const d = data || {}, P = d.who !== undefined && w.invs[d.who], who = P ? P.name : '';
+    if (type === 'cas' && ['estatuaGrito', 'estatuaHabla', 'leyenda'].includes(d.k)) blog(w, 'casa', `   ${CAS_TXT[d.k]}${who ? ' → ' + who : ''}`, d);
+    else if (type === 'hunt') blog(w, 'cacería', `¡${d.cursed ? 'CACERÍA MALDITA' : 'Empieza una cacería'}! ${w.g.ai && w.g.ai.target && w.g.ai.target.who ? 'Va tras ' + w.g.ai.target.who.name : ''}`, w.g);
+    else if (type === 'tecolote') blog(w, 'ánima', 'cantó el tecolote: ya tiene ganas de cazar', w.g);
+    else if (type === 'fuseBlow') blog(w, 'casa', '⚡ se botaron los fusibles (demasiados focos)', FUSE);
+    else if (type === 'anomSeen') blog(w, 'casa', `   ${who || 'alguien'} vio una anomalía (−3 de cordura)`, d);
+    else if (type === 'lamento') blog(w, 'ánima', 'un lamento', d);
+    else if (type === 'death') blog(w, 'cacería', `☠ ${who || 'alguien'} murió`, P || d);
+    else if (type === 'escape') blog(w, 'equipo', `${who} se subió a la camioneta${P && P.guess ? ' · apuesta: ' + GT[P.guess].n : ' sin apostar'}`, P);
+    else if (type === 'visita') blog(w, 'equipo', `${who} abrió el zaguán`, ZAG); };
+  // lo que ve el equipo
+  w.says = []; const say0 = w.say; w.say = (txt, ch) => { say0(txt, ch); if (ch === 'i' && w.actor) blog(w, 'equipo', `${w.actor.name}: ${String(txt).replace(/<[^>]+>/g, '')}`, w.actor, w.actor.id); };
+  return w;
+};
+const _observeL = observe;
+observe = function (w, k, by, how) { const had = !!w.obs[k]; _observeL(w, k, by, how); if (by && by.alive && w.g.def.ev.includes(k) && !(w.seenBy && w.seenBy[k + by.id])) { (w.seenBy = w.seenBy || {})[k + by.id] = 1; blog(w, 'equipo', `🔎 ${by.name} vio evidencia: ${EVN[k] || k} (${how})${had ? '' : ' — primera vez esta noche'}`, by, by.id); } };
+const EVN = { BC: 'bajo cero', CE: 'ceniza con UV', SU: 'susurros', OB: 'objetos/silueta en cámara', LU: 'EMF 5', ES: 'mano en el espejo', AZ: 'azufre' };
+const _pickUpL = pickUp; pickUp = function (w, i) { const n = i.slots.filter(Boolean).length, r = _pickUpL(w, i); if (r && i.slots.filter(Boolean).length > n) { const it = i.slots[i.hand] || i.slots.find(Boolean); blog(w, 'equipo', `${i.name} toma: ${it ? ITEMS[it.kind].n : 'algo'}`, i, i.id); } return r; };
+const _dropItemL = dropItem; dropItem = function (w, i, k) { const it = i.slots[k], r = _dropItemL(w, i, k); if (r && it && i.alive && !i.escaped) blog(w, 'equipo', `${i.name} deja: ${ITEMS[it.kind].n}`, i, i.id); return r; };
+const _useItemRawL = useItemRaw; useItemRaw = function (w, i) { const it = handItem(i), r = _useItemRawL(w, i); if (r && it && !['emf', 'termo', 'cam', 'grab'].includes(it.kind)) blog(w, 'equipo', `${i.name} usa: ${ITEMS[it.kind].n}`, i, i.id); return r; };
+const _toggleLightL = toggleLight; toggleLight = function (w, i) { const r0 = roomOf(i), before = r0 >= 0 ? w.lights[i.f][r0] : null, r = _toggleLightL(w, i); if (r0 >= 0 && w.lights[i.f][r0] !== before) blog(w, 'equipo', `${i.name} ${w.lights[i.f][r0] ? 'prende' : 'apaga'} la luz`, i, i.id); return r; };
+
+// qué hace cada quien (y por qué está quieto)
+function doingOf(w, b) {
+  const ai = b.ai || {}, g = w.g, R = p => p && p.f !== undefined ? roomName(p) || 'un pasillo' : '';
+  if (!b.alive) return 'es espíritu'; if (b.escaped) return 'está en la camioneta';
+  if (b.hidden >= 0) return 'está escondido';
+  if (!b.bot) { const h = handItem(b); return `está en ${R(b) || 'la casa'}${h ? ' con ' + ITEMS[h.kind].n : ''}`; }
+  if (g.hunt && ai.react) return 'huye de la cacería';
+  if (b.leave) return `va a la camioneta para apostar por ${b.guess ? GT[b.guess].n : '¿?'}`;
+  if (b.monitor) return 'va a ver las teles de la base';
+  if (ai.lure && ai.lure.fuse) return 'va a subir los fusibles';
+  if (ai.state === 'resupply') return `regresa a la base ${ai.why || ''}`;
+  if (ai.state === 'gear') return `toma su equipo (${(ai.wantTools || []).map(k => ITEMS[k].n).join(', ')})`;
+  if (ai.state === 'setup') { const it = b.slots[ai.placeK]; return `pone ${it ? ITEMS[it.kind].n : 'equipo'} en la guarida (${R(w.team.home && ROOM_CENTER[w.team.home.f][w.team.home.r] && Object.assign({ f: w.team.home.f }, ROOM_CENTER[w.team.home.f][w.team.home.r]))})`; }
+  if (ai.state === 'watch') return ai.study ? `estudia la guarida con ${ITEMS[ai.study.kind] ? ITEMS[ai.study.kind].n : ai.study.kind}` : 'ronda la guarida';
+  if (ai.sweep) return `mide la temperatura en ${R(b)}`;
+  return `explora rumbo a ${R(ai.goal) || '¿?'}${w.team.home ? '' : ' (buscan la guarida)'}`;
+}
+function teamWatch(w, dt) {
+  if (!w.bitacora || w.phase === 'hora' && false) return;
+  for (const b of w.invs) { const d = doingOf(w, b), m = b._log || (b._log = { d: '', t: -9, x: b.x, y: b.y, st: 0, stLog: 0 });
+    if (d !== m.d && w.t - m.t > 2.5) { if (b.bot || /espíritu|camioneta|escondido/.test(d)) blog(w, 'equipo', `${b.name} ${d}`, b, b.id); m.d = d; m.t = w.t; }
+    // ¿quieto?
+    const mv = Math.hypot(b.x - m.x, b.y - m.y); m.x = b.x; m.y = b.y;
+    if (b.alive && !b.escaped && b.hidden < 0 && mv < 0.01) m.st += dt; else m.st = 0;
+    if (b.bot && m.st > 8 && w.t - m.stLog > 20 && !/estudia|mide|teles/.test(d)) { m.stLog = w.t; const ai = b.ai;
+      const why = w.t < (b.stunUntil || 0) ? 'está aturdido o esperando' : b.reading ? 'está leyendo algo' : w.ritual && w.ritual.by === b ? 'hace un ritual' : ai.goal && pathLen(w, b, ai.goal) >= 999 ? `no encuentra camino a ${roomName(ai.goal) || 'su destino'}` : ai.goal ? `no avanza hacia ${roomName(ai.goal) || 'su destino'} (algo le estorba)` : 'no tiene nada que hacer';
+      blog(w, 'equipo', `⏸ ${b.name} lleva ${Math.round(m.st)} s quieto: ${why}`, b, b.id); }
+    // personas: cambios de cuarto
+    if (!b.bot && b.alive && !b.escaped) { const rn = roomName(b); if (rn !== m.room) { m.roomT = (m.roomT || 0) + dt; if (m.roomT > 3) { m.room = rn; m.roomT = 0; blog(w, 'equipo', `${b.name} entra a ${rn || 'un pasillo'}`, b, b.id); } } else m.roomT = 0; }
+  }
+}
+// el ánima: qué quiere y por qué
+function ghostWatch(w, dt) {
+  const g = w.g; if (!g.bot || w.phase !== 'night') return; g._wT = (g._wT || 0) - dt; if (g._wT > 0) return; g._wT = 1;
+  const m = ghostMotive(w, g), hunger = Math.round((1 - g.pres / g.def.presMax) * 100);
+  const txt = { rondar: 'ronda tranquila', acechar: 'acecha: le hablaron o preguntaron hace poco', alimentarse: `tiene hambre (${hunger} %)${m.prey ? ' y busca a ' + m.prey.name : ''}`, enganar: 'quiere engañar: hay gente o equipo en su guarida', cazar: `quiere cazar${w.t < w.huntFreeAt ? ', pero aún es temprano (periodo de gracia)' : ''}` }[m.state];
+  if (m.state !== g._mot) { g._mot = m.state; blog(w, 'ánima', `👻 ${txt}`, g); }
+}
+const _rulesTickL = rulesTick; rulesTick = function (w, dt) { _rulesTickL(w, dt); try { teamWatch(w, dt); ghostWatch(w, dt); } catch (e) {} };
 
 // ================= En línea: sala con código, anfitrión y voz =================
 // El navegador de quien crea la sala es el anfitrión: corre la partida (casona, ánima bot y reglas)
@@ -2510,9 +2636,9 @@ const VOICE = {
         v = v * v;
       }
       if (o.escaped || me.escaped) v = 0;
-      e.vol = v; e.g.gain.setTargetAtTime(v, now, 0.08); e.lp.frequency.setTargetAtTime(muff ? 900 : 12000, now, 0.1);
+      e.vol = v; e.g.gain.setTargetAtTime(v * (this.vol === undefined ? 1 : this.vol), now, 0.08); e.lp.frequency.setTargetAtTime(muff ? 900 : 12000, now, 0.1);
       if (e.pan) { const ang = Math.atan2(o.y - me.y, o.x - me.x) - yaw; e.pan.pan.setTargetAtTime(Math.max(-1, Math.min(1, Math.sin(ang))) * 0.7, now, 0.1); }
-      e.gr.gain.setTargetAtTime(o.radio && o.alive && me.alive ? 0.9 : 0, now, 0.05);
+      e.gr.gain.setTargetAtTime(o.radio && o.alive && me.alive ? 0.9 * (this.vol === undefined ? 1 : this.vol) : 0, now, 0.05);
     }
   },
   // frases robadas: frases cortas entre pausas, solo en la memoria de esta pestaña (máximo 5)
@@ -3181,7 +3307,7 @@ function musicPlay(on) { ambience(on); return; try { if (!music) { music = new A
 const keys = new Set(), pressed = new Set();
 let mouse = { x: 0, y: 0, has: false }, throwHold = 0, throwing = false;
 const joy = { x: 0, y: 0 };
-let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 900, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro' };
+let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro' };
 
 // Escultura vectorial: todo mate y de caras planas, sin la textura de grano (GDD §9.3)
 function LambertFlat(o) { o = Object.assign({}, o || {}); if (o.map && o.map === paper) delete o.map; return new THREE.MeshStandardMaterial(Object.assign({ flatShading: true, roughness: 0.95, metalness: 0 }, o)); }
@@ -3982,7 +4108,7 @@ function updateOverlay() {
   if (pa && pa.item && camera.position && THREE.Vector3.prototype.project) { const v = new THREE.Vector3(pa.item.x, pa.item.f * FH + 0.45, pa.item.y).project(camera); const el = $('#itemlabel'); el.hidden = v.z > 1; el.style.left = ((v.x + 1) / 2 * innerWidth) + 'px'; el.style.top = ((1 - v.y) / 2 * innerHeight) + 'px'; el.innerHTML = cardImg(pa.item.kind, 'mci') + ITEMS[pa.item.kind].n; } else $('#itemlabel').hidden = true;
   // brújula: altar con 2 pruebas, salida en la huida
   let tg = null, lbl = '';
-  if (me.alive && w.phase === 'huida') { tg = EXIT; lbl = 'Salida'; } else if (me.alive && pruebas(w) >= 2 && w.phase === 'night') { tg = { f: ALTAR_POS.f, x: ALTAR_POS.x, y: ALTAR_POS.y }; lbl = 'Altar'; }
+  if (me.alive && w.phase === 'huida') { tg = EXIT; lbl = 'Salida'; } else if (me.alive && me.guess && w.phase === 'night') { tg = EXIT; lbl = 'Camioneta'; }
   const cp = $('#compass'); cp.hidden = !tg;
   if (tg) { const tf = tg.f === undefined ? 0 : tg.f; const a = Math.atan2(tg.y - me.y, tg.x - me.x) - yaw; const dist = Math.hypot(tg.x - me.x, tg.y - me.y);
     cp.innerHTML = `<span class="arr" style="transform:rotate(${a * 180 / Math.PI + 90}deg)">➤</span> ${lbl} · ${dist.toFixed(0)} m${tf !== me.f ? (tf < me.f ? ' · baja' : ' · sube') : ''}`; }
@@ -4123,7 +4249,7 @@ function frame(ts) {
     const n = w.opt.role === 'bots' ? speedMult : 1;
     for (let k = 0; k < n; k++) step(w, dt, k === 0 ? input : { mx, my, sprint: false, press: new Set(), face });
   }
-  if (NET.mode !== 'off' && NET.started) { VOICE.update(w, w.invs[ME], yaw); NET.callT = (NET.callT || 0) - dt; if (NET.callT <= 0) { NET.callT = 2; VOICE.callAll(w.invs.filter(i => i.peer)); } }
+  if (NET.mode !== 'off' && NET.started) { VOICE.update(w, w.invs[ME] || alive(w).find(i => i === viewer()) || alive(w)[0], yaw); NET.callT = (NET.callT || 0) - dt; if (NET.callT <= 0) { NET.callT = 2; VOICE.callAll(w.invs.filter(i => i.peer)); } }
   if (w.events.some(e => e.type === 'altar' && (e.who === undefined || e.who === ME))) showNaming(false);
   if (w.pendingDawn && $('#modal').hidden && w.opt.role === 'inv') showNaming(true);
   feedbackEvents(); playEvents(); huntAudio(dt); updateListener(); feedbackTick(dt); ambienceTick(dt); updateOverlay(); updatePlacement(ts / 1000);
@@ -4158,10 +4284,11 @@ function start(netStart) {
   galleryStop(); setupRenderer();
   ME = 0; netActs = [];
   if (NET.mode === 'host') {
-    const humans = NET.lobby.map(p => ({ name: p.name, char: p.char, peer: p.peer }));
-    const opt = Object.assign({}, menuOpt, { role: 'inv', humans, nInv: Math.max(menuOpt.nInv, humans.length), cursed: menuOpt.cursed });
-    w = newWorld(opt); netHookWorld(w); NET.started = true;
-    const pkt = Object.assign({ t: 'start', opt: Object.assign({}, opt) }, netEnc(w, true));
+    const spec = !!($('#onSpec') && $('#onSpec').checked); NET.spec = spec;
+    const humans = NET.lobby.filter(p => !spec || p.peer !== NET.id).map(p => ({ name: p.name, char: p.char, peer: p.peer }));
+    const opt = Object.assign({}, menuOpt, { role: 'inv', humans, nInv: Math.max(menuOpt.nInv, humans.length, 1), cursed: menuOpt.cursed });
+    w = newWorld(spec ? Object.assign({}, opt, { role: 'bots' }) : opt); netHookWorld(w); NET.started = true; if (spec) { ME = -1; try { VOICE.stream && VOICE.stream.getAudioTracks().forEach(t => t.enabled = false); } catch (e) {} }
+    const pkt = Object.assign({ t: 'start', opt: Object.assign({}, opt, { role: 'inv' }) }, netEnc(w, true));
     for (const c of NET.conns.values()) if (c.open) c.send(pkt);
   } else if (NET.mode === 'guest' && netStart) {
     const opt = netStart.opt; w = newWorld(Object.assign({}, opt));
@@ -4170,7 +4297,7 @@ function start(netStart) {
   } else w = newWorld(Object.assign({}, menuOpt));
   if (scene) { scene.traverse(o => { if (o.geometry) o.geometry.dispose && o.geometry.dispose(); }); }
   buildHouse(); camPos.set(0, 0, 0); yaw = -Math.PI / 2; pitch = -0.12; if (w.opt.role !== 'bots') setTimeout(nightRoulette, 300);
-  follow = 0; speedMult = menuOpt.role === 'bots' ? 2 : 1; keys.clear(); pressed.clear(); journalOpen = false; $('#journal').hidden = true;
+  follow = 0; speedMult = menuOpt.role === 'bots' && NET.mode === 'off' ? 2 : 1; keys.clear(); pressed.clear(); journalOpen = false; $('#journal').hidden = true;
   $('#menu').hidden = true; $('#modal').hidden = true; $('#game').hidden = false; setupTouch();
   running = true; last = performance.now(); requestAnimationFrame(frame); musicPlay(true); fb.san = null; fb.tipQ = []; fb.tipUntil = 0; $('#tip').hidden = true;
 }
@@ -4262,7 +4389,7 @@ function menu() {
     ${menuOpt.role === 'inv' ? `<label>Cámara</label>${seg('cam', [['hombro', 'Sobre el hombro'], ['fp', 'Primera persona']], menuOpt.cam)}` : ''}
     <label>Investigadores ${menuOpt.role === 'inv' ? '(tú incluido)' : ''}</label>${seg('nInv', [[1, '1 · Duelo'], [2, '2'], [3, '3'], [4, '4']], menuOpt.nInv)}
     <label>Ánima ${menuOpt.role === 'inv' ? '(al azar es un misterio)' : ''}</label>${seg('ghost', [['random', 'Al azar'], ...GHOSTS.map(G => [G.id, G.n.replace('El Guardián del Entierro', 'Guardián').replace('Espíritu ', '')])], menuOpt.ghost)}
-    <label>Duración de la noche</label>${seg('night', [[480, '8 min'], [720, '12 min'], [900, '15 min']], menuOpt.night)}
+    <label>Duración de la noche</label>${seg('night', [[480, '8 min'], [600, '10 min'], [720, '12 min']], menuOpt.night)}
     <label>Equipo en la casa</label>${seg('equip', [['escaso', 'Escaso'], ['normal', 'Normal'], ['abundante', 'Abundante']], menuOpt.equip)}
     <label>Dificultad</label>${seg('diff', [['facil', 'Fácil'], ['normal', 'Normal'], ['pesadilla', 'Pesadilla']], menuOpt.diff)}
     <label>Consejos en pantalla</label>${seg('tips', [['si', 'Sí'], ['no', 'No'], ['reset', 'Volver a mostrarlos']], menuOpt.tips)}`;
@@ -4739,17 +4866,21 @@ casSound = function (e, p, V) {
 };
 
 // ---------- dónde estoy y la bitácora del líder ----------
-let roomTagEl = null, blogEl = null, blogOpen = false, blogSeen = 0, blogDrawT = 0;
+let roomTagEl = null, blogEl = null, blogOpen = false, blogSeen = 0, blogDrawT = 0, blogFilter = 'todo';
 function hudExtras(t) {
   const game = $('#game'); if (!game) return;
   if (!roomTagEl) { roomTagEl = document.createElement('div'); roomTagEl.id = 'roomTag'; game.appendChild(roomTagEl);
     blogEl = document.createElement('div'); blogEl.id = 'blog'; blogEl.innerHTML = '<button id="blogBtn" title="Bitácora de la casa (solo la ves tú, el líder)">📜 <span></span></button><div id="blogList" hidden></div>'; game.appendChild(blogEl);
     blogEl.querySelector('#blogBtn').onclick = e => { e.stopPropagation(); blogOpen = !blogOpen; blogEl.querySelector('#blogList').hidden = !blogOpen; blogDrawT = 0; }; }
-  const V = viewer(); roomTagEl.textContent = V ? `${roomName(V) || '—'} · ${elevOf(V) > 0.02 && elevOf(V) < 0.98 ? 'entre pisos' : V.f ? 'planta alta' : 'planta baja'}` : '';
+  const V = viewer(); roomTagEl.textContent = V ? `${roomName(V) || '—'} · ${elevOf(V) > 0.02 && elevOf(V) < 0.98 ? 'entre pisos' : V.f ? 'planta alta' : 'planta baja'}${w.huntFreeAt && w.t < w.huntFreeAt && w.phase === 'night' ? ` · 🕊 el ánima no caza antes de las ${clockStr(w.huntFreeAt)}` : ''}` : '';
   const lead = NET.mode !== 'guest' && w.bitacora; blogEl.hidden = !lead; if (!lead) return;
   const L = w.bitacora, nNew = L.length - blogSeen; blogEl.querySelector('#blogBtn span').textContent = blogOpen ? 'Bitácora' : nNew > 0 ? nNew : '';
-  if (blogOpen) { blogSeen = L.length; if (t > blogDrawT) { blogDrawT = t + 0.5;
-    blogEl.querySelector('#blogList').innerHTML = '<b>Bitácora de la casa</b> <span class="small">(solo tú la ves)</span>' + L.slice(-14).reverse().map(e => `<div class="be ${e.kind === 'ánima' ? 'bg' : e.kind === 'cacería' ? 'bh' : ''}"><i>${clockStr(e.t)}</i> <b>${e.kind === 'casa' ? '🏚' : e.kind === 'cacería' ? '⚠' : '👻'}</b> ${e.txt}${e.room ? ` <span>· ${e.room}</span>` : ''}</div>`).join(''); } }
+  if (blogOpen) { blogSeen = L.length; if (t > blogDrawT) { blogDrawT = t + 0.6; const box = blogEl.querySelector('#blogList');
+    const F = { todo: () => true, casa: e => e.kind === 'casa', anima: e => e.kind === 'ánima' || e.kind === 'cacería', equipo: e => e.kind === 'equipo' || e.kind === 'cacería' };
+    const keepScroll = box.scrollTop;
+    box.innerHTML = '<b>Bitácora</b> <span class="small">(solo la ves tú, el líder · lo más nuevo arriba)</span><div class="bf">' + [['todo', 'Todo'], ['casa', '🏚 Casa'], ['anima', '👻 Ánima'], ['equipo', '🧍 Equipo']].map(([k, n]) => `<button data-f="${k}" class="${blogFilter === k ? 'on' : ''}">${n}</button>`).join('') + '</div>'
+      + L.filter(F[blogFilter]).slice(-60).reverse().map(e => { const P = e.who !== undefined && w.invs[e.who]; return `<div class="be ${e.kind === 'ánima' ? 'bg' : e.kind === 'cacería' ? 'bh' : e.kind === 'casa' ? 'bc' : 'bt'}"><i>${clockStr(e.t)}</i> <b>${e.kind === 'casa' ? '🏚' : e.kind === 'cacería' ? '⚠' : e.kind === 'ánima' ? '👻' : '🧍'}</b> ${P ? `<span style="color:${P.color}">●</span> ` : ''}${e.txt}${e.room ? ` <span>· ${e.room}</span>` : ''}</div>`; }).join('');
+    box.scrollTop = keepScroll; box.querySelectorAll('.bf button').forEach(btn => btn.onclick = ev => { ev.stopPropagation(); blogFilter = btn.dataset.f; blogDrawT = 0; }); } }
 }
 const _updateScene5 = updateScene; updateScene = function (t, dt) { _updateScene5(t, dt); try { hudExtras(t); } catch (e) {} };
 
@@ -4760,7 +4891,8 @@ const SND_FILES = ['door_open1', 'door_open2', 'door_close1', 'door_close2', 'sl
   'van_door', 'amb_out', 'drip', 'match', 'chain', 'chain2', 'gas', 'bonk', 'feedback', 'book_throw', 'book', 'ceramic_break', 'grass1', 'grass2', 'grass3', 'picture', 'rumble', 'mouth', 'cough',
   'wood1', 'wood2', 'wood3', 'wood4', 'stone1', 'stone2', 'bell_heavy', 'bell1', 'bell2', 'bell_small', 'thunder', 'rain', 'static1', 'static2', 'hiss', 'howl', 'bark', 'breath1', 'breath2',
   'weird1', 'weird2', 'weird3', 'weird4', 'growl1', 'growl2', 'glass_break1', 'glass_break2', 'fall1', 'fall2', 'wood_break', 'crack1', 'crack2', 'keys', 'cineboom', 'haunted_hum', 'dark_woosh',
-  'choir', 'glass_rub', 'crow', 'guitar', 'glitch1', 'glitch2', 'beep', 'buzz'];
+  'choir', 'glass_rub', 'crow', 'guitar', 'glitch1', 'glitch2', 'beep', 'buzz',
+  'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
 const SND = { buf: {}, loading: false, loops: {} };
 function sndLoad() {
   if (SND.loading || !audio || !audio.ctx) return; SND.loading = true;
@@ -4874,6 +5006,72 @@ function sndAmbience() {
 const _updateSceneS = updateScene; updateScene = function (t, dt) { _updateSceneS(t, dt); try { sndAmbience(); } catch (e) {} };
 const _toMenuS = toMenu; toMenu = function () { Object.values(SND.loops).forEach(L => L.g.gain.value = 0); _toMenuS(); };
 window.__snd = SND;
+
+// ---------- ya nada sintetizado: todo suena con grabaciones (si una no cargó, no suena) ----------
+const SYNTH_OFF = true;
+const _toneS = tone, _noiseS = noise;
+tone = function (...a) { if (!SYNTH_OFF) _toneS(...a); };
+noise = function (...a) { if (!SYNTH_OFF) _noiseS(...a); };
+ambience = function () {}; // el viejo zumbido de ruido generado
+const laughK = ['laugh1', 'laugh2', 'laugh3', 'laugh4'];
+const set = (obj, name, fn) => { obj[name] = fn; };
+set(SFX, 'laugh', p => S(laughK, p, { rate: 0.75, vol: 0.9, lp: 2500 }));
+set(SFX, 'giggle', p => S(laughK, p, { rate: 1.15, vol: 0.7, hp: 400 }));
+set(SFX, 'coins', p => S('keys', p, { vol: 0.6 }));
+set(SFX, 'wings', p => S('wings', p, { vol: 0.8, rate: 0.9 }));
+set(SFX, 'frost', p => S('glass_rub', p, { vol: 0.6, rate: 1.2 }));
+set(SFX, 'sheet', p => S('wings', p, { vol: 0.5, rate: 0.6, lp: 1200 }));
+set(SFX, 'toy', p => S('toy', p, { vol: 0.8 }));
+set(SFX, 'si', () => S('ding', null, { vol: 0.6 }));
+set(SFX, 'emf', (p, lvl) => { for (let k = 0; k < (lvl || 1); k++) S('beep', p, { vol: 0.35, rate: 0.8 + (lvl || 1) * 0.12, delay: k * 0.09 }); });
+set(SFX, 'shutter', p => { S('click_btn', p, { vol: 0.9 }); S('latch', p, { vol: 0.5, delay: 0.06, rate: 1.3 }); });
+set(SFX, 'copal', p => { S('match', p, { vol: 0.7 }); S('gas', p, { vol: 0.3, dur: 1.5, delay: 0.3 }); });
+set(SFX, 'pickup', () => S('pickup', null, { vol: 0.5 }));
+set(SFX, 'card', p => S('book', p, { vol: 0.6, rate: 1.3 }));
+set(SFX, 'slide', p => S('picture', p, { vol: 0.7 }));
+set(SFX, 'shimmer', p => S('glass_rub', p, { vol: 0.7 }));
+set(SFX, 'clicks', p => { for (let k = 0; k < 4; k++) S('snap', p, { delay: k * 0.18, vol: 0.6, vary: 0.2 }); });
+set(SFX, 'sizzle', p => S('gas', p, { vol: 0.5, dur: 1.2 }));
+set(SFX, 'bite', p => S(['crack1', 'crack2'], p, { vol: 0.5, rate: 1.4 }));
+set(SFX, 'puff', p => S('puff', p, { vol: 0.6 }));
+set(SFX, 'beep', () => S('beep', null, { vol: 0.4 }));
+set(SFX, 'growl', p => S(['growl1', 'growl2'], p, { rate: 0.8 }));
+set(CSFX, 'owl', p => S('crow', p, { vol: 0.7, rate: 0.8 })); // PROVISIONAL: el tecolote suena a ave genérica (cuervo); falta un tecolote de verdad
+set(CSFX, 'wet', p => { for (let k = 0; k < 4; k++) S('drip', p, { offset: 2 + k, dur: 0.3, delay: k * 0.4, vol: 0.6 }); });
+set(CSFX, 'llanto', p => S('choir', p, { rate: 0.6, vol: 0.7, lp: 1800 }));
+set(CSFX, 'shutter', p => SFX.shutter(p));
+// la cacería: latido (bombo grave) y pasos pesados del ánima
+huntAudio = function (dt) {
+  if (!audio || audio.muted || !w) return; const g = w.g, V = viewer(); if (!g.hunt || !V) return;
+  const now = audio.ctx.currentTime, sp = g.def.huntStart + g.def.accel * g.seenT, k = Math.min(1, (sp - g.def.huntStart) / Math.max(0.1, g.def.top - g.def.huntStart));
+  const d = V.f === g.f ? Math.hypot(V.x - g.x, V.y - g.y) : 30, near = Math.max(0, 1 - d / 25), p = { f: g.f, x: g.x, y: g.y };
+  if (now >= audio.nextBeat) { audio.nextBeat = now + 60 / (70 + 90 * k + 40 * near); S('heart2', null, { vol: 0.5 + near * 0.5, rate: 0.7 }); S('heart2', null, { vol: 0.35 + near * 0.3, rate: 0.7, delay: 0.16 }); }
+  if (now >= audio.nextStep) { const id = g.def.id; audio.nextStep = now + (id === 'malaire' ? 1.2 : 0.55 - 0.3 * k);
+    if (id === 'malaire') S(['breath1', 'breath2'], p, { vol: 0.5, rate: 0.7 });
+    else if (id === 'nahual' || id === 'cadejo') { S(['wood1', 'wood2'], p, { vol: 0.7, rate: 1.4 }); S(['wood3', 'wood4'], p, { vol: 0.6, rate: 1.4, delay: 0.07 }); }
+    else if (id === 'planchada') S('snap', p, { vol: 0.6, rate: 1.4 });
+    else if (id === 'nachito') S(['wood1', 'wood2', 'wood3'], p, { vol: 0.5, rate: 1.5 });
+    else S(['wood1', 'wood2', 'wood3', 'wood4', 'stone1'], p, { vol: 1, rate: 0.6, lp: 1800 }); }
+};
+// la voz de la casa en la grabadora y el teléfono sin frases: estática en vez de voz sintética rara
+
+// crujidos de la casa vieja de vez en cuando (adentro)
+let ambT = 8;
+const _sndAmbience = sndAmbience;
+sndAmbience = function () { _sndAmbience(); };
+function sndCreaks(dt) {
+  if (!audio || audio.muted || !w || !running) return; ambT -= dt; if (ambT > 0) return; ambT = rnd(6, 16);
+  const V = viewer(); if (!V || (V.f === 0 && V.y >= 39)) return; const a = Math.random() * 6.28, r = rnd(5, 14), p = { f: V.f, x: V.x + Math.cos(a) * r, y: V.y + Math.sin(a) * r };
+  const k = Math.random(); if (k < 0.45) S(['creak1', 'creak2', 'door_creak'], p, { vol: 0.35, dur: 1.6, vary: 0.3 }); else if (k < 0.7) S(['crack1', 'crack2'], p, { vol: 0.3 }); else S(['wood1', 'wood2'], p, { vol: 0.25, rate: 0.7, lp: 900 });
+}
+const _updateSceneS2 = updateScene; updateScene = function (t, dt) { _updateSceneS2(t, dt); try { sndCreaks(dt || 0.016); } catch (e) {} };
+// ---------- volumen de efectos y de voces ----------
+const VOL = (() => { try { return Object.assign({ fx: 1, voz: 1 }, JSON.parse(localStorage.getItem('nda_vol') || '{}')); } catch (e) { return { fx: 1, voz: 1 }; } })();
+function volApply() { if (audio && audio.master) audio.master.gain.value = 0.8 * VOL.fx; VOICE.vol = VOL.voz; try { localStorage.setItem('nda_vol', JSON.stringify(VOL)); } catch (e) {} }
+{ const fx = $('#volFx'), vz = $('#volVoz'); if (fx) { fx.value = VOL.fx; vz.value = VOL.voz; fx.oninput = () => { VOL.fx = +fx.value; volApply(); }; vz.oninput = () => { VOL.voz = +vz.value; volApply(); }; }
+  const btn = $('#volBtn'); if (btn) btn.onclick = e => { e.stopPropagation(); $('#volPanel').hidden = !$('#volPanel').hidden; }; }
+const _initAudioV = initAudio; initAudio = function () { _initAudioV(); volApply(); };
+VOICE.vol = VOL.voz;
 
 document.getElementById('loading').remove();
 </script>

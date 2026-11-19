@@ -86,7 +86,7 @@ function musicPlay(on) { ambience(on); return; try { if (!music) { music = new A
 const keys = new Set(), pressed = new Set();
 let mouse = { x: 0, y: 0, has: false }, throwHold = 0, throwing = false;
 const joy = { x: 0, y: 0 };
-let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 900, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro' };
+let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro' };
 
 // Escultura vectorial: todo mate y de caras planas, sin la textura de grano (GDD §9.3)
 function LambertFlat(o) { o = Object.assign({}, o || {}); if (o.map && o.map === paper) delete o.map; return new THREE.MeshStandardMaterial(Object.assign({ flatShading: true, roughness: 0.95, metalness: 0 }, o)); }
@@ -887,7 +887,7 @@ function updateOverlay() {
   if (pa && pa.item && camera.position && THREE.Vector3.prototype.project) { const v = new THREE.Vector3(pa.item.x, pa.item.f * FH + 0.45, pa.item.y).project(camera); const el = $('#itemlabel'); el.hidden = v.z > 1; el.style.left = ((v.x + 1) / 2 * innerWidth) + 'px'; el.style.top = ((1 - v.y) / 2 * innerHeight) + 'px'; el.innerHTML = cardImg(pa.item.kind, 'mci') + ITEMS[pa.item.kind].n; } else $('#itemlabel').hidden = true;
   // brújula: altar con 2 pruebas, salida en la huida
   let tg = null, lbl = '';
-  if (me.alive && w.phase === 'huida') { tg = EXIT; lbl = 'Salida'; } else if (me.alive && pruebas(w) >= 2 && w.phase === 'night') { tg = { f: ALTAR_POS.f, x: ALTAR_POS.x, y: ALTAR_POS.y }; lbl = 'Altar'; }
+  if (me.alive && w.phase === 'huida') { tg = EXIT; lbl = 'Salida'; } else if (me.alive && me.guess && w.phase === 'night') { tg = EXIT; lbl = 'Camioneta'; }
   const cp = $('#compass'); cp.hidden = !tg;
   if (tg) { const tf = tg.f === undefined ? 0 : tg.f; const a = Math.atan2(tg.y - me.y, tg.x - me.x) - yaw; const dist = Math.hypot(tg.x - me.x, tg.y - me.y);
     cp.innerHTML = `<span class="arr" style="transform:rotate(${a * 180 / Math.PI + 90}deg)">➤</span> ${lbl} · ${dist.toFixed(0)} m${tf !== me.f ? (tf < me.f ? ' · baja' : ' · sube') : ''}`; }
@@ -1028,7 +1028,7 @@ function frame(ts) {
     const n = w.opt.role === 'bots' ? speedMult : 1;
     for (let k = 0; k < n; k++) step(w, dt, k === 0 ? input : { mx, my, sprint: false, press: new Set(), face });
   }
-  if (NET.mode !== 'off' && NET.started) { VOICE.update(w, w.invs[ME], yaw); NET.callT = (NET.callT || 0) - dt; if (NET.callT <= 0) { NET.callT = 2; VOICE.callAll(w.invs.filter(i => i.peer)); } }
+  if (NET.mode !== 'off' && NET.started) { VOICE.update(w, w.invs[ME] || alive(w).find(i => i === viewer()) || alive(w)[0], yaw); NET.callT = (NET.callT || 0) - dt; if (NET.callT <= 0) { NET.callT = 2; VOICE.callAll(w.invs.filter(i => i.peer)); } }
   if (w.events.some(e => e.type === 'altar' && (e.who === undefined || e.who === ME))) showNaming(false);
   if (w.pendingDawn && $('#modal').hidden && w.opt.role === 'inv') showNaming(true);
   feedbackEvents(); playEvents(); huntAudio(dt); updateListener(); feedbackTick(dt); ambienceTick(dt); updateOverlay(); updatePlacement(ts / 1000);
@@ -1063,10 +1063,11 @@ function start(netStart) {
   galleryStop(); setupRenderer();
   ME = 0; netActs = [];
   if (NET.mode === 'host') {
-    const humans = NET.lobby.map(p => ({ name: p.name, char: p.char, peer: p.peer }));
-    const opt = Object.assign({}, menuOpt, { role: 'inv', humans, nInv: Math.max(menuOpt.nInv, humans.length), cursed: menuOpt.cursed });
-    w = newWorld(opt); netHookWorld(w); NET.started = true;
-    const pkt = Object.assign({ t: 'start', opt: Object.assign({}, opt) }, netEnc(w, true));
+    const spec = !!($('#onSpec') && $('#onSpec').checked); NET.spec = spec;
+    const humans = NET.lobby.filter(p => !spec || p.peer !== NET.id).map(p => ({ name: p.name, char: p.char, peer: p.peer }));
+    const opt = Object.assign({}, menuOpt, { role: 'inv', humans, nInv: Math.max(menuOpt.nInv, humans.length, 1), cursed: menuOpt.cursed });
+    w = newWorld(spec ? Object.assign({}, opt, { role: 'bots' }) : opt); netHookWorld(w); NET.started = true; if (spec) { ME = -1; try { VOICE.stream && VOICE.stream.getAudioTracks().forEach(t => t.enabled = false); } catch (e) {} }
+    const pkt = Object.assign({ t: 'start', opt: Object.assign({}, opt, { role: 'inv' }) }, netEnc(w, true));
     for (const c of NET.conns.values()) if (c.open) c.send(pkt);
   } else if (NET.mode === 'guest' && netStart) {
     const opt = netStart.opt; w = newWorld(Object.assign({}, opt));
@@ -1075,7 +1076,7 @@ function start(netStart) {
   } else w = newWorld(Object.assign({}, menuOpt));
   if (scene) { scene.traverse(o => { if (o.geometry) o.geometry.dispose && o.geometry.dispose(); }); }
   buildHouse(); camPos.set(0, 0, 0); yaw = -Math.PI / 2; pitch = -0.12; if (w.opt.role !== 'bots') setTimeout(nightRoulette, 300);
-  follow = 0; speedMult = menuOpt.role === 'bots' ? 2 : 1; keys.clear(); pressed.clear(); journalOpen = false; $('#journal').hidden = true;
+  follow = 0; speedMult = menuOpt.role === 'bots' && NET.mode === 'off' ? 2 : 1; keys.clear(); pressed.clear(); journalOpen = false; $('#journal').hidden = true;
   $('#menu').hidden = true; $('#modal').hidden = true; $('#game').hidden = false; setupTouch();
   running = true; last = performance.now(); requestAnimationFrame(frame); musicPlay(true); fb.san = null; fb.tipQ = []; fb.tipUntil = 0; $('#tip').hidden = true;
 }
@@ -1167,7 +1168,7 @@ function menu() {
     ${menuOpt.role === 'inv' ? `<label>Cámara</label>${seg('cam', [['hombro', 'Sobre el hombro'], ['fp', 'Primera persona']], menuOpt.cam)}` : ''}
     <label>Investigadores ${menuOpt.role === 'inv' ? '(tú incluido)' : ''}</label>${seg('nInv', [[1, '1 · Duelo'], [2, '2'], [3, '3'], [4, '4']], menuOpt.nInv)}
     <label>Ánima ${menuOpt.role === 'inv' ? '(al azar es un misterio)' : ''}</label>${seg('ghost', [['random', 'Al azar'], ...GHOSTS.map(G => [G.id, G.n.replace('El Guardián del Entierro', 'Guardián').replace('Espíritu ', '')])], menuOpt.ghost)}
-    <label>Duración de la noche</label>${seg('night', [[480, '8 min'], [720, '12 min'], [900, '15 min']], menuOpt.night)}
+    <label>Duración de la noche</label>${seg('night', [[480, '8 min'], [600, '10 min'], [720, '12 min']], menuOpt.night)}
     <label>Equipo en la casa</label>${seg('equip', [['escaso', 'Escaso'], ['normal', 'Normal'], ['abundante', 'Abundante']], menuOpt.equip)}
     <label>Dificultad</label>${seg('diff', [['facil', 'Fácil'], ['normal', 'Normal'], ['pesadilla', 'Pesadilla']], menuOpt.diff)}
     <label>Consejos en pantalla</label>${seg('tips', [['si', 'Sí'], ['no', 'No'], ['reset', 'Volver a mostrarlos']], menuOpt.tips)}`;

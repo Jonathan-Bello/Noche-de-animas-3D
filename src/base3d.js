@@ -205,16 +205,20 @@ casSound = function (e, p, V) {
 };
 
 // ---------- dónde estoy y la bitácora del líder ----------
-let roomTagEl = null, blogEl = null, blogOpen = false, blogSeen = 0, blogDrawT = 0;
+let roomTagEl = null, blogEl = null, blogOpen = false, blogSeen = 0, blogDrawT = 0, blogFilter = 'todo';
 function hudExtras(t) {
   const game = $('#game'); if (!game) return;
   if (!roomTagEl) { roomTagEl = document.createElement('div'); roomTagEl.id = 'roomTag'; game.appendChild(roomTagEl);
     blogEl = document.createElement('div'); blogEl.id = 'blog'; blogEl.innerHTML = '<button id="blogBtn" title="Bitácora de la casa (solo la ves tú, el líder)">📜 <span></span></button><div id="blogList" hidden></div>'; game.appendChild(blogEl);
     blogEl.querySelector('#blogBtn').onclick = e => { e.stopPropagation(); blogOpen = !blogOpen; blogEl.querySelector('#blogList').hidden = !blogOpen; blogDrawT = 0; }; }
-  const V = viewer(); roomTagEl.textContent = V ? `${roomName(V) || '—'} · ${elevOf(V) > 0.02 && elevOf(V) < 0.98 ? 'entre pisos' : V.f ? 'planta alta' : 'planta baja'}` : '';
+  const V = viewer(); roomTagEl.textContent = V ? `${roomName(V) || '—'} · ${elevOf(V) > 0.02 && elevOf(V) < 0.98 ? 'entre pisos' : V.f ? 'planta alta' : 'planta baja'}${w.huntFreeAt && w.t < w.huntFreeAt && w.phase === 'night' ? ` · 🕊 el ánima no caza antes de las ${clockStr(w.huntFreeAt)}` : ''}` : '';
   const lead = NET.mode !== 'guest' && w.bitacora; blogEl.hidden = !lead; if (!lead) return;
   const L = w.bitacora, nNew = L.length - blogSeen; blogEl.querySelector('#blogBtn span').textContent = blogOpen ? 'Bitácora' : nNew > 0 ? nNew : '';
-  if (blogOpen) { blogSeen = L.length; if (t > blogDrawT) { blogDrawT = t + 0.5;
-    blogEl.querySelector('#blogList').innerHTML = '<b>Bitácora de la casa</b> <span class="small">(solo tú la ves)</span>' + L.slice(-14).reverse().map(e => `<div class="be ${e.kind === 'ánima' ? 'bg' : e.kind === 'cacería' ? 'bh' : ''}"><i>${clockStr(e.t)}</i> <b>${e.kind === 'casa' ? '🏚' : e.kind === 'cacería' ? '⚠' : '👻'}</b> ${e.txt}${e.room ? ` <span>· ${e.room}</span>` : ''}</div>`).join(''); } }
+  if (blogOpen) { blogSeen = L.length; if (t > blogDrawT) { blogDrawT = t + 0.6; const box = blogEl.querySelector('#blogList');
+    const F = { todo: () => true, casa: e => e.kind === 'casa', anima: e => e.kind === 'ánima' || e.kind === 'cacería', equipo: e => e.kind === 'equipo' || e.kind === 'cacería' };
+    const keepScroll = box.scrollTop;
+    box.innerHTML = '<b>Bitácora</b> <span class="small">(solo la ves tú, el líder · lo más nuevo arriba)</span><div class="bf">' + [['todo', 'Todo'], ['casa', '🏚 Casa'], ['anima', '👻 Ánima'], ['equipo', '🧍 Equipo']].map(([k, n]) => `<button data-f="${k}" class="${blogFilter === k ? 'on' : ''}">${n}</button>`).join('') + '</div>'
+      + L.filter(F[blogFilter]).slice(-60).reverse().map(e => { const P = e.who !== undefined && w.invs[e.who]; return `<div class="be ${e.kind === 'ánima' ? 'bg' : e.kind === 'cacería' ? 'bh' : e.kind === 'casa' ? 'bc' : 'bt'}"><i>${clockStr(e.t)}</i> <b>${e.kind === 'casa' ? '🏚' : e.kind === 'cacería' ? '⚠' : e.kind === 'ánima' ? '👻' : '🧍'}</b> ${P ? `<span style="color:${P.color}">●</span> ` : ''}${e.txt}${e.room ? ` <span>· ${e.room}</span>` : ''}</div>`; }).join('');
+    box.scrollTop = keepScroll; box.querySelectorAll('.bf button').forEach(btn => btn.onclick = ev => { ev.stopPropagation(); blogFilter = btn.dataset.f; blogDrawT = 0; }); } }
 }
 const _updateScene5 = updateScene; updateScene = function (t, dt) { _updateScene5(t, dt); try { hudExtras(t); } catch (e) {} };

@@ -5,7 +5,8 @@ const SND_FILES = ['door_open1', 'door_open2', 'door_close1', 'door_close2', 'sl
   'van_door', 'amb_out', 'drip', 'match', 'chain', 'chain2', 'gas', 'bonk', 'feedback', 'book_throw', 'book', 'ceramic_break', 'grass1', 'grass2', 'grass3', 'picture', 'rumble', 'mouth', 'cough',
   'wood1', 'wood2', 'wood3', 'wood4', 'stone1', 'stone2', 'bell_heavy', 'bell1', 'bell2', 'bell_small', 'thunder', 'rain', 'static1', 'static2', 'hiss', 'howl', 'bark', 'breath1', 'breath2',
   'weird1', 'weird2', 'weird3', 'weird4', 'growl1', 'growl2', 'glass_break1', 'glass_break2', 'fall1', 'fall2', 'wood_break', 'crack1', 'crack2', 'keys', 'cineboom', 'haunted_hum', 'dark_woosh',
-  'choir', 'glass_rub', 'crow', 'guitar', 'glitch1', 'glitch2', 'beep', 'buzz'];
+  'choir', 'glass_rub', 'crow', 'guitar', 'glitch1', 'glitch2', 'beep', 'buzz',
+  'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
 const SND = { buf: {}, loading: false, loops: {} };
 function sndLoad() {
   if (SND.loading || !audio || !audio.ctx) return; SND.loading = true;
@@ -119,3 +120,69 @@ function sndAmbience() {
 const _updateSceneS = updateScene; updateScene = function (t, dt) { _updateSceneS(t, dt); try { sndAmbience(); } catch (e) {} };
 const _toMenuS = toMenu; toMenu = function () { Object.values(SND.loops).forEach(L => L.g.gain.value = 0); _toMenuS(); };
 window.__snd = SND;
+
+// ---------- ya nada sintetizado: todo suena con grabaciones (si una no cargó, no suena) ----------
+const SYNTH_OFF = true;
+const _toneS = tone, _noiseS = noise;
+tone = function (...a) { if (!SYNTH_OFF) _toneS(...a); };
+noise = function (...a) { if (!SYNTH_OFF) _noiseS(...a); };
+ambience = function () {}; // el viejo zumbido de ruido generado
+const laughK = ['laugh1', 'laugh2', 'laugh3', 'laugh4'];
+const set = (obj, name, fn) => { obj[name] = fn; };
+set(SFX, 'laugh', p => S(laughK, p, { rate: 0.75, vol: 0.9, lp: 2500 }));
+set(SFX, 'giggle', p => S(laughK, p, { rate: 1.15, vol: 0.7, hp: 400 }));
+set(SFX, 'coins', p => S('keys', p, { vol: 0.6 }));
+set(SFX, 'wings', p => S('wings', p, { vol: 0.8, rate: 0.9 }));
+set(SFX, 'frost', p => S('glass_rub', p, { vol: 0.6, rate: 1.2 }));
+set(SFX, 'sheet', p => S('wings', p, { vol: 0.5, rate: 0.6, lp: 1200 }));
+set(SFX, 'toy', p => S('toy', p, { vol: 0.8 }));
+set(SFX, 'si', () => S('ding', null, { vol: 0.6 }));
+set(SFX, 'emf', (p, lvl) => { for (let k = 0; k < (lvl || 1); k++) S('beep', p, { vol: 0.35, rate: 0.8 + (lvl || 1) * 0.12, delay: k * 0.09 }); });
+set(SFX, 'shutter', p => { S('click_btn', p, { vol: 0.9 }); S('latch', p, { vol: 0.5, delay: 0.06, rate: 1.3 }); });
+set(SFX, 'copal', p => { S('match', p, { vol: 0.7 }); S('gas', p, { vol: 0.3, dur: 1.5, delay: 0.3 }); });
+set(SFX, 'pickup', () => S('pickup', null, { vol: 0.5 }));
+set(SFX, 'card', p => S('book', p, { vol: 0.6, rate: 1.3 }));
+set(SFX, 'slide', p => S('picture', p, { vol: 0.7 }));
+set(SFX, 'shimmer', p => S('glass_rub', p, { vol: 0.7 }));
+set(SFX, 'clicks', p => { for (let k = 0; k < 4; k++) S('snap', p, { delay: k * 0.18, vol: 0.6, vary: 0.2 }); });
+set(SFX, 'sizzle', p => S('gas', p, { vol: 0.5, dur: 1.2 }));
+set(SFX, 'bite', p => S(['crack1', 'crack2'], p, { vol: 0.5, rate: 1.4 }));
+set(SFX, 'puff', p => S('puff', p, { vol: 0.6 }));
+set(SFX, 'beep', () => S('beep', null, { vol: 0.4 }));
+set(SFX, 'growl', p => S(['growl1', 'growl2'], p, { rate: 0.8 }));
+set(CSFX, 'owl', p => S('crow', p, { vol: 0.7, rate: 0.8 })); // PROVISIONAL: el tecolote suena a ave genérica (cuervo); falta un tecolote de verdad
+set(CSFX, 'wet', p => { for (let k = 0; k < 4; k++) S('drip', p, { offset: 2 + k, dur: 0.3, delay: k * 0.4, vol: 0.6 }); });
+set(CSFX, 'llanto', p => S('choir', p, { rate: 0.6, vol: 0.7, lp: 1800 }));
+set(CSFX, 'shutter', p => SFX.shutter(p));
+// la cacería: latido (bombo grave) y pasos pesados del ánima
+huntAudio = function (dt) {
+  if (!audio || audio.muted || !w) return; const g = w.g, V = viewer(); if (!g.hunt || !V) return;
+  const now = audio.ctx.currentTime, sp = g.def.huntStart + g.def.accel * g.seenT, k = Math.min(1, (sp - g.def.huntStart) / Math.max(0.1, g.def.top - g.def.huntStart));
+  const d = V.f === g.f ? Math.hypot(V.x - g.x, V.y - g.y) : 30, near = Math.max(0, 1 - d / 25), p = { f: g.f, x: g.x, y: g.y };
+  if (now >= audio.nextBeat) { audio.nextBeat = now + 60 / (70 + 90 * k + 40 * near); S('heart2', null, { vol: 0.5 + near * 0.5, rate: 0.7 }); S('heart2', null, { vol: 0.35 + near * 0.3, rate: 0.7, delay: 0.16 }); }
+  if (now >= audio.nextStep) { const id = g.def.id; audio.nextStep = now + (id === 'malaire' ? 1.2 : 0.55 - 0.3 * k);
+    if (id === 'malaire') S(['breath1', 'breath2'], p, { vol: 0.5, rate: 0.7 });
+    else if (id === 'nahual' || id === 'cadejo') { S(['wood1', 'wood2'], p, { vol: 0.7, rate: 1.4 }); S(['wood3', 'wood4'], p, { vol: 0.6, rate: 1.4, delay: 0.07 }); }
+    else if (id === 'planchada') S('snap', p, { vol: 0.6, rate: 1.4 });
+    else if (id === 'nachito') S(['wood1', 'wood2', 'wood3'], p, { vol: 0.5, rate: 1.5 });
+    else S(['wood1', 'wood2', 'wood3', 'wood4', 'stone1'], p, { vol: 1, rate: 0.6, lp: 1800 }); }
+};
+// la voz de la casa en la grabadora y el teléfono sin frases: estática en vez de voz sintética rara
+
+// crujidos de la casa vieja de vez en cuando (adentro)
+let ambT = 8;
+const _sndAmbience = sndAmbience;
+sndAmbience = function () { _sndAmbience(); };
+function sndCreaks(dt) {
+  if (!audio || audio.muted || !w || !running) return; ambT -= dt; if (ambT > 0) return; ambT = rnd(6, 16);
+  const V = viewer(); if (!V || (V.f === 0 && V.y >= 39)) return; const a = Math.random() * 6.28, r = rnd(5, 14), p = { f: V.f, x: V.x + Math.cos(a) * r, y: V.y + Math.sin(a) * r };
+  const k = Math.random(); if (k < 0.45) S(['creak1', 'creak2', 'door_creak'], p, { vol: 0.35, dur: 1.6, vary: 0.3 }); else if (k < 0.7) S(['crack1', 'crack2'], p, { vol: 0.3 }); else S(['wood1', 'wood2'], p, { vol: 0.25, rate: 0.7, lp: 900 });
+}
+const _updateSceneS2 = updateScene; updateScene = function (t, dt) { _updateSceneS2(t, dt); try { sndCreaks(dt || 0.016); } catch (e) {} };
+// ---------- volumen de efectos y de voces ----------
+const VOL = (() => { try { return Object.assign({ fx: 1, voz: 1 }, JSON.parse(localStorage.getItem('nda_vol') || '{}')); } catch (e) { return { fx: 1, voz: 1 }; } })();
+function volApply() { if (audio && audio.master) audio.master.gain.value = 0.8 * VOL.fx; VOICE.vol = VOL.voz; try { localStorage.setItem('nda_vol', JSON.stringify(VOL)); } catch (e) {} }
+{ const fx = $('#volFx'), vz = $('#volVoz'); if (fx) { fx.value = VOL.fx; vz.value = VOL.voz; fx.oninput = () => { VOL.fx = +fx.value; volApply(); }; vz.oninput = () => { VOL.voz = +vz.value; volApply(); }; }
+  const btn = $('#volBtn'); if (btn) btn.onclick = e => { e.stopPropagation(); $('#volPanel').hidden = !$('#volPanel').hidden; }; }
+const _initAudioV = initAudio; initAudio = function () { _initAudioV(); volApply(); };
+VOICE.vol = VOL.voz;

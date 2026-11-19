@@ -10,3 +10,10 @@ Sonidos provisionales de Noche de Ánimas (convertidos a MP3 mono 22 kHz y norma
 - Sonic Pi (CC0, vía github.com/adafruit/Adafruit-Sound-Samples): golpe de cine, zumbido embrujado, soplo oscuro, coro,
   vidrio frotado, cuervo, campanita, guitarra, siseo, glitches, bip, zumbido.
 - Zulubo Sounds (MIT, github.com/zulubo/Zulubo-Sounds): apagón, puerta que rechina.
+
+Agregados en la v1.3:
+- FilmCow: aleteo (libro agitándose), soplido (aire comprimido), tomar objeto (libro), botón, campanita de vidrio, pestillo, matraca.
+- Colección CC0: risas (MMRetroArcadeSoundsPack "Laugh", MadameBerry "Laugh").
+- Sonic Pi (CC0): bombos graves usados como latido, chasquido.
+PENDIENTES (provisionales): el tecolote usa el graznido de un cuervo; falta un tecolote real. Las voces de la tele, la radio
+y "¡Ay, mis hijos!" siguen siendo voz sintética del navegador.
