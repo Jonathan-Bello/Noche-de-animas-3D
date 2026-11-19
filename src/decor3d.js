@@ -10,6 +10,7 @@ const NDADecorArt=globalThis.NDADecorArt=(()=>{
    case 'basket':basket();break;
    case 'sack':cy(0,.20,0,.23,.20,.4,P.bone,6);cy(0,.43,0,.08,.20,.10,P.reed,6);box(0,.41,0,.17,.025,.17,P.wood);break;
    case 'jar':cy(0,.10,0,.085,.085,.20,P.teal,6);cy(0,.215,0,.09,.09,.03,P.wood,6);box(0,.10,.075,.08,.08,.025,P.bone);break;
+   case 'medicine_bottle':cy(0,.09,0,.065,.065,.18,P.wine,6);cy(0,.205,0,.025,.065,.05,P.wine,6);cy(0,.247,0,.026,.026,.035,P.wood,6);box(0,.095,.063,.075,.075,.009,P.bone);break;
    case 'molinillo':cy(0,.16,0,.018,.018,.32,P.wood,6);for(const y of[.045,.085,.125])cy(0,y,0,.065,.065,.02,P.light,8);break;
    case 'cup':cy(0,.06,0,.07,.055,.12,P.clay,8);cy(0,.124,0,.055,.055,.009,P.dark,8);box(.085,.075,0,.04,.07,.035,P.clay);break;
    case 'plate':cy(0,.02,0,.16,.12,.04,P.bone);cy(0,.043,0,.115,.115,.008,P.teal);break;
@@ -41,9 +42,38 @@ const NDADecorArt=globalThis.NDADecorArt=(()=>{
    case 'top':cy(0,.06,0,.06,.01,.09,P.clay,6);cy(0,.12,0,.012,.012,.04,P.wood,6);break;
    case 'wall_lamp':{box(0,.12,-.035,.06,.12,.035,P.wood);box(0,.23,0,.06,.04,.11,P.dark);const shade=new THREE.ConeGeometry(.145,.16,6);shade.scale(1,1,.45);add(shade,P.bone,0,.28,0);add(new THREE.OctahedronGeometry(.035),P.light,0,.20,0);break;}
    case 'paper_letters':box(0,.003,0,.28,.006,.21,P.bone);box(.015,.009,.012,.24,.006,.18,P.light);box(0,.013,0,.065,.002,.04,P.wine);break;
+   case 'laundry_basket':basket();box(0,.295,0,.30,.025,.30,P.bone);box(.04,.321,.02,.22,.026,.22,P.teal);break;
+   case 'fabric_rolls':for(const[x,z,col]of[[-.10,-.09,P.teal],[.10,-.07,P.wine],[0,.10,P.bone]]){cy(x,.24,z,.075,.075,.48,col,6);cy(x,.487,z,.03,.03,.015,P.wood,6);}break;
+   case 'storage_box':box(0,.14,0,.60,.28,.44,P.wood);box(0,.288,0,.62,.024,.46,P.light);box(0,.15,.226,.25,.10,.012,P.bone);for(const x of[-.20,.20])box(x,.145,0,.025,.29,.448,P.reed);break;
+   case 'paint_cans':for(const x of[-.115,.115]){cy(x,.115,0,.105,.105,.23,P.dark,8);cy(x,.235,0,.108,.108,.02,P.wood,8);box(x,.11,.101,.12,.09,.018,x<0?P.teal:P.wine);}break;
+   case 'brush_jar':cy(0,.08,0,.09,.085,.16,P.clay,6);for(const x of[-.04,.035]){box(x,.215,0,.012,.16,.012,P.wood,x);box(x,.307,0,.045,.04,.028,P.reed);}break;
+   case 'lantern':{box(0,.025,0,.25,.05,.23,P.dark);box(0,.20,0,.16,.26,.14,P.light);for(const x of[-.105,.105])for(const z of[-.09,.09])box(x,.19,z,.025,.28,.025,P.dark);const roof=new THREE.ConeGeometry(.17,.09,4);roof.rotateY(Math.PI/4);add(roof,P.dark,0,.365,0);box(0,.435,0,.08,.04,.025,P.dark);break;}
+   case 'mortar':cy(0,.075,0,.17,.12,.15,0x827f74,8);cy(0,.155,0,.13,.13,.01,P.dark,8);add(new THREE.CylinderGeometry(.022,.032,.22,6),0xb9b2a2,.065,.13,0,0,0,-.7);break;
+   case 'balance':box(0,.025,0,.46,.05,.24,P.wood);cy(0,.20,0,.018,.025,.35,P.gold,6);box(0,.36,0,.48,.025,.04,P.dark);for(const x of[-.19,.19]){box(x,.25,0,.01,.20,.01,P.gold);cy(x,.145,0,.07,.04,.035,P.gold,8);}break;
+   case 'candle_group':box(0,.015,0,.44,.03,.25,P.wood);for(const[x,y]of[[-.13,.17],[0,.23],[.13,.20]]){cy(x,y/2+.03,0,.045,.045,y,P.bone,6);box(x,y+.035,0,.009,.015,.009,P.dark);}break;
+   case 'flowers_table':cy(0,.09,0,.08,.065,.18,P.clay,6);for(const x of[-.06,0,.06]){box(x,.28,0,.01,.22,.01,P.reed,x*2);add(new THREE.OctahedronGeometry(.04),P.gold,x,.425,0);}break;
+   case 'music_sheet':box(0,.003,0,.30,.006,.24,P.bone);for(let k=0;k<5;k++)box(0,.007,(-2+k)*.028,.25,.002,.003,P.wood);for(const x of[-.07,.02,.095])box(x,.011,x*.3,.014,.006,.016,P.dark);break;
+   case 'bath_towel':box(0,.019,0,.18,.038,.52,P.bone);for(const z of[-.18,.18])box(0,.04,z,.17,.006,.025,P.teal);break;
+   case 'soap':cy(0,.012,0,.07,.06,.024,P.bone,8);box(0,.04,0,.10,.03,.07,P.teal);break;
+   case 'photo_table':{box(0,.13,0,.20,.26,.025,P.wood);box(0,.13,.016,.17,.23,.007,P.bone);add(new THREE.CylinderGeometry(.028,.028,.008,6),P.clay,0,.19,.025,Math.PI/2);box(0,.115,.025,.065,.08,.01,P.wine);box(0,.035,-.035,.025,.07,.10,P.wood);break;}
+   case 'ink_set':box(0,.01,0,.20,.02,.18,P.wood);cy(-.04,.047,0,.035,.035,.07,P.teal,6);cy(-.04,.088,0,.036,.036,.013,P.dark,6);box(.055,.065,0,.025,.11,.025,P.wood);box(.055,.135,0,.04,.03,.04,P.gold);break;
+   case 'wall_sewing':{box(0,.33,0,.64,.66,.025,P.wood);box(0,.12,.015,.60,.04,.16,P.light);for(const[x,col]of[[-.20,P.wine],[0,P.teal],[.20,P.bone]]){cy(x,.22,.015,.065,.065,.16,col,6);cy(x,.305,.015,.075,.075,.015,P.reed,6);cy(x,.135,.015,.075,.075,.015,P.reed,6);}box(-.12,.49,.028,.025,.22,.025,P.dark,.5);box(-.05,.49,.028,.025,.22,.025,P.dark,-.5);box(.18,.49,.03,.13,.16,.025,P.bone);break;}
+   case 'wall_tools':{box(0,.4,0,.70,.8,.03,P.wood);box(-.20,.42,.035,.035,.45,.03,P.reed);box(-.20,.64,.04,.21,.065,.075,P.dark);box(.06,.36,.035,.03,.42,.03,P.wood);box(.06,.59,.045,.10,.15,.035,P.dark);box(.24,.25,.045,.035,.26,.035,P.reed);box(.24,.41,.045,.085,.08,.04,P.light);break;}
+   case 'rope_coil':{const outer=[],inner=[];for(let k=0;k<8;k++){const a=k*Math.PI/4;outer.push(new THREE.Vector2(Math.cos(a)*.17,.22+Math.sin(a)*.17));inner.unshift(new THREE.Vector2(Math.cos(a)*.12,.22+Math.sin(a)*.12));}const shape=new THREE.Shape(outer);shape.holes.push(new THREE.Path(inner));add(new THREE.ExtrudeGeometry(shape,{depth:.035,bevelEnabled:false,curveSegments:1,steps:1}),P.reed);box(0,.44,0,.055,.12,.075,P.dark);break;}
+   case 'herb_bundle':{box(0,.52,0,.42,.06,.035,P.wood);for(const x of[-.13,0,.13]){box(x,.31,.015,.012,.39,.012,P.reed);for(const y of[.12,.24,.36]){const leaf=new THREE.ConeGeometry(.05,.13,4);add(leaf,0x526d49,x+.03,y,.02,0,0,-.6);const leaf2=new THREE.ConeGeometry(.05,.13,4);add(leaf2,0x526d49,x-.03,y+.025,.02,0,0,.6);}}break;}
+   case 'wall_bathrack':box(0,.49,0,.52,.06,.05,P.wood);box(0,.27,.025,.34,.43,.045,P.bone);box(0,.09,.052,.32,.025,.015,P.teal);box(.19,.14,.015,.12,.035,.15,P.wood);box(.19,.18,.035,.08,.04,.06,P.teal);break;
+   case 'wall_keyrack':box(0,.32,0,.48,.36,.03,P.wood);for(const x of[-.15,0,.15]){box(x,.35,.03,.022,.08,.055,P.dark);box(x,.23,.045,.014,.15,.012,P.gold);box(x,.15,.045,.07,.018,.014,P.gold);}break;
+   case 'wall_certificate':case 'wall_pattern':case 'music_score':case 'wall_map':case 'wall_devotion':{
+    const W=asset==='wall_map'?.62:asset==='music_score'?.48:asset==='wall_devotion'?.44:.50,H=asset==='wall_pattern'?.60:asset==='music_score'?.56:asset==='wall_map'?.58:asset==='wall_devotion'?.54:.52;
+    box(0,H/2,0,W,H,.025,P.wood);box(0,H/2,.017,W-.06,H-.06,.008,P.bone);
+    if(asset==='wall_pattern'){const shape=new THREE.Shape([[-.12,.12],[.12,.12],[.08,.30],[.16,.32],[.13,.41],[.055,.46],[-.055,.46],[-.13,.41],[-.16,.32],[-.08,.30]].map(p=>new THREE.Vector2(...p)));add(new THREE.ExtrudeGeometry(shape,{depth:.006,bevelEnabled:false,curveSegments:1,steps:1}),P.teal,0,0,.024);}
+    else if(asset==='music_score'){for(let k=0;k<5;k++)box(0,.20+k*.035,.026,.36,.004,.005,P.wood);for(const[x,y]of[[-.12,.235],[-.02,.27],[.10,.305]]){box(x,y,.032,.025,.018,.008,P.dark);box(x+.01,y+.05,.031,.006,.10,.008,P.dark);}}
+    else if(asset==='wall_map'){for(const[x,y,rz]of[[-.13,.30,.7],[.06,.25,-.4],[.11,.40,.2]])box(x,y,.027,.09,.22,.008,P.teal,rz);for(let k=0;k<3;k++)box(0,.12+k*.14,.033,W-.12,.005,.006,P.reed);}
+    else if(asset==='wall_devotion'){(()=>{const flame=new THREE.ConeGeometry(.06,.13,4);flame.scale(1,1,.3);add(flame,P.gold,0,.36,.028);})();box(0,.20,.027,.075,.16,.009,P.wine);box(0,.10,.027,.20,.02,.009,P.teal);}
+    else{for(let k=0;k<4;k++)box(0,.20+k*.055,.026,W-.16,.008,.006,P.wood);add(new THREE.CylinderGeometry(.035,.035,.008,6),P.wine,.13,.11,.027,Math.PI/2);}break;}
    default:throw Error('Unknown decoration asset '+asset);
   }
-  const mount={family_frame:[.12,.23],drawing:[.12,.19],wall_mirror:[.12,.32],wall_hooks:[.16,.64],wall_flowers:[.18,.15],wall_lamp:[.18,.12]}[asset];if(mount)box(0,mount[1],-mount[0]/4-.005,.05,.06,mount[0]/2-.01,P.wood);
+  const mount={wall_sewing:[.20,.33],wall_pattern:[.12,.30],wall_tools:[.20,.40],rope_coil:[.14,.44],herb_bundle:[.18,.52],wall_certificate:[.12,.26],music_score:[.12,.28],wall_bathrack:[.20,.49],wall_keyrack:[.16,.32],wall_map:[.12,.29],wall_devotion:[.12,.27],family_frame:[.12,.23],drawing:[.12,.19],wall_mirror:[.12,.32],wall_hooks:[.16,.64],wall_flowers:[.18,.15],wall_lamp:[.18,.12]}[asset];if(mount)box(0,mount[1],-mount[0]/4-.005,.05,.06,mount[0]/2-.01,P.wood);
   const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(p,3));geo.setAttribute('color',new THREE.Float32BufferAttribute(c,3));geo.computeVertexNormals();geo.computeBoundingBox();const mesh=new THREE.Mesh(geo,material);mesh.name='asset_'+asset;mesh.castShadow=mesh.receiveShadow=true;return mesh;
  }
  function build(floors){const rooms=new Map();for(const i of NDALayout.decorInstances||[]){if(NDALayout.decorAssets[i.asset].throwable)continue;const p=decorPosition(i),m=create(i.asset);m.position.set(p.x,p.h,p.y);m.rotation.y=i.rotation||0;m.userData.instanceId=i.id;const key=i.room;if(!rooms.has(key)){const g=new THREE.Group();g.name='decor_room_'+key;g.userData.componentIds=[];rooms.set(key,g);floors[p.f].add(g);}rooms.get(key).add(m);rooms.get(key).userData.componentIds.push(i.id);}for(const g of rooms.values())NDAHouseArt.mergeProp(g);}

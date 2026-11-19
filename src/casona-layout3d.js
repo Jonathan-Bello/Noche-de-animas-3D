@@ -18,7 +18,7 @@ const NDAHouseArt=(()=>{
   if(m==='vanity'&&!NDALayout.decorInstances?.some(i=>i.support===o.id&&i.asset==='wall_mirror')){box(b,x,H+.5,z+.12,w*.65,.9,.055,P.dark);box(b,x,H+.5,z+.16,w*.65-.12,.78,.02,0x788584);}
   if(m==='ironing'||m==='sewing'){box(b,x,H+.015,zz,w*.65,.025,dep*.7,0x9a777b);}
   if(m==='stove'){box(b,x,H/2,zz,w-.08,H-.08,dep-.08,P.shade);for(const xx of[x-.45,x+.45])cylinder(b,xx,H+.025,zz,.26,.26,.05,P.iron,8);}
-  if(m==='workbench')for(let k=0;k<3;k++)box(b,a+.25+k*.22,H+.035,zz,.13,.07,.28,P.iron);
+  if(m==='workbench'&&!NDALayout.decorInstances?.some(i=>i.room===o.room))for(let k=0;k<3;k++)box(b,a+.25+k*.22,H+.035,zz,.13,.07,.28,P.iron);
  }
  function table(b,o){if(!o.backWall||o.backWall==='north')return tableLocal(b,o);const[a,z,c,d]=o.rect,turn=['west','east'].includes(o.backWall),w=turn?d-z:c-a,dep=turn?c-a:d-z,tmp=new Batch('mesa_orientada');tableLocal(tmp,{...o,rect:[-w/2,-dep/2,w/2,dep/2]});b.append(tmp,(a+c)/2,(z+d)/2,o.backWall==='west'?Math.PI/2:o.backWall==='east'?-Math.PI/2:Math.PI);}
  function cabinet(b,o){const[aa,zz0,cc,dd]=o.rect,turn=dd-zz0>cc-aa&&o.model!=='screen',cx=(aa+cc)/2,cz=(zz0+dd)/2,[a,z,c,d]=turn?[-(dd-zz0)/2,-(cc-aa)/2,(dd-zz0)/2,(cc-aa)/2]:o.rect,x=(a+c)/2,zz=(z+d)/2,w=c-a,dep=d-z,H=o.height||1.9,m=o.model;

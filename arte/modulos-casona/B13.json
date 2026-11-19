@@ -40,7 +40,81 @@
       "backWall": "south"
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_B13",
+      "label": "Muro · Portería",
+      "room": "B13",
+      "floor": 0,
+      "rect": [
+        34,
+        31,
+        41,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B13_paper_letters_01",
+      "room": "B13",
+      "asset": "paper_letters",
+      "support": "am_B13",
+      "offset": [
+        1,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B13_wall_keyrack_01",
+      "room": "B13",
+      "asset": "wall_keyrack",
+      "support": "muro_B13",
+      "offset": [
+        6,
+        1.5,
+        7.92
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "B13_wall_certificate_01",
+      "room": "B13",
+      "asset": "wall_certificate",
+      "support": "muro_B13",
+      "offset": [
+        6.94,
+        1.6,
+        1.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B13_wall_map_01",
+      "room": "B13",
+      "asset": "wall_map",
+      "support": "muro_B13",
+      "offset": [
+        1.5,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HB13",

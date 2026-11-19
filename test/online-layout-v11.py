@@ -2,7 +2,7 @@
 import sys,asyncio,json,re,threading,functools
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Decoracion_Casona_v15';OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Decoracion_Casona_v16';OUT.mkdir(exist_ok=True)
 sys.path.insert(0,str(ROOT.parent/'QA_Arte_Alex/python_lib'))
 from playwright.async_api import async_playwright
 class Quiet(SimpleHTTPRequestHandler):
@@ -27,7 +27,7 @@ async def main():
    await guest.evaluate("__game.menuOpt.char='rafael';__game.menuOpt.tips='no';__game.quality.select('low')")
    await guest.fill('#onName','Invitado');await guest.fill('#onCode',code);await guest.click('#onJoin');await guest.wait_for_timeout(600)
    await host.click('#onStart');await host.locator('#slotGo').click();await guest.wait_for_function('__game.w&&__game.ME===1');await host.wait_for_timeout(700)
-   assert await host.evaluate('__game.w.layout')=='casona-v15';assert await guest.evaluate('__game.w.layout')=='casona-v15'
+   assert await host.evaluate('__game.w.layout')=='casona-v16';assert await guest.evaluate('__game.w.layout')=='casona-v16'
    before=await host.evaluate('__game.w.invs[1].y');await guest.keyboard.down('w');await guest.wait_for_timeout(1400);await guest.keyboard.up('w');await guest.wait_for_timeout(300);after=await host.evaluate('__game.w.invs[1].y');assert before-after>.5,(before,after)
    old=await host.evaluate('__game.w.invs[1].flash');await guest.keyboard.press('f');await guest.wait_for_timeout(300);assert await host.evaluate('__game.w.invs[1].flash')!=old
    state="()=>{const w=__game.w;return{layout:w.layout,hides:[...w.spotsActive].sort(),altar:w.altarSurface,fuseRoom:w.fuseRoom,doors:w.doors.length,drawers:w.containers.length}}"

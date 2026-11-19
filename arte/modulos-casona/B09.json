@@ -42,6 +42,7 @@
       "backWall": "north"
     }
   ],
+  "decorSupports": [],
   "decorations": [
     {
       "id": "B09_basket_01",
@@ -133,7 +134,7 @@
       "asset": "jar",
       "support": "am_B09",
       "offset": [
-        3.0,
+        3,
         0,
         0.35
       ],

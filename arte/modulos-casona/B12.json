@@ -19,7 +19,69 @@
     "favorite": null
   },
   "furniture": [],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_B12",
+      "label": "Muro · Zaguán",
+      "room": "B12",
+      "floor": 0,
+      "rect": [
+        27,
+        31,
+        33,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B12_wall_keyrack_01",
+      "room": "B12",
+      "asset": "wall_keyrack",
+      "support": "muro_B12",
+      "offset": [
+        5.92,
+        1.5,
+        6.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B12_wall_map_01",
+      "room": "B12",
+      "asset": "wall_map",
+      "support": "muro_B12",
+      "offset": [
+        0.8,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B12_family_frame_01",
+      "room": "B12",
+      "asset": "family_frame",
+      "support": "muro_B12",
+      "offset": [
+        0.06,
+        1.6,
+        1.2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    }
+  ],
   "hidingSockets": [],
   "doors": [
     {

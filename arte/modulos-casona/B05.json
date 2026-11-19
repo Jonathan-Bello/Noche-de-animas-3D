@@ -35,7 +35,106 @@
       "blocksSight": false
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_B05",
+      "label": "Muro · Traspatio",
+      "room": "B05",
+      "floor": 0,
+      "rect": [
+        49,
+        1,
+        59,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B05_laundry_basket_01",
+      "room": "B05",
+      "asset": "laundry_basket",
+      "support": "prop_grifo_traspatio",
+      "offset": [
+        0.5,
+        -0.9,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B05_tinaja_01",
+      "room": "B05",
+      "asset": "tinaja",
+      "support": "prop_grifo_traspatio",
+      "offset": [
+        1.5,
+        -0.9,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B05_wall_bathrack_01",
+      "room": "B05",
+      "asset": "wall_bathrack",
+      "support": "muro_B05",
+      "offset": [
+        7,
+        1.4,
+        0.1
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B05_wall_hooks_01",
+      "room": "B05",
+      "asset": "wall_hooks",
+      "support": "muro_B05",
+      "offset": [
+        9.92,
+        1.5,
+        2
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B05_wall_hooks_02",
+      "room": "B05",
+      "asset": "wall_hooks",
+      "support": "muro_B05",
+      "offset": [
+        9.92,
+        1.5,
+        5.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B05_wall_map_01",
+      "room": "B05",
+      "asset": "wall_map",
+      "support": "muro_B05",
+      "offset": [
+        1.5,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    }
+  ],
   "hidingSockets": [],
   "doors": [
     {

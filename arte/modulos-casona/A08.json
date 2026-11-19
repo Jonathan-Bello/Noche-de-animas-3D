@@ -69,7 +69,93 @@
       "drawers": true
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_A08",
+      "label": "Muro · Sala de música",
+      "room": "A08",
+      "floor": 1,
+      "rect": [
+        46,
+        10,
+        59,
+        20
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "A08_music_score_01",
+      "room": "A08",
+      "asset": "music_score",
+      "support": "muro_A08",
+      "offset": [
+        9.8,
+        1.5,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "A08_music_score_02",
+      "room": "A08",
+      "asset": "music_score",
+      "support": "muro_A08",
+      "offset": [
+        12.94,
+        1.5,
+        3.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A08_family_frame_01",
+      "room": "A08",
+      "asset": "family_frame",
+      "support": "muro_A08",
+      "offset": [
+        12.94,
+        1.6,
+        8.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A08_music_sheet_01",
+      "room": "A08",
+      "asset": "music_sheet",
+      "support": "am_A08",
+      "offset": [
+        1,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A08_photo_table_01",
+      "room": "A08",
+      "asset": "photo_table",
+      "support": "am_A08",
+      "offset": [
+        1.84,
+        0,
+        0.84
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA08",

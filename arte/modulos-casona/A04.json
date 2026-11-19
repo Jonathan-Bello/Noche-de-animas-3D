@@ -88,6 +88,7 @@
       "backWall": "west"
     }
   ],
+  "decorSupports": [],
   "decorations": [
     {
       "id": "A04_family_frame_01",

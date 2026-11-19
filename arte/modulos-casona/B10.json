@@ -60,7 +60,153 @@
       ]
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_B10",
+      "label": "Muro · Cuarto de aperos",
+      "room": "B10",
+      "floor": 0,
+      "rect": [
+        1,
+        31,
+        14,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B10_wall_tools_01",
+      "room": "B10",
+      "asset": "wall_tools",
+      "support": "muro_B10",
+      "offset": [
+        0.1,
+        1.5,
+        5.5
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B10_rope_coil_01",
+      "room": "B10",
+      "asset": "rope_coil",
+      "support": "muro_B10",
+      "offset": [
+        0.07,
+        1.7,
+        2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B10_wall_certificate_01",
+      "room": "B10",
+      "asset": "wall_certificate",
+      "support": "muro_B10",
+      "offset": [
+        1.5,
+        2.35,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B10_storage_box_01",
+      "room": "B10",
+      "asset": "storage_box",
+      "support": "estante_aperos",
+      "offset": [
+        0.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_storage_box_02",
+      "room": "B10",
+      "asset": "storage_box",
+      "support": "estante_aperos",
+      "offset": [
+        1.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_storage_box_03",
+      "room": "B10",
+      "asset": "storage_box",
+      "support": "estante_aperos",
+      "offset": [
+        2.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_brush_jar_01",
+      "room": "B10",
+      "asset": "brush_jar",
+      "support": "estante_aperos",
+      "offset": [
+        0.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_linen_01",
+      "room": "B10",
+      "asset": "linen",
+      "support": "estante_aperos",
+      "offset": [
+        1.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_lantern_01",
+      "room": "B10",
+      "asset": "lantern",
+      "support": "estante_aperos",
+      "offset": [
+        2.5,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_paint_cans_01",
+      "room": "B10",
+      "asset": "paint_cans",
+      "support": "am_B10",
+      "offset": [
+        0.5,
+        -0.78,
+        1.5
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HB10",

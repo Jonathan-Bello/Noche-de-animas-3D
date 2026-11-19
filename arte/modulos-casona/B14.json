@@ -73,7 +73,273 @@
       "contents": []
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_B14",
+      "label": "Muro · Botica",
+      "room": "B14",
+      "floor": 0,
+      "rect": [
+        42,
+        31,
+        59,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B14_jar_01",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        0.3,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_02",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        1.26,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_03",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        2.22,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_04",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        0.3,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_05",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        1.26,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_06",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        2.22,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_basket_01",
+      "room": "B14",
+      "asset": "basket",
+      "support": "am_herbolario",
+      "offset": [
+        0.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_basket_02",
+      "room": "B14",
+      "asset": "basket",
+      "support": "am_herbolario",
+      "offset": [
+        1.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_basket_03",
+      "room": "B14",
+      "asset": "basket",
+      "support": "am_herbolario",
+      "offset": [
+        2.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_mortar_01",
+      "room": "B14",
+      "asset": "mortar",
+      "support": "mostrador_botica",
+      "offset": [
+        6.25,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_balance_01",
+      "room": "B14",
+      "asset": "balance",
+      "support": "mostrador_botica",
+      "offset": [
+        5.2,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_herb_bundle_01",
+      "room": "B14",
+      "asset": "herb_bundle",
+      "support": "muro_B14",
+      "offset": [
+        15.5,
+        2.35,
+        0.09
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B14_herb_bundle_02",
+      "room": "B14",
+      "asset": "herb_bundle",
+      "support": "muro_B14",
+      "offset": [
+        16.91,
+        1.7,
+        2.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B14_wall_certificate_01",
+      "room": "B14",
+      "asset": "wall_certificate",
+      "support": "muro_B14",
+      "offset": [
+        13,
+        1.6,
+        7.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "B14_medicine_bottle_01",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        0.78,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_02",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        1.74,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_03",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        2.7,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_04",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        0.78,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_05",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        1.74,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_06",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        2.7,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HB14",

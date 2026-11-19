@@ -1,5 +1,5 @@
 {
-  "version": "casona-v15",
+  "version": "casona-v16",
   "status": "runtime registry",
   "units": "metros",
   "coordinates": "[x0,z0,x1,z1), norte z=0, calle z=40; reticula logica 1m; suelo PA y=3.8",
@@ -2400,6 +2400,22 @@
       "label": "Buró de huéspedes",
       "backWall": "east",
       "drawers": false
+    },
+    {
+      "id": "estante_desvan",
+      "floor": 1,
+      "room": "A01",
+      "rect": [
+        1,
+        1,
+        4,
+        2
+      ],
+      "height": 2.1,
+      "blocksSight": true,
+      "model": "pantryTall",
+      "label": "Estante de archivo familiar",
+      "backWall": "north"
     }
   ],
   "stairs": [
@@ -3334,7 +3350,7 @@
       20,
       22
     ],
-    "walkableCoverageCells": 3208
+    "walkableCoverageCells": 3205
   },
   "caveats": [
     "Cobertura medida por camino horizontal con puertas transitables; una puerta cerrada puede cambiar el tiempo de escape.",
@@ -4182,6 +4198,289 @@
       "throwable": false,
       "houseThrows": false,
       "massKg": null
+    },
+    "wall_sewing": {
+      "label": "Organizador mural de costura",
+      "radius": 0.34,
+      "height": 0.66,
+      "width": 0.64,
+      "depth": 0.2,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "wall_pattern": {
+      "label": "Patrón de costura enmarcado",
+      "radius": 0.29,
+      "height": 0.6,
+      "width": 0.5,
+      "depth": 0.12,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "fabric_rolls": {
+      "label": "Rollos de tela",
+      "radius": 0.25,
+      "height": 0.52,
+      "width": 0.44,
+      "depth": 0.44,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "laundry_basket": {
+      "label": "Canasta de ropa",
+      "radius": 0.24,
+      "height": 0.334,
+      "width": 0.48,
+      "depth": 0.48,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "wall_tools": {
+      "label": "Panel de herramientas",
+      "radius": 0.38,
+      "height": 0.8,
+      "width": 0.7,
+      "depth": 0.2,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "rope_coil": {
+      "label": "Cuerda recogida en gancho",
+      "radius": 0.25,
+      "height": 0.53,
+      "width": 0.42,
+      "depth": 0.14,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "paint_cans": {
+      "label": "Latas de mantenimiento",
+      "radius": 0.26,
+      "height": 0.25,
+      "width": 0.48,
+      "depth": 0.3,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "storage_box": {
+      "label": "Caja etiquetada de archivo",
+      "radius": 0.38,
+      "height": 0.3,
+      "width": 0.62,
+      "depth": 0.46,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "brush_jar": {
+      "label": "Recipiente con brochas",
+      "radius": 0.13,
+      "height": 0.33,
+      "width": 0.22,
+      "depth": 0.22,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "lantern": {
+      "label": "Farol de mantenimiento apagado",
+      "radius": 0.16,
+      "height": 0.46,
+      "width": 0.26,
+      "depth": 0.24,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "mortar": {
+      "label": "Mortero y mano de piedra",
+      "radius": 0.21,
+      "height": 0.24,
+      "width": 0.38,
+      "depth": 0.32,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "balance": {
+      "label": "Balanza de botica",
+      "radius": 0.28,
+      "height": 0.43,
+      "width": 0.52,
+      "depth": 0.28,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "herb_bundle": {
+      "label": "Hierbas secas colgadas",
+      "radius": 0.28,
+      "height": 0.58,
+      "width": 0.48,
+      "depth": 0.18,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "wall_certificate": {
+      "label": "Documento enmarcado",
+      "radius": 0.29,
+      "height": 0.52,
+      "width": 0.5,
+      "depth": 0.12,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "candle_group": {
+      "label": "Veladoras apagadas sobre base",
+      "radius": 0.25,
+      "height": 0.26,
+      "width": 0.46,
+      "depth": 0.28,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "music_sheet": {
+      "label": "Partitura sobre la mesa",
+      "radius": 0.18,
+      "height": 0.016,
+      "width": 0.3,
+      "depth": 0.24,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "music_score": {
+      "label": "Partitura enmarcada",
+      "radius": 0.28,
+      "height": 0.56,
+      "width": 0.48,
+      "depth": 0.12,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "bath_towel": {
+      "label": "Toalla doblada en el borde",
+      "radius": 0.28,
+      "height": 0.045,
+      "width": 0.18,
+      "depth": 0.52,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "wall_bathrack": {
+      "label": "Toallero con jabonera",
+      "radius": 0.31,
+      "height": 0.6,
+      "width": 0.54,
+      "depth": 0.2,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "soap": {
+      "label": "Jabón sobre platillo",
+      "radius": 0.08,
+      "height": 0.055,
+      "width": 0.14,
+      "depth": 0.12,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "photo_table": {
+      "label": "Portarretrato de sobremesa",
+      "radius": 0.11,
+      "height": 0.26,
+      "width": 0.2,
+      "depth": 0.18,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.15,
+      "looseKind": "cuadro"
+    },
+    "wall_keyrack": {
+      "label": "Tablero de llaves",
+      "radius": 0.28,
+      "height": 0.52,
+      "width": 0.48,
+      "depth": 0.16,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "ink_set": {
+      "label": "Tintero y sello",
+      "radius": 0.1,
+      "height": 0.15,
+      "width": 0.2,
+      "depth": 0.18,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "wall_map": {
+      "label": "Mapa regional enmarcado",
+      "radius": 0.34,
+      "height": 0.58,
+      "width": 0.62,
+      "depth": 0.12,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "wall_devotion": {
+      "label": "Estampa devocional",
+      "radius": 0.26,
+      "height": 0.54,
+      "width": 0.44,
+      "depth": 0.12,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "flowers_table": {
+      "label": "Flores secas en florero de altar",
+      "radius": 0.16,
+      "height": 0.48,
+      "width": 0.3,
+      "depth": 0.28,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "medicine_bottle": {
+      "label": "Frasco de botica de cuello estrecho",
+      "radius": 0.075,
+      "width": 0.14,
+      "depth": 0.14,
+      "height": 0.28,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.16,
+      "looseKind": "jarron"
     }
   },
   "decorInstances": [
@@ -5329,6 +5628,1362 @@
         1.5
       ],
       "rotation": 0
+    },
+    {
+      "id": "A02_wall_sewing_01",
+      "room": "A02",
+      "asset": "wall_sewing",
+      "support": "muro_A02",
+      "offset": [
+        0.1,
+        1.4,
+        1.1
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A02_wall_pattern_01",
+      "room": "A02",
+      "asset": "wall_pattern",
+      "support": "muro_A02",
+      "offset": [
+        0.06,
+        1.6,
+        6.2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A02_wall_lamp_01",
+      "room": "A02",
+      "asset": "wall_lamp",
+      "support": "muro_A02",
+      "offset": [
+        5,
+        1.6,
+        0.09
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "A02_laundry_basket_01",
+      "room": "A02",
+      "asset": "laundry_basket",
+      "support": "am_A02",
+      "offset": [
+        0.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A02_fabric_rolls_01",
+      "room": "A02",
+      "asset": "fabric_rolls",
+      "support": "am_A02",
+      "offset": [
+        1.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A02_paper_letters_01",
+      "room": "A02",
+      "asset": "paper_letters",
+      "support": "am_A02",
+      "offset": [
+        1,
+        0.032,
+        0.55
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_wall_tools_01",
+      "room": "B10",
+      "asset": "wall_tools",
+      "support": "muro_B10",
+      "offset": [
+        0.1,
+        1.5,
+        5.5
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B10_rope_coil_01",
+      "room": "B10",
+      "asset": "rope_coil",
+      "support": "muro_B10",
+      "offset": [
+        0.07,
+        1.7,
+        2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B10_wall_certificate_01",
+      "room": "B10",
+      "asset": "wall_certificate",
+      "support": "muro_B10",
+      "offset": [
+        1.5,
+        2.35,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B10_storage_box_01",
+      "room": "B10",
+      "asset": "storage_box",
+      "support": "estante_aperos",
+      "offset": [
+        0.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_storage_box_02",
+      "room": "B10",
+      "asset": "storage_box",
+      "support": "estante_aperos",
+      "offset": [
+        1.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_storage_box_03",
+      "room": "B10",
+      "asset": "storage_box",
+      "support": "estante_aperos",
+      "offset": [
+        2.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_brush_jar_01",
+      "room": "B10",
+      "asset": "brush_jar",
+      "support": "estante_aperos",
+      "offset": [
+        0.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_linen_01",
+      "room": "B10",
+      "asset": "linen",
+      "support": "estante_aperos",
+      "offset": [
+        1.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_lantern_01",
+      "room": "B10",
+      "asset": "lantern",
+      "support": "estante_aperos",
+      "offset": [
+        2.5,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B10_paint_cans_01",
+      "room": "B10",
+      "asset": "paint_cans",
+      "support": "am_B10",
+      "offset": [
+        0.5,
+        -0.78,
+        1.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_01",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        0.3,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_02",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        1.26,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_03",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        2.22,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_04",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        0.3,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_05",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        1.26,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_jar_06",
+      "room": "B14",
+      "asset": "jar",
+      "support": "am_herbolario",
+      "offset": [
+        2.22,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_basket_01",
+      "room": "B14",
+      "asset": "basket",
+      "support": "am_herbolario",
+      "offset": [
+        0.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_basket_02",
+      "room": "B14",
+      "asset": "basket",
+      "support": "am_herbolario",
+      "offset": [
+        1.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_basket_03",
+      "room": "B14",
+      "asset": "basket",
+      "support": "am_herbolario",
+      "offset": [
+        2.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_mortar_01",
+      "room": "B14",
+      "asset": "mortar",
+      "support": "mostrador_botica",
+      "offset": [
+        6.25,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_balance_01",
+      "room": "B14",
+      "asset": "balance",
+      "support": "mostrador_botica",
+      "offset": [
+        5.2,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_herb_bundle_01",
+      "room": "B14",
+      "asset": "herb_bundle",
+      "support": "muro_B14",
+      "offset": [
+        15.5,
+        2.35,
+        0.09
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B14_herb_bundle_02",
+      "room": "B14",
+      "asset": "herb_bundle",
+      "support": "muro_B14",
+      "offset": [
+        16.91,
+        1.7,
+        2.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B14_wall_certificate_01",
+      "room": "B14",
+      "asset": "wall_certificate",
+      "support": "muro_B14",
+      "offset": [
+        13,
+        1.6,
+        7.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "B02_laundry_basket_01",
+      "room": "B02",
+      "asset": "laundry_basket",
+      "support": "am_B02",
+      "offset": [
+        0.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B02_laundry_basket_02",
+      "room": "B02",
+      "asset": "laundry_basket",
+      "support": "am_B02",
+      "offset": [
+        1.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B02_wall_hooks_01",
+      "room": "B02",
+      "asset": "wall_hooks",
+      "support": "muro_B02",
+      "offset": [
+        0.08,
+        1.5,
+        1
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B02_wall_hooks_02",
+      "room": "B02",
+      "asset": "wall_hooks",
+      "support": "muro_B02",
+      "offset": [
+        0.08,
+        1.5,
+        6.5
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B02_wall_pattern_01",
+      "room": "B02",
+      "asset": "wall_pattern",
+      "support": "muro_B02",
+      "offset": [
+        5.5,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B03_candle_group_01",
+      "room": "B03",
+      "asset": "candle_group",
+      "support": "altar_fijo",
+      "offset": [
+        5.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_candle_group_02",
+      "room": "B03",
+      "asset": "candle_group",
+      "support": "altar_fijo",
+      "offset": [
+        7.3,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_flowers_table_01",
+      "room": "B03",
+      "asset": "flowers_table",
+      "support": "altar_fijo",
+      "offset": [
+        4.2,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_wall_devotion_01",
+      "room": "B03",
+      "asset": "wall_devotion",
+      "support": "muro_B03",
+      "offset": [
+        0.06,
+        1.6,
+        2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B03_wall_devotion_02",
+      "room": "B03",
+      "asset": "wall_devotion",
+      "support": "muro_B03",
+      "offset": [
+        11.94,
+        1.6,
+        2
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B03_cushion_01",
+      "room": "B03",
+      "asset": "cushion",
+      "support": "banca_oeste_1",
+      "offset": [
+        1,
+        0.0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_cushion_02",
+      "room": "B03",
+      "asset": "cushion",
+      "support": "banca_este_1",
+      "offset": [
+        1,
+        0.0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_cushion_03",
+      "room": "B03",
+      "asset": "cushion",
+      "support": "banca_oeste_2",
+      "offset": [
+        1,
+        0.0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_cushion_04",
+      "room": "B03",
+      "asset": "cushion",
+      "support": "banca_este_2",
+      "offset": [
+        1,
+        0.0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B05_laundry_basket_01",
+      "room": "B05",
+      "asset": "laundry_basket",
+      "support": "prop_grifo_traspatio",
+      "offset": [
+        0.5,
+        -0.9,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B05_tinaja_01",
+      "room": "B05",
+      "asset": "tinaja",
+      "support": "prop_grifo_traspatio",
+      "offset": [
+        1.5,
+        -0.9,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B05_wall_bathrack_01",
+      "room": "B05",
+      "asset": "wall_bathrack",
+      "support": "muro_B05",
+      "offset": [
+        7,
+        1.4,
+        0.1
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B05_wall_hooks_01",
+      "room": "B05",
+      "asset": "wall_hooks",
+      "support": "muro_B05",
+      "offset": [
+        9.92,
+        1.5,
+        2
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B05_wall_hooks_02",
+      "room": "B05",
+      "asset": "wall_hooks",
+      "support": "muro_B05",
+      "offset": [
+        9.92,
+        1.5,
+        5.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B05_wall_map_01",
+      "room": "B05",
+      "asset": "wall_map",
+      "support": "muro_B05",
+      "offset": [
+        1.5,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B06_wall_map_01",
+      "room": "B06",
+      "asset": "wall_map",
+      "support": "muro_B06",
+      "offset": [
+        9.5,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B06_wall_certificate_01",
+      "room": "B06",
+      "asset": "wall_certificate",
+      "support": "muro_B06",
+      "offset": [
+        0.06,
+        1.6,
+        2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B06_wall_lamp_01",
+      "room": "B06",
+      "asset": "wall_lamp",
+      "support": "muro_B06",
+      "offset": [
+        11.8,
+        1.5,
+        0.09
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B06_photo_table_01",
+      "room": "B06",
+      "asset": "photo_table",
+      "support": "librero_isla",
+      "offset": [
+        1,
+        -0.04,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B06_paper_letters_01",
+      "room": "B06",
+      "asset": "paper_letters",
+      "support": "am_B06",
+      "offset": [
+        1.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B07_wall_certificate_01",
+      "room": "B07",
+      "asset": "wall_certificate",
+      "support": "muro_B07",
+      "offset": [
+        0.06,
+        1.6,
+        1.3
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B07_family_frame_01",
+      "room": "B07",
+      "asset": "family_frame",
+      "support": "muro_B07",
+      "offset": [
+        0.06,
+        1.6,
+        7.2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B07_wall_map_01",
+      "room": "B07",
+      "asset": "wall_map",
+      "support": "muro_B07",
+      "offset": [
+        2.5,
+        1.6,
+        8.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A07_wall_certificate_01",
+      "room": "A07",
+      "asset": "wall_certificate",
+      "support": "muro_A07",
+      "offset": [
+        0.06,
+        1.6,
+        1.3
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A07_family_frame_01",
+      "room": "A07",
+      "asset": "family_frame",
+      "support": "muro_A07",
+      "offset": [
+        0.06,
+        1.6,
+        7.2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A07_wall_map_01",
+      "room": "A07",
+      "asset": "wall_map",
+      "support": "muro_A07",
+      "offset": [
+        2.5,
+        1.6,
+        8.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "B11_ink_set_01",
+      "room": "B11",
+      "asset": "ink_set",
+      "support": "am_B11",
+      "offset": [
+        1.16,
+        0,
+        0.16
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B11_photo_table_01",
+      "room": "B11",
+      "asset": "photo_table",
+      "support": "am_B11",
+      "offset": [
+        1.84,
+        0,
+        0.84
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B11_paper_letters_01",
+      "room": "B11",
+      "asset": "paper_letters",
+      "support": "am_B11",
+      "offset": [
+        1.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B11_wall_certificate_01",
+      "room": "B11",
+      "asset": "wall_certificate",
+      "support": "muro_B11",
+      "offset": [
+        2,
+        1.6,
+        7.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "B11_wall_map_01",
+      "room": "B11",
+      "asset": "wall_map",
+      "support": "muro_B11",
+      "offset": [
+        10.94,
+        1.6,
+        2
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B12_wall_keyrack_01",
+      "room": "B12",
+      "asset": "wall_keyrack",
+      "support": "muro_B12",
+      "offset": [
+        5.92,
+        1.5,
+        6.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B12_wall_map_01",
+      "room": "B12",
+      "asset": "wall_map",
+      "support": "muro_B12",
+      "offset": [
+        0.8,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B12_family_frame_01",
+      "room": "B12",
+      "asset": "family_frame",
+      "support": "muro_B12",
+      "offset": [
+        0.06,
+        1.6,
+        1.2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B13_paper_letters_01",
+      "room": "B13",
+      "asset": "paper_letters",
+      "support": "am_B13",
+      "offset": [
+        1,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B13_wall_keyrack_01",
+      "room": "B13",
+      "asset": "wall_keyrack",
+      "support": "muro_B13",
+      "offset": [
+        6,
+        1.5,
+        7.92
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "B13_wall_certificate_01",
+      "room": "B13",
+      "asset": "wall_certificate",
+      "support": "muro_B13",
+      "offset": [
+        6.94,
+        1.6,
+        1.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B13_wall_map_01",
+      "room": "B13",
+      "asset": "wall_map",
+      "support": "muro_B13",
+      "offset": [
+        1.5,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "A01_storage_box_01",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        0.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_02",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        1.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_03",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        2.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_04",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        0.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_05",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        1.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_06",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        2.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_suitcase_01",
+      "room": "A01",
+      "asset": "suitcase",
+      "support": "estante_desvan",
+      "offset": [
+        0.5,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_linen_01",
+      "room": "A01",
+      "asset": "linen",
+      "support": "estante_desvan",
+      "offset": [
+        1.5,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_wall_certificate_01",
+      "room": "A01",
+      "asset": "wall_certificate",
+      "support": "muro_A01",
+      "offset": [
+        1.5,
+        2.35,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "A01_family_frame_01",
+      "room": "A01",
+      "asset": "family_frame",
+      "support": "muro_A01",
+      "offset": [
+        0.06,
+        1.6,
+        6
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A01_rope_coil_01",
+      "room": "A01",
+      "asset": "rope_coil",
+      "support": "muro_A01",
+      "offset": [
+        11.93,
+        1.7,
+        3
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A03_music_score_01",
+      "room": "A03",
+      "asset": "music_score",
+      "support": "muro_A03",
+      "offset": [
+        1.5,
+        1.5,
+        2.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A03_music_score_02",
+      "room": "A03",
+      "asset": "music_score",
+      "support": "muro_A03",
+      "offset": [
+        8.5,
+        1.5,
+        2.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A03_wall_devotion_01",
+      "room": "A03",
+      "asset": "wall_devotion",
+      "support": "muro_A03",
+      "offset": [
+        0.06,
+        1.5,
+        0.4
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A08_music_score_01",
+      "room": "A08",
+      "asset": "music_score",
+      "support": "muro_A08",
+      "offset": [
+        9.8,
+        1.5,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "A08_music_score_02",
+      "room": "A08",
+      "asset": "music_score",
+      "support": "muro_A08",
+      "offset": [
+        12.94,
+        1.5,
+        3.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A08_family_frame_01",
+      "room": "A08",
+      "asset": "family_frame",
+      "support": "muro_A08",
+      "offset": [
+        12.94,
+        1.6,
+        8.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A08_music_sheet_01",
+      "room": "A08",
+      "asset": "music_sheet",
+      "support": "am_A08",
+      "offset": [
+        1,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A08_photo_table_01",
+      "room": "A08",
+      "asset": "photo_table",
+      "support": "am_A08",
+      "offset": [
+        1.84,
+        0,
+        0.84
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A09_wall_bathrack_01",
+      "room": "A09",
+      "asset": "wall_bathrack",
+      "support": "muro_A09",
+      "offset": [
+        4.9,
+        1.4,
+        1
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A09_wall_hooks_01",
+      "room": "A09",
+      "asset": "wall_hooks",
+      "support": "muro_A09",
+      "offset": [
+        1.5,
+        1.5,
+        0.08
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "A09_bath_towel_01",
+      "room": "A09",
+      "asset": "bath_towel",
+      "support": "banera",
+      "offset": [
+        0.12,
+        0.125,
+        1.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A09_soap_01",
+      "room": "A09",
+      "asset": "soap",
+      "support": "banera",
+      "offset": [
+        1.6,
+        0.125,
+        0.12
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_cushion_01",
+      "room": "A12",
+      "asset": "cushion",
+      "support": "am_banca_estrado",
+      "offset": [
+        0.6,
+        0.0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_cushion_02",
+      "room": "A12",
+      "asset": "cushion",
+      "support": "am_banca_estrado",
+      "offset": [
+        2,
+        0.0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_cushion_03",
+      "room": "A12",
+      "asset": "cushion",
+      "support": "am_banca_estrado",
+      "offset": [
+        3.4,
+        0.0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_runner_01",
+      "room": "A12",
+      "asset": "runner",
+      "support": "am_A12",
+      "offset": [
+        1.5,
+        0.003,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_photo_table_01",
+      "room": "A12",
+      "asset": "photo_table",
+      "support": "am_A12",
+      "offset": [
+        3.84,
+        0,
+        0.84
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_family_frame_01",
+      "room": "A12",
+      "asset": "family_frame",
+      "support": "muro_A12",
+      "offset": [
+        9,
+        1.6,
+        7.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A12_family_frame_02",
+      "room": "A12",
+      "asset": "family_frame",
+      "support": "muro_A12",
+      "offset": [
+        13.94,
+        1.6,
+        2.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B14_medicine_bottle_01",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        0.78,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_02",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        1.74,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_03",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        2.7,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_04",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        0.78,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_05",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        1.74,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B14_medicine_bottle_06",
+      "room": "B14",
+      "asset": "medicine_bottle",
+      "support": "am_herbolario",
+      "offset": [
+        2.7,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
     }
   ],
   "roomModules": [
@@ -5384,7 +7039,13 @@
       "obstacles": [
         "am_B02"
       ],
-      "decoration": [],
+      "decoration": [
+        "B02_laundry_basket_01",
+        "B02_laundry_basket_02",
+        "B02_wall_hooks_01",
+        "B02_wall_hooks_02",
+        "B02_wall_pattern_01"
+      ],
       "doors": [
         "D02"
       ],
@@ -5413,7 +7074,17 @@
         "banca_oeste_2",
         "banca_este_2"
       ],
-      "decoration": [],
+      "decoration": [
+        "B03_candle_group_01",
+        "B03_candle_group_02",
+        "B03_flowers_table_01",
+        "B03_wall_devotion_01",
+        "B03_wall_devotion_02",
+        "B03_cushion_01",
+        "B03_cushion_02",
+        "B03_cushion_03",
+        "B03_cushion_04"
+      ],
       "doors": [
         "D03"
       ],
@@ -5474,7 +7145,14 @@
       "obstacles": [
         "prop_grifo_traspatio"
       ],
-      "decoration": [],
+      "decoration": [
+        "B05_laundry_basket_01",
+        "B05_tinaja_01",
+        "B05_wall_bathrack_01",
+        "B05_wall_hooks_01",
+        "B05_wall_hooks_02",
+        "B05_wall_map_01"
+      ],
       "doors": [
         "D32",
         "D33"
@@ -5501,7 +7179,13 @@
         "librero_isla",
         "am_B06"
       ],
-      "decoration": [],
+      "decoration": [
+        "B06_wall_map_01",
+        "B06_wall_certificate_01",
+        "B06_wall_lamp_01",
+        "B06_photo_table_01",
+        "B06_paper_letters_01"
+      ],
       "doors": [
         "D01",
         "D05",
@@ -5528,7 +7212,11 @@
       "obstacles": [
         "reserva_escalera_principal"
       ],
-      "decoration": [],
+      "decoration": [
+        "B07_wall_certificate_01",
+        "B07_family_frame_01",
+        "B07_wall_map_01"
+      ],
       "doors": [
         "D06",
         "D07",
@@ -5651,7 +7339,18 @@
         "am_B10",
         "estante_aperos"
       ],
-      "decoration": [],
+      "decoration": [
+        "B10_wall_tools_01",
+        "B10_rope_coil_01",
+        "B10_wall_certificate_01",
+        "B10_storage_box_01",
+        "B10_storage_box_02",
+        "B10_storage_box_03",
+        "B10_brush_jar_01",
+        "B10_linen_01",
+        "B10_lantern_01",
+        "B10_paint_cans_01"
+      ],
       "doors": [
         "D08",
         "D11"
@@ -5679,7 +7378,13 @@
         "prop_reloj",
         "am_B11"
       ],
-      "decoration": [],
+      "decoration": [
+        "B11_ink_set_01",
+        "B11_photo_table_01",
+        "B11_paper_letters_01",
+        "B11_wall_certificate_01",
+        "B11_wall_map_01"
+      ],
       "doors": [
         "D11",
         "D12",
@@ -5702,7 +7407,11 @@
       ],
       "enabled": true,
       "obstacles": [],
-      "decoration": [],
+      "decoration": [
+        "B12_wall_keyrack_01",
+        "B12_wall_map_01",
+        "B12_family_frame_01"
+      ],
       "doors": [
         "D12",
         "D14",
@@ -5728,7 +7437,12 @@
       "obstacles": [
         "am_B13"
       ],
-      "decoration": [],
+      "decoration": [
+        "B13_paper_letters_01",
+        "B13_wall_keyrack_01",
+        "B13_wall_certificate_01",
+        "B13_wall_map_01"
+      ],
       "doors": [
         "D38",
         "D39",
@@ -5755,7 +7469,28 @@
         "biombo_botica",
         "am_herbolario"
       ],
-      "decoration": [],
+      "decoration": [
+        "B14_jar_01",
+        "B14_jar_02",
+        "B14_jar_03",
+        "B14_jar_04",
+        "B14_jar_05",
+        "B14_jar_06",
+        "B14_basket_01",
+        "B14_basket_02",
+        "B14_basket_03",
+        "B14_mortar_01",
+        "B14_balance_01",
+        "B14_herb_bundle_01",
+        "B14_herb_bundle_02",
+        "B14_wall_certificate_01",
+        "B14_medicine_bottle_01",
+        "B14_medicine_bottle_02",
+        "B14_medicine_bottle_03",
+        "B14_medicine_bottle_04",
+        "B14_medicine_bottle_05",
+        "B14_medicine_bottle_06"
+      ],
       "doors": [
         "D15",
         "D37",
@@ -5782,9 +7517,22 @@
       ],
       "enabled": true,
       "obstacles": [
-        "am_A01"
+        "am_A01",
+        "estante_desvan"
       ],
-      "decoration": [],
+      "decoration": [
+        "A01_storage_box_01",
+        "A01_storage_box_02",
+        "A01_storage_box_03",
+        "A01_storage_box_04",
+        "A01_storage_box_05",
+        "A01_storage_box_06",
+        "A01_suitcase_01",
+        "A01_linen_01",
+        "A01_wall_certificate_01",
+        "A01_family_frame_01",
+        "A01_rope_coil_01"
+      ],
       "doors": [
         "D16"
       ],
@@ -5809,7 +7557,14 @@
       "obstacles": [
         "am_A02"
       ],
-      "decoration": [],
+      "decoration": [
+        "A02_wall_sewing_01",
+        "A02_wall_pattern_01",
+        "A02_wall_lamp_01",
+        "A02_laundry_basket_01",
+        "A02_fabric_rolls_01",
+        "A02_paper_letters_01"
+      ],
       "doors": [
         "D17",
         "D44"
@@ -5833,7 +7588,11 @@
       ],
       "enabled": true,
       "obstacles": [],
-      "decoration": [],
+      "decoration": [
+        "A03_music_score_01",
+        "A03_music_score_02",
+        "A03_wall_devotion_01"
+      ],
       "doors": [
         "D18",
         "D44",
@@ -5936,7 +7695,11 @@
       "obstacles": [
         "reserva_escalera_principal"
       ],
-      "decoration": [],
+      "decoration": [
+        "A07_wall_certificate_01",
+        "A07_family_frame_01",
+        "A07_wall_map_01"
+      ],
       "doors": [
         "D21",
         "D22",
@@ -5963,7 +7726,13 @@
         "biombo_musica",
         "am_A08"
       ],
-      "decoration": [],
+      "decoration": [
+        "A08_music_score_01",
+        "A08_music_score_02",
+        "A08_family_frame_01",
+        "A08_music_sheet_01",
+        "A08_photo_table_01"
+      ],
       "doors": [
         "D24",
         "D25",
@@ -5992,7 +7761,12 @@
         "prop_grifo_banoalto",
         "am_A09"
       ],
-      "decoration": [],
+      "decoration": [
+        "A09_wall_bathrack_01",
+        "A09_wall_hooks_01",
+        "A09_bath_towel_01",
+        "A09_soap_01"
+      ],
       "doors": [
         "D25"
       ],
@@ -6128,7 +7902,15 @@
         "am_A12",
         "am_banca_estrado"
       ],
-      "decoration": [],
+      "decoration": [
+        "A12_cushion_01",
+        "A12_cushion_02",
+        "A12_cushion_03",
+        "A12_runner_01",
+        "A12_photo_table_01",
+        "A12_family_frame_01",
+        "A12_family_frame_02"
+      ],
       "doors": [
         "D27",
         "D28",
@@ -6235,5 +8017,346 @@
       "Service stair must stay gated until B07 and A04 are restored."
     ],
     "fullHouseMode": "unchanged"
-  }
+  },
+  "decorSupports": [
+    {
+      "id": "muro_B02",
+      "label": "Muro · Planchaduría",
+      "room": "B02",
+      "floor": 0,
+      "rect": [
+        14,
+        1,
+        23,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_B03",
+      "label": "Muro · Capilla",
+      "room": "B03",
+      "floor": 0,
+      "rect": [
+        24,
+        1,
+        36,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_B05",
+      "label": "Muro · Traspatio",
+      "room": "B05",
+      "floor": 0,
+      "rect": [
+        49,
+        1,
+        59,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_B06",
+      "label": "Muro · Biblioteca",
+      "room": "B06",
+      "floor": 0,
+      "rect": [
+        1,
+        10,
+        14,
+        20
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_B07",
+      "label": "Muro · Escalera principal",
+      "room": "B07",
+      "floor": 0,
+      "rect": [
+        1,
+        21,
+        14,
+        30
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_B10",
+      "label": "Muro · Cuarto de aperos",
+      "room": "B10",
+      "floor": 0,
+      "rect": [
+        1,
+        31,
+        14,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_B11",
+      "label": "Muro · Despacho",
+      "room": "B11",
+      "floor": 0,
+      "rect": [
+        15,
+        31,
+        26,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_B12",
+      "label": "Muro · Zaguán",
+      "room": "B12",
+      "floor": 0,
+      "rect": [
+        27,
+        31,
+        33,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_B13",
+      "label": "Muro · Portería",
+      "room": "B13",
+      "floor": 0,
+      "rect": [
+        34,
+        31,
+        41,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_B14",
+      "label": "Muro · Botica",
+      "room": "B14",
+      "floor": 0,
+      "rect": [
+        42,
+        31,
+        59,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_A01",
+      "label": "Muro · Desván",
+      "room": "A01",
+      "floor": 1,
+      "rect": [
+        1,
+        1,
+        13,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_A02",
+      "label": "Muro · Costura",
+      "room": "A02",
+      "floor": 1,
+      "rect": [
+        14,
+        1,
+        23,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_A03",
+      "label": "Muro · Coro",
+      "room": "A03",
+      "floor": 1,
+      "rect": [
+        24,
+        6,
+        36,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "south",
+        "east",
+        "west"
+      ]
+    },
+    {
+      "id": "muro_A07",
+      "label": "Muro · Rellano principal",
+      "room": "A07",
+      "floor": 1,
+      "rect": [
+        1,
+        21,
+        14,
+        30
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_A08",
+      "label": "Muro · Sala de música",
+      "room": "A08",
+      "floor": 1,
+      "rect": [
+        46,
+        10,
+        59,
+        20
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_A09",
+      "label": "Muro · Baño",
+      "room": "A09",
+      "floor": 1,
+      "rect": [
+        46,
+        21,
+        51,
+        30
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "muro_A12",
+      "label": "Muro · Salón de estrado",
+      "room": "A12",
+      "floor": 1,
+      "rect": [
+        27,
+        31,
+        41,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ]
 }

@@ -61,7 +61,116 @@
       "backWall": "south"
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_A12",
+      "label": "Muro · Salón de estrado",
+      "room": "A12",
+      "floor": 1,
+      "rect": [
+        27,
+        31,
+        41,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "A12_cushion_01",
+      "room": "A12",
+      "asset": "cushion",
+      "support": "am_banca_estrado",
+      "offset": [
+        0.6,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_cushion_02",
+      "room": "A12",
+      "asset": "cushion",
+      "support": "am_banca_estrado",
+      "offset": [
+        2,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_cushion_03",
+      "room": "A12",
+      "asset": "cushion",
+      "support": "am_banca_estrado",
+      "offset": [
+        3.4,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_runner_01",
+      "room": "A12",
+      "asset": "runner",
+      "support": "am_A12",
+      "offset": [
+        1.5,
+        0.003,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_photo_table_01",
+      "room": "A12",
+      "asset": "photo_table",
+      "support": "am_A12",
+      "offset": [
+        3.84,
+        0,
+        0.84
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A12_family_frame_01",
+      "room": "A12",
+      "asset": "family_frame",
+      "support": "muro_A12",
+      "offset": [
+        9,
+        1.6,
+        7.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A12_family_frame_02",
+      "room": "A12",
+      "asset": "family_frame",
+      "support": "muro_A12",
+      "offset": [
+        13.94,
+        1.6,
+        2.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA12",

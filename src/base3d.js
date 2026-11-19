@@ -33,9 +33,9 @@ buildHouse = function () {
     const inner = new THREE.PointLight(0xffc070, 2.5, 5, 1); inner.position.set(-2.9, 1.6, 0); g.add(inner); }
   // la ciudad colonial de fondo (no se puede ir)
   { const rnd = seeded(1977), C = {}, cb = k => (C[k] = C[k] || new BoxBatch()), cols = [0xb07a3a, 0x9a3f2c, 0x2f4f7a, 0x9a2f5e, 0xc0963a, 0xb8aea0, 0x4f7a5a];
-    const block = (x0, x1, z, dir) => { let x = x0; while (x < x1) { const wd = 3 + rnd() * 4, h = 3.2 + rnd() * 3.5, d = 6, c = Math.floor(rnd() * cols.length); cb('c' + c).add(x + wd / 2, h / 2, z + dir * d / 2, wd - 0.1, h, d);
+    const block = (x0, x1, z, dir) => { let x = x0; while (x < x1) { const wd = Math.min(3 + rnd() * 4, x1 - x), h = 3.2 + rnd() * 3.5, d = 6, c = Math.floor(rnd() * cols.length); cb('c' + c).add(x + wd / 2, h / 2, z + dir * d / 2, Math.max(.01, wd - 0.1), h, d);
         cb('roof').add(x + wd / 2, h + 0.25, z + dir * d / 2, wd + 0.1, 0.5, d + 0.1);
-        for (let k = 0.8; k < wd - 0.6; k += 1.6) { const lit = rnd() < 0.3; cb(lit ? 'winL' : 'win').add(x + k + 0.4, h * 0.6, z - dir * 0.02, 0.7, 1.1, 0.06); } x += wd; } };
+        for (let k = 0.8; k < wd - 0.8; k += 1.6) { const lit = rnd() < 0.3; cb(lit ? 'winL' : 'win').add(x + k + 0.4, h * 0.6, z - dir * 0.02, 0.7, 1.1, 0.06); } x += wd; } };
     block(-30, 90, 63.2, 1); block(-30, 90, 76, 1);
     for (let z = 36; z < 60; z += 7) { block(-14, -3, z, 1); }
     for (let z = 36; z < 60; z += 7) block(63, 76, z, 1);

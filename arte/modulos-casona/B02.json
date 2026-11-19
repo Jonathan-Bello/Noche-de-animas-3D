@@ -42,7 +42,93 @@
       "backWall": "west"
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_B02",
+      "label": "Muro · Planchaduría",
+      "room": "B02",
+      "floor": 0,
+      "rect": [
+        14,
+        1,
+        23,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B02_laundry_basket_01",
+      "room": "B02",
+      "asset": "laundry_basket",
+      "support": "am_B02",
+      "offset": [
+        0.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B02_laundry_basket_02",
+      "room": "B02",
+      "asset": "laundry_basket",
+      "support": "am_B02",
+      "offset": [
+        1.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B02_wall_hooks_01",
+      "room": "B02",
+      "asset": "wall_hooks",
+      "support": "muro_B02",
+      "offset": [
+        0.08,
+        1.5,
+        1
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B02_wall_hooks_02",
+      "room": "B02",
+      "asset": "wall_hooks",
+      "support": "muro_B02",
+      "offset": [
+        0.08,
+        1.5,
+        6.5
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B02_wall_pattern_01",
+      "room": "B02",
+      "asset": "wall_pattern",
+      "support": "muro_B02",
+      "offset": [
+        5.5,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HB02",

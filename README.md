@@ -51,3 +51,7 @@ Para mover decoración visualmente y guardar en la copia local del juego: doble 
 ## Recámaras V15
 
 [Galería y croquis](arte/decoracion-v15/index.html) · [Componentes y verificaciones](docs/decoracion-v15.md). Se agregan 44 piezas editables en las seis recámaras, con ventanas y pasos libres.
+
+## Decoración V16
+
+[Galería de costura, aperos, botica y otros cuartos](arte/decoracion-v16/index.html) · [Componentes e interacciones](docs/decoracion-v16.md). Se completan los 17 espacios restantes con 109 piezas nuevas, incluyendo dieciséis objetos arrojables.

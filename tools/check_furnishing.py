@@ -31,26 +31,30 @@ def validate(d):
  ids=set();throwables=0
  for i in d.get('decorInstances',[]):
   if i['id'] in ids:errors.append('ID duplicado '+i['id'])
-  ids.add(i['id']);a=d['decorAssets'].get(i['asset']);o=next((o for o in d['obstacles'] if o['id']==i['support']),None)
+  ids.add(i['id']);a=d['decorAssets'].get(i['asset']);o=next((o for o in d['obstacles']+d.get('decorSupports',[]) if o['id']==i['support']),None)
   if not a or not o:errors.append('Componente sin modelo o soporte '+i['id']);continue
   x=o['rect'][0]+i['offset'][0];z=o['rect'][1]+i['offset'][2];h=o['height']+i['offset'][1];r=a['radius'];angle=i.get('rotation',0);co=abs(math.cos(angle));si=abs(math.sin(angle));w=a.get('width',2*r);dep=a.get('depth',2*r);rx=(w*co+dep*si)/2;rz=(w*si+dep*co)/2;foot=[x-rx,z-rz,x+rx,z+rz];throwables+=bool(a['throwable'])
   if h<-.001 or h+a['height']>3.70 or foot[0]<o['rect'][0]-.001 or foot[2]>o['rect'][2]+.001 or foot[1]<o['rect'][1]-.001 or foot[3]>o['rect'][3]+.001:errors.append(i['id']+' fuera del soporte')
   room=rooms.get(i['room'])
   if not room or room['floor']!=o['floor'] or not(room['rect'][0]<=x<=room['rect'][2] and room['rect'][1]<=z<=room['rect'][3]):errors.append(i['id']+' fuera de su cuarto')
+  if o.get('wallOnly') and a.get('mount')!='wall':errors.append(i['id']+' requiere un soporte físico')
   if a.get('mount')=='wall' and room:
-   side=i.get('mountWall');rotation={'west':math.pi/2,'east':-math.pi/2,'north':0,'south':math.pi}.get(side)
+   side=i.get('mountWall');
+   if side not in o.get('allowedWalls',['west','east','north','south']):errors.append(i['id']+' no tiene muro en ese lado')
+   rotation={'west':math.pi/2,'east':-math.pi/2,'north':0,'south':math.pi}.get(side)
    if rotation is None or abs(math.sin(angle-rotation))>.001 or math.cos(angle-rotation)<.99:errors.append(i['id']+' orientación mural inválida')
    expected={'west':(x,room['rect'][0]+dep/2),'east':(x,room['rect'][2]-dep/2),'north':(z,room['rect'][1]+dep/2),'south':(z,room['rect'][3]-dep/2)}.get(side)
    if not expected or abs(expected[0]-expected[1])>.002:errors.append(i['id']+' separado de su muro')
   for win in d['windows']:
-   if win['floor']!=o['floor'] or h+a['height']<=win['sillRelative']+.001 or h>=win['sillRelative']+win['height']-.001:continue
+   globalH=o['floor']*3.8+h;bottom=win['floor']*3.8+win['sillRelative']
+   if globalH+a['height']<=bottom+.001 or globalH>=bottom+win['height']-.001:continue
    a0,z0=win['start'];c0,e0=win['end'];window=[a0,z0,c0,z0+1]if a0!=c0 else[a0-1 if win['wall'].startswith('oeste')else a0,z0,a0 if win['wall'].startswith('oeste')else a0+1,e0]
    if overlaps(foot,[window[0]-.18,window[1]-.18,window[2]+.18,window[3]+.18]):errors.append(i['id']+' tapa ventana '+win['id'])
   for door,f,rect in zones:
    if f==o['floor'] and overlaps(foot,rect):errors.append(i['id']+' invade acceso '+door)
   for stair in d['obstacles']:
    if stair['id'].startswith('reserva_') and stair['floor']==o['floor'] and overlaps(foot,stair['rect']):errors.append(i['id']+' invade escalera')
- if throwables>32:errors.append('Más de 32 decoraciones arrojables nuevas')
+ if throwables>48:errors.append('Más de 48 decoraciones arrojables nuevas')
  if errors:raise ValueError('\n'.join(errors))
  return {'doors':len(zones),'furnitureAndHides':len(objects),'bedsAgainstWalls':sum(o.get('model')=='bed' or o['id'].startswith('cama_')for o in d['obstacles']),'internalWindowsOpen':sum(w.get('internal',False)for w in d['windows']),'rugs':len(d.get('decorations',[])),'decorComponents':len(ids),'throwableComponents':throwables,'errors':errors}
 if __name__=='__main__':print(json.dumps(validate(json.loads((ROOT/'src/layout-v11.json').read_text(encoding='utf-8'))),ensure_ascii=False))

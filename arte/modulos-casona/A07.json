@@ -32,7 +32,69 @@
       "blocksSight": false
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_A07",
+      "label": "Muro · Rellano principal",
+      "room": "A07",
+      "floor": 1,
+      "rect": [
+        1,
+        21,
+        14,
+        30
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "A07_wall_certificate_01",
+      "room": "A07",
+      "asset": "wall_certificate",
+      "support": "muro_A07",
+      "offset": [
+        0.06,
+        1.6,
+        1.3
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A07_family_frame_01",
+      "room": "A07",
+      "asset": "family_frame",
+      "support": "muro_A07",
+      "offset": [
+        0.06,
+        1.6,
+        7.2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A07_wall_map_01",
+      "room": "A07",
+      "asset": "wall_map",
+      "support": "muro_A07",
+      "offset": [
+        2.5,
+        1.6,
+        8.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA07",

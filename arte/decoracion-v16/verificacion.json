@@ -1,0 +1,5637 @@
+{
+  "version": "casona-v16",
+  "newComponents": 109,
+  "totalComponents": 203,
+  "throwables": 44,
+  "decoratedRooms": 27,
+  "seededLayouts": 500,
+  "seed": 37,
+  "geometry": {
+    "errors": [],
+    "metrics": {
+      "meshes": 1520,
+      "vertices": 351562,
+      "invalid": 0,
+      "draw": {
+        "frame": 3,
+        "calls": 128,
+        "triangles": 19162,
+        "points": 0,
+        "lines": 0
+      },
+      "version": "casona-v16",
+      "quality": "balanced"
+    }
+  },
+  "browser": {
+    "passed": true,
+    "profiles": [
+      {
+        "version": "casona-v16",
+        "quality": "low",
+        "shadows": false,
+        "dpr": 1,
+        "active": 22,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 348,
+          "triangles": 46822,
+          "points": 0,
+          "lines": 0
+        }
+      },
+      {
+        "version": "casona-v16",
+        "quality": "balanced",
+        "shadows": true,
+        "dpr": 1.35,
+        "active": 22,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 338,
+          "triangles": 48792,
+          "points": 0,
+          "lines": 0
+        },
+        "geometryAudit": {
+          "portals": 44,
+          "windows": 20,
+          "nonFinite": 0,
+          "mixedFaceColors": 0,
+          "coplanarOverlaps": []
+        },
+        "floorComponentPoses": [
+          {
+            "asset": "open_book",
+            "minAboveStorey": 0.017999999999999794
+          },
+          {
+            "asset": "comb",
+            "minAboveStorey": 0.018000000000000238
+          },
+          {
+            "asset": "top",
+            "minAboveStorey": 0.017999999999999794
+          },
+          {
+            "asset": "perfume",
+            "minAboveStorey": 0.018000000000000238
+          },
+          {
+            "asset": "jewelbox",
+            "minAboveStorey": 0.017999999999999794
+          }
+        ]
+      },
+      {
+        "version": "casona-v16",
+        "quality": "high",
+        "shadows": true,
+        "dpr": 2,
+        "active": 22,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 341,
+          "triangles": 48768,
+          "points": 0,
+          "lines": 0
+        }
+      },
+      {
+        "version": "casona-v16",
+        "quality": "auto",
+        "shadows": false,
+        "dpr": 1,
+        "active": 20,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 179,
+          "triangles": 31210,
+          "points": 0,
+          "lines": 0
+        }
+      }
+    ],
+    "errors": [],
+    "note": "Emulated screen/input and software rendering; no physical-device FPS claim."
+  },
+  "online": {
+    "passed": true,
+    "movementOnHost": 1.1559162400000105,
+    "flashSynced": true,
+    "layoutAndRandomStateSynced": true,
+    "drawerOpenSynced": true,
+    "independentBookThrowSynced": true,
+    "authoredJarThrowSynced": true,
+    "disconnectHandled": true,
+    "snapshotBytes": [
+      45732,
+      5424
+    ],
+    "errors": [],
+    "note": "PeerJS transport shim; drawing tested independently, no WAN latency benchmark."
+  },
+  "editor": {
+    "passed": true,
+    "editorPreview": true,
+    "undo": true,
+    "invalidDoorRejected": true,
+    "localSave": true,
+    "bedroomWallComponentEditAndSave": true,
+    "roomWallAnchorEditAndSave": true,
+    "observer": [
+      {
+        "upper": false,
+        "ceilings": 0,
+        "cut": 9,
+        "viewer": "ghost"
+      },
+      {
+        "upper": false,
+        "ceilings": 0,
+        "cut": 9,
+        "viewer": "inv"
+      },
+      {
+        "upper": true,
+        "ceilings": 0,
+        "cut": 5,
+        "viewer": "inv"
+      }
+    ],
+    "tools": [
+      {
+        "kind": "termo",
+        "children": 5,
+        "leds": 0
+      },
+      {
+        "kind": "uv",
+        "children": 3,
+        "leds": 0
+      },
+      {
+        "kind": "grab",
+        "children": 9,
+        "leds": 0
+      },
+      {
+        "kind": "cam",
+        "children": 7,
+        "leds": 0
+      },
+      {
+        "kind": "emf",
+        "children": 8,
+        "leds": 5
+      },
+      {
+        "kind": "espejo",
+        "children": 3,
+        "leds": 0
+      },
+      {
+        "kind": "gases",
+        "children": 6,
+        "leds": 0
+      }
+    ],
+    "errors": []
+  },
+  "iphone12Emulated": {
+    "passed": true,
+    "profiles": [
+      {
+        "layout": "casona-v16",
+        "viewport": {
+          "width": 390,
+          "height": 664
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1,
+        "shadows": false,
+        "draw": {
+          "frame": 1,
+          "calls": 228,
+          "triangles": 33470,
+          "points": 0,
+          "lines": 0
+        },
+        "renderer": "Apple GPU",
+        "device": "iPhone 12",
+        "errors": []
+      },
+      {
+        "layout": "casona-v16",
+        "viewport": {
+          "width": 750,
+          "height": 340
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1,
+        "shadows": false,
+        "draw": {
+          "frame": 1,
+          "calls": 412,
+          "triangles": 56344,
+          "points": 0,
+          "lines": 0
+        },
+        "renderer": "Apple GPU",
+        "device": "iPhone 12 landscape",
+        "errors": []
+      }
+    ],
+    "note": "WebKit on Windows with emulated iPhone dimensions/input, not an iPhone GPU or physical FPS measurement."
+  },
+  "sessions": [
+    {
+      "ghost": "pena",
+      "time": 695.1000000000895,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 8,
+          "1": 8,
+          "2": 8,
+          "3": 8
+        },
+        "evid": 0,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 24,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.2246624244961,
+          "y": 52.332091340558605,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 47.5,
+              "y": 19.5
+            },
+            "think": 4.15272020632405,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 157.84900171682239,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 30.000000000000156,
+              "0:1": 53.40000000000049,
+              "0:2": 71.10000000000024,
+              "0:3": 99.39999999999863,
+              "1:3": 113.19999999999784
+            },
+            "sweep": null,
+            "talkAt": 589.4000000000623,
+            "pickupDetourId": 12
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.32307739741087,
+          "y": 52.4279499916258,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 43.5,
+              "y": 6.5
+            },
+            "think": 1.0433513366617602,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 203.7467721523717,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 575.6000000000591
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24247364247469,
+          "y": 52.408001414154135,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 2.5,
+              "y": 19.5
+            },
+            "think": 28.899999999999984,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 190.08100488223135,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 567.5000000000573
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.257797413243146,
+          "y": 52.43113385199471,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 58.5,
+              "y": 22.5
+            },
+            "think": 27.499999999999964,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 198.81567451637238,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 582.6000000000607,
+            "react": 0
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "nachito",
+      "time": 354.70000000001215,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 40,
+          "1": 40,
+          "2": 40,
+          "3": 40
+        },
+        "evid": 2,
+        "objDone": 1,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 19,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24662853104884,
+          "y": 52.41431118076399,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 50.5,
+              "y": 35.5
+            },
+            "think": 8.505759471561772,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 337.57764771282075,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 357.30000000000956,
+            "react": 0,
+            "termoDone": {
+              "0:10": 28.300000000000132,
+              "0:9": 51.700000000000465,
+              "0:5": 71.90000000000019,
+              "1:4": 97.69999999999872,
+              "1:0": 112.99999999999785,
+              "1:1": 135.4999999999966
+            },
+            "sweep": {
+              "key": "1:2",
+              "p": {
+                "f": 1,
+                "x": 27.534970593638718,
+                "y": 8.399512432981282
+              },
+              "t": 3.700000000000002
+            },
+            "study": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "placeK": 1,
+            "place": {
+              "f": 0,
+              "x": 39.5,
+              "y": 33.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            }
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21128035413263,
+          "y": 52.30984215492599,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 34.5
+            },
+            "think": 0.6376116652973116,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 420.52137363608,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 357.0000000000095,
+            "study": {
+              "kind": "emf",
+              "until": 347.374931390216,
+              "p": {
+                "f": 0,
+                "x": 39.5,
+                "y": 32.5
+              }
+            },
+            "lure": null,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven"
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "think": 3.5391146261245257,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 174.89024669397622,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 145.09999999999684,
+            "study": {
+              "kind": "uv",
+              "until": 329.0668923346332,
+              "p": {
+                "f": 0,
+                "x": 35.5,
+                "y": 32.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 34.5
+            },
+            "think": 1.5935220367275398,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 364.2168255370033,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 225.39999999999227,
+            "study": {
+              "kind": "termo",
+              "until": 336.65877883071227,
+              "p": {
+                "f": 0,
+                "x": 36.5,
+                "y": 35.5
+              }
+            },
+            "lure": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "llorona",
+      "time": 596.400000000067,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 35,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": false,
+            "pay": 43,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": false,
+            "pay": 43,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": false,
+            "pay": 43,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 35,
+          "1": 43,
+          "2": 43,
+          "3": 43
+        },
+        "evid": 1,
+        "objDone": 2,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 22,
+      "hunts": 2,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 19.614331565849753,
+          "y": 9.470289600138392,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 4.5
+            },
+            "think": 0.8242995072156349,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 621.9987332567853,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 1
+            },
+            "talkAt": 496.5000000000412,
+            "react": 508.5730344767453,
+            "termoDone": {
+              "0:10": 448.9000000000336,
+              "0:5": 467.30000000003776,
+              "0:0": 308.8000000000017,
+              "0:1": 102.69999999999844,
+              "0:2": 124.4999999999972,
+              "0:12": 152.59999999999562,
+              "0:13": 164.9999999999949,
+              "0:8": 182.39999999999392,
+              "0:7": 199.89999999999293,
+              "0:3": 219.6999999999918,
+              "1:9": 340.3000000000089
+            },
+            "sweep": {
+              "key": "0:1",
+              "p": {
+                "f": 0,
+                "x": 20.5,
+                "y": 6.5
+              },
+              "t": 9.799999999999981
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": {
+              "kind": "termo",
+              "until": 508.5571491277257,
+              "p": {
+                "f": 0,
+                "x": 20.5,
+                "y": 4.5
+              }
+            },
+            "flee": {
+              "f": 0,
+              "x": 50.5,
+              "y": 35.5
+            },
+            "fleeUntil": 505.10000000004567
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.2530537055991,
+          "y": 52.42401367692556,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 4.5
+            },
+            "think": 0.9216375563293889,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 429.62949825375415,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 589.4000000000623,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": {
+              "kind": "grab",
+              "until": 589.7592256428339,
+              "p": {
+                "f": 0,
+                "x": 18.5,
+                "y": 3.5
+              }
+            },
+            "unhideAt": 505.53360556117167
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.25778798729128,
+          "y": 52.43111974163553,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 12.5
+            },
+            "think": 11.914559650514276,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 510.46167420633975,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 487.80000000003923,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": null
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.226887240959435,
+          "y": 52.335762978759256,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 17.5
+            },
+            "think": 4.755684190336636,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 603.1872818587603,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 445.4000000000296,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "chaneque",
+      "time": 695.1000000000895,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 18,
+          "1": 18,
+          "2": 18,
+          "3": 18
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 30,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.249763751941416,
+          "y": 52.419053726293384,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 44.5,
+              "y": 1.5
+            },
+            "think": 17.599999999999824,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 193.92435260117054,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 496.1000000000443,
+              "0:5": 415.700000000026,
+              "0:0": 66.80000000000048,
+              "0:1": 88.29999999999926,
+              "0:2": 109.79999999999804,
+              "0:3": 130.0999999999969,
+              "0:7": 561.200000000059,
+              "0:8": 544.4000000000552,
+              "0:13": 525.700000000051,
+              "0:12": 513.8000000000483,
+              "1:4": 229.89999999999122,
+              "1:1": 250.19999999999007,
+              "1:0": 270.399999999993,
+              "1:10": 294.5999999999985,
+              "1:11": 308.3000000000016,
+              "0:9": 392.50000000002075
+            },
+            "sweep": {
+              "key": "0:4",
+              "p": {
+                "f": 0,
+                "x": 57.48223039880395,
+                "y": 4.026705089490861
+              },
+              "t": 7.099999999999991
+            },
+            "talkAt": 589.4000000000623
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.32581550523575,
+          "y": 52.43295546885855,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 53.5,
+              "y": 23.5
+            },
+            "think": 13.003584825620063,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 401.24413254018197,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 568.7000000000576,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21530121365318,
+          "y": 52.31655686327751,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 55.5,
+              "y": 18.5
+            },
+            "think": 0.28538479283455587,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 541.7302652398241,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 382.40000000001527,
+            "react": 0,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 153
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24790970198449,
+          "y": 52.416251105677816,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 30.5,
+              "y": 5.5
+            },
+            "think": 29.29999999999999,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 385.617665009007,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 474.9000000000363,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "matla",
+      "time": 238.19999999999075,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 43,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 200,
+          "1": 43,
+          "2": 200,
+          "3": 200
+        },
+        "evid": 3,
+        "objDone": 1,
+        "cause": "Fermín, Tomás, Jorge salió con la apuesta correcta"
+      },
+      "roomsVisited": 13,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.250943119749756,
+          "y": 52.420833574312056,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 45.5,
+              "y": 37.5
+            },
+            "think": 1.808207928389339,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 390.3744431227383,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 237.3999999999916,
+            "react": 0,
+            "termoDone": {
+              "0:10": 30.000000000000156,
+              "0:5": 50.60000000000045,
+              "1:4": 76.49999999999993
+            },
+            "sweep": null,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 51.5,
+              "y": 35.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 50.5,
+              "y": 35.5
+            },
+            "study": {
+              "kind": "termo",
+              "until": 224.24237124332447,
+              "p": {
+                "f": 0,
+                "x": 52.5,
+                "y": 35.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 42.89759250327147,
+          "y": 32.500015211845806,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "think": 6.86909230975435,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 348.90963852926586,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 13
+            },
+            "react": 215.3723541875058,
+            "talkAt": 178.39999999999495,
+            "study": {
+              "kind": "grab",
+              "until": 234.84535761335135,
+              "p": {
+                "f": 0,
+                "x": 42.5,
+                "y": 32.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 51.5,
+              "y": 37.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 50.5,
+              "y": 35.5
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24645365010965,
+          "y": 52.41404617151766,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "think": 12.338707693759353,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 171.72216157894582,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 46.000000000000185,
+            "placeK": 2,
+            "place": null,
+            "aim": {
+              "f": 0,
+              "x": 50.5,
+              "y": 35.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 256.38094925143855,
+              "p": {
+                "f": 0,
+                "x": 56.5,
+                "y": 32.5
+              }
+            },
+            "lure": null,
+            "unhideAt": 215.38499176492132
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20181715474553,
+          "y": 52.29393369281145,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 53.5,
+              "y": 38.5
+            },
+            "think": 8.378347771056015,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 344.5424731988396,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 236.49999999999164,
+            "study": {
+              "kind": "emf",
+              "until": 248.52895519546357,
+              "p": {
+                "f": 0,
+                "x": 44.5,
+                "y": 35.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "cucuy",
+      "time": 695.0000000000895,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Fermín",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 13,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Mateo",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 13,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nachito",
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Rafael",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": "nachito",
+            "ok": false,
+            "pay": 13,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 13,
+          "1": 13,
+          "2": 20,
+          "3": 13
+        },
+        "evid": 0,
+        "objDone": 1,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 12,
+      "hunts": 4,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 51.28573639790423,
+          "y": 23.755709154321103,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "think": 10.330155009869486,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 397.20943316350883,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 8
+            },
+            "react": 309.00162481505106,
+            "termoDone": {
+              "0:10": 28.20000000000013,
+              "0:9": 48.00000000000041
+            },
+            "sweep": {
+              "key": "0:12",
+              "p": {
+                "f": 0,
+                "x": 40.20814646175131,
+                "y": 33.461382548324764
+              },
+              "t": 0
+            },
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 46.5,
+              "y": 32.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 50.5,
+              "y": 35.5
+            },
+            "talkAt": 316.00000000000017,
+            "study": null,
+            "lure": null,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "pickupDetourId": 245
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 51.40963676763463,
+          "y": 30.513730427096895,
+          "hidden": -1,
+          "ai": {
+            "state": "resupply",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "think": 6.81831723097714,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 207.9400901030749,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 8
+            },
+            "react": 210.87506115799005,
+            "talkAt": 73.00000000000057,
+            "study": {
+              "kind": "grab",
+              "until": 230.19020955357007,
+              "p": {
+                "f": 0,
+                "x": 52.5,
+                "y": 32.5
+              }
+            },
+            "lure": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.19502149181706,
+          "y": 52.282418627578664,
+          "hidden": -1,
+          "ai": {
+            "state": "setup",
+            "goal": {
+              "f": 1,
+              "x": 2.5,
+              "y": 38.5
+            },
+            "think": -61.800000000000765,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 152.6428991323337,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 589.4000000000623,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 45.5,
+              "y": 33.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 50.5,
+              "y": 35.5
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 48.47959794354179,
+          "y": 33.38687692264759,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "think": 5.962889716774242,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 195.84232611581683,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 13
+            },
+            "talkAt": 68.80000000000051,
+            "react": 0,
+            "study": null,
+            "pickupDetourId": 245,
+            "lure": {
+              "f": 0,
+              "x": 52.57221078061628,
+              "y": 33.002316551077286,
+              "until": 490.4000000000403
+            },
+            "unhideAt": 312.76713186027695
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "guardian",
+      "time": 193.89999999999327,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 150,
+          "1": 150,
+          "2": 150,
+          "3": 150
+        },
+        "evid": 3,
+        "objDone": 0,
+        "cause": "Alex, Jorge, Jhonnatan, Fermín salió con la apuesta correcta"
+      },
+      "roomsVisited": 16,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 7.5,
+              "y": 14.5
+            },
+            "think": 0.4139432054944556,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 189.20623870566487,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 28.20000000000013,
+              "0:0": 58.90000000000057,
+              "0:5": 76.79999999999991
+            },
+            "sweep": null,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 9.5,
+              "y": 3.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 6.5,
+              "y": 4.5
+            },
+            "talkAt": 179.0999999999949,
+            "study": {
+              "kind": "termo",
+              "until": 159.22102226903365,
+              "p": {
+                "f": 1,
+                "x": 1.5,
+                "y": 2.5
+              }
+            }
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24246918473113,
+          "y": 52.40799462915041,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 18.5,
+              "y": 4.5
+            },
+            "think": 10.665462987683723,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 208.64562519360334,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 152.19999999999644,
+            "study": {
+              "kind": "grab",
+              "until": 187.35008752038226,
+              "p": {
+                "f": 1,
+                "x": 3.5,
+                "y": 5.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24254539791419,
+          "y": 52.4081106265246,
+          "hidden": -1,
+          "ai": {
+            "state": "resupply",
+            "goal": {
+              "f": 1,
+              "x": 18.5,
+              "y": 4.5
+            },
+            "think": -8.050249799527192,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 153.43946096487343,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 85.50000000000021,
+            "react": 0,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 10.5,
+              "y": 8.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 6.5,
+              "y": 4.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 153.7625701897751,
+              "p": {
+                "f": 1,
+                "x": 2.5,
+                "y": 5.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24246570627723,
+          "y": 52.40798933467254,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 7.5,
+              "y": 14.5
+            },
+            "think": 11.723874877206988,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 152.92663432192057,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 76.90000000000063,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 1.5,
+              "y": 6.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 6.5,
+              "y": 4.5
+            },
+            "study": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "nahual",
+      "time": 556.2000000000579,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chaneque",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chaneque",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jenny",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 28,
+          "2": 20,
+          "3": 20
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 8,
+      "hunts": 2,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.19467208435968,
+          "y": 52.28182427698522,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 5.5,
+              "y": 25.5
+            },
+            "think": 12.802715875860304,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 158.81504205521196,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 28.400000000000134
+            },
+            "sweep": null,
+            "study": {
+              "kind": "termo",
+              "until": 546.664220646817,
+              "p": {
+                "f": 0,
+                "x": 5.5,
+                "y": 38.5
+              }
+            },
+            "talkAt": 554.2000000000543,
+            "lure": null
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.23586136121176,
+          "y": 52.351972837475195,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 5.5,
+              "y": 25.5
+            },
+            "think": 10.643285094574104,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 202.0410300604999,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 517.5000000000459,
+            "study": {
+              "kind": "grab",
+              "until": 540.9730837156548,
+              "p": {
+                "f": 0,
+                "x": 10.5,
+                "y": 34.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 2,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 10.044755993026257,
+          "y": 31.83629008526364,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 5.5,
+              "y": 25.5
+            },
+            "think": 11.175372762698688,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 199.72553197760135,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 9
+            },
+            "react": 430.33178819353344,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 1.5,
+              "y": 33.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 448.12660004285095,
+              "p": {
+                "f": 0,
+                "x": 11.5,
+                "y": 33.5
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 13.259921858403002,
+          "y": 35.124844760303574,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 3.5,
+              "y": 37.5
+            },
+            "think": 7.0129041858948895,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 155.2790952567011,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 9
+            },
+            "talkAt": 39.700000000000095,
+            "react": 234.0531258961795,
+            "study": null,
+            "lure": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "demonio",
+      "time": 695.1000000000895,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jenny",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 10,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nahual",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nahual",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Robert",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 10,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 10,
+          "1": 18,
+          "2": 18,
+          "3": 10
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 19,
+      "hunts": 3,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 4.629023072452835,
+          "y": 6.3719300973693,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 6.5,
+              "y": 4.5
+            },
+            "think": 2.645902924146532,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 396.3921398548331,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 0
+            },
+            "react": 550.5310528150392,
+            "termoDone": {
+              "0:10": 31.100000000000172,
+              "0:9": 44.90000000000037,
+              "0:5": 62.300000000000615,
+              "0:0": 79.09999999999978
+            },
+            "sweep": {
+              "key": "0:1",
+              "p": {
+                "f": 0,
+                "x": 21.647078927140683,
+                "y": 7.523334790952504
+              },
+              "t": 9.599999999999982
+            },
+            "study": null,
+            "talkAt": 537.7000000000505,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "pickupDetourId": 382
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.322785832033944,
+          "y": 52.42741670727702,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 6.5,
+              "y": 4.5
+            },
+            "think": 8.219170907977984,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 155.13418852351606,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 609.9446430213052,
+            "talkAt": 608.1000000000665,
+            "study": {
+              "kind": "grab",
+              "until": 623.6130437564784,
+              "p": {
+                "f": 0,
+                "x": 15.5,
+                "y": 4.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.322785832033944,
+          "y": 52.42741670727702,
+          "hidden": -1,
+          "ai": {
+            "state": "setup",
+            "goal": {
+              "f": 1,
+              "x": 5.5,
+              "y": 38.5
+            },
+            "think": -7.500000000000147,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 169.31618393864483,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 609.7373827676289,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 19.5,
+              "y": 6.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 18.5,
+              "y": 4.5
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 31.169421903448715,
+          "y": 4.81969336072667,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 4.5
+            },
+            "think": 5.0503712526522815,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 175.23455115035176,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 2
+            },
+            "talkAt": 114.99999999999854,
+            "react": 365.84619641305466,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 20.5,
+              "y": 3.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 18.5,
+              "y": 4.5
+            },
+            "study": null,
+            "pickupDetourId": 384,
+            "flee": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "fleeUntil": 368.9000000000147
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "planchada",
+      "time": 695.2000000000895,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chaneque",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chaneque",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chaneque",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chaneque",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 18,
+          "1": 18,
+          "2": 18,
+          "3": 18
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 27,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.255029137083824,
+          "y": 52.426983114524596,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 34.5,
+              "y": 32.5
+            },
+            "think": 7.91970615098254,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 182.4280664138496,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 501.50000000004553,
+              "0:1": 53.60000000000049,
+              "0:5": 447.6000000000333,
+              "0:2": 89.2999999999992,
+              "0:7": 368.2000000000152,
+              "0:3": 203.29999999999274,
+              "0:8": 354.70000000001215,
+              "0:13": 339.9000000000088,
+              "0:9": 485.40000000004187,
+              "0:12": 320.90000000000447,
+              "0:0": 461.7000000000365
+            },
+            "sweep": {
+              "key": "0:12",
+              "p": {
+                "f": 0,
+                "x": 33.958548203137205,
+                "y": 35.305815563683936
+              },
+              "t": 9.099999999999984
+            },
+            "talkAt": 589.4000000000623
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24246477416057,
+          "y": 52.40798791591494,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 40.5,
+              "y": 37.5
+            },
+            "think": 17.499999999999822,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 354.7292708609183,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 574.7000000000589,
+            "react": 0,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20252024309971,
+          "y": 52.31485724695749,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 47.5,
+              "y": 2.5
+            },
+            "think": 1.3853912915103508,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 371.26958799510385,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 530.0000000000488,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.22506573518392,
+          "y": 52.33276290201736,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 34.5,
+              "y": 34.5
+            },
+            "think": 9.104470989760022,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 540.8583008684329,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 565.5000000000568,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "chocarrero",
+      "time": 412.0000000000252,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Rafael",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 20,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 22,
+      "hunts": 2,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 55.5,
+              "y": 25.5
+            },
+            "think": 4.471327189542386,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 188.3439574856311,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 28.500000000000135,
+              "0:5": 53.30000000000049,
+              "1:4": 85.8999999999994,
+              "1:0": 103.79999999999838,
+              "1:1": 128.299999999997,
+              "1:2": 147.99999999999588,
+              "1:3": 163.89999999999498
+            },
+            "sweep": null,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 48.5,
+              "y": 36.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 50.5,
+              "y": 34.5
+            },
+            "talkAt": 384.8000000000158,
+            "study": {
+              "kind": "termo",
+              "until": 385.7406628444931,
+              "p": {
+                "f": 1,
+                "x": 43.5,
+                "y": 38.5
+              }
+            },
+            "lure": null,
+            "flee": {
+              "f": 1,
+              "x": 6.5,
+              "y": 4.5
+            },
+            "fleeUntil": 236.599999999991
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 1,
+          "x": 51.3609904164276,
+          "y": 32.56053688101767,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 33.5,
+              "y": 34.5
+            },
+            "think": 10.009057982265958,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 179.9978484911844,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 1,
+              "r": 12
+            },
+            "react": 232.7485799098531,
+            "talkAt": 232.99999999999184,
+            "study": {
+              "kind": "emf",
+              "until": 246.00228496034748,
+              "p": {
+                "f": 1,
+                "x": 50.5,
+                "y": 36.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 46.5,
+              "y": 35.5
+            },
+            "think": 0.028231725934907775,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 402.796981970214,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 209.0999999999932,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": {
+              "kind": "uv",
+              "until": 377.00138299894815,
+              "p": {
+                "f": 1,
+                "x": 46.5,
+                "y": 31.5
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 48.5,
+              "y": 24.5
+            },
+            "think": 3.476389368996043,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 174.05942155513912,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 144.39999999999688,
+            "react": 0,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 56.5,
+              "y": 34.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 50.5,
+              "y": 34.5
+            },
+            "lure": null,
+            "study": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "tlahuel",
+      "time": 215.29999999999205,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 150,
+          "1": 150,
+          "2": 150,
+          "3": 150
+        },
+        "evid": 3,
+        "objDone": 0,
+        "cause": "Tomás, Jhonnatan, Mateo, Ángel salió con la apuesta correcta"
+      },
+      "roomsVisited": 16,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 4.5
+            },
+            "think": 6.586416462436327,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 206.62557444535196,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 27.40000000000012,
+              "0:5": 52.00000000000047,
+              "0:0": 66.60000000000049
+            },
+            "sweep": {
+              "key": "0:1",
+              "p": {
+                "f": 0,
+                "x": 14.5,
+                "y": 7.5
+              },
+              "t": 9.599999999999982
+            },
+            "talkAt": 207.69999999999328,
+            "study": {
+              "kind": "termo",
+              "until": 185.41592765776008,
+              "p": {
+                "f": 0,
+                "x": 15.5,
+                "y": 5.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21774466275247,
+          "y": 52.320624736227934,
+          "hidden": -1,
+          "ai": {
+            "state": "resupply",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 4.5
+            },
+            "think": 6.051779287867271,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 188.46772783901542,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 159.59999999999602,
+            "study": {
+              "kind": "grab",
+              "until": 205.67927907509122,
+              "p": {
+                "f": 0,
+                "x": 17.5,
+                "y": 8.5
+              }
+            },
+            "lure": null,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven"
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21203627556868,
+          "y": 52.311106516286806,
+          "hidden": -1,
+          "ai": {
+            "state": "setup",
+            "goal": null,
+            "think": -13.11218133969227,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 344.15934083759237,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "placeK": 1,
+            "place": {
+              "f": 0,
+              "x": 20.5,
+              "y": 6.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 18.5,
+              "y": 4.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 149.09412904185922,
+              "p": {
+                "f": 0,
+                "x": 21.5,
+                "y": 2.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "lure": {
+              "f": 0,
+              "x": 17.66826696228083,
+              "y": 8.013422026711098,
+              "until": 204.59999999999334
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.256285472170994,
+          "y": 52.428868105401904,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 19.5,
+              "y": 7.5
+            },
+            "think": 8.91439430704342,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 192.97954082954675,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 105.59999999999907,
+            "react": 0,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 15.5,
+              "y": 6.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 18.5,
+              "y": 4.5
+            },
+            "study": null,
+            "lure": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "malaire",
+      "time": 487.10000000004226,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 28,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 28,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 53.5,
+              "y": 19.5
+            },
+            "think": 0.3104326853528935,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 450.6533489475,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 28.700000000000138,
+              "0:5": 51.90000000000047,
+              "0:0": 71.10000000000024,
+              "0:1": 92.39999999999903,
+              "0:2": 110.09999999999802,
+              "0:3": 128.299999999997,
+              "0:7": 154.99999999999548,
+              "0:12": 178.79999999999413,
+              "0:13": 194.19999999999325,
+              "0:8": 215.89999999999202
+            },
+            "sweep": null,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 58.5,
+              "y": 17.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 53.5,
+              "y": 14.5
+            },
+            "talkAt": 459.6000000000328,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": {
+              "kind": "uv",
+              "until": 472.89283223397507,
+              "p": {
+                "f": 1,
+                "x": 52.5,
+                "y": 11.5
+              }
+            }
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.256285472170994,
+          "y": 52.428868105401904,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 46.5,
+              "y": 19.5
+            },
+            "think": 5.837720450758944,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 543.6767218968055,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 423.0000000000245,
+            "study": null,
+            "lure": null,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "placeK": 1,
+            "place": {
+              "f": 1,
+              "x": 53.5,
+              "y": 14.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 53.5,
+              "y": 14.5
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 55.5,
+              "y": 25.5
+            },
+            "think": 4.277204256970464,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 611.0668083232179,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 439.2000000000282,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "placeK": 2,
+            "place": null,
+            "aim": {
+              "f": 1,
+              "x": 53.5,
+              "y": 14.5
+            },
+            "study": {
+              "kind": "grab",
+              "until": 446.73898286514947,
+              "p": {
+                "f": 1,
+                "x": 52.5,
+                "y": 16.5
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 56.5,
+              "y": 17.5
+            },
+            "think": 0.9509897568263247,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 541.6021520281331,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 236.99999999999162,
+            "react": 0,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 47.5,
+              "y": 12.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 53.5,
+              "y": 14.5
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "aparecido",
+      "time": 581.3000000000636,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 83,
+          "1": 83,
+          "2": 83,
+          "3": 83
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Mateo, Robert, Rafael, Alex salió con la apuesta correcta"
+      },
+      "roomsVisited": 27,
+      "hunts": 2,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.2240735659734,
+          "y": 52.331118266264866,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 48.5,
+              "y": 24.5
+            },
+            "think": 0.28727568937467396,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 403.9997498121021,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 27.50000000000012,
+              "0:9": 48.60000000000042,
+              "1:4": 75.00000000000001,
+              "1:0": 93.09999999999899,
+              "1:1": 117.69999999999759,
+              "1:2": 133.89999999999668,
+              "1:3": 150.69999999999573
+            },
+            "sweep": {
+              "key": "1:6",
+              "p": {
+                "f": 1,
+                "x": 58.93721707398072,
+                "y": 17.722203701734543
+              },
+              "t": 9.799999999999981
+            },
+            "talkAt": 554.2000000000543,
+            "study": null,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "pickupDetourId": 610
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21869047938086,
+          "y": 52.32219681709344,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 58.5,
+              "y": 10.5
+            },
+            "think": 8.739511376991885,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 190.93167734798044,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 414.6000000000226,
+            "study": {
+              "kind": "grab",
+              "until": 556.9560762536299,
+              "p": {
+                "f": 1,
+                "x": 55.5,
+                "y": 12.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 55.5,
+              "y": 25.5
+            },
+            "think": 10.789752247836446,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 428.292723763353,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 239.39999999999148,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 58.5,
+              "y": 19.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 53.5,
+              "y": 14.5
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": {
+              "kind": "uv",
+              "until": 564.1150461106159,
+              "p": {
+                "f": 1,
+                "x": 52.5,
+                "y": 11.5
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 48.5,
+              "y": 24.5
+            },
+            "think": 9.706742734648293,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 416.6097453912622,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 180.7999999999948,
+            "react": 0,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 58.5,
+              "y": 17.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 53.5,
+              "y": 14.5
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": null,
+            "lure": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "bruja",
+      "time": 463.900000000037,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Amalia",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 10,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 18,
+          "1": 18,
+          "2": 18,
+          "3": 10
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 18,
+      "hunts": 2,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21415521181849,
+          "y": 52.31464571889287,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 46.5,
+              "y": 21.5
+            },
+            "think": 2.294766029994956,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 186.07826369348913,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 27.40000000000012,
+              "0:5": 50.80000000000045,
+              "0:0": 69.10000000000035
+            },
+            "sweep": null,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 46.5,
+              "y": 27.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "talkAt": 461.8000000000333,
+            "study": {
+              "kind": "termo",
+              "until": 462.4783857705377,
+              "p": {
+                "f": 0,
+                "x": 48.5,
+                "y": 28.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24850742567264,
+          "y": 52.41715524587497,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "think": 8.883781107515109,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 176.03848337195814,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 461.50000000003325,
+            "study": {
+              "kind": "grab",
+              "until": 453.1353972482768,
+              "p": {
+                "f": 0,
+                "x": 49.5,
+                "y": 21.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.259078887434875,
+          "y": 52.43305116175948,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "think": 8.418333307281145,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 346.93830975666094,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 64.60000000000045,
+            "placeK": 1,
+            "place": {
+              "f": 0,
+              "x": 49.5,
+              "y": 24.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "study": null,
+            "lure": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 49.97097599780252,
+          "y": 24.96856122120104,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "think": 7.61797226946803,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 324.01306366603274,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 8
+            },
+            "talkAt": 73.70000000000059,
+            "react": 324.6947185688935,
+            "study": {
+              "kind": "uv",
+              "until": 343.0943004947197,
+              "p": {
+                "f": 0,
+                "x": 53.5,
+                "y": 23.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "yohual",
+      "time": 548.000000000056,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Fermín",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jorge",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "yohual",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "yohual",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 20,
+          "1": 20,
+          "2": 83,
+          "3": 83
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Alex, Tomás salió con la apuesta correcta"
+      },
+      "roomsVisited": 20,
+      "hunts": 4,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 30.499999614259043,
+          "y": 38.942556891606614,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 57.5,
+              "y": 27.5
+            },
+            "think": 2.9270304254256563,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 181.65449544321746,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 11
+            },
+            "react": 324.50152770672497,
+            "termoDone": {
+              "0:10": 28.700000000000138,
+              "0:9": 65.60000000000055,
+              "0:12": 240.19999999999064,
+              "0:13": 266.099999999992
+            },
+            "sweep": {
+              "key": "0:8",
+              "p": {
+                "f": 0,
+                "x": 57.43675284739584,
+                "y": 25.505447501782328
+              },
+              "t": 0
+            },
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 27.5,
+              "y": 38.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 29.5,
+              "y": 34.5
+            },
+            "talkAt": 261.09999999999025,
+            "study": {
+              "kind": "termo",
+              "until": 99.45027484679592,
+              "p": {
+                "f": 0,
+                "x": 29.5,
+                "y": 35.5
+              }
+            },
+            "lure": null,
+            "unhideAt": 218.05138003806724,
+            "pickupDetourId": 705,
+            "flee": {
+              "f": 0,
+              "x": 53.5,
+              "y": 4.5
+            },
+            "fleeUntil": 327.6000000000053
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 53.14492829650228,
+          "y": 22.568880576068725,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 58.5,
+              "y": 24.5
+            },
+            "think": 6.7999999999998355,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 203.19169990718365,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 8
+            },
+            "react": 536.7118863696301,
+            "talkAt": 219.6999999999926,
+            "study": {
+              "kind": "grab",
+              "until": 103.22896422138435,
+              "p": {
+                "f": 0,
+                "x": 28.5,
+                "y": 33.5
+              }
+            },
+            "lure": null,
+            "unhideAt": 214.67870778673486,
+            "pickupDetourId": 705
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 34.5,
+              "y": 33.5
+            },
+            "think": 28.399999999999977,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 198.45208323094994,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 27.5,
+              "y": 37.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 29.5,
+              "y": 34.5
+            },
+            "talkAt": 554.2000000000543,
+            "study": {
+              "kind": "uv",
+              "until": 123.6306951194991,
+              "p": {
+                "f": 0,
+                "x": 28.5,
+                "y": 33.5
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.2001572145968,
+          "y": 52.29112809490005,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 28.5,
+              "y": 31.5
+            },
+            "think": 26.799999999999955,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 208.00407531671226,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 529.2000000000486,
+            "study": null,
+            "unhideAt": 532.1269098729414
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "cihuateteo",
+      "time": 699.4000000000905,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 0,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 8,
+          "1": 8,
+          "2": 8,
+          "3": 0
+        },
+        "evid": 0,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 27,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.195447501718554,
+          "y": 52.28314256446735,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 17.5,
+              "y": 8.5
+            },
+            "think": 19.699999999999854,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 203.61987178679556,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 341.90000000000924,
+              "0:12": 476.60000000003987,
+              "0:8": 510.1000000000475,
+              "0:13": 492.2000000000434,
+              "0:3": 535.4000000000532,
+              "0:2": 553.6000000000573,
+              "0:1": 201.49999999999284,
+              "0:5": 220.49999999999176,
+              "0:0": 236.39999999999085,
+              "0:9": 259.7999999999906
+            },
+            "sweep": {
+              "key": "0:1",
+              "p": {
+                "f": 0,
+                "x": 20.5,
+                "y": 6.5
+              },
+              "t": 2.1000000000000005
+            },
+            "talkAt": 589.4000000000623
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.1953957845889,
+          "y": 52.28305472415994,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 46.5,
+              "y": 22.5
+            },
+            "think": 25.89999999999994,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 611.4507787492362,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 10
+            },
+            "react": 601.3041695367991,
+            "talkAt": 576.4000000000593,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "lure": null,
+            "unhideAt": 605.8206153732476
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.19535256955805,
+          "y": 52.282981216354045,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 5.5,
+              "y": 8.5
+            },
+            "think": 29.39999999999999,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 375.3468347364966,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 600.5000000000648,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 34.82595405190063,
+          "y": 32.43668551258968,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 38.5,
+              "y": 6.5
+            },
+            "think": 18.499999999999837,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 614.8948893418878,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 11
+            },
+            "talkAt": 552.0000000000538,
+            "react": 611.3090692709903,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "unhideAt": 614.7188842208832
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "xtabay",
+      "time": 148.89999999999583,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 150,
+          "1": 150,
+          "2": 150,
+          "3": 150
+        },
+        "evid": 3,
+        "objDone": 0,
+        "cause": "Rafael, Mateo, Amalia, Jhonnatan salió con la apuesta correcta"
+      },
+      "roomsVisited": 12,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24196536982559,
+          "y": 52.40722729145826,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 35.5,
+              "y": 31.5
+            },
+            "think": 9.126565237808986,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 181.5995697118342,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 29.900000000000155,
+              "0:1": 54.2000000000005,
+              "0:5": 75.79999999999997
+            },
+            "sweep": null,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 40.5,
+              "y": 31.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "talkAt": 153.79999999999634,
+            "study": {
+              "kind": "termo",
+              "until": 170.35446849586077,
+              "p": {
+                "f": 0,
+                "x": 36.5,
+                "y": 33.5
+              }
+            }
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "think": 4.139180133678041,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 157.9386691795662,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 128.59999999999775,
+            "react": 0,
+            "study": {
+              "kind": "grab",
+              "until": 129.40128824915593,
+              "p": {
+                "f": 0,
+                "x": 38.5,
+                "y": 32.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21507022946612,
+          "y": 52.31617091950183,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 34.5
+            },
+            "think": 11.560694625973703,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 177.48019580729306,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 78.7000000000006,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 39.5,
+              "y": 35.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 158.72973129730352,
+              "p": {
+                "f": 0,
+                "x": 37.5,
+                "y": 32.5
+              }
+            },
+            "lure": {
+              "f": 0,
+              "x": 35.9261010586985,
+              "y": 34.67450391141823,
+              "until": 155.09999999999616
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.211821206003364,
+          "y": 52.31074687403721,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 37.5,
+              "y": 35.5
+            },
+            "think": 8.044954706076552,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 157.09021284710616,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 88.10000000000007,
+            "lure": {
+              "f": 0,
+              "x": 35.9261010586985,
+              "y": 34.67450391141823,
+              "until": 155.09999999999616
+            },
+            "study": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "cadejo",
+      "time": 162.49999999999505,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cadejo",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cadejo",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cadejo",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cadejo",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 150,
+          "1": 150,
+          "2": 150,
+          "3": 150
+        },
+        "evid": 3,
+        "objDone": 0,
+        "cause": "Ángel, Jorge, Alex, Mateo salió con la apuesta correcta"
+      },
+      "roomsVisited": 16,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 12.5,
+              "y": 14.5
+            },
+            "think": 29.9,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 194.07023394014686,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 30.800000000000168,
+              "0:1": 53.00000000000048
+            },
+            "sweep": {
+              "key": "0:2",
+              "p": {
+                "f": 0,
+                "x": 35.010165576357394,
+                "y": 6.328122237697244
+              },
+              "t": 0
+            },
+            "talkAt": 154.89999999999628,
+            "pickupDetourId": 844
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "think": 8.137493819464005,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 170.31330132856965,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 109.49999999999885,
+            "react": 0,
+            "study": {
+              "kind": "emf",
+              "until": 126.84162875162325,
+              "p": {
+                "f": 0,
+                "x": 58.5,
+                "y": 19.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21301955956108,
+          "y": 52.31274977116516,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "think": 8.871249228902165,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 182.05801576841623,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 49.5,
+              "y": 19.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 145.58184357601914,
+              "p": {
+                "f": 0,
+                "x": 50.5,
+                "y": 19.5
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20254273153859,
+          "y": 52.29515861615238,
+          "hidden": -1,
+          "ai": {
+            "state": "setup",
+            "goal": {
+              "f": 0,
+              "x": 55.5,
+              "y": 13.5
+            },
+            "think": 22.19999999999989,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 172.86100138910115,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 76.10000000000062,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 48.5,
+              "y": 11.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "pickupDetourId": 841
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "mulata",
+      "time": 584.2000000000643,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Amalia",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "uaychivo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "uaychivo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "uaychivo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 20,
+          "1": 28,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 29,
+      "hunts": 2,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 51.65000000000001,
+          "y": 22.5,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 11.5
+            },
+            "think": 15.471495716832578,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 526.1319784766131,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 8
+            },
+            "react": 494.7011306693982,
+            "termoDone": {
+              "0:10": 251.49999999999,
+              "0:9": 268.39999999999253,
+              "0:12": 353.5000000000119,
+              "0:13": 89.3999999999992,
+              "0:7": 116.29999999999767,
+              "0:3": 148.69999999999584,
+              "0:2": 169.09999999999468,
+              "0:1": 190.69999999999345,
+              "0:5": 206.99999999999253,
+              "0:0": 225.69999999999146,
+              "0:8": 374.00000000001654
+            },
+            "sweep": null,
+            "talkAt": 482.0000000000379,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 885
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24810589834029,
+          "y": 52.41654794217373,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "think": 1.4504733898677094,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 704.662597840705,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 578.4000000000598,
+            "react": 0,
+            "study": {
+              "kind": "grab",
+              "until": 579.8893865486255,
+              "p": {
+                "f": 0,
+                "x": 58.5,
+                "y": 19.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24742208731583,
+          "y": 52.41551308339577,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 18.5,
+              "y": 33.5
+            },
+            "think": 20.79999999999987,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 651.4230830315844,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 466.5000000000344,
+            "pickupDetourId": 885,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.31897350753573,
+          "y": 53.49999997641539,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 47.5,
+              "y": 29.5
+            },
+            "think": 30,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 150.12092077173293,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 84.90000000000025,
+            "pickupDetourId": 885
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "uaychivo",
+      "time": 594.9000000000667,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Amalia",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 13,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 13,
+          "1": 20,
+          "2": 20,
+          "3": 20
+        },
+        "evid": 0,
+        "objDone": 1,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 27,
+      "hunts": 2,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": false,
+          "escaped": false,
+          "f": 1,
+          "x": 41.33588820295423,
+          "y": 11.224886449644103,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 20.5,
+              "y": 8.5
+            },
+            "think": 10.279262518882765,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 150.61671941075474,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 1,
+              "r": 15
+            },
+            "react": 351.36598467117824,
+            "termoDone": {
+              "0:10": 227.99999999999133,
+              "0:9": 51.000000000000455,
+              "0:5": 71.40000000000022,
+              "0:2": 101.89999999999849,
+              "0:1": 119.39999999999749,
+              "0:3": 140.6999999999963,
+              "0:7": 159.19999999999524,
+              "0:8": 172.4999999999945,
+              "0:13": 190.29999999999347,
+              "0:12": 206.19999999999257,
+              "1:9": 254.49999999998983,
+              "1:10": 275.99999999999426,
+              "1:11": 292.9999999999981,
+              "1:12": 309.2000000000018,
+              "1:8": 328.0000000000061,
+              "1:6": 342.7000000000094
+            },
+            "sweep": null,
+            "talkAt": 342.9000000000063
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.26435665636718,
+          "y": 52.44092017427549,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 57.5,
+              "y": 23.5
+            },
+            "think": 2.053676181472861,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 169.04126490466297,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 589.4000000000623,
+            "pickupDetourId": 935
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.22507251428378,
+          "y": 52.33276868800414,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 38.5,
+              "y": 7.5
+            },
+            "think": 21.099999999999874,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 736.6267604137413,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 567.7000000000573,
+            "unhideAt": 511.6216479072819,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20738561069486,
+          "y": 52.303313200267645,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 25.5,
+              "y": 31.5
+            },
+            "think": 19.39999999999985,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 731.7463818381208,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 578.8000000000599,
+            "react": 0,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "charro",
+      "time": 713.3000000000936,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 8,
+          "1": 8,
+          "2": 8,
+          "3": 8
+        },
+        "evid": 0,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 29,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21723158993263,
+          "y": 52.31977137815506,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 11.5,
+              "y": 35.5
+            },
+            "think": 15.199999999999806,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 757.3497413838871,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 380.8000000000181,
+              "0:9": 285.4999999999964,
+              "0:5": 307.0000000000013,
+              "0:0": 87.4999999999993,
+              "0:2": 505.7000000000465,
+              "0:3": 137.79999999999646,
+              "1:3": 156.09999999999542,
+              "1:6": 181.99999999999395,
+              "1:7": 196.9999999999931,
+              "0:12": 398.100000000022,
+              "0:13": 414.3000000000257,
+              "0:1": 526.000000000051
+            },
+            "sweep": {
+              "key": "0:10",
+              "p": {
+                "f": 0,
+                "x": 26.681656473464034,
+                "y": 35.584853835957404
+              },
+              "t": 3.900000000000002
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "talkAt": 589.4000000000623
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 47.5,
+              "y": 2.5
+            },
+            "think": 3.0256883434951556,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 187.5612971931696,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 15
+            },
+            "react": 0,
+            "talkAt": 581.3000000000604
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.832598865147226,
+          "y": 52.32438128901788,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 9.5,
+              "y": 16.5
+            },
+            "think": 22.799999999999898,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 621.203594552016,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 532.3000000000493,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.257943862564424,
+          "y": 52.43135309748779,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 51.5,
+              "y": 17.5
+            },
+            "think": 3.015372391417645,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 321.0523086791806,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 212.399999999993,
+            "react": 0,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 977
+          }
+        }
+      ]
+    }
+  ]
+}

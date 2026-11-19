@@ -39,9 +39,183 @@
         "Copal y recuerdos"
       ],
       "drawers": true
+    },
+    {
+      "id": "estante_desvan",
+      "floor": 1,
+      "room": "A01",
+      "rect": [
+        0,
+        0,
+        3,
+        1
+      ],
+      "height": 2.1,
+      "blocksSight": true,
+      "model": "pantryTall",
+      "label": "Estante de archivo familiar",
+      "backWall": "north"
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_A01",
+      "label": "Muro · Desván",
+      "room": "A01",
+      "floor": 1,
+      "rect": [
+        1,
+        1,
+        13,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "A01_storage_box_01",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        0.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_02",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        1.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_03",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        2.5,
+        -1.94,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_04",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        0.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_05",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        1.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_storage_box_06",
+      "room": "A01",
+      "asset": "storage_box",
+      "support": "estante_desvan",
+      "offset": [
+        2.5,
+        -1.38,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_suitcase_01",
+      "room": "A01",
+      "asset": "suitcase",
+      "support": "estante_desvan",
+      "offset": [
+        0.5,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_linen_01",
+      "room": "A01",
+      "asset": "linen",
+      "support": "estante_desvan",
+      "offset": [
+        1.5,
+        -0.82,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A01_wall_certificate_01",
+      "room": "A01",
+      "asset": "wall_certificate",
+      "support": "muro_A01",
+      "offset": [
+        1.5,
+        2.35,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "A01_family_frame_01",
+      "room": "A01",
+      "asset": "family_frame",
+      "support": "muro_A01",
+      "offset": [
+        0.06,
+        1.6,
+        6
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A01_rope_coil_01",
+      "room": "A01",
+      "asset": "rope_coil",
+      "support": "muro_A01",
+      "offset": [
+        11.93,
+        1.7,
+        3
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA01",

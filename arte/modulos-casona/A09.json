@@ -70,7 +70,80 @@
       "drawers": true
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_A09",
+      "label": "Muro · Baño",
+      "room": "A09",
+      "floor": 1,
+      "rect": [
+        46,
+        21,
+        51,
+        30
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "A09_wall_bathrack_01",
+      "room": "A09",
+      "asset": "wall_bathrack",
+      "support": "muro_A09",
+      "offset": [
+        4.9,
+        1.4,
+        1
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A09_wall_hooks_01",
+      "room": "A09",
+      "asset": "wall_hooks",
+      "support": "muro_A09",
+      "offset": [
+        1.5,
+        1.5,
+        0.08
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "A09_bath_towel_01",
+      "room": "A09",
+      "asset": "bath_towel",
+      "support": "banera",
+      "offset": [
+        0.12,
+        0.125,
+        1.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A09_soap_01",
+      "room": "A09",
+      "asset": "soap",
+      "support": "banera",
+      "offset": [
+        1.6,
+        0.125,
+        0.12
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA09",

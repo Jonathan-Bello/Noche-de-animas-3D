@@ -60,7 +60,92 @@
       "backWall": "south"
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_B11",
+      "label": "Muro · Despacho",
+      "room": "B11",
+      "floor": 0,
+      "rect": [
+        15,
+        31,
+        26,
+        39
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B11_ink_set_01",
+      "room": "B11",
+      "asset": "ink_set",
+      "support": "am_B11",
+      "offset": [
+        1.16,
+        0,
+        0.16
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B11_photo_table_01",
+      "room": "B11",
+      "asset": "photo_table",
+      "support": "am_B11",
+      "offset": [
+        1.84,
+        0,
+        0.84
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B11_paper_letters_01",
+      "room": "B11",
+      "asset": "paper_letters",
+      "support": "am_B11",
+      "offset": [
+        1.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B11_wall_certificate_01",
+      "room": "B11",
+      "asset": "wall_certificate",
+      "support": "muro_B11",
+      "offset": [
+        2,
+        1.6,
+        7.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "B11_wall_map_01",
+      "room": "B11",
+      "asset": "wall_map",
+      "support": "muro_B11",
+      "offset": [
+        10.94,
+        1.6,
+        2
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HB11",

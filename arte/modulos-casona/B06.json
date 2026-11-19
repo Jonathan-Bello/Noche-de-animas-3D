@@ -59,7 +59,93 @@
       "backWall": "north"
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_B06",
+      "label": "Muro · Biblioteca",
+      "room": "B06",
+      "floor": 0,
+      "rect": [
+        1,
+        10,
+        14,
+        20
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B06_wall_map_01",
+      "room": "B06",
+      "asset": "wall_map",
+      "support": "muro_B06",
+      "offset": [
+        9.5,
+        1.6,
+        0.06
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B06_wall_certificate_01",
+      "room": "B06",
+      "asset": "wall_certificate",
+      "support": "muro_B06",
+      "offset": [
+        0.06,
+        1.6,
+        2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B06_wall_lamp_01",
+      "room": "B06",
+      "asset": "wall_lamp",
+      "support": "muro_B06",
+      "offset": [
+        11.8,
+        1.5,
+        0.09
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "B06_photo_table_01",
+      "room": "B06",
+      "asset": "photo_table",
+      "support": "librero_isla",
+      "offset": [
+        1,
+        -0.04,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B06_paper_letters_01",
+      "room": "B06",
+      "asset": "paper_letters",
+      "support": "am_B06",
+      "offset": [
+        1.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HB06",

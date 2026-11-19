@@ -91,7 +91,140 @@
       "visualHeight": 1.04
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_B03",
+      "label": "Muro · Capilla",
+      "room": "B03",
+      "floor": 0,
+      "rect": [
+        24,
+        1,
+        36,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "B03_candle_group_01",
+      "room": "B03",
+      "asset": "candle_group",
+      "support": "altar_fijo",
+      "offset": [
+        5.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_candle_group_02",
+      "room": "B03",
+      "asset": "candle_group",
+      "support": "altar_fijo",
+      "offset": [
+        7.3,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_flowers_table_01",
+      "room": "B03",
+      "asset": "flowers_table",
+      "support": "altar_fijo",
+      "offset": [
+        4.2,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_wall_devotion_01",
+      "room": "B03",
+      "asset": "wall_devotion",
+      "support": "muro_B03",
+      "offset": [
+        0.06,
+        1.6,
+        2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "B03_wall_devotion_02",
+      "room": "B03",
+      "asset": "wall_devotion",
+      "support": "muro_B03",
+      "offset": [
+        11.94,
+        1.6,
+        2
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "B03_cushion_01",
+      "room": "B03",
+      "asset": "cushion",
+      "support": "banca_oeste_1",
+      "offset": [
+        1,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_cushion_02",
+      "room": "B03",
+      "asset": "cushion",
+      "support": "banca_este_1",
+      "offset": [
+        1,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_cushion_03",
+      "room": "B03",
+      "asset": "cushion",
+      "support": "banca_oeste_2",
+      "offset": [
+        1,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "B03_cushion_04",
+      "room": "B03",
+      "asset": "cushion",
+      "support": "banca_este_2",
+      "offset": [
+        1,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HB03",

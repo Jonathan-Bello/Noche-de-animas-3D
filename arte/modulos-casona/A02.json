@@ -42,7 +42,105 @@
       "backWall": "west"
     }
   ],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_A02",
+      "label": "Muro · Costura",
+      "room": "A02",
+      "floor": 1,
+      "rect": [
+        14,
+        1,
+        23,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "west",
+        "east",
+        "north",
+        "south"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "A02_wall_sewing_01",
+      "room": "A02",
+      "asset": "wall_sewing",
+      "support": "muro_A02",
+      "offset": [
+        0.1,
+        1.4,
+        1.1
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A02_wall_pattern_01",
+      "room": "A02",
+      "asset": "wall_pattern",
+      "support": "muro_A02",
+      "offset": [
+        0.06,
+        1.6,
+        6.2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A02_wall_lamp_01",
+      "room": "A02",
+      "asset": "wall_lamp",
+      "support": "muro_A02",
+      "offset": [
+        5,
+        1.6,
+        0.09
+      ],
+      "rotation": 0,
+      "mountWall": "north"
+    },
+    {
+      "id": "A02_laundry_basket_01",
+      "room": "A02",
+      "asset": "laundry_basket",
+      "support": "am_A02",
+      "offset": [
+        0.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A02_fabric_rolls_01",
+      "room": "A02",
+      "asset": "fabric_rolls",
+      "support": "am_A02",
+      "offset": [
+        1.5,
+        -0.78,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A02_paper_letters_01",
+      "room": "A02",
+      "asset": "paper_letters",
+      "support": "am_A02",
+      "offset": [
+        1,
+        0.032,
+        0.55
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA02",

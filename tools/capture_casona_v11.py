@@ -2,7 +2,7 @@
 import sys,asyncio,json,threading,functools,os
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Decoracion_Casona_v15';OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Decoracion_Casona_v16';OUT.mkdir(exist_ok=True)
 sys.path.insert(0,str(ROOT.parent/'QA_Arte_Alex/python_lib'))
 from playwright.async_api import async_playwright
 class Quiet(SimpleHTTPRequestHandler):
@@ -26,6 +26,8 @@ async def main():
    views += [('cocina',0,42,6,1.1,-.12),('cocina_fogon',0,42,7,3.14159,-.1),('despensa',0,7,6,-2.5,-.08),('reposteria',0,53.5,26,-.8,-.1)]
    views += [('abuela',1,7,36,3.3,-.1),('principal',1,21,34,1.6,-.05),('huespedes',1,54.5,24,.8,-.05),('infantil_desk',1,10,16.8,.8,-.05)]
    views += [('nana_cuidado',1,42,5.8,.5,-.08),('hija_tocador',1,49,36,2.5,-.05)]
+   views += [('costura',1,19,6,3.8,-.03),('aperos_v16',0,5,36.5,3.14159,-.07),('botica',0,57,35.5,-1.5708,-.08),('botica_mostrador',0,50.5,32.5,.2,-.08),('capilla_v16',0,30,7,-1.57,.04),('biblioteca_v16',0,11,16,-2,-.04),('desvan',1,6,6,-2.4,-.04),('musica',1,53,17,-.3,0),('bano',1,47,29,-.7,-.1),('estrado',1,33,34,1.5,-.1),('otras_zonas',0,30,36,-1.57,0)]
+   views += [('planchaduria',0,20,6,3.7,-.04),('traspatio',0,53,6,-.8,-.08),('despacho',0,22,34,2.2,-.05),('porteria',0,35.8,33,.8,-.06),('coro_deco',1,30,6.6,1.57,.03),('escalera_deco',0,12,28,3.5,0),('rellano_deco',1,12,28,3.5,0)]
    chosen=os.environ.get('NDA_CAPTURE_VIEWS','').split(',');views=[v for v in views if not chosen[0] or v[0] in chosen]
    for name,f,x,y,yaw,pitch in views:
     await page.evaluate("p=>{const w=__game.w,m=w.invs[__game.ME];Object.assign(m,{f:p.f,x:p.x,y:p.y,hidden:-1,alive:true,face:p.yaw});w.g.hunt=null;w.g.stunUntil=9999;w.lights.forEach(a=>a.fill(1));w.burnt.forEach(a=>a.fill(0));w.fuse=[true,true];__game.setYaw(p.yaw);__qa.setPitch(p.pitch);__qa.frame();}",dict(f=f,x=x,y=y,yaw=yaw,pitch=pitch))

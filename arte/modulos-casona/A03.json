@@ -21,7 +21,68 @@
     "favorite": null
   },
   "furniture": [],
-  "decorations": [],
+  "decorSupports": [
+    {
+      "id": "muro_A03",
+      "label": "Muro · Coro",
+      "room": "A03",
+      "floor": 1,
+      "rect": [
+        24,
+        6,
+        36,
+        9
+      ],
+      "height": 0,
+      "wallOnly": true,
+      "allowedWalls": [
+        "south",
+        "east",
+        "west"
+      ]
+    }
+  ],
+  "decorations": [
+    {
+      "id": "A03_music_score_01",
+      "room": "A03",
+      "asset": "music_score",
+      "support": "muro_A03",
+      "offset": [
+        1.5,
+        1.5,
+        2.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A03_music_score_02",
+      "room": "A03",
+      "asset": "music_score",
+      "support": "muro_A03",
+      "offset": [
+        8.5,
+        1.5,
+        2.94
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A03_wall_devotion_01",
+      "room": "A03",
+      "asset": "wall_devotion",
+      "support": "muro_A03",
+      "offset": [
+        0.06,
+        1.5,
+        0.4
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    }
+  ],
   "hidingSockets": [],
   "doors": [
     {
