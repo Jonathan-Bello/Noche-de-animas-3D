@@ -1,0 +1,12 @@
+Sonidos provisionales de Noche de Ánimas (convertidos a MP3 mono 22 kHz y normalizados).
+
+- FilmCow Royalty Free Sound Effects (Jason Steele) — libres para cualquier proyecto. https://filmcow.itch.io/filmcow-sfx
+  (puertas, toques, rechinidos, canicas, teléfono, tele, apagadores, palanca, arrastres, gritos, caída de cuerpo, camioneta,
+   ambiente de afuera, goteo, cerillo, cadena, gas, golpe metálico, libro, cerámica, pasos en pasto, cuadro, retumbo, boca, tos)
+- Colección CC0 (dominio público) reunida en github.com/lavenderdotpet/CC0-Public-Domain-Sounds:
+  Kenney Impact Sounds (pasos en madera y piedra, campana), "100 CC0 SFX" y "100 CC0 SFX #2" (campanas, portazos, trueno),
+  "30 CC0 SFX loops" (lluvia, estática), "80 CC0 creature SFX" (aullido, ladrido, gritos, respiraciones, gruñidos, raros),
+  "30 weird CC0 SFX", "75 CC0 breaking/falling/hit SFX" (vidrio, caídas, madera), "100 CC0 wood/metal SFX", "80 CC0 RPG SFX".
+- Sonic Pi (CC0, vía github.com/adafruit/Adafruit-Sound-Samples): golpe de cine, zumbido embrujado, soplo oscuro, coro,
+  vidrio frotado, cuervo, campanita, guitarra, siseo, glitches, bip, zumbido.
+- Zulubo Sounds (MIT, github.com/zulubo/Zulubo-Sounds): apagón, puerta que rechina.

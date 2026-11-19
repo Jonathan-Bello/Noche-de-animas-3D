@@ -270,12 +270,13 @@ function casRoll(w) {
   if (CAS_ONCE.has(k) && w.cas.used.includes(k)) k = 'ambiente';
   if (k === veto || (k === 'ambiente' && veto === 'afuera' && false)) return; // la casona le teme: no pasa nada
   w.cas.used.push(k);
-  const humans = a.filter(i => !i.bot); const v = pick(humans.length ? humans : a); if (!v) return;
+  const inside = a.filter(i => !(i.f === 0 && i.y >= 39)); if (!inside.length) return; // afuera no pasa nada raro
+  const humans = inside.filter(i => !i.bot); const v = pick(humans.length ? humans : inside); if (!v) return;
   casDo(w, k, v);
 }
 function casPoint(w, v, dmin, dmax, needView) {
   for (let k = 0; k < 30; k++) { const ang = (needView ? v.face : Math.random() * 6.28) + (Math.random() - 0.5) * (needView ? 1.0 : 6.28), d = dmin + Math.random() * (dmax - dmin), p = { f: v.f, x: v.x + Math.cos(ang) * d, y: v.y + Math.sin(ang) * d };
-    if (walkableT(tileAt(p.f, p.x, p.y)) && (!needView || los(p.f, v.x, v.y, p.x, p.y))) return p; }
+    if (walkableT(tileAt(p.f, p.x, p.y)) && !(p.f === 0 && p.y >= 38.5) && (!needView || los(p.f, v.x, v.y, p.x, p.y))) return p; }
   return null;
 }
 function casDo(w, k, v) {

@@ -468,7 +468,7 @@ function updateScene(t, dt) {
   if (fuseMesh) fuseMesh.lamp.material.color.setHex(w.fuse.every(Boolean) ? 0x40c060 : (Math.sin(t * 6) > 0 ? 0xff3020 : 0x401010));
   // luces de cuartos: las más cercanas encendidas en los pisos visibles
   const lit = [];
-  ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!w.lights[f][i] || r.id === 'vacio' || (f === 1 && vf === 0)) return; const c = ROOM_CENTER[f][i]; if (!c) return; lit.push({ f, c, d: V ? Math.hypot(c.x - V.x, c.y - V.y) + (f !== vf ? 12 : 0) : 0, id: r.id }); }));
+  ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!w.lights[f][i] || r.id === 'vacio' || r.id === 'afuera' || r.id === 'afuera1' || (f === 1 && vf === 0)) return; const c = ROOM_CENTER[f][i]; if (!c) return; lit.push({ f, c, d: V ? Math.hypot(c.x - V.x, c.y - V.y) + (f !== vf ? 12 : 0) : 0, id: r.id }); }));
   lit.sort((a, b) => a.d - b.d);
   roomLights.forEach((p, k) => { const L = lit[k]; if (!L || L.id === 'patio') { p.intensity = 0; if (L) { p.position.set(L.c.x, L.f * FH + 6, L.c.y); p.intensity = 6; p.distance = 30; p.color.setHex(0x8090c0); } return; }
     p.position.set(L.c.x, L.f * FH + FH - 0.5, L.c.y); p.distance = 13; p.color.setHex(g.hunt ? 0xff5a4a : 0xffd59a); p.intensity = huntFlick ? 1 : 10; });
