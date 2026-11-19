@@ -76,7 +76,7 @@ select{background:var(--ink);color:var(--bone);border:1px solid rgba(243,230,207
 #modalIn h2{font-family:"Grenze Gotisch",Georgia,serif;color:var(--gold);font-size:2.1em;margin:0;font-weight:800}
 .big{font-size:1.2em}.btns{display:flex;gap:10px;margin-top:12px}.ghostbtn{background:transparent!important}
 #vignette{position:fixed;inset:0;pointer-events:none;z-index:2;transition:box-shadow .4s}
-#vignette.hunt{box-shadow:inset 0 0 160px 40px rgba(160,0,25,.55)}
+#vignette.hunt{box-shadow:inset 0 0 180px 60px rgba(4,2,6,.7)}
 #vignette.low{box-shadow:inset 0 0 200px 70px rgba(30,0,10,.75)}
 #vignette.nuca{animation:nuca 1.4s}
 @keyframes nuca{0%{box-shadow:inset 0 -60px 140px 30px rgba(170,200,255,.5)}100%{box-shadow:none}}
@@ -156,7 +156,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
 #toast.hunt{border-color:#e04a5a}#toast.hunt b{color:#ff6b78}#toast.calm{border-color:#7ec8ff}#toast.calm b{color:#7ec8ff}
 #floaters{position:fixed;left:150px;top:62px;pointer-events:none;z-index:6}.floater{position:absolute;white-space:nowrap;font-weight:600;font-size:15px;text-shadow:0 2px 3px #000;animation:floatup 1.6s forwards}.floater.bad{color:#ff6b78}.floater.good{color:#6fbf73}
 @keyframes floatup{from{transform:translateY(0);opacity:1}to{transform:translateY(-36px);opacity:0}}
-#vignette.hurt{animation:hurt .6s}@keyframes hurt{0%{box-shadow:inset 0 0 120px 40px rgba(200,0,30,.6)}100%{box-shadow:inset 0 0 0 0 rgba(200,0,30,0)}}
+#vignette.hurt{animation:hurt .6s}@keyframes hurt{0%{box-shadow:inset 0 0 120px 40px rgba(8,4,12,.7)}100%{box-shadow:inset 0 0 0 0 rgba(8,4,12,0)}}
 #compass{position:fixed;left:50%;top:50px;transform:translateX(-50%);background:rgba(18,13,34,.8);border:1px solid var(--gold);border-radius:999px;padding:3px 12px;font-size:14px;z-index:4;color:var(--gold)}#compass .arr{display:inline-block;transition:transform .15s}
 #seen{position:fixed;left:50%;top:84px;transform:translateX(-50%);color:#ff6b78;font-weight:600;font-size:16px;text-shadow:0 2px 3px #000;animation:pulse .4s infinite alternate;z-index:4;pointer-events:none}
 #noise{position:fixed;left:16px;top:104px;color:#e8c840;font-size:13px;text-shadow:0 1px 2px #000;z-index:4;pointer-events:none}
@@ -1311,8 +1311,9 @@ function ghostMotive(w, g) {
   const ai = g.ai, hunger = 1 - g.pres / g.def.presMax, home = g.home;
   const inHomeInvs = alive(w).filter(i => i.f === home.f && roomOf(i) === home.r).length;
   const toolsHome = w.items.filter(it => !it.holder && TOOLS.includes(it.kind) && it.f === home.f && roomAt(it.f, it.x, it.y) === home.r).length;
-  const prey = alive(w).filter(i => i.hidden < 0).map(i => ({ i, s: (isolated(w, i) ? 2 : 0) + (litAt(w, i) ? 0 : 1.5) + (100 - i.san) / 40 + (i.f === g.f ? 1 : 0) - (i.f === g.f ? d2(i, g) / 12 : 2) + (i.f === ALTAR_POS.f && d2(i, ALTAR_POS) < 3 && i.ai.stillT && w.t > i.ai.stillT ? 1.5 : 0) })).sort((a, b) => b.s - a.s)[0];
-  const S = { rondar: 0.3 + (inHome(g) ? -Math.min(0.6, (ai.restless || 0) / 60) : 0), acechar: g.lastAsk && w.t - g.lastAsk.t < 12 ? 1.1 : 0, alimentarse: hunger * 1.6 + (prey ? prey.s * 0.1 : 0), enganar: (inHomeInvs >= 2 ? 0.6 : 0) + toolsHome * 0.15 + (pruebas(w) >= 2 ? 0.4 : 0), cazar: canHunt(w, g) ? 0.5 + hunger + (g.urge || 0) / 60 : 0 };
+  const hcM = ROOM_CENTER[home.f][home.r], TERR = 12; // territorial: solo acecha a quien se mete cerca de su guarida
+  const prey = alive(w).filter(i => i.hidden < 0 && i.f === home.f && Math.hypot(i.x - hcM.x, i.y - hcM.y) < TERR).map(i => ({ i, s: (isolated(w, i) ? 2 : 0) + (litAt(w, i) ? 0 : 1.5) + (100 - i.san) / 40 + (i.f === g.f ? 1 : 0) - (i.f === g.f ? d2(i, g) / 12 : 2) + (i.f === ALTAR_POS.f && d2(i, ALTAR_POS) < 3 && i.ai.stillT && w.t > i.ai.stillT ? 1.5 : 0) })).sort((a, b) => b.s - a.s)[0];
+  const S = { rondar: 0.7 + (inHome(g) ? -Math.min(0.4, (ai.restless || 0) / 120) : 0), acechar: g.lastAsk && w.t - g.lastAsk.t < 12 && g.lastAsk.f === home.f && Math.hypot(g.lastAsk.x - hcM.x, g.lastAsk.y - hcM.y) < TERR + 4 ? 1.1 : 0, alimentarse: prey && hunger > 0.5 ? (hunger - 0.5) * 2.4 + prey.s * 0.08 : 0, enganar: (inHomeInvs >= 2 ? 0.6 : 0) + toolsHome * 0.15 + (pruebas(w) >= 2 ? 0.4 : 0), cazar: canHunt(w, g) ? 0.5 + hunger + (g.urge || 0) / 60 : 0 };
   return { state: Object.keys(S).sort((a, b) => S[b] - S[a])[0], prey: prey && prey.i, S };
 }
 function botGhost(w, g, dt) {
@@ -1359,18 +1360,23 @@ function botGhost(w, g, dt) {
   }
   // rondar: su guarida y los cuartos vecinos; la inquietud la empuja a salir
   if (!ai.wander || (d2(ai.wander, g) < 0.6 && ai.wander.f === g.f) || w.t > ai.wanderUntil) {
-    const hc = ROOM_CENTER[g.home.f][g.home.r]; const near = ROOM_LIST.filter(r => r.f === g.home.f && ROOM_CENTER[r.f][r.r] && d2(ROOM_CENTER[r.f][r.r], hc) < 16);
-    const r = (ai.restless || 0) > 30 || Math.random() < 0.4 ? pick(near.length ? near : ROOM_LIST) : g.home; ai.wander = randomIn(r.f, r.r); ai.wanderUntil = w.t + 20;
-    const pan = w.items.find(it => it.kind === 'pan' && !it.holder); if (pan && Math.random() < 0.6) ai.wander = approach(pan);
+    const hc = ROOM_CENTER[g.home.f][g.home.r]; const near = homeNeighbors(w, g.home);
+    const r = near.length && ((ai.restless || 0) > 60 || Math.random() < 0.15) ? pick(near) : g.home; ai.wander = randomIn(r.f, r.r); ai.wanderUntil = w.t + 20; // solo sale a los cuartos con puerta a su guarida
+    const pan = w.items.find(it => it.kind === 'pan' && !it.holder && it.f === g.home.f && d2(it, hc) < 14); if (pan && Math.random() < 0.6) ai.wander = approach(pan); /* el pan solo la atrae si está cerca de su guarida */
   }
-  if (free && Math.random() < dt * 0.06 && gAnomaly(w, g)) ai.nextAct = w.t + actGap(w);
-  if (free) randomPheno(w, g, 0.03, dt);
+  if (free && Math.random() < dt * 0.03 && gAnomaly(w, g)) ai.nextAct = w.t + actGap(w);
+  if (free) randomPheno(w, g, 0.02, dt);
   navTo(w, g, ai.wander, sp * 0.8, dt);
 }
+// cuartos que comparten puerta con la guarida (su territorio de ronda)
+function homeNeighbors(w, h) { const key = h.f + ':' + h.r; w._nb = w._nb || {}; if (w._nb[key]) return w._nb[key]; const out = new Map();
+  for (const d of w.doors) { if (d.f !== h.f) continue; const ax = d.o === 'V' ? 0.9 : 0, ay = d.o === 'V' ? 0 : 0.9; const a = roomAt(d.f, d.x + ax, d.y + ay), b = roomAt(d.f, d.x - ax, d.y - ay);
+    const o = a === h.r ? b : b === h.r ? a : -1; if (o >= 0 && o !== h.r && ROOM_CENTER[h.f][o] && !['afuera', 'afuera1', 'vacio', 'vaciocapilla'].includes(ROOMS[h.f][o].id)) out.set(o, { f: h.f, r: o }); }
+  return (w._nb[key] = [...out.values()]); }
 function weightedPick(opts, ws) { const tot = ws.reduce((a, b) => a + b, 0); let r = Math.random() * tot; for (let i = 0; i < opts.length; i++) { r -= ws[i]; if (r <= 0) return opts[i]; } return opts[opts.length - 1]; }
 function doPheno(w, g, k) { return k === 'q' ? gChill(w, g) : k === 'e' ? gLightsOff(w, g) : k === 'f' ? gPortazo(w, g) : k === 'c' ? (Math.random() < 0.6 ? (gMover(w, g) || gProp(w, g)) : (gProp(w, g) || gMover(w, g))) : gSusurro(w, g); }
 function randomPheno(w, g, rate, dt) { if (Math.random() < rate * dt) { const opts = ['e', 'f', 'c', 'v'].filter(k => gReady(w, g, k)); if (opts.length && doPheno(w, g, weightedPick(opts, opts.map(k => g.def.freq[k])))) g.ai.nextAct = w.t + actGap(w); } }
-const actGap = w => w.opt.diff === 'pesadilla' ? rnd(4, 8) : w.opt.diff === 'facil' ? rnd(9, 15) : rnd(6, 11);
+const actGap = w => w.opt.diff === 'pesadilla' ? rnd(6, 10) : w.opt.diff === 'facil' ? rnd(14, 22) : rnd(10, 16); // menos cosas, más legibles
 function ghostSpeed(w, g) {
   let s;
   if (g.hunt) s = Math.min(g.def.top, g.def.huntStart + g.def.accel * g.seenT); else s = g.def.speedNow(w, g);
@@ -1506,7 +1512,7 @@ function step(w, dt, input) {
     const r = roomOf(i);
     const lit = litAt(w, i);
     if (i.hidden >= 0) { if (g.hunt) w.haunt(i, CFG.hiddenHuntDrain * dt / w.force); i.stam = Math.min(100, i.stam + CFG.stamRest * dt); }
-    else if (g.state !== 'despertando' && w.phase === 'night') {
+    else if (g.state !== 'despertando' && w.phase === 'night' && !(r >= 0 && ['afuera', 'afuera1'].includes(ROOMS[i.f][r].id))) { // afuera (la base) no se pierde cordura
       if (!lit) i.san = Math.max(0, i.san - (isHall(i.f, r) ? CFG.hallDrain : CFG.darkDrain) * dt);
       if (g.f === i.f && d2(i, g) <= CFG.nearR) w.haunt(i, CFG.nearDrain * dt);
       if (w.t < i.curseUntil) w.haunt(i, 0.3 * dt);
@@ -2069,6 +2075,18 @@ toolTick = function (w, dt) {
   }
 };
 
+// ---------- Pulso de la guarida: toques pequeños y callados en su cuarto (EMF 2-3, a veces 5) ----------
+// Menos sucesos por toda la casa, pero el cuarto del ánima "se siente vivo": así se puede encontrar.
+const _toolTickP = toolTick;
+toolTick = function (w, dt) {
+  _toolTickP(w, dt); const g = w.g; if (!g || g.hunt || g.state !== 'libre' || w.phase !== 'night' || (w.opt && w.opt.lab)) return;
+  if (w.t < (g.pulseAt || 0)) return; g.pulseAt = w.t + rnd(22, 38);
+  if (!(g.f === g.home.f && roomOf(g) === g.home.r)) return;
+  const p = randomIn(g.home.f, g.home.r); w.emfSrc.push({ f: p.f, x: p.x, y: p.y, lvl: g.def.ev.includes('LU') && Math.random() < 0.3 ? 5 : 2 + (Math.random() < 0.5 ? 1 : 0), until: w.t + 20 });
+  w.rastro[g.home.f][g.home.r] = Math.min(100, w.rastro[g.home.f][g.home.r] + 6); w.ev('pulso', p);
+  if (typeof CSFX !== 'undefined') {} // el sonido lo pone la capa 3D (crujido suave)
+};
+
 // ---------- Grabadora al estilo de la caja de espíritus ----------
 const QUESTIONS = [['¿Dónde estás?', 'donde'], ['¿Qué edad tienes?', 'edad'], ['¿Qué quieres?', 'quiere']];
 askSpirit = function (w, i, it) {
@@ -2110,9 +2128,9 @@ function camTick(w, dt) {
 // ---------- Espejo: como un libro, el ánima tira un dado cerca de él (1 entre 20) ----------
 function espejoTick(w, dt) {
   const g = w.g; if (g.state !== 'libre' || w.phase !== 'night') return;
-  for (const it of w.items) if (it.kind === 'espejo' && !it.holder && w.t >= (it.markUntil || 0) && it.f === g.f && d2(it, g) < 4) {
+  for (const it of w.items) if (it.kind === 'espejo' && !it.holder && w.t >= (it.markUntil || 0) && it.f === g.f && d2(it, g) < 5) {
     it.diceT = (it.diceT || 0) + dt; if (it.diceT < 8) continue; it.diceT = 0;
-    if (g.def.ev.includes('ES') && Math.random() < 1 / 12) { it.markUntil = Infinity; w.ev('espejo', { f: it.f, x: it.x, y: it.y }); ghostEvent(w, g, 'espejo'); }
+    if (g.def.ev.includes('ES') && Math.random() < 1 / 7) { it.markUntil = Infinity; w.ev('espejo', { f: it.f, x: it.x, y: it.y }); ghostEvent(w, g, 'espejo'); }
   }
 }
 
@@ -4414,9 +4432,10 @@ function updateScene(t, dt) {
   // escondites
   for (const sm of spotMeshes) { const act = w.spotsActive.has(sm.k); sm.lock.visible = !act; sm.slit.visible = !act; const occ = w.invs.some(i => i.alive && i.hidden === sm.k); sm.door.rotation.y = act && !occ ? 0.12 : 0; sm.eyes.visible = w.fx.some(f => f.kind === 'sello_ropero' && Math.hypot(f.x - SPOTS[sm.k].hx, f.y - SPOTS[sm.k].hy) < 0.6 && t - f.t < 6); }
   // velas y focos
-  const huntFlick = g.hunt && Math.random() < 0.35;
+  const vIn = V && !['afuera', 'afuera1'].includes((ROOMS[V.f][roomAt(V.f, V.x, V.y)] || {}).id); // los efectos de la cacería solo se ven DENTRO de la casona
+  const huntFlick = g.hunt && vIn && Math.random() < 0.35;
   for (const c of candleMeshes) { c.flame.material.color.setHex(COL.gold); c.flame.scale.x = c.flame.scale.z = 1 + Math.sin(t * 13 + c.r) * 0.15; }
-  for (const l of lampMeshes) l.m.material.color.setHex(w.burnt[l.f][l.r] ? 0x141010 : w.lights[l.f][l.r] && !huntFlick ? (g.hunt ? 0xff4040 : 0xffe6a8) : 0x2a2418);
+  for (const l of lampMeshes) l.m.material.color.setHex(w.burnt[l.f][l.r] ? 0x141010 : w.lights[l.f][l.r] && !huntFlick ? 0xffe6a8 : 0x2a2418);
   for (const sw of switchMeshes) { sw.lever.rotation.x = w.lights[sw.s.f][sw.s.r] ? -0.5 : 0.5; sw.g.visible = sw.s.f === vf || vf === 1; }
   if (fuseMesh) fuseMesh.lamp.material.color.setHex(w.fuse.every(Boolean) ? 0x40c060 : (Math.sin(t * 6) > 0 ? 0xff3020 : 0x401010));
   // luces de cuartos: las más cercanas encendidas en los pisos visibles
@@ -4424,7 +4443,7 @@ function updateScene(t, dt) {
   ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!w.lights[f][i] || r.id === 'vacio' || r.id === 'afuera' || r.id === 'afuera1' || (f === 1 && vf === 0)) return; const c = ROOM_CENTER[f][i]; if (!c) return; lit.push({ f, c, d: V ? Math.hypot(c.x - V.x, c.y - V.y) + (f !== vf ? 12 : 0) : 0, id: r.id }); }));
   lit.sort((a, b) => a.d - b.d);
   roomLights.forEach((p, k) => { const L = lit[k]; if (!L || L.id === 'patio') { p.intensity = 0; if (L) { p.position.set(L.c.x, L.f * FH + 6, L.c.y); p.intensity = 6; p.distance = 30; p.color.setHex(0x8090c0); } return; }
-    p.position.set(L.c.x, L.f * FH + FH - 0.5, L.c.y); p.distance = 13; p.color.setHex(g.hunt ? 0xff5a4a : 0xffd59a); p.intensity = huntFlick ? 1 : 10; });
+    p.position.set(L.c.x, L.f * FH + FH - 0.5, L.c.y); p.distance = 13; p.color.setHex(0xffd59a); p.intensity = huntFlick ? 1 : 10; });
   const velas = w.items.filter(it => it.kind === 'vela' && it.lit && !it.holder).sort((a, b) => V ? Math.hypot(a.x - V.x, a.y - V.y) - Math.hypot(b.x - V.x, b.y - V.y) : 0);
   velaLights.forEach((p, k) => { const v = velas[k]; p.intensity = 0; if (v) { p.position.set(v.x, v.f * FH + 0.6, v.y); p.intensity = 4 + Math.sin(t * 11 + k) * 0.6; } });
   const hc = ROOM_CENTER[g.home.f][g.home.r]; blueLight.intensity = 0; blueLight.position.set(hc.x, g.home.f * FH + 0.6, hc.y);
@@ -4907,7 +4926,7 @@ function hud() {
   // subtítulos de sonidos cercanos
   const subs = w.subs.filter(s => V && (vk !== 'inv' || (s.f === V.f && Math.hypot(s.x - V.x, s.y - V.y) <= s.r))).slice(-3);
   $('#subs').innerHTML = subs.map(s => `<div>(${s.text})</div>`).join('');
-  $('#vignette').classList.toggle('hunt', !!g.hunt); $('#vignette').classList.toggle('low', V && V.kind === 'inv' && V.alive && V.san < 40);
+  $('#vignette').classList.toggle('hunt', !!g.hunt && V && !['afuera', 'afuera1'].includes((ROOMS[V.f][roomAt(V.f, V.x, V.y)] || {}).id)); $('#vignette').classList.toggle('low', V && V.kind === 'inv' && V.alive && V.san < 40);
 }
 let journalOpen = false, infoPinned = false, infoUntil = 0;
 function showInfo(sec) { infoUntil = performance.now() + sec * 1000; }

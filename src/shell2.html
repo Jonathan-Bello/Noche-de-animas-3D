@@ -76,7 +76,7 @@ select{background:var(--ink);color:var(--bone);border:1px solid rgba(243,230,207
 #modalIn h2{font-family:"Grenze Gotisch",Georgia,serif;color:var(--gold);font-size:2.1em;margin:0;font-weight:800}
 .big{font-size:1.2em}.btns{display:flex;gap:10px;margin-top:12px}.ghostbtn{background:transparent!important}
 #vignette{position:fixed;inset:0;pointer-events:none;z-index:2;transition:box-shadow .4s}
-#vignette.hunt{box-shadow:inset 0 0 160px 40px rgba(160,0,25,.55)}
+#vignette.hunt{box-shadow:inset 0 0 180px 60px rgba(4,2,6,.7)}
 #vignette.low{box-shadow:inset 0 0 200px 70px rgba(30,0,10,.75)}
 #vignette.nuca{animation:nuca 1.4s}
 @keyframes nuca{0%{box-shadow:inset 0 -60px 140px 30px rgba(170,200,255,.5)}100%{box-shadow:none}}
@@ -156,7 +156,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
 #toast.hunt{border-color:#e04a5a}#toast.hunt b{color:#ff6b78}#toast.calm{border-color:#7ec8ff}#toast.calm b{color:#7ec8ff}
 #floaters{position:fixed;left:150px;top:62px;pointer-events:none;z-index:6}.floater{position:absolute;white-space:nowrap;font-weight:600;font-size:15px;text-shadow:0 2px 3px #000;animation:floatup 1.6s forwards}.floater.bad{color:#ff6b78}.floater.good{color:#6fbf73}
 @keyframes floatup{from{transform:translateY(0);opacity:1}to{transform:translateY(-36px);opacity:0}}
-#vignette.hurt{animation:hurt .6s}@keyframes hurt{0%{box-shadow:inset 0 0 120px 40px rgba(200,0,30,.6)}100%{box-shadow:inset 0 0 0 0 rgba(200,0,30,0)}}
+#vignette.hurt{animation:hurt .6s}@keyframes hurt{0%{box-shadow:inset 0 0 120px 40px rgba(8,4,12,.7)}100%{box-shadow:inset 0 0 0 0 rgba(8,4,12,0)}}
 #compass{position:fixed;left:50%;top:50px;transform:translateX(-50%);background:rgba(18,13,34,.8);border:1px solid var(--gold);border-radius:999px;padding:3px 12px;font-size:14px;z-index:4;color:var(--gold)}#compass .arr{display:inline-block;transition:transform .15s}
 #seen{position:fixed;left:50%;top:84px;transform:translateX(-50%);color:#ff6b78;font-weight:600;font-size:16px;text-shadow:0 2px 3px #000;animation:pulse .4s infinite alternate;z-index:4;pointer-events:none}
 #noise{position:fixed;left:16px;top:104px;color:#e8c840;font-size:13px;text-shadow:0 1px 2px #000;z-index:4;pointer-events:none}

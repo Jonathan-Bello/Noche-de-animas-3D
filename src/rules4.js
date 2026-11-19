@@ -61,6 +61,18 @@ toolTick = function (w, dt) {
   }
 };
 
+// ---------- Pulso de la guarida: toques pequeños y callados en su cuarto (EMF 2-3, a veces 5) ----------
+// Menos sucesos por toda la casa, pero el cuarto del ánima "se siente vivo": así se puede encontrar.
+const _toolTickP = toolTick;
+toolTick = function (w, dt) {
+  _toolTickP(w, dt); const g = w.g; if (!g || g.hunt || g.state !== 'libre' || w.phase !== 'night' || (w.opt && w.opt.lab)) return;
+  if (w.t < (g.pulseAt || 0)) return; g.pulseAt = w.t + rnd(22, 38);
+  if (!(g.f === g.home.f && roomOf(g) === g.home.r)) return;
+  const p = randomIn(g.home.f, g.home.r); w.emfSrc.push({ f: p.f, x: p.x, y: p.y, lvl: g.def.ev.includes('LU') && Math.random() < 0.3 ? 5 : 2 + (Math.random() < 0.5 ? 1 : 0), until: w.t + 20 });
+  w.rastro[g.home.f][g.home.r] = Math.min(100, w.rastro[g.home.f][g.home.r] + 6); w.ev('pulso', p);
+  if (typeof CSFX !== 'undefined') {} // el sonido lo pone la capa 3D (crujido suave)
+};
+
 // ---------- Grabadora al estilo de la caja de espíritus ----------
 const QUESTIONS = [['¿Dónde estás?', 'donde'], ['¿Qué edad tienes?', 'edad'], ['¿Qué quieres?', 'quiere']];
 askSpirit = function (w, i, it) {
@@ -102,9 +114,9 @@ function camTick(w, dt) {
 // ---------- Espejo: como un libro, el ánima tira un dado cerca de él (1 entre 20) ----------
 function espejoTick(w, dt) {
   const g = w.g; if (g.state !== 'libre' || w.phase !== 'night') return;
-  for (const it of w.items) if (it.kind === 'espejo' && !it.holder && w.t >= (it.markUntil || 0) && it.f === g.f && d2(it, g) < 4) {
+  for (const it of w.items) if (it.kind === 'espejo' && !it.holder && w.t >= (it.markUntil || 0) && it.f === g.f && d2(it, g) < 5) {
     it.diceT = (it.diceT || 0) + dt; if (it.diceT < 8) continue; it.diceT = 0;
-    if (g.def.ev.includes('ES') && Math.random() < 1 / 12) { it.markUntil = Infinity; w.ev('espejo', { f: it.f, x: it.x, y: it.y }); ghostEvent(w, g, 'espejo'); }
+    if (g.def.ev.includes('ES') && Math.random() < 1 / 7) { it.markUntil = Infinity; w.ev('espejo', { f: it.f, x: it.x, y: it.y }); ghostEvent(w, g, 'espejo'); }
   }
 }
 

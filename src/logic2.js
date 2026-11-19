@@ -943,8 +943,9 @@ function ghostMotive(w, g) {
   const ai = g.ai, hunger = 1 - g.pres / g.def.presMax, home = g.home;
   const inHomeInvs = alive(w).filter(i => i.f === home.f && roomOf(i) === home.r).length;
   const toolsHome = w.items.filter(it => !it.holder && TOOLS.includes(it.kind) && it.f === home.f && roomAt(it.f, it.x, it.y) === home.r).length;
-  const prey = alive(w).filter(i => i.hidden < 0).map(i => ({ i, s: (isolated(w, i) ? 2 : 0) + (litAt(w, i) ? 0 : 1.5) + (100 - i.san) / 40 + (i.f === g.f ? 1 : 0) - (i.f === g.f ? d2(i, g) / 12 : 2) + (i.f === ALTAR_POS.f && d2(i, ALTAR_POS) < 3 && i.ai.stillT && w.t > i.ai.stillT ? 1.5 : 0) })).sort((a, b) => b.s - a.s)[0];
-  const S = { rondar: 0.3 + (inHome(g) ? -Math.min(0.6, (ai.restless || 0) / 60) : 0), acechar: g.lastAsk && w.t - g.lastAsk.t < 12 ? 1.1 : 0, alimentarse: hunger * 1.6 + (prey ? prey.s * 0.1 : 0), enganar: (inHomeInvs >= 2 ? 0.6 : 0) + toolsHome * 0.15 + (pruebas(w) >= 2 ? 0.4 : 0), cazar: canHunt(w, g) ? 0.5 + hunger + (g.urge || 0) / 60 : 0 };
+  const hcM = ROOM_CENTER[home.f][home.r], TERR = 12; // territorial: solo acecha a quien se mete cerca de su guarida
+  const prey = alive(w).filter(i => i.hidden < 0 && i.f === home.f && Math.hypot(i.x - hcM.x, i.y - hcM.y) < TERR).map(i => ({ i, s: (isolated(w, i) ? 2 : 0) + (litAt(w, i) ? 0 : 1.5) + (100 - i.san) / 40 + (i.f === g.f ? 1 : 0) - (i.f === g.f ? d2(i, g) / 12 : 2) + (i.f === ALTAR_POS.f && d2(i, ALTAR_POS) < 3 && i.ai.stillT && w.t > i.ai.stillT ? 1.5 : 0) })).sort((a, b) => b.s - a.s)[0];
+  const S = { rondar: 0.7 + (inHome(g) ? -Math.min(0.4, (ai.restless || 0) / 120) : 0), acechar: g.lastAsk && w.t - g.lastAsk.t < 12 && g.lastAsk.f === home.f && Math.hypot(g.lastAsk.x - hcM.x, g.lastAsk.y - hcM.y) < TERR + 4 ? 1.1 : 0, alimentarse: prey && hunger > 0.5 ? (hunger - 0.5) * 2.4 + prey.s * 0.08 : 0, enganar: (inHomeInvs >= 2 ? 0.6 : 0) + toolsHome * 0.15 + (pruebas(w) >= 2 ? 0.4 : 0), cazar: canHunt(w, g) ? 0.5 + hunger + (g.urge || 0) / 60 : 0 };
   return { state: Object.keys(S).sort((a, b) => S[b] - S[a])[0], prey: prey && prey.i, S };
 }
 function botGhost(w, g, dt) {
@@ -991,18 +992,23 @@ function botGhost(w, g, dt) {
   }
   // rondar: su guarida y los cuartos vecinos; la inquietud la empuja a salir
   if (!ai.wander || (d2(ai.wander, g) < 0.6 && ai.wander.f === g.f) || w.t > ai.wanderUntil) {
-    const hc = ROOM_CENTER[g.home.f][g.home.r]; const near = ROOM_LIST.filter(r => r.f === g.home.f && ROOM_CENTER[r.f][r.r] && d2(ROOM_CENTER[r.f][r.r], hc) < 16);
-    const r = (ai.restless || 0) > 30 || Math.random() < 0.4 ? pick(near.length ? near : ROOM_LIST) : g.home; ai.wander = randomIn(r.f, r.r); ai.wanderUntil = w.t + 20;
-    const pan = w.items.find(it => it.kind === 'pan' && !it.holder); if (pan && Math.random() < 0.6) ai.wander = approach(pan);
+    const hc = ROOM_CENTER[g.home.f][g.home.r]; const near = homeNeighbors(w, g.home);
+    const r = near.length && ((ai.restless || 0) > 60 || Math.random() < 0.15) ? pick(near) : g.home; ai.wander = randomIn(r.f, r.r); ai.wanderUntil = w.t + 20; // solo sale a los cuartos con puerta a su guarida
+    const pan = w.items.find(it => it.kind === 'pan' && !it.holder && it.f === g.home.f && d2(it, hc) < 14); if (pan && Math.random() < 0.6) ai.wander = approach(pan); /* el pan solo la atrae si está cerca de su guarida */
   }
-  if (free && Math.random() < dt * 0.06 && gAnomaly(w, g)) ai.nextAct = w.t + actGap(w);
-  if (free) randomPheno(w, g, 0.03, dt);
+  if (free && Math.random() < dt * 0.03 && gAnomaly(w, g)) ai.nextAct = w.t + actGap(w);
+  if (free) randomPheno(w, g, 0.02, dt);
   navTo(w, g, ai.wander, sp * 0.8, dt);
 }
+// cuartos que comparten puerta con la guarida (su territorio de ronda)
+function homeNeighbors(w, h) { const key = h.f + ':' + h.r; w._nb = w._nb || {}; if (w._nb[key]) return w._nb[key]; const out = new Map();
+  for (const d of w.doors) { if (d.f !== h.f) continue; const ax = d.o === 'V' ? 0.9 : 0, ay = d.o === 'V' ? 0 : 0.9; const a = roomAt(d.f, d.x + ax, d.y + ay), b = roomAt(d.f, d.x - ax, d.y - ay);
+    const o = a === h.r ? b : b === h.r ? a : -1; if (o >= 0 && o !== h.r && ROOM_CENTER[h.f][o] && !['afuera', 'afuera1', 'vacio', 'vaciocapilla'].includes(ROOMS[h.f][o].id)) out.set(o, { f: h.f, r: o }); }
+  return (w._nb[key] = [...out.values()]); }
 function weightedPick(opts, ws) { const tot = ws.reduce((a, b) => a + b, 0); let r = Math.random() * tot; for (let i = 0; i < opts.length; i++) { r -= ws[i]; if (r <= 0) return opts[i]; } return opts[opts.length - 1]; }
 function doPheno(w, g, k) { return k === 'q' ? gChill(w, g) : k === 'e' ? gLightsOff(w, g) : k === 'f' ? gPortazo(w, g) : k === 'c' ? (Math.random() < 0.6 ? (gMover(w, g) || gProp(w, g)) : (gProp(w, g) || gMover(w, g))) : gSusurro(w, g); }
 function randomPheno(w, g, rate, dt) { if (Math.random() < rate * dt) { const opts = ['e', 'f', 'c', 'v'].filter(k => gReady(w, g, k)); if (opts.length && doPheno(w, g, weightedPick(opts, opts.map(k => g.def.freq[k])))) g.ai.nextAct = w.t + actGap(w); } }
-const actGap = w => w.opt.diff === 'pesadilla' ? rnd(4, 8) : w.opt.diff === 'facil' ? rnd(9, 15) : rnd(6, 11);
+const actGap = w => w.opt.diff === 'pesadilla' ? rnd(6, 10) : w.opt.diff === 'facil' ? rnd(14, 22) : rnd(10, 16); // menos cosas, más legibles
 function ghostSpeed(w, g) {
   let s;
   if (g.hunt) s = Math.min(g.def.top, g.def.huntStart + g.def.accel * g.seenT); else s = g.def.speedNow(w, g);
@@ -1138,7 +1144,7 @@ function step(w, dt, input) {
     const r = roomOf(i);
     const lit = litAt(w, i);
     if (i.hidden >= 0) { if (g.hunt) w.haunt(i, CFG.hiddenHuntDrain * dt / w.force); i.stam = Math.min(100, i.stam + CFG.stamRest * dt); }
-    else if (g.state !== 'despertando' && w.phase === 'night') {
+    else if (g.state !== 'despertando' && w.phase === 'night' && !(r >= 0 && ['afuera', 'afuera1'].includes(ROOMS[i.f][r].id))) { // afuera (la base) no se pierde cordura
       if (!lit) i.san = Math.max(0, i.san - (isHall(i.f, r) ? CFG.hallDrain : CFG.darkDrain) * dt);
       if (g.f === i.f && d2(i, g) <= CFG.nearR) w.haunt(i, CFG.nearDrain * dt);
       if (w.t < i.curseUntil) w.haunt(i, 0.3 * dt);

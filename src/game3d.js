@@ -315,9 +315,10 @@ function updateScene(t, dt) {
   // escondites
   for (const sm of spotMeshes) { const act = w.spotsActive.has(sm.k); sm.lock.visible = !act; sm.slit.visible = !act; const occ = w.invs.some(i => i.alive && i.hidden === sm.k); sm.door.rotation.y = act && !occ ? 0.12 : 0; sm.eyes.visible = w.fx.some(f => f.kind === 'sello_ropero' && Math.hypot(f.x - SPOTS[sm.k].hx, f.y - SPOTS[sm.k].hy) < 0.6 && t - f.t < 6); }
   // velas y focos
-  const huntFlick = g.hunt && Math.random() < 0.35;
+  const vIn = V && !['afuera', 'afuera1'].includes((ROOMS[V.f][roomAt(V.f, V.x, V.y)] || {}).id); // los efectos de la cacería solo se ven DENTRO de la casona
+  const huntFlick = g.hunt && vIn && Math.random() < 0.35;
   for (const c of candleMeshes) { c.flame.material.color.setHex(COL.gold); c.flame.scale.x = c.flame.scale.z = 1 + Math.sin(t * 13 + c.r) * 0.15; }
-  for (const l of lampMeshes) l.m.material.color.setHex(w.burnt[l.f][l.r] ? 0x141010 : w.lights[l.f][l.r] && !huntFlick ? (g.hunt ? 0xff4040 : 0xffe6a8) : 0x2a2418);
+  for (const l of lampMeshes) l.m.material.color.setHex(w.burnt[l.f][l.r] ? 0x141010 : w.lights[l.f][l.r] && !huntFlick ? 0xffe6a8 : 0x2a2418);
   for (const sw of switchMeshes) { sw.lever.rotation.x = w.lights[sw.s.f][sw.s.r] ? -0.5 : 0.5; sw.g.visible = sw.s.f === vf || vf === 1; }
   if (fuseMesh) fuseMesh.lamp.material.color.setHex(w.fuse.every(Boolean) ? 0x40c060 : (Math.sin(t * 6) > 0 ? 0xff3020 : 0x401010));
   // luces de cuartos: las más cercanas encendidas en los pisos visibles
@@ -325,7 +326,7 @@ function updateScene(t, dt) {
   ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!w.lights[f][i] || r.id === 'vacio' || r.id === 'afuera' || r.id === 'afuera1' || (f === 1 && vf === 0)) return; const c = ROOM_CENTER[f][i]; if (!c) return; lit.push({ f, c, d: V ? Math.hypot(c.x - V.x, c.y - V.y) + (f !== vf ? 12 : 0) : 0, id: r.id }); }));
   lit.sort((a, b) => a.d - b.d);
   roomLights.forEach((p, k) => { const L = lit[k]; if (!L || L.id === 'patio') { p.intensity = 0; if (L) { p.position.set(L.c.x, L.f * FH + 6, L.c.y); p.intensity = 6; p.distance = 30; p.color.setHex(0x8090c0); } return; }
-    p.position.set(L.c.x, L.f * FH + FH - 0.5, L.c.y); p.distance = 13; p.color.setHex(g.hunt ? 0xff5a4a : 0xffd59a); p.intensity = huntFlick ? 1 : 10; });
+    p.position.set(L.c.x, L.f * FH + FH - 0.5, L.c.y); p.distance = 13; p.color.setHex(0xffd59a); p.intensity = huntFlick ? 1 : 10; });
   const velas = w.items.filter(it => it.kind === 'vela' && it.lit && !it.holder).sort((a, b) => V ? Math.hypot(a.x - V.x, a.y - V.y) - Math.hypot(b.x - V.x, b.y - V.y) : 0);
   velaLights.forEach((p, k) => { const v = velas[k]; p.intensity = 0; if (v) { p.position.set(v.x, v.f * FH + 0.6, v.y); p.intensity = 4 + Math.sin(t * 11 + k) * 0.6; } });
   const hc = ROOM_CENTER[g.home.f][g.home.r]; blueLight.intensity = 0; blueLight.position.set(hc.x, g.home.f * FH + 0.6, hc.y);
@@ -808,7 +809,7 @@ function hud() {
   // subtítulos de sonidos cercanos
   const subs = w.subs.filter(s => V && (vk !== 'inv' || (s.f === V.f && Math.hypot(s.x - V.x, s.y - V.y) <= s.r))).slice(-3);
   $('#subs').innerHTML = subs.map(s => `<div>(${s.text})</div>`).join('');
-  $('#vignette').classList.toggle('hunt', !!g.hunt); $('#vignette').classList.toggle('low', V && V.kind === 'inv' && V.alive && V.san < 40);
+  $('#vignette').classList.toggle('hunt', !!g.hunt && V && !['afuera', 'afuera1'].includes((ROOMS[V.f][roomAt(V.f, V.x, V.y)] || {}).id)); $('#vignette').classList.toggle('low', V && V.kind === 'inv' && V.alive && V.san < 40);
 }
 let journalOpen = false, infoPinned = false, infoUntil = 0;
 function showInfo(sec) { infoUntil = performance.now() + sec * 1000; }
