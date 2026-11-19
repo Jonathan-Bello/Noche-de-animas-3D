@@ -242,3 +242,12 @@ rulesTick = function (w, dt) { _rulesTick5b(w, dt); if (w.phase !== 'night') ret
   for (const b of alive(w)) { if (!b.bot) continue; const r = roomOf(b), last = b.ai.lastRoom;
     if (r >= 0 && last && (last.r !== r || last.f !== b.f)) { if (w.lights[last.f][last.r] && !isHall(last.f, last.r) && roomEmpty(w, last.f, last.r) && !(w.team.home && w.team.home.f === last.f && w.team.home.r === last.r && alive(w).some(i => i.ai && i.ai.state === 'watch'))) botLightOff(w, b, last.f, last.r, 'ya no hay nadie'); }
     if (r >= 0) b.ai.lastRoom = { f: b.f, r }; } };
+
+// ---------- al terminar cada cacería, se apagan todas las luces de los cuartos (afuera no) ----------
+const _endHunt5 = endHunt;
+endHunt = function (w, g) { const was = !!g.hunt && !g.hunt.huida; _endHunt5(w, g); if (!was || g.hunt) return;
+  let n = 0; w.lights.forEach((l, f) => l.forEach((v, r) => { if (v && !['afuera', 'afuera1'].includes(ROOMS[f][r].id)) { l[r] = 0; n++; } }));
+  if (n) { w.ev('lightsoff', { f: g.f, x: g.x, y: g.y }); blog(w, 'casa', `💡 Terminó la cacería: se apagaron todas las luces (${n}).`); } };
+// zaguán: solo si no hay nadie vivo afuera de la casona (los muertos no cuentan)
+const _casDo5z = casDo;
+casDo = function (w, k, v) { if (k === 'zaguan' && alive(w).some(i => isOutside(i) && !i.escaped)) { w.cas.retry = true; w.cas.retryWhy = 'hay alguien afuera de la casona'; return; } return _casDo5z(w, k, v); };
