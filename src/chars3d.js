@@ -162,8 +162,9 @@ function makeCharacter(id) {
   }
   if (!S.acc.some(a => ['coat', 'poncho', 'hood', 'jacket', 'rebozo', 'scarf'].includes(a[0]))) [-1, 1].forEach(sd => mesh(wedgeGeo(0.06, 0.03, 0.05, 0.012, 0.012), top, acc, sd * 0.04, 0.47, T(0.07), -0.6, 0, sd * 0.5)); // cuello de camisa
   const spirit = mesh(gemGeo(0.5, 1), new THREE.MeshBasicMaterial({ color: 0x9ad0ff, transparent: true, opacity: 0.18, depthWrite: false }), g, 0, 0.95, 0); spirit.scale.y = 1.6; spirit.visible = false; spirit.castShadow = false;
-  return { id, g, root, body, hips, hipY, torso, head, hair, armL, armR, legL: legs[0], legR: legs[1], hand: handL, handR, lamp, acc, spirit, mats, handKind: null,
+  const characterRig = { id, g, root, body, hips, hipY, torso, head, hair, armL, armR, legL: legs[0], legR: legs[1], hand: handL, handR, lamp, acc, spirit, mats, handKind: null,
     ph: 0, prev: null, speed: 0, seed: Math.random() * 10, t: { dip: -9, use: -9, throw: -9, death: -1 }, ghostly: 0, scaleK: k };
+  return id === 'curandero' && typeof NDAAlexArt !== 'undefined' ? NDAAlexArt.refine(characterRig) : characterRig;
 }
 
 const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
