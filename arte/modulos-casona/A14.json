@@ -81,7 +81,119 @@
       ]
     }
   ],
-  "decorations": [],
+  "decorations": [
+    {
+      "id": "A14_wall_mirror_01",
+      "room": "A14",
+      "asset": "wall_mirror",
+      "support": "am_A14",
+      "offset": [
+        1.2000000000000028,
+        0.47,
+        0.9399999999999977
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A14_family_frame_01",
+      "room": "A14",
+      "asset": "family_frame",
+      "support": "buro_extra_A14",
+      "offset": [
+        0.5,
+        0.82,
+        0.9399999999999977
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A14_wall_hooks_01",
+      "room": "A14",
+      "asset": "wall_hooks",
+      "support": "cama_A14",
+      "offset": [
+        1.2999999999999972,
+        1.05,
+        2.9200000000000017
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A14_jewelbox_01",
+      "room": "A14",
+      "asset": "jewelbox",
+      "support": "am_A14",
+      "offset": [
+        2.2,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_perfume_01",
+      "room": "A14",
+      "asset": "perfume",
+      "support": "am_A14",
+      "offset": [
+        2.7,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_comb_01",
+      "room": "A14",
+      "asset": "comb",
+      "support": "am_A14",
+      "offset": [
+        2.6,
+        0,
+        0.7
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_linen_01",
+      "room": "A14",
+      "asset": "linen",
+      "support": "cama_A14",
+      "offset": [
+        0.7,
+        -0.04,
+        1.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_paper_letters_01",
+      "room": "A14",
+      "asset": "paper_letters",
+      "support": "am_A14",
+      "offset": [
+        1,
+        0,
+        0.45
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_suitcase_01",
+      "room": "A14",
+      "asset": "suitcase",
+      "support": "cama_A14",
+      "offset": [
+        1,
+        -0.65,
+        1.4
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA14",

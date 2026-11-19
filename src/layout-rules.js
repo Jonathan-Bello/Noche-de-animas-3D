@@ -6,7 +6,7 @@ function layoutItemVisible(w,it){if(it.containerId===undefined)return true;const
 function layoutBeginSearch(w,i,c){if(!c||c.open)return false;if(!c.until){c.until=w.t+1;c.by=i.id;w.noise({f:c.f,x:c.x,y:c.y},6,'drawer');}return true;}
 function layoutSurfacePacking(w){
  const taken=[],reserve=(f,x,y,r)=>taken.push({f,x,y,r});w.layoutPackingMisses=[];
- for(const i of NDALayout.decorInstances||[]){const p=decorPosition(i),a=NDALayout.decorAssets[i.asset];if(p.h>.7&&a.height>.03)reserve(p.f,p.x,p.y,a.radius+.06);}
+ for(const i of NDALayout.decorInstances||[]){const p=decorPosition(i),a=NDALayout.decorAssets[i.asset];const owner=NDALayout.obstacles.find(o=>o.id===i.support);if(!a.mount&&p.h>.7&&a.height>.03&&p.h<owner.height+.3&&p.h+a.height>owner.height-.05)reserve(p.f,p.x,p.y,a.radius+.06);}
  reserve(w.altarSurface.f,w.altarSurface.x,w.altarSurface.y,.55);
  for(const f of[0,1])ROOMS[f].forEach((r,ri)=>{const s=SURFACES[f][ri][0];if(s&&r.home&&!NDALayout.decorInstances?.some(i=>i.room===r.code)&&!((w.devices||[]).some(d=>d.f===f&&d.r===ri)&&SURFACES[f][ri].length<2))reserve(f,s[0]+.25,s[1]+.25,.14);});
  const place=(o,radius=.13)=>{
@@ -18,7 +18,7 @@ function layoutSurfacePacking(w){
 
  // Large devices claim their surface first; loose clutter and consumables fill remaining slots.
  for(const d of (w.devices||[]).slice().sort((a,b)=>(b.kind==='tv')-(a.kind==='tv')))place(d,d.kind==='tv'?.47:.28);
- for(const p of PROPS)if(['campanita','libros','radio','maquina'].includes(p.kind)){const a=LAYOUT_ROOMS.get(NDALayout.rooms.find(r=>r.floor===p.f&&r.key===roomId(p))?.id);if(a&&SURFACES[p.f][a.r]?.length){const s=SURFACES[p.f][a.r][0];p.x=s[0]+.65;p.y=s[1]+.65;p.h=s[2];place(p,.18);}}
+ for(const p of PROPS)if(['campanita','libros','radio','maquina','muneca'].includes(p.kind)){const a=LAYOUT_ROOMS.get(NDALayout.rooms.find(r=>r.floor===p.f&&r.key===roomId(p))?.id);if(a&&SURFACES[p.f][a.r]?.length){const s=SURFACES[p.f][a.r][0];p.x=s[0]+.65;p.y=s[1]+.65;p.h=s[2];place(p,.18);}}
  for(const o of w.loose)place(o,['plato','cuadro','jarron','libro'].includes(o.kind)?.16:.10);
  for(const it of w.items)if(!it.holder&&!(it.f===0&&it.y>=40))place(it,.13);
 }
@@ -27,7 +27,7 @@ newWorld=function(opt){fieldCache.clear();const w=_newWorldLayout(opt);w.layout=
  const contents={despensa:['jarron','taza'],planchaduria:['taza','libro'],capilla:['vela','figura'],cocina:['plato','taza'],biblioteca:['libro','libro'],comedor:['plato','taza'],reposteria:['plato','jarron'],aperos:['jarron','libro'],despacho:['libro','cuadro'],porteria:['taza','libro'],botica:['jarron','figura'],desvan:['cuadro','libro'],costura:['taza','libro'],nana:['vela','cuadro'],recn:['libro','figura'],musica:['libro','taza'],banoalto:['jarron','taza'],huespedes:['cuadro','taza'],abuelo:['vela','cuadro'],recp:['cuadro','vela'],salon:['jarron','figura'],hija:['cuadro','jarron']};
  for(const o of w.loose){const kinds=contents[roomId(o)];if(kinds)o.kind=kinds[o.id%kinds.length];}
  // Keep the fuse box on solid plaster, never on a real window or behind a moving door.
- const fr=w.fuseRoom,candidates=shuffle(ROOM_TILES[fr.f][fr.r].slice());for(const[x,y]of candidates){const side=[[1,0],[-1,0],[0,1],[0,-1]].find(([a,b])=>tileAt(fr.f,x+a,y+b)===T.WALL);if(!side||layoutWindowNear(fr.f,x+.5+side[0]*.5,y+.5+side[1]*.5)||w.doors.some(d=>d.f===fr.f&&Math.hypot(d.x-x-.5,d.y-y-.5)<2)||SPOTS.some(s=>s.f===fr.f&&Math.hypot(s.hx-x-.5,s.hy-y-.5)<1.5))continue;Object.assign(FUSE,{f:fr.f,x:x+.5+side[0]*.38,y:y+.5+side[1]*.38,face:Math.atan2(-side[1],-side[0])});break;}
+ const fr=w.fuseRoom,candidates=shuffle(ROOM_TILES[fr.f][fr.r].slice());for(const[x,y]of candidates){const side=[[1,0],[-1,0],[0,1],[0,-1]].find(([a,b])=>tileAt(fr.f,x+a,y+b)===T.WALL);if(!side||decorWallOccupied(fr.f,x+.5+side[0]*.38,y+.5+side[1]*.38)||layoutWindowNear(fr.f,x+.5+side[0]*.5,y+.5+side[1]*.5)||w.doors.some(d=>d.f===fr.f&&Math.hypot(d.x-x-.5,d.y-y-.5)<2)||SPOTS.some(s=>s.f===fr.f&&Math.hypot(s.hx-x-.5,s.hy-y-.5)<1.5))continue;Object.assign(FUSE,{f:fr.f,x:x+.5+side[0]*.38,y:y+.5+side[1]*.38,face:Math.atan2(-side[1],-side[0])});break;}
  layoutSurfacePacking(w);
  for(const shelf of LAYOUT_FURN.filter(o=>o.model==='bookcase'))for(const h of[.18,.65,1.12,1.59])for(let k=0;k<6;k++){
   const x=shelf.rect[0]+.3+k*.27,y=shelf.rect[3]-.38;

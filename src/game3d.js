@@ -175,6 +175,7 @@ function updateLoose(t) {
     if (a >= 0 && a < 0.55 && o.from) { const u = a / 0.55; m.position.set(o.from.x + (o.x - o.from.x) * u, o.from.h * (1 - u) + Math.sin(u * Math.PI) * 0.9, o.from.y + (o.y - o.from.y) * u); m.rotation.set(u * 6, o.rot, u * 3);if(o.shelfId){m.position.y+=.13*u;m.rotation.set(-u*Math.PI/2,o.rot*u,0);} }
     else if(o.shelfId&&o.h===0){m.position.set(o.x,.13,o.y);m.rotation.set(-Math.PI/2,o.rot,0);}
     else if (o.float) { m.position.set(o.x, o.h + Math.sin(t * 0.7 + k) * 0.03, o.y); m.rotation.set(0, o.rot + t * 0.15, 0); }
+    else if(o.assetId&&o.h===0){const b=m.geometry.boundingBox;m.rotation.set(0,o.rot,o.upside?Math.PI:0);m.position.set(o.x,.018+(o.upside?b.max.y:-b.min.y),o.y);}
     else { m.position.set(o.x, o.h, o.y); m.rotation.set(o.h > 0 ? 0 : (o.anom ? 0 : Math.PI / 2 * (k % 2)), o.rot, o.upside ? Math.PI : 0); } });
   for (let k = looseMeshes.length; k < w.loose.length; k++) { const o = w.loose[k], m = makeLooseMesh(o.kind, c0 => LambertFlat({ color: c0 }),o); floorGroups[o.f].add(m); looseMeshes.push(m); }
 }

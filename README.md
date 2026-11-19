@@ -47,3 +47,7 @@ El compilador comprueba puertas, apoyos de camas y superposiciones de muebles an
 [Cocina, comedor y despensas](arte/decoracion-v14/index.html) · [Taller visual](editor/index.html) · [Instrumentos 3D](arte/instrumentos-v14/index.html) · [Guía y preparación de campaña](docs/decoracion-v14.md).
 
 Para mover decoración visualmente y guardar en la copia local del juego: doble clic en `Abrir editor.cmd` (requiere Python y Node), o `python tools/editor_server.py --open`. En la página pública se puede editar y exportar el plano.
+
+## Recámaras V15
+
+[Galería y croquis](arte/decoracion-v15/index.html) · [Componentes y verificaciones](docs/decoracion-v15.md). Se agregan 44 piezas editables en las seis recámaras, con ventanas y pasos libres.

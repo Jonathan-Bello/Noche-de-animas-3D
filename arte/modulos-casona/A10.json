@@ -94,7 +94,82 @@
       ]
     }
   ],
-  "decorations": [],
+  "decorations": [
+    {
+      "id": "A10_family_frame_01",
+      "room": "A10",
+      "asset": "family_frame",
+      "support": "buro_extra_A10",
+      "offset": [
+        0.06000000000000005,
+        0.82,
+        0.5
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A10_wall_flowers_01",
+      "room": "A10",
+      "asset": "wall_flowers",
+      "support": "am_A10",
+      "offset": [
+        0.09000000000000008,
+        0.82,
+        0.6000000000000014
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A10_open_book_01",
+      "room": "A10",
+      "asset": "open_book",
+      "support": "cama_A10",
+      "offset": [
+        1.35,
+        -0.04,
+        1.15
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A10_cushion_01",
+      "room": "A10",
+      "asset": "cushion",
+      "support": "cama_A10",
+      "offset": [
+        1.6,
+        -0.04,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A10_suitcase_01",
+      "room": "A10",
+      "asset": "suitcase",
+      "support": "cama_A10",
+      "offset": [
+        1.5,
+        -0.65,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A10_linen_01",
+      "room": "A10",
+      "asset": "linen",
+      "support": "am_A10",
+      "offset": [
+        0.5,
+        0,
+        1.5
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA10",

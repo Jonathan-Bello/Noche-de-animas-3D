@@ -2,7 +2,7 @@
 import sys,asyncio,json,threading,functools
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Decoracion_Casona_v14';OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Decoracion_Casona_v15';OUT.mkdir(exist_ok=True)
 sys.path.insert(0,str(ROOT.parent/'QA_Arte_Alex/python_lib'))
 from playwright.async_api import async_playwright
 class Quiet(SimpleHTTPRequestHandler):
@@ -12,7 +12,7 @@ async def main():
  try:
   async with async_playwright() as p:
    b=await p.chromium.launch(executable_path='C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',args=['--no-sandbox','--disable-gpu-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
-   source=(ROOT/'juego/index.html').read_text(encoding='utf-8').replace('requestAnimationFrame(frame);','/* QA manual frames */').replace('window.__game =','window.__qa={frame:()=>{updateScene(w.t,.25);updateCamera(1);hud();renderer.render(scene,camera);},action:primaryAction,get renderer(){return renderer;},setPitch:p=>pitch=p};\nwindow.__game =')
+   source=(ROOT/'juego/index.html').read_text(encoding='utf-8').replace('requestAnimationFrame(frame);','/* QA manual frames */').replace('window.__game =','window.__qa={loose:id=>looseMeshes[w.loose.findIndex(o=>o.id===id)],frame:()=>{updateScene(w.t,.25);updateCamera(1);hud();renderer.render(scene,camera);},action:primaryAction,get renderer(){return renderer;},setPitch:p=>pitch=p};\nwindow.__game =')
    result=[];errors=[]
    for quality,mobile in [('low',False),('balanced',False),('high',False),('auto',True)]:
     ctx=await b.new_context(viewport={'width':390 if mobile else 1280,'height':844 if mobile else 800},device_scale_factor=2,is_mobile=mobile,has_touch=mobile)
@@ -27,13 +27,16 @@ async def main():
     await page.evaluate("Object.assign(__game.menuOpt,{role:'inv',nInv:1,char:'curandero',tips:'no',cam:'fp'});__game.start.skipSlot=true;__game.start();")
     await page.wait_for_timeout(1300)
     data=await page.evaluate("()=>{const w=__game.w,m=w.invs[0];Object.assign(m,{x:35.5,y:25.5,f:0,flash:true});w.g.stunUntil=1e9;__qa.frame();let invalid=0;__game.scene.traverse(o=>{for(const v of o.matrixWorld.elements)if(!Number.isFinite(v))invalid++;if(o.isMesh&&o.geometry.attributes.position)for(const x of o.geometry.attributes.position.array)if(!Number.isFinite(x))invalid++;});return{version:w.layout,quality:__game.quality.preference,shadows:__qa.renderer.shadowMap.enabled,dpr:__qa.renderer.getPixelRatio(),active:w.spotsActive.size,drawers:w.containers.length,invalid,draw:__qa.renderer.info.render};}")
-    assert data['version']=='casona-v14';assert 20<=data['active']<=22;assert data['drawers']==66;assert data['invalid']==0
+    assert data['version']=='casona-v15';assert 20<=data['active']<=22;assert data['drawers']==66;assert data['invalid']==0
     assert data['shadows']==(quality not in ['low','auto']);assert data['dpr']<=({'low':1,'balanced':1.35,'high':2,'auto':1}[quality])
     if quality=='balanced':
      await page.evaluate('()=>{'+(ROOT/'test/scene-geometry-qc.js').read_text(encoding='utf-8')+';window.auditSceneGeometry=auditSceneGeometry;}')
      audit=await page.evaluate('auditSceneGeometry(__game.scene)');print('GEOMETRY',json.dumps(audit),flush=True)
      assert audit['portals']==len(json.loads((ROOT/'src/layout-v11.json').read_text(encoding='utf-8'))['doors']);assert audit['windows']==20;assert audit['nonFinite']==0;assert audit['mixedFaceColors']==0;assert not audit['coplanarOverlaps'],audit
      data['geometryAudit']=audit
+     poses=await page.evaluate("async()=>{const {Box3}=await import('/test/three.module.js'),rows=[];for(const asset of ['open_book','comb','top','perfume','jewelbox']){const o=__game.w.loose.find(o=>o.assetId===asset);Object.assign(o,{x:50,y:35,h:0,flyT:-99,from:null,float:false,upside:false});__qa.frame();const m=__qa.loose(o.id),box=new Box3().setFromObject(m);rows.push({asset,minAboveStorey:box.min.y-o.f*3.8});}return rows;}")
+     assert all(.016<=r['minAboveStorey']<=.021 for r in poses),poses
+     data['floorComponentPoses']=poses
     result.append(data)
     if not mobile and quality=='balanced':
      action=await page.evaluate("()=>{"+(ROOT/'test/fixture-drawer.js').read_text(encoding='utf-8')+";const c=prepareDrawerFixture(__game.w,__game.w.invs[0]);window.__testDrawer=c.id;return __qa.action(__game.w.invs[0]);}")

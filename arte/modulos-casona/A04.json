@@ -55,7 +55,7 @@
       "rect": [
         5,
         7,
-        8,
+        9,
         8
       ],
       "height": 0.78,
@@ -88,7 +88,95 @@
       "backWall": "west"
     }
   ],
-  "decorations": [],
+  "decorations": [
+    {
+      "id": "A04_family_frame_01",
+      "room": "A04",
+      "asset": "family_frame",
+      "support": "am_A04",
+      "offset": [
+        0.5,
+        0.82,
+        0.9399999999999995
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A04_family_frame_02",
+      "room": "A04",
+      "asset": "family_frame",
+      "support": "am_cama_nana",
+      "offset": [
+        0.060000000000002274,
+        1.12,
+        1
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A04_wall_hooks_01",
+      "room": "A04",
+      "asset": "wall_hooks",
+      "support": "am_A04",
+      "offset": [
+        3.3999999999999986,
+        0.72,
+        0.9199999999999999
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A04_linen_01",
+      "room": "A04",
+      "asset": "linen",
+      "support": "am_cama_nana",
+      "offset": [
+        1.6,
+        0.03,
+        0.65
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A04_care_basket_01",
+      "room": "A04",
+      "asset": "care_basket",
+      "support": "prop_cuna",
+      "offset": [
+        0.5,
+        -1.1,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A04_wash_set_01",
+      "room": "A04",
+      "asset": "wash_set",
+      "support": "am_A04",
+      "offset": [
+        3.45,
+        0,
+        0.6
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A04_booties_01",
+      "room": "A04",
+      "asset": "booties",
+      "support": "am_A04",
+      "offset": [
+        3.3,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA04",

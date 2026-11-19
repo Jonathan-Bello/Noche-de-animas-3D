@@ -73,9 +73,126 @@
       "contents": [],
       "visualHeight": 1.5,
       "backWall": "west"
+    },
+    {
+      "id": "buro_infantil",
+      "floor": 1,
+      "room": "A06",
+      "rect": [
+        0,
+        7,
+        1,
+        8
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "bedside",
+      "label": "Buró infantil",
+      "backWall": "west",
+      "drawers": false
     }
   ],
-  "decorations": [],
+  "decorations": [
+    {
+      "id": "A06_drawing_01",
+      "room": "A06",
+      "asset": "drawing",
+      "support": "am_cama_nino",
+      "offset": [
+        0.06000000000000005,
+        1.12,
+        0.6500000000000004
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A06_drawing_02",
+      "room": "A06",
+      "asset": "drawing",
+      "support": "am_A06",
+      "offset": [
+        0.5999999999999996,
+        0.82,
+        0.9400000000000013
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A06_wall_lamp_01",
+      "room": "A06",
+      "asset": "wall_lamp",
+      "support": "buro_infantil",
+      "offset": [
+        0.09000000000000008,
+        0.72,
+        0.5
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A06_blocks_01",
+      "room": "A06",
+      "asset": "blocks",
+      "support": "am_A06",
+      "offset": [
+        2.2,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A06_top_01",
+      "room": "A06",
+      "asset": "top",
+      "support": "am_A06",
+      "offset": [
+        2.7,
+        0,
+        0.65
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A06_paper_letters_01",
+      "room": "A06",
+      "asset": "paper_letters",
+      "support": "am_A06",
+      "offset": [
+        0.5,
+        0,
+        0.55
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A06_cushion_01",
+      "room": "A06",
+      "asset": "cushion",
+      "support": "am_cama_nino",
+      "offset": [
+        1.4,
+        0.03,
+        1.4
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A06_suitcase_01",
+      "room": "A06",
+      "asset": "suitcase",
+      "support": "am_cama_nino",
+      "offset": [
+        1.5,
+        -0.58,
+        0.8
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA06",

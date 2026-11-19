@@ -1,5 +1,5 @@
 {
-  "version": "casona-v14",
+  "version": "casona-v15",
   "status": "runtime registry",
   "units": "metros",
   "coordinates": "[x0,z0,x1,z1), norte z=0, calle z=40; reticula logica 1m; suelo PA y=3.8",
@@ -1820,7 +1820,7 @@
       "rect": [
         42,
         8,
-        45,
+        46,
         9
       ],
       "height": 0.78,
@@ -2365,6 +2365,40 @@
       "contents": [
         "Aparatos y suministros"
       ],
+      "drawers": false
+    },
+    {
+      "id": "buro_infantil",
+      "floor": 1,
+      "room": "A06",
+      "rect": [
+        1,
+        17,
+        2,
+        18
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "bedside",
+      "label": "Buró infantil",
+      "backWall": "west",
+      "drawers": false
+    },
+    {
+      "id": "buro_huespedes",
+      "floor": 1,
+      "room": "A15",
+      "rect": [
+        58,
+        25,
+        59,
+        26
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "bedside",
+      "label": "Buró de huéspedes",
+      "backWall": "east",
       "drawers": false
     }
   ],
@@ -3300,7 +3334,7 @@
       20,
       22
     ],
-    "walkableCoverageCells": 3211
+    "walkableCoverageCells": 3208
   },
   "caveats": [
     "Cobertura medida por camino horizontal con puertas transitables; una puerta cerrada puede cambiar el tiempo de escape.",
@@ -3952,6 +3986,202 @@
       "throwable": false,
       "houseThrows": false,
       "massKg": null
+    },
+    "linen": {
+      "label": "Ropa de cama doblada",
+      "radius": 0.25,
+      "height": 0.13,
+      "width": 0.44,
+      "depth": 0.34,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "cushion": {
+      "label": "Cojín de sarape",
+      "radius": 0.25,
+      "height": 0.085,
+      "width": 0.44,
+      "depth": 0.42,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "suitcase": {
+      "label": "Maleta de viaje",
+      "radius": 0.32,
+      "height": 0.21,
+      "width": 0.56,
+      "depth": 0.4,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "family_frame": {
+      "label": "Retrato familiar facetado",
+      "radius": 0.24,
+      "height": 0.46,
+      "width": 0.42,
+      "depth": 0.12,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "drawing": {
+      "label": "Dibujo infantil enmarcado",
+      "radius": 0.24,
+      "height": 0.38,
+      "width": 0.4,
+      "depth": 0.12,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "wall_mirror": {
+      "label": "Espejo fijo de tocador",
+      "radius": 0.43,
+      "height": 0.94,
+      "width": 0.84,
+      "depth": 0.12,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "wall_hooks": {
+      "label": "Perchero con prenda",
+      "radius": 0.25,
+      "height": 0.7,
+      "width": 0.44,
+      "depth": 0.16,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "comb": {
+      "label": "Peine de tocador",
+      "radius": 0.1,
+      "height": 0.04,
+      "width": 0.18,
+      "depth": 0.055,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.12
+    },
+    "jewelbox": {
+      "label": "Joyero de madera",
+      "radius": 0.15,
+      "height": 0.13,
+      "width": 0.26,
+      "depth": 0.2,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.25
+    },
+    "perfume": {
+      "label": "Frasco de perfume",
+      "radius": 0.07,
+      "height": 0.18,
+      "width": 0.1,
+      "depth": 0.1,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.1
+    },
+    "booties": {
+      "label": "Zapatitos de bebé",
+      "radius": 0.16,
+      "height": 0.11,
+      "width": 0.28,
+      "depth": 0.18,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "care_basket": {
+      "label": "Canasta de ropa del bebé",
+      "radius": 0.24,
+      "height": 0.33,
+      "width": 0.48,
+      "depth": 0.48,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "wash_set": {
+      "label": "Aguamanil y palangana",
+      "radius": 0.24,
+      "height": 0.26,
+      "width": 0.46,
+      "depth": 0.32,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "wall_flowers": {
+      "label": "Flores secas en repisa mural",
+      "radius": 0.22,
+      "height": 0.55,
+      "width": 0.36,
+      "depth": 0.18,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "open_book": {
+      "label": "Libro de lectura abierto",
+      "radius": 0.2,
+      "height": 0.045,
+      "width": 0.36,
+      "depth": 0.26,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.35
+    },
+    "blocks": {
+      "label": "Bloques de madera de colores",
+      "radius": 0.18,
+      "height": 0.17,
+      "width": 0.32,
+      "depth": 0.26,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
+    },
+    "top": {
+      "label": "Trompo de madera",
+      "radius": 0.075,
+      "height": 0.14,
+      "width": 0.15,
+      "depth": 0.15,
+      "throwable": true,
+      "houseThrows": false,
+      "massKg": 0.12
+    },
+    "wall_lamp": {
+      "label": "Lámpara mural de lectura",
+      "radius": 0.2,
+      "height": 0.38,
+      "width": 0.32,
+      "depth": 0.18,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null,
+      "mount": "wall"
+    },
+    "paper_letters": {
+      "label": "Cartas sobre la mesa",
+      "radius": 0.17,
+      "height": 0.012,
+      "width": 0.28,
+      "depth": 0.21,
+      "throwable": false,
+      "houseThrows": false,
+      "massKg": null
     }
   },
   "decorInstances": [
@@ -4554,6 +4784,551 @@
         0.72
       ],
       "rotation": 0
+    },
+    {
+      "id": "A04_family_frame_01",
+      "room": "A04",
+      "asset": "family_frame",
+      "support": "am_A04",
+      "offset": [
+        0.5,
+        0.82,
+        0.9399999999999995
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A04_family_frame_02",
+      "room": "A04",
+      "asset": "family_frame",
+      "support": "am_cama_nana",
+      "offset": [
+        0.060000000000002274,
+        1.12,
+        1
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A04_wall_hooks_01",
+      "room": "A04",
+      "asset": "wall_hooks",
+      "support": "am_A04",
+      "offset": [
+        3.3999999999999986,
+        0.72,
+        0.9199999999999999
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A04_linen_01",
+      "room": "A04",
+      "asset": "linen",
+      "support": "am_cama_nana",
+      "offset": [
+        1.6,
+        0.03,
+        0.65
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A04_care_basket_01",
+      "room": "A04",
+      "asset": "care_basket",
+      "support": "prop_cuna",
+      "offset": [
+        0.5,
+        -1.1,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A04_wash_set_01",
+      "room": "A04",
+      "asset": "wash_set",
+      "support": "am_A04",
+      "offset": [
+        3.45,
+        0,
+        0.6
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A04_booties_01",
+      "room": "A04",
+      "asset": "booties",
+      "support": "am_A04",
+      "offset": [
+        3.3,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A06_drawing_01",
+      "room": "A06",
+      "asset": "drawing",
+      "support": "am_cama_nino",
+      "offset": [
+        0.06000000000000005,
+        1.12,
+        0.6500000000000004
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A06_drawing_02",
+      "room": "A06",
+      "asset": "drawing",
+      "support": "am_A06",
+      "offset": [
+        0.5999999999999996,
+        0.82,
+        0.9400000000000013
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A06_wall_lamp_01",
+      "room": "A06",
+      "asset": "wall_lamp",
+      "support": "buro_infantil",
+      "offset": [
+        0.09000000000000008,
+        0.72,
+        0.5
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A06_blocks_01",
+      "room": "A06",
+      "asset": "blocks",
+      "support": "am_A06",
+      "offset": [
+        2.2,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A06_top_01",
+      "room": "A06",
+      "asset": "top",
+      "support": "am_A06",
+      "offset": [
+        2.7,
+        0,
+        0.65
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A06_paper_letters_01",
+      "room": "A06",
+      "asset": "paper_letters",
+      "support": "am_A06",
+      "offset": [
+        0.5,
+        0,
+        0.55
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A06_cushion_01",
+      "room": "A06",
+      "asset": "cushion",
+      "support": "am_cama_nino",
+      "offset": [
+        1.4,
+        0.03,
+        1.4
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A06_suitcase_01",
+      "room": "A06",
+      "asset": "suitcase",
+      "support": "am_cama_nino",
+      "offset": [
+        1.5,
+        -0.58,
+        0.8
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A10_family_frame_01",
+      "room": "A10",
+      "asset": "family_frame",
+      "support": "buro_extra_A10",
+      "offset": [
+        0.06000000000000005,
+        0.82,
+        0.5
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A10_wall_flowers_01",
+      "room": "A10",
+      "asset": "wall_flowers",
+      "support": "am_A10",
+      "offset": [
+        0.09000000000000008,
+        0.82,
+        0.6000000000000014
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A10_open_book_01",
+      "room": "A10",
+      "asset": "open_book",
+      "support": "cama_A10",
+      "offset": [
+        1.35,
+        -0.04,
+        1.15
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A10_cushion_01",
+      "room": "A10",
+      "asset": "cushion",
+      "support": "cama_A10",
+      "offset": [
+        1.6,
+        -0.04,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A10_suitcase_01",
+      "room": "A10",
+      "asset": "suitcase",
+      "support": "cama_A10",
+      "offset": [
+        1.5,
+        -0.65,
+        1
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A10_linen_01",
+      "room": "A10",
+      "asset": "linen",
+      "support": "am_A10",
+      "offset": [
+        0.5,
+        0,
+        1.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A11_family_frame_01",
+      "room": "A11",
+      "asset": "family_frame",
+      "support": "buro_extra_A11",
+      "offset": [
+        0.5,
+        0.82,
+        0.9399999999999977
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A11_family_frame_02",
+      "room": "A11",
+      "asset": "family_frame",
+      "support": "am_A11",
+      "offset": [
+        2.5,
+        0.82,
+        0.9399999999999977
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A11_wall_hooks_01",
+      "room": "A11",
+      "asset": "wall_hooks",
+      "support": "cama_A11",
+      "offset": [
+        1.5,
+        1.05,
+        2.9200000000000017
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A11_linen_01",
+      "room": "A11",
+      "asset": "linen",
+      "support": "cama_A11",
+      "offset": [
+        0.6,
+        -0.04,
+        1.45
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A11_jewelbox_01",
+      "room": "A11",
+      "asset": "jewelbox",
+      "support": "am_A11",
+      "offset": [
+        2.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A11_paper_letters_01",
+      "room": "A11",
+      "asset": "paper_letters",
+      "support": "am_A11",
+      "offset": [
+        1.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A11_suitcase_01",
+      "room": "A11",
+      "asset": "suitcase",
+      "support": "cama_A11",
+      "offset": [
+        1,
+        -0.65,
+        1.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_wall_mirror_01",
+      "room": "A14",
+      "asset": "wall_mirror",
+      "support": "am_A14",
+      "offset": [
+        1.2000000000000028,
+        0.47,
+        0.9399999999999977
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A14_family_frame_01",
+      "room": "A14",
+      "asset": "family_frame",
+      "support": "buro_extra_A14",
+      "offset": [
+        0.5,
+        0.82,
+        0.9399999999999977
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A14_wall_hooks_01",
+      "room": "A14",
+      "asset": "wall_hooks",
+      "support": "cama_A14",
+      "offset": [
+        1.2999999999999972,
+        1.05,
+        2.9200000000000017
+      ],
+      "rotation": 3.141592653589793,
+      "mountWall": "south"
+    },
+    {
+      "id": "A14_jewelbox_01",
+      "room": "A14",
+      "asset": "jewelbox",
+      "support": "am_A14",
+      "offset": [
+        2.2,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_perfume_01",
+      "room": "A14",
+      "asset": "perfume",
+      "support": "am_A14",
+      "offset": [
+        2.7,
+        0,
+        0.25
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_comb_01",
+      "room": "A14",
+      "asset": "comb",
+      "support": "am_A14",
+      "offset": [
+        2.6,
+        0,
+        0.7
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_linen_01",
+      "room": "A14",
+      "asset": "linen",
+      "support": "cama_A14",
+      "offset": [
+        0.7,
+        -0.04,
+        1.35
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_paper_letters_01",
+      "room": "A14",
+      "asset": "paper_letters",
+      "support": "am_A14",
+      "offset": [
+        1,
+        0,
+        0.45
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A14_suitcase_01",
+      "room": "A14",
+      "asset": "suitcase",
+      "support": "cama_A14",
+      "offset": [
+        1,
+        -0.65,
+        1.4
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A15_family_frame_01",
+      "room": "A15",
+      "asset": "family_frame",
+      "support": "am_cama_huesped",
+      "offset": [
+        2.9399999999999977,
+        1.12,
+        1.3999999999999986
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A15_wall_hooks_01",
+      "room": "A15",
+      "asset": "wall_hooks",
+      "support": "buro_huespedes",
+      "offset": [
+        0.9200000000000017,
+        0.72,
+        0.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A15_family_frame_02",
+      "room": "A15",
+      "asset": "family_frame",
+      "support": "am_A15",
+      "offset": [
+        0.060000000000002274,
+        0.82,
+        2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A15_wash_set_01",
+      "room": "A15",
+      "asset": "wash_set",
+      "support": "buro_huespedes",
+      "offset": [
+        0.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A15_linen_01",
+      "room": "A15",
+      "asset": "linen",
+      "support": "am_cama_huesped",
+      "offset": [
+        1.45,
+        0.03,
+        1.4
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A15_suitcase_01",
+      "room": "A15",
+      "asset": "suitcase",
+      "support": "am_cama_huesped",
+      "offset": [
+        1.4,
+        -0.58,
+        0.7
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A15_paper_letters_01",
+      "room": "A15",
+      "asset": "paper_letters",
+      "support": "am_A15",
+      "offset": [
+        0.5,
+        0,
+        1.5
+      ],
+      "rotation": 0
     }
   ],
   "roomModules": [
@@ -5088,7 +5863,15 @@
         "am_A04",
         "am_cama_nana"
       ],
-      "decoration": [],
+      "decoration": [
+        "A04_family_frame_01",
+        "A04_family_frame_02",
+        "A04_wall_hooks_01",
+        "A04_linen_01",
+        "A04_care_basket_01",
+        "A04_wash_set_01",
+        "A04_booties_01"
+      ],
       "doors": [
         "D19",
         "D45"
@@ -5114,9 +5897,19 @@
       "obstacles": [
         "prop_caballito",
         "am_A06",
-        "am_cama_nino"
+        "am_cama_nino",
+        "buro_infantil"
       ],
-      "decoration": [],
+      "decoration": [
+        "A06_drawing_01",
+        "A06_drawing_02",
+        "A06_wall_lamp_01",
+        "A06_blocks_01",
+        "A06_top_01",
+        "A06_paper_letters_01",
+        "A06_cushion_01",
+        "A06_suitcase_01"
+      ],
       "doors": [
         "D16",
         "D20",
@@ -5223,9 +6016,18 @@
       "enabled": true,
       "obstacles": [
         "am_A15",
-        "am_cama_huesped"
+        "am_cama_huesped",
+        "buro_huespedes"
       ],
-      "decoration": [],
+      "decoration": [
+        "A15_family_frame_01",
+        "A15_wall_hooks_01",
+        "A15_family_frame_02",
+        "A15_wash_set_01",
+        "A15_linen_01",
+        "A15_suitcase_01",
+        "A15_paper_letters_01"
+      ],
       "doors": [
         "D42",
         "D43"
@@ -5255,7 +6057,14 @@
         "am_A10",
         "buro_extra_A10"
       ],
-      "decoration": [],
+      "decoration": [
+        "A10_family_frame_01",
+        "A10_wall_flowers_01",
+        "A10_open_book_01",
+        "A10_cushion_01",
+        "A10_suitcase_01",
+        "A10_linen_01"
+      ],
       "doors": [
         "D23",
         "D26"
@@ -5283,7 +6092,15 @@
         "am_A11",
         "buro_extra_A11"
       ],
-      "decoration": [],
+      "decoration": [
+        "A11_family_frame_01",
+        "A11_family_frame_02",
+        "A11_wall_hooks_01",
+        "A11_linen_01",
+        "A11_jewelbox_01",
+        "A11_paper_letters_01",
+        "A11_suitcase_01"
+      ],
       "doors": [
         "D26",
         "D27",
@@ -5340,7 +6157,17 @@
         "am_A14",
         "buro_extra_A14"
       ],
-      "decoration": [],
+      "decoration": [
+        "A14_wall_mirror_01",
+        "A14_family_frame_01",
+        "A14_wall_hooks_01",
+        "A14_jewelbox_01",
+        "A14_perfume_01",
+        "A14_comb_01",
+        "A14_linen_01",
+        "A14_paper_letters_01",
+        "A14_suitcase_01"
+      ],
       "doors": [
         "D28",
         "D31",

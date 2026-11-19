@@ -712,7 +712,7 @@ function gMover(w, g) {
   if(!landed){const options=(ROOM_TILES[o.f][roomAt(o.f,o.x,o.y)]||[]).map(([x,y])=>({x:x+.5,y:y+.5})).filter(p=>Math.hypot(p.x-o.x,p.y-o.y)>=1&&Math.hypot(p.x-o.x,p.y-o.y)<=4&&layoutPlacementAllowed(o.f,p.x,p.y,.3)&&los(o.f,o.releaseX??o.x,o.releaseY??o.y,p.x,p.y,(o.h||0)+.2,(o.h||0)+.2,w)).sort((a,b)=>Math.hypot(a.x-o.x,a.y-o.y)-Math.hypot(b.x-o.x,b.y-o.y));if(!options.length)return false;tx=options[0].x;ty=options[0].y;}
   g.ready.c = w.t + cdFor(g, 'c', CFG.cds.c);
   o.from = { x: o.x, y: o.y, h: o.h };delete o.releaseX;delete o.releaseY;o.x = tx; o.y = ty; o.h = 0; o.flyT = w.t; o.rot = Math.random() * 6.28;
-  w.noise(o, 12, 'mover'); w.sub(o, `Cae ${LOOSE_N[o.kind]} al piso`, 12);
+  w.noise(o, 12, 'mover'); w.sub(o, `Cae ${NDALayout.decorAssets?.[o.assetId]?.label||LOOSE_N[o.kind]} al piso`, 12);
   exposedInvs(w).filter(i => i.f === o.f && d2(i, o) <= 4).forEach(i => w.haunt(i, 2));
   ghostEvent(w, g, 'move'); w.ev('mover', { f: o.f, x: o.x, y: o.y, id: o.id }); return true;
 }
@@ -878,9 +878,14 @@ function botInv(w, b, dt) {
   { const lm = g.lastMan && w.t - g.lastMan.t < 8 ? g.lastMan : (g.lastAct && w.t - g.lastAct.t < 8 ? g.lastAct : null); const gk = b.slots.findIndex(s => s && s.kind === 'grab');
     if (lm && gk >= 0 && lm.f === b.f && d2(lm, b) < 9) { b.hand = gk; if (w.t >= (b.slots[gk].cd || 0)) useItem(w, b); }
     else if (!ai.study) { const ek = b.slots.findIndex(s => s && s.kind === 'emf'); if (ek >= 0) b.hand = ek; } }
-  // recoger consumibles cercanos
-  if (stairAt(b.x,b.y)<0&&b.slots.filter(x => !x).length >= 1 && !(b.f === 0 && b.y >= 39)) { const it = w.items.find(t => !t.holder && t.f === b.f && ['te', 'rosario', 'copal'].includes(t.kind) && !b.slots.some(x => x && x.kind === t.kind) && d2(t, b) < 6);
-    if (it) { if (d2(it, b) < 1.2) { const e = b.slots.indexOf(null); b.hand = e; pickUp(w, b); } else { moveBot(w, b, approach(it), CFG.walk * sp, dt); return; } } }
+  // Finish an optional pickup detour through a stair entry before resuming
+  // exploration/resupply. Abandoning it on the stair caused alternating goals.
+  {const free=b.slots.some(x=>!x),valid=t=>t&&!t.holder&&t.f===b.f&&['te','rosario','copal'].includes(t.kind)&&!b.slots.some(x=>x&&x.kind===t.kind),pending=w.items.find(t=>t.id===ai.pickupDetourId),onStair=stairAt(b.x,b.y)>=0;
+   if(!valid(pending)||!free)delete ai.pickupDetourId;
+   if(free&&!(b.f===0&&b.y>=39)&&(!onStair||valid(pending))){const it=valid(pending)?pending:w.items.find(t=>valid(t)&&d2(t,b)<6&&stairAt(approach(t).x,approach(t).y)<0);
+    if(it){const target=approach(it);if(stairAt(target.x,target.y)<0){if(d2(it,b)<1.2&&!onStair){b.hand=b.slots.indexOf(null);pickUp(w,b);delete ai.pickupDetourId;}else{ai.pickupDetourId=it.id;moveBot(w,b,target,CFG.walk*sp,dt);return;}}}
+   }
+  }
   ai.think -= dt;
   if (ai.lure && w.t < ai.lure.until && !g.hunt) { if (moveBot(w, b, ai.lure, CFG.walk * sp, dt) || d2(ai.lure, b) < 1.2 && b.f === ai.lure.f) { if (ai.lure.fuse) resetFuse(w, b); ai.lure = null; } return; }
   // estados

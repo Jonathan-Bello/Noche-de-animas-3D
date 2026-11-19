@@ -60,9 +60,114 @@
       "contents": [],
       "visualHeight": 1.5,
       "backWall": "east"
+    },
+    {
+      "id": "buro_huespedes",
+      "floor": 1,
+      "room": "A15",
+      "rect": [
+        6,
+        4,
+        7,
+        5
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "bedside",
+      "label": "Buró de huéspedes",
+      "backWall": "east",
+      "drawers": false
     }
   ],
-  "decorations": [],
+  "decorations": [
+    {
+      "id": "A15_family_frame_01",
+      "room": "A15",
+      "asset": "family_frame",
+      "support": "am_cama_huesped",
+      "offset": [
+        2.9399999999999977,
+        1.12,
+        1.3999999999999986
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A15_wall_hooks_01",
+      "room": "A15",
+      "asset": "wall_hooks",
+      "support": "buro_huespedes",
+      "offset": [
+        0.9200000000000017,
+        0.72,
+        0.5
+      ],
+      "rotation": -1.5707963267948966,
+      "mountWall": "east"
+    },
+    {
+      "id": "A15_family_frame_02",
+      "room": "A15",
+      "asset": "family_frame",
+      "support": "am_A15",
+      "offset": [
+        0.060000000000002274,
+        0.82,
+        2
+      ],
+      "rotation": 1.5707963267948966,
+      "mountWall": "west"
+    },
+    {
+      "id": "A15_wash_set_01",
+      "room": "A15",
+      "asset": "wash_set",
+      "support": "buro_huespedes",
+      "offset": [
+        0.5,
+        0,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A15_linen_01",
+      "room": "A15",
+      "asset": "linen",
+      "support": "am_cama_huesped",
+      "offset": [
+        1.45,
+        0.03,
+        1.4
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A15_suitcase_01",
+      "room": "A15",
+      "asset": "suitcase",
+      "support": "am_cama_huesped",
+      "offset": [
+        1.4,
+        -0.58,
+        0.7
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "A15_paper_letters_01",
+      "room": "A15",
+      "asset": "paper_letters",
+      "support": "am_A15",
+      "offset": [
+        0.5,
+        0,
+        1.5
+      ],
+      "rotation": 0
+    }
+  ],
   "hidingSockets": [
     {
       "id": "HA15",
