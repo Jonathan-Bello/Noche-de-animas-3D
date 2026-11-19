@@ -33,3 +33,11 @@ python3 src/build.py
 ```
 
 Genera `juego/index.html` a partir de `src/`.
+
+## Casona y decoración V13
+
+- [Croquis amueblado interactivo](arte/decoracion-v13/index.html): distribución real, reservas de puertas y programa por habitación.
+- [Plan de decoración y permisos del ánima/casa](docs/decoracion-v13.md).
+- [Catálogo de 30 familias decorativas](arte/decoracion-v13/catalogo.json): diferencia lo construido y lo propuesto.
+
+El compilador comprueba puertas, apoyos de camas y superposiciones de muebles antes de generar la demo. Las pruebas principales están documentadas en el plan.

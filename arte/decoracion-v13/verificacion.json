@@ -1,0 +1,1591 @@
+{
+  "version": "casona-v13",
+  "architecture": {
+    "doors": 44,
+    "furnitureAndHides": 103,
+    "bedsAgainstWalls": 6,
+    "internalWindowsOpen": 12,
+    "rugs": 22,
+    "errors": []
+  },
+  "blocksInvalidDoorFixture": true,
+  "sessions": [
+    {
+      "ghost": "pena",
+      "time": 356.50000000001256,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 83,
+          "1": 83,
+          "2": 83,
+          "3": 83
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Fermín, Ángel, Alex, Amalia salió con la apuesta correcta"
+      },
+      "hunts": 1,
+      "stalls": []
+    },
+    {
+      "ghost": "nachito",
+      "time": 598.5000000000675,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Rafael",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 10,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Amalia",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 10,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "bruja",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "bruja",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 10,
+          "1": 10,
+          "2": 18,
+          "3": 18
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 3,
+      "stalls": []
+    },
+    {
+      "ghost": "llorona",
+      "time": 443.00000000003223,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "malaire",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "malaire",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "malaire",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "malaire",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 28,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 2,
+      "stalls": []
+    },
+    {
+      "ghost": "chaneque",
+      "time": 564.5000000000598,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Amalia",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 33,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 40,
+          "1": 33,
+          "2": 40,
+          "3": 40
+        },
+        "evid": 2,
+        "objDone": 1,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 3,
+      "stalls": []
+    },
+    {
+      "ghost": "matla",
+      "time": 563.8000000000596,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 53,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 53,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 45,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Fermín",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 45,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 53,
+          "1": 53,
+          "2": 45,
+          "3": 45
+        },
+        "evid": 2,
+        "objDone": 2,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 4,
+      "stalls": []
+    },
+    {
+      "ghost": "cucuy",
+      "time": 99.09999999999864,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 28,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 0,
+      "stalls": []
+    },
+    {
+      "ghost": "guardian",
+      "time": 309.80000000000194,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 43,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 200,
+          "1": 200,
+          "2": 200,
+          "3": 43
+        },
+        "evid": 3,
+        "objDone": 1,
+        "cause": "Tomás, Jenny, Alex salió con la apuesta correcta"
+      },
+      "hunts": 2,
+      "stalls": []
+    },
+    {
+      "ghost": "nahual",
+      "time": 576.4000000000625,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cucuy",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Ángel",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": "cucuy",
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cucuy",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cucuy",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 20,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 2,
+      "stalls": []
+    },
+    {
+      "ghost": "demonio",
+      "time": 595.7000000000669,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 0,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 8,
+          "1": 0,
+          "2": 8,
+          "3": 8
+        },
+        "evid": 0,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 4,
+      "stalls": []
+    },
+    {
+      "ghost": "planchada",
+      "time": 579.6000000000632,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 83,
+          "1": 83,
+          "2": 83,
+          "3": 83
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Amalia, Alex, Jenny, Fermín salió con la apuesta correcta"
+      },
+      "hunts": 0,
+      "stalls": []
+    },
+    {
+      "ghost": "chocarrero",
+      "time": 401.30000000002275,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 200,
+          "1": 200,
+          "2": 200,
+          "3": 200
+        },
+        "evid": 3,
+        "objDone": 1,
+        "cause": "Mateo, Jenny, Ángel, Alex salió con la apuesta correcta"
+      },
+      "hunts": 2,
+      "stalls": []
+    },
+    {
+      "ghost": "tlahuel",
+      "time": 542.5000000000548,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Tomás",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": "cadejo",
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Fermín",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cadejo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 20,
+          "1": 20,
+          "2": 20,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 4,
+      "stalls": []
+    },
+    {
+      "ghost": "malaire",
+      "time": 172.99999999999446,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "malaire",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "malaire",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "malaire",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "malaire",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 200,
+          "1": 200,
+          "2": 200,
+          "3": 200
+        },
+        "evid": 3,
+        "objDone": 1,
+        "cause": "Fermín, Alex, Tomás, Ángel salió con la apuesta correcta"
+      },
+      "hunts": 0,
+      "stalls": []
+    },
+    {
+      "ghost": "aparecido",
+      "time": 374.8000000000167,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 200,
+          "1": 200,
+          "2": 200,
+          "3": 200
+        },
+        "evid": 3,
+        "objDone": 1,
+        "cause": "Alex, Mateo, Tomás, Fermín salió con la apuesta correcta"
+      },
+      "hunts": 1,
+      "stalls": []
+    },
+    {
+      "ghost": "bruja",
+      "time": 695.0000000000895,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Fermín",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 13,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 20,
+          "1": 13,
+          "2": 20,
+          "3": 20
+        },
+        "evid": 0,
+        "objDone": 1,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 2,
+      "stalls": []
+    },
+    {
+      "ghost": "yohual",
+      "time": 211.59999999999226,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "yohual",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "yohual",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "yohual",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "yohual",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 150,
+          "1": 150,
+          "2": 150,
+          "3": 150
+        },
+        "evid": 3,
+        "objDone": 0,
+        "cause": "Rafael, Jhonnatan, Ángel, Jorge salió con la apuesta correcta"
+      },
+      "hunts": 1,
+      "stalls": []
+    },
+    {
+      "ghost": "cihuateteo",
+      "time": 587.9000000000651,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jenny",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "matla",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 20,
+          "1": 28,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 2,
+      "stalls": []
+    },
+    {
+      "ghost": "xtabay",
+      "time": 558.6000000000585,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": true,
+            "pay": 250,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": true,
+            "pay": 250,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": true,
+            "pay": 250,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "xtabay",
+            "ok": true,
+            "pay": 250,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 250,
+          "1": 250,
+          "2": 250,
+          "3": 250
+        },
+        "evid": 3,
+        "objDone": 2,
+        "cause": "Rafael, Jorge, Jenny, Amalia salió con la apuesta correcta"
+      },
+      "hunts": 1,
+      "stalls": []
+    },
+    {
+      "ghost": "cadejo",
+      "time": 599.8000000000678,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 8,
+          "1": 8,
+          "2": 8,
+          "3": 8
+        },
+        "evid": 0,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 0,
+      "stalls": []
+    },
+    {
+      "ghost": "mulata",
+      "time": 374.00000000001654,
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "demonio",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "demonio",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "demonio",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "demonio",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 28,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 0,
+      "stalls": []
+    },
+    {
+      "ghost": "uaychivo",
+      "time": 294.9999999999986,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "uaychivo",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "uaychivo",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "uaychivo",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "uaychivo",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 200,
+          "1": 200,
+          "2": 200,
+          "3": 200
+        },
+        "evid": 3,
+        "objDone": 1,
+        "cause": "Jorge, Ángel, Tomás, Alex salió con la apuesta correcta"
+      },
+      "hunts": 0,
+      "stalls": []
+    },
+    {
+      "ghost": "charro",
+      "time": 353.90000000001197,
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": true,
+            "pay": 120,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Alex",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 33,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": true,
+            "pay": 120,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "charro",
+            "ok": true,
+            "pay": 120,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 120,
+          "1": 33,
+          "2": 120,
+          "3": 120
+        },
+        "evid": 2,
+        "objDone": 1,
+        "cause": "Ángel, Jorge, Jenny salió con la apuesta correcta"
+      },
+      "hunts": 2,
+      "stalls": []
+    }
+  ],
+  "webkit": {
+    "passed": true,
+    "profiles": [
+      {
+        "layout": "casona-v13",
+        "viewport": {
+          "width": 390,
+          "height": 664
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1,
+        "shadows": false,
+        "draw": {
+          "frame": 1,
+          "calls": 219,
+          "triangles": 31128,
+          "points": 0,
+          "lines": 0
+        },
+        "renderer": "Apple GPU",
+        "device": "iPhone 12",
+        "errors": []
+      },
+      {
+        "layout": "casona-v13",
+        "viewport": {
+          "width": 750,
+          "height": 340
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1,
+        "shadows": false,
+        "draw": {
+          "frame": 1,
+          "calls": 416,
+          "triangles": 48952,
+          "points": 0,
+          "lines": 0
+        },
+        "renderer": "Apple GPU",
+        "device": "iPhone 12 landscape",
+        "errors": []
+      }
+    ],
+    "note": "WebKit on Windows with emulated iPhone dimensions/input, not an iPhone GPU or physical FPS measurement."
+  },
+  "note": "WebKit Windows and touch/viewport emulation; no physical iPhone FPS claim.",
+  "browser": {
+    "passed": true,
+    "profiles": [
+      {
+        "version": "casona-v13",
+        "quality": "low",
+        "shadows": false,
+        "dpr": 1,
+        "active": 21,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 331,
+          "triangles": 42674,
+          "points": 0,
+          "lines": 0
+        }
+      },
+      {
+        "version": "casona-v13",
+        "quality": "balanced",
+        "shadows": true,
+        "dpr": 1.35,
+        "active": 20,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 361,
+          "triangles": 45714,
+          "points": 0,
+          "lines": 0
+        },
+        "geometryAudit": {
+          "portals": 44,
+          "windows": 20,
+          "nonFinite": 0,
+          "mixedFaceColors": 0,
+          "coplanarOverlaps": []
+        }
+      },
+      {
+        "version": "casona-v13",
+        "quality": "high",
+        "shadows": true,
+        "dpr": 2,
+        "active": 21,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 332,
+          "triangles": 45070,
+          "points": 0,
+          "lines": 0
+        }
+      },
+      {
+        "version": "casona-v13",
+        "quality": "auto",
+        "shadows": false,
+        "dpr": 1,
+        "active": 21,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 186,
+          "triangles": 29922,
+          "points": 0,
+          "lines": 0
+        }
+      }
+    ],
+    "errors": [],
+    "note": "Emulated screen/input and software rendering; no physical-device FPS claim."
+  },
+  "online": {
+    "passed": true,
+    "movementOnHost": 3.593733739999955,
+    "flashSynced": true,
+    "layoutAndRandomStateSynced": true,
+    "drawerOpenSynced": true,
+    "independentBookThrowSynced": true,
+    "disconnectHandled": true,
+    "snapshotBytes": [
+      37822,
+      5229
+    ],
+    "errors": [],
+    "note": "PeerJS transport shim; drawing tested independently, no WAN latency benchmark."
+  },
+  "review": {
+    "passed": true,
+    "completeBrowserSession": {
+      "t": 572.5000000000616,
+      "over": {
+        "win": "ghost",
+        "cause": "Nadie que salió acertó"
+      },
+      "hunts": 2,
+      "draw": {
+        "frame": 58,
+        "calls": 270,
+        "triangles": 30024,
+        "points": 0,
+        "lines": 0
+      },
+      "finite": true
+    },
+    "adaptiveSyntheticSlowFrames": {
+      "low": {
+        "scale": 0.65,
+        "dpr": 0.65
+      },
+      "recovered": 1
+    },
+    "planInteractionsPassed": true,
+    "errors": [],
+    "note": "Touch-screen emulation and software renderer, not physical-phone FPS."
+  }
+}
