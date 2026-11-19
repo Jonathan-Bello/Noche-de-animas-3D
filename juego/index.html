@@ -178,6 +178,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
 #onStatus.ok{color:#8fd18f}#onStatus.bad{color:#ff9aa4}
 #radioInd{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:rgba(90,15,30,.85);border:1px solid var(--gold);color:var(--gold);padding:4px 12px;border-radius:999px;z-index:30}
 .photoflash{position:fixed;inset:0;background:#fff;opacity:.9;z-index:40;pointer-events:none;animation:pf .4s ease-out forwards}@keyframes pf{to{opacity:0}}
+.flashw{position:fixed;inset:0;background:#fff;z-index:38;pointer-events:none;animation:flw .9s ease-out forwards}@keyframes flw{0%{opacity:0}8%{opacity:.85}20%{opacity:.1}30%{opacity:.6}100%{opacity:0}}
 .redsky{position:fixed;inset:0;background:rgba(160,0,0,.35);mix-blend-mode:multiply;z-index:38;pointer-events:none}
 #recon{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:45;display:flex;align-items:center;justify-content:center;font:600 1.6em Grenze,Georgia,serif;color:#ddd}
 #recon[hidden]{display:none}
@@ -2366,6 +2367,63 @@ function ghostWatch(w, dt) {
 }
 const _rulesTickL = rulesTick; rulesTick = function (w, dt) { _rulesTickL(w, dt); try { teamWatch(w, dt); ghostWatch(w, dt); } catch (e) {} };
 
+// ================= v1.4: la casa, afinada con la retroalimentación =================
+// fuera la sombra que se retrasa y la serenata
+CAS.splice(0, CAS.length, [1, 40, 'nada'], [41, 48, 'ambiente'], [49, 50, 'estatua'], [51, 52, 'ecoya'], [53, 56, 'anomalia'], [57, 59, 'senuelo'], [60, 62, 'doble'], [63, 65, 'eco'], [66, 72, 'pasos'],
+  [73, 76, 'sombra'], [77, 80, 'puerta'], [81, 84, 'zaguan'], [85, 86, 'foto'], [87, 88, 'cadaver'], [89, 90, 'telefono'], [91, 91, 'tv'], [92, 92, 'tvcam'], [93, 93, 'barras'], [94, 94, 'radio'],
+  [95, 95, 'reconectando'], [96, 96, 'clima'], [97, 97, 'rezando'], [98, 98, 'ofrenda'], [99, 99, 'pasillo'], [100, 100, 'elige']);
+const VIS_TXT = { nadie: 'nadie (solo viento)', pista: 'un visitante con una pista (verdad o mentira)', nino: 'una niña con veladora que señala dónde está el ánima', doble: 'tu doble, afuera' };
+function casZaguan(w, v) {
+  const d = w.doors.find(d => d.ext); if (d) { d.closed = true; d.anim = 1; }
+  const kind = pick(['nadie', 'pista', 'pista', 'nino', 'doble']); w.cas.knock = { until: w.t + 40, kind, t0: w.t };
+  w.ev('cas', { k: 'zaguan', who: v.id, f: 0, x: ZAG.x, y: ZAG.y + 0.6 }); blog(w, 'casa', `   El zaguán se cerró solo y tocan desesperados. Detrás: ${VIS_TXT[kind]}.`, ZAG);
+}
+visitor = function (w, i) {
+  const k = w.cas.knock, kind = k ? k.kind : 'nadie', g = w.g; w.cas.knock = null; const d = w.doors.find(d => d.ext); if (d) { d.closed = false; d.anim = 1; }
+  w.ev('visita', { who: i.id, kind }); w.actor = i;
+  if (kind === 'nadie') { w.say('Abres el zaguán… no hay nadie. El viento azota la puerta contra la pared.', 'i'); w.haunt(i, 4); }
+  else if (kind === 'pista') { const truth = Math.random() < 0.5, other = pick(GHOSTS.filter(G => G !== w.g.def)), who = pick(['La vecina', 'Un señor con sombrero', 'El sereno', 'Una señora con rebozo']);
+    w.say(`${who}: «Dicen que no es ${truth ? other.n : w.g.def.n}». Se da la vuelta y se pierde en la calle. (Puede ser verdad o mentira.)`, 'i'); }
+  else if (kind === 'nino') { const up = g.home.f === 1, truth = Math.random() < 0.7, says = truth ? up : !up; w.say(`Una niña con una veladora te mira y señala ${says ? 'hacia arriba' : 'hacia abajo'}: «La señora está ${says ? 'arriba' : 'abajo'}». La vela se apaga y ya no está.`, 'i'); w.haunt(i, 3); }
+  else { w.say('Afuera estás tú… o alguien idéntico a ti. Sonríe, se da la vuelta y camina hacia la calle.', 'i'); w.haunt(i, 8); }
+  w.actor = null; blog(w, 'casa', `   ${i.name} abrió el zaguán: ${VIS_TXT[kind]}.`, ZAG);
+};
+function casRezando(w, v) {
+  const rs = ROOM_LIST.filter(r => r.f === v.f && !isHall(r.f, r.r) && ROOM_CENTER[r.f][r.r] && r.r !== roomOf(v)).map(r => ({ r, d: pathLen(w, v, ROOM_CENTER[r.f][r.r]) })).filter(o => o.d < 30).sort((a, b) => a.d - b.d);
+  const o = rs.find(o => !w.lights[o.r.f][o.r.r]) || rs[0]; if (!o) { w.cas.retry = true; w.cas.retryWhy = 'no hay un cuarto cerca'; return; }
+  w.lights[o.r.f][o.r.r] = 0; const p = randomIn(o.r.f, o.r.r); w.kneel = Object.assign(p, { until: w.t + 60, char: pick(NAMES)[2] });
+  w.ev('cas', { k: 'rezando', who: v.id, f: p.f, x: p.x, y: p.y });
+}
+function casRetrato(w, v) {
+  const dx = Math.cos(v.face), dy = Math.sin(v.face); let x = v.x, y = v.y, hit = null;
+  for (let s = 0.3; s < 9; s += 0.08) { const nx = v.x + dx * s, ny = v.y + dy * s; if (tileAt(v.f, nx, ny) === T.WALL) { hit = { x: nx, y: ny }; break; } x = nx; y = ny; }
+  if (!hit) { w.cas.retry = true; w.cas.retryWhy = 'no hay pared enfrente'; return; }
+  const tx = hit.x | 0, ty = hit.y | 0, px = x | 0, py = y | 0, nx = tx !== px ? Math.sign(px - tx) : 0, ny = nx ? 0 : Math.sign(py - ty);
+  const p = { f: v.f, x: nx ? (nx > 0 ? tx + 1.03 : tx - 0.03) : hit.x, y: ny ? (ny > 0 ? ty + 1.03 : ty - 0.03) : hit.y, nx, ny, char: v.char, name: v.name };
+  (w.portraits || (w.portraits = [])).push(p); w.actor = v; w.say('En el retrato de la pared… ahora apareces tú.', 'i'); w.actor = null; w.ev('cas', { k: 'foto', who: v.id, f: p.f, x: p.x, y: p.y });
+}
+const _casDo14 = casDo;
+casDo = function (w, k, v) {
+  if (k === 'zaguan') return casZaguan(w, v);
+  if (k === 'rezando') return casRezando(w, v);
+  if (k === 'foto') return casRetrato(w, v);
+  if (k === 'ofrenda') { w.ofrenda = { char: v.char, name: v.name, t: w.t }; w.say(`En la ofrenda apareció una foto de ${v.name}.`, 'a'); w.ev('cas', { k, who: v.id, f: ALTAR_POS.f, x: ALTAR_POS.x, y: ALTAR_POS.y, name: v.name }); return; }
+  if (k === 'tv' || k === 'tvcam' || k === 'barras') { const n0 = w.events.length; _casDo14(w, k, v); if (w.cas.retry) return; const ev = w.events.slice(n0).find(e => e.type === 'cas' && e.k === k);
+    const mates = alive(w).filter(i => i !== v && !(i.f === 0 && i.y >= 39)); w.tvOn = { k, dev: ev ? ev.dev : -1, t0: w.t, until: w.t + { tv: 19, tvcam: 18, barras: 45 }[k], who: v.id, missing: pick(w.invs).id, targets: [v.id].concat(mates.length ? [pick(mates).id] : []) }; return; }
+  return _casDo14(w, k, v);
+};
+// la tele se apaga sola al terminar, o si alguien se acerca y la apaga (E)
+const tvDev = w => w.tvOn && w.devices && w.devices[w.tvOn.dev];
+const _interact14 = interact;
+interact = function (w, i) { const d = tvDev(w); if (d && d.f === i.f && d2(d, i) < 1.9) { w.ev('tvoff', { f: d.f, x: d.x, y: d.y, who: i.id }); blog(w, 'equipo', `${i.name} apaga la tele`, i, i.id); w.tvOn = null; return 'tv'; } return _interact14(w, i); };
+const _step14 = step; step = function (w, dt, input) { _step14(w, dt, input); if (w.tvOn && w.t > w.tvOn.until) { const d = tvDev(w); w.tvOn = null; if (d) w.ev('tvoff', { f: d.f, x: d.x, y: d.y }); } };
+// anomalías: cuál fue
+const ANOM_TXT = { flota: 'un objeto flota en el aire', invertido: 'un cuadro quedó de cabeza', puerta: 'una puerta cambió sola (abierta ↔ cerrada)' };
+const _newWorld14 = newWorld;
+newWorld = function (opt) { const w = _newWorld14(opt), ev1 = w.ev; w.portraits = []; w.ofrenda = null; w.tvOn = null;
+  w.ev = (type, d) => { ev1(type, d); if (type === 'anomaly' && d) { const o = w.loose.filter(o => o.f === d.f).sort((a, b) => d2(a, d) - d2(b, d))[0]; blog(w, 'casa', `   Anomalía: ${d.kind === 'aparece' && o ? `apareció ${LOOSE_N[o.kind]} que no estaba` : ANOM_TXT[d.kind] || d.kind}`, d); } };
+  return w; };
+
 // ================= Laboratorio: la casona como cuarto de pruebas =================
 // Cada cuarto tiene puestos con un letrero. Te acercas y pulsas E: el suceso ocurre ahí mismo, a tu lado,
 // para oírlo y verlo aislado. Sin cacerías solas, sin muertes y sin que la casa tire dados por su cuenta.
@@ -2375,21 +2433,19 @@ const LAB = [
   ['ambiente', 'Ambiente', 'Un ruido suelto de la casa: campanas, perro, mecedora, estática, afuera, pétalos o vela.', 'casa'],
   ['pasos', 'Pasos o canicas arriba', 'Pasos en madera o canicas rodando, cerca de ti.', 'casa'],
   ['sombra', 'Sombra sin dueño', 'Una silueta negra a unos metros, frente a ti; se va en 2 s.', 'casa'],
-  ['sombralag', 'Tu sombra se retrasa', 'Un tirón de imagen (glitch) en tu pantalla.', 'casa'],
   ['puerta', 'Puerta que se cierra', 'La puerta abierta más cercana se azota.', 'casa'],
-  ['serenata', 'Serenata que se corta', 'Una guitarra afuera que se calla de golpe.', 'casa'],
-  ['zaguan', 'Tocan el zaguán', 'Golpes en el zaguán y la manija. Si abres (E en el zaguán) hay un visitante.', 'casa'],
-  ['foto', 'Tu cara en un retrato', 'Mensaje: apareces en un retrato. Un cuadro que se desliza.', 'casa'],
+  ['zaguan', 'Tocan el zaguán', 'El zaguán se cierra solo y tocan fuerte y desesperados. Ve y abre (E en el zaguán): nadie, un visitante con pista, una niña que señala o tu doble.', 'casa'],
+  ['foto', 'Tu cara en un retrato', 'Mira hacia una pared: ahí aparece un retrato tuyo y se queda.', 'casa'],
   ['cadaver', 'Cadáver con tu ropa', 'Un cuerpo tirado con tu ropa. Se esfuma si lo miras de frente.', 'casa'],
   ['telefono', 'Teléfono', 'Suena el teléfono de este puesto; si estás cerca, alguien levanta y repite una frase tuya.', 'casa', 'telefono'],
-  ['tv', 'Tele: noticiero', 'La tele de este puesto se prende con la noticia y sus nombres; al final, los ojos.', 'casa', 'tv'],
-  ['tvcam', 'Tele: vigilancia', 'La tele muestra una «cámara» con todos ustedes.', 'casa', 'tv'],
-  ['barras', 'Tele: barras 3:33', 'Barras de colores y un tono: «si oyes tu nombre, no contestes».', 'casa', 'tv'],
-  ['radio', 'Radio de desaparecidos', 'Estática y una voz que dice sus nombres como desaparecidos.', 'casa', 'radio'],
+  ['tv', 'Tele: noticiero', 'Barras de medianoche, un reportero, la foto de un desaparecido y unos ojos que te siguen. Solo estática. E junto a la tele: apagarla.', 'casa', 'tv'],
+  ['tvcam', 'Tele: vigilancia', 'Una cámara invisible en una esquina te graba; luego cambia al cuarto de otro compañero y termina con los ojos.', 'casa', 'tv'],
+  ['barras', 'Tele: barras 3:33', 'Barras de colores 45 s: «si oyes tu nombre, no contestes». E junto a la tele: apagarla.', 'casa', 'tv'],
+  ['radio', 'Radio', 'Estática con frases de ustedes distorsionadas, gritos y respiraciones.', 'casa', 'radio'],
   ['reconectando', '«Reconectando…»', 'Un letrero de reconexión en tu pantalla y pasos.', 'casa'],
-  ['clima', 'Clima con falla (pantalla roja)', 'La pantalla se pone roja un momento con un trueno. Es la «pantalla roja» que a veces se ve.', 'casa'],
-  ['rezando', 'Alguien rezando', 'Una persona de rodillas con veladora en un cuarto oscuro; se esfuma si te acercas.', 'casa'],
-  ['ofrenda', 'Foto en la ofrenda', 'Mensaje para todos y una campanita.', 'casa'],
+  ['clima', 'Relámpago', 'Un relámpago blanco y un trueno (ya no hay pantalla roja).', 'casa'],
+  ['rezando', 'Alguien rezando', 'En el cuarto oscuro más cercano hay alguien de rodillas con veladora; se esfuma si te acercas.', 'casa'],
+  ['ofrenda', 'Foto en la ofrenda', 'Ve al altar de muertos: hay una foto tuya en la ofrenda.', 'casa'],
   ['pasillo', 'Pasillo que se repite', 'Te mueve a otra parte del mismo pasillo (solo funciona en pasillos).', 'casa'],
   ['senuelo', 'Señuelo', 'La silueta del ánima al fondo; se esfuma si te acercas.', 'casa'],
   ['doble', 'Doble de un compañero', 'Ves a un compañero que no está ahí.', 'casa'],
@@ -2787,7 +2843,7 @@ const VOICE = {
   },
   keep(back) {
     const n = Math.min(this.ring.length, Math.ceil((back + 0.1) * this.sr)), out = new Float32Array(n); for (let i = 0; i < n; i++) out[i] = this.ring[(this.ringPos - n + i + this.ring.length) % this.ring.length];
-    const clip = { d: out, sr: this.sr, tag: this.tagOf(out, this.sr, back), t: performance.now() }; this.clips.push(clip); while (this.clips.length > 5) this.clips.shift(); this.share(clip);
+    const clip = { d: out, sr: this.sr, tag: this.tagOf(out, this.sr, back), t: performance.now() }; this.clips.push(clip); while (this.clips.length > 5) this.clips.shift(); this.share(clip); if (window.__onClip) window.__onClip(clip, null);
   },
   // ¿qué clase de frase es? grito (muy fuerte), llamado (corta, como un nombre), pregunta (el tono sube al final) o frase
   tagOf(x, sr, dur) {
@@ -2809,7 +2865,7 @@ const VOICE = {
   },
   gotClip(who, tag, d) {
     try { const bin = atob(d), f = new Float32Array(bin.length); for (let i = 0; i < bin.length; i++) { const v = bin.charCodeAt(i); f[i] = (v > 127 ? v - 256 : v) / 140; }
-      const L = this.byInv[who] || (this.byInv[who] = []); L.push({ d: f, sr: 8000, tag, t: performance.now() }); while (L.length > 4) L.shift(); } catch (e) {}
+      const L = this.byInv[who] || (this.byInv[who] = []); L.push({ d: f, sr: 8000, tag, t: performance.now() }); while (L.length > 4) L.shift(); if (window.__onClip) window.__onClip(L[L.length - 1], who); } catch (e) {}
   },
   pick(list, prefer) { if (!list || !list.length) return null; const a = prefer ? list.filter(c => prefer.includes(c.tag)) : []; if (a.length) return a[Math.floor(Math.random() * a.length)]; const b = list.filter(c => c.tag !== 'grito'); return (b.length ? b : list)[Math.floor(Math.random() * (b.length ? b : list).length)]; },
   // la casona usa una frase: sonido de bocina; 1 de cada 10, al revés y grave; «wifi»: se entrecorta
@@ -5090,7 +5146,7 @@ function casSound(e, p, V) {
     case 'tv': case 'tvcam': case 'barras': tvShow(e); break;
     case 'radio': CSFX.static(null, 4); duck(1.2); setTimeout(() => speak(`…reportan como desaparecidos a: ${(e.names || []).join(', ')}. Si los ven, no les abran…`, { pitch: 0.5, rate: 0.85 }), 1200); break;
     case 'reconectando': if (mine) { casLocal.reconUntil = performance.now() + 2000; CSFX.steps(V ? { f: V.f, x: V.x + 2, y: V.y } : null); } break;
-    case 'clima': if (mine) { const el = document.createElement('div'); el.className = 'redsky'; $('#game').appendChild(el); setTimeout(() => el.remove(), 2000); CSFX.thunder(); glitch(0.4); } break;
+    case 'clima': if (mine) { const el = document.createElement('div'); el.className = 'flashw'; $('#game').appendChild(el); setTimeout(() => el.remove(), 900); CSFX.thunder(); } break;
     case 'ofrenda': SFX.bell(p); break;
     case 'pasillo': if (mine) { glitch(0.7); tone(60, 0.6, 'sine', 0.2, null, -15); } break;
     case 'puerta': SFX.door(p); break;
@@ -5445,10 +5501,9 @@ casSound = function (e, p, V) {
     case 'telefono': CSFX.ring(p); if (mine && e.near) setTimeout(() => { if (e.leyenda) { duck(1); speak('¡Ay, mis hijos!', { pitch: 0.1, rate: 0.6 }); } else if (!VOICE.playClip(p, e.distort, { prefer: ['pregunta', 'llamado'] })) speak(pick(['¿Hay alguien ahí?', 'Ven… aquí…', 'Ya te vi']), { pitch: 0.2, rate: 0.7 }); }, 3400); return;
     case 'eco': if (mine && V) { const a = Math.random() * 6.28; VOICE.playClip({ f: V.f, x: V.x + Math.cos(a) * 9, y: V.y + Math.sin(a) * 9 }, Math.random() < 0.1, { prefer: ['llamado'] }); } return;
     case 'estatua': return;
-    case 'estatuaGrito': if (mine) { Math.random() < 0.5 ? (SFX.laugh(p), SFX.giggle(p)) : (noise(1.2, 'bandpass', 1400, 2, 0.6, p), tone(900, 1.1, 'sawtooth', 0.12, p, 600)); shake(0.6); flashUI('nuca'); buzz(200); } return;
-    case 'estatuaHabla': if (mine) { if (!VOICE.playClip(p, false, { who: e.as, prefer: ['pregunta', 'frase'], vol: 1.3 })) speak(pick(['¿Qué haces aquí?', '¿Ya viste eso?', 'Ven, sígueme', '¿Me escuchas?', 'No hay nada aquí']), { pitch: 0.9, rate: 1 }); } return;
+    case 'estatuaGrito': if (mine) { shake(0.6); flashUI('nuca'); buzz(200); } return;
+    case 'estatuaHabla': if (mine) { if (!VOICE.playClip(p, false, { who: e.as, prefer: ['pregunta', 'frase'], vol: 1.3 })) S('r_breath', p, { vol: 0.8, rate: 0.8 }); } return;
     case 'ecoya': if (mine && V) VOICE.playClip({ f: V.f, x: V.x + 0.6, y: V.y + 0.4 }, false, { last: true, wifi: true, delay: 0.05 }); return;
-    case 'radio': CSFX.static(p, 4); duck(1.2); setTimeout(() => speak(`…reportan como desaparecidos a: ${(e.names || []).join(', ')}. Si los ven, no les abran…`, { pitch: 0.5, rate: 0.85 }), 1200); return;
   }
   _casSound4(e, p, V);
 };
@@ -5480,7 +5535,7 @@ const SND_FILES = ['door_open1', 'door_open2', 'door_close1', 'door_close2', 'sl
   'wood1', 'wood2', 'wood3', 'wood4', 'stone1', 'stone2', 'bell_heavy', 'bell1', 'bell2', 'bell_small', 'thunder', 'rain', 'static1', 'static2', 'hiss', 'howl', 'bark', 'breath1', 'breath2',
   'weird1', 'weird2', 'weird3', 'weird4', 'growl1', 'growl2', 'glass_break1', 'glass_break2', 'fall1', 'fall2', 'wood_break', 'crack1', 'crack2', 'keys', 'cineboom', 'haunted_hum', 'dark_woosh',
   'choir', 'glass_rub', 'crow', 'guitar', 'glitch1', 'glitch2', 'beep', 'buzz',
-  'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
+  'r_growly', 'r_echo', 'r_breath', 'r_riser', 'r_zombies', 'static3', 'llorona', 'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
 const SND = { buf: {}, loading: false, loops: {} };
 function sndLoad() {
   if (SND.loading || !audio || !audio.ctx) return; SND.loading = true;
@@ -5494,11 +5549,13 @@ function S(keys, pos, o) {
   const g = ctx.createGain(); g.gain.value = o.vol === undefined ? 0.8 : o.vol; let node = src;
   if (o.lp) { const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = o.lp; node.connect(f); node = f; }
   if (o.hp) { const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = o.hp; node.connect(f); node = f; }
-  node.connect(g).connect(out(pos)); const t0 = ctx.currentTime + (o.delay || 0); src.start(t0, o.offset || 0);
+  node.connect(g).connect(o.far && pos ? outFar(pos) : out(pos)); const t0 = ctx.currentTime + (o.delay || 0); src.start(t0, o.offset || 0);
   if (o.dur) { g.gain.setValueAtTime(g.gain.value, t0 + o.dur - 0.05); g.gain.linearRampToValueAtTime(0.0001, t0 + o.dur); src.stop(t0 + o.dur + 0.02); }
   if (o.cut) src.stop(t0 + o.cut); // corte seco (la serenata)
   return true;
 }
+// se oye en toda la casa (bajito lejos): para el zaguán que exige que vayan
+function outFar(pos) { const ctx = audio.ctx, p = ctx.createPanner(); p.panningModel = 'HRTF'; p.distanceModel = 'inverse'; p.refDistance = 7; p.maxDistance = 80; p.rolloffFactor = 0.45; const y = pos.f * FH + 1.2; if (p.positionX) { p.positionX.value = pos.x; p.positionY.value = y; p.positionZ.value = pos.y; } else p.setPosition(pos.x, y, pos.y); p.connect(audio.master); return p; }
 // sonido en bucle con volumen ajustable (ambiente de afuera, lluvia, zumbido de la cacería)
 function sndLoop(k, vol) {
   if (!audio || !SND.buf[k]) return; let L = SND.loops[k];
@@ -5568,7 +5625,7 @@ playEvents = function () {
           const mine = V && e.who === V.id;
           if (e.k === 'tv' || e.k === 'tvcam' || e.k === 'barras') S('tv_on', p, { vol: 0.9 });
           if (e.k === 'telefono' && mine && e.near) S('phone_pick', p, { delay: 3.2, vol: 0.8 });
-          if (e.k === 'estatuaGrito' && mine) { S(['scream_fc1', 'scream_fc2', 'scream_fc3', 'scream1'], p, { vol: 1 }); S('bonk', p, { vol: 0.6, delay: 0.05 }); }
+          if (e.k === 'estatuaGrito' && mine) { if (Math.random() < 0.5) { S(['scream_fc1', 'scream_fc2', 'scream_fc3'], p, { vol: 1.2, rate: 0.82, lp: 3500 }); S(['growl1', 'growl2'], p, { vol: 0.9, rate: 0.7, delay: 0.1 }); S('cineboom', null, { vol: 0.7 }); } else { S(['laugh1', 'laugh2', 'laugh3'], p, { vol: 1.1, rate: 0.55, lp: 1800 }); S('r_growly', p, { vol: 0.7, delay: 0.2 }); S('dark_woosh', null, { vol: 0.6 }); } }
           if (e.k === 'estatuaHabla' && mine) S('mouth', p, { vol: 0.2, dur: 0.6 });
           if ((e.k === 'pasillo' || e.k === 'reconectando' || e.k === 'sombralag') && mine) S(['glitch1', 'glitch2'], null, { vol: 0.6 });
           if (e.k === 'sombra' && mine) S('dark_woosh', p, { vol: 0.7 });
@@ -5693,8 +5750,160 @@ playEvents = function () {
 };
 // menú: entrar al laboratorio
 { const b = document.createElement('button'); b.id = 'labBtn'; b.textContent = '🧪 Laboratorio de sucesos y sonidos'; b.className = 'ghostbtn'; b.style.marginTop = '8px'; const play = $('#play'); if (play) play.insertAdjacentElement('afterend', b);
-  b.onclick = () => { if (!audio) initAudio(); else if (audio.ctx.state === 'suspended') audio.ctx.resume(); const keep = { role: menuOpt.role, nInv: menuOpt.nInv }; Object.assign(menuOpt, { lab: true, role: 'inv', nInv: 1 }); start.skipSlot = true; try { start(); } finally { start.skipSlot = false; Object.assign(menuOpt, keep, { lab: false }); } }; }
+  b.onclick = () => { if (!audio) initAudio(); else if (audio.ctx.state === 'suspended') audio.ctx.resume(); const keep = { role: menuOpt.role, nInv: menuOpt.nInv }; Object.assign(menuOpt, { lab: true, role: 'inv', nInv: 1 }); start.skipSlot = true; try { start(); } finally { start.skipSlot = false; Object.assign(menuOpt, keep, { lab: false }); } VOICE.enable().then(ok => toast(ok ? '🎙 Micrófono activo: habla con pausas para que la casa guarde frases (se anotan en la bitácora 📜).' : '🎙 Sin micrófono: los ecos, el teléfono y la radio no podrán usar tu voz.', '', 6)); }; }
 const _hudLab = hud; hud = function () { _hudLab(); if (w && w.lab) $('#top').innerHTML = `<span class="hora">🧪</span><span>Laboratorio · ${w.labStations.length} puestos en ${new Set(w.labStations.map(s => s.room)).size} cuartos · <b>E</b> junto a un letrero</span>`; };
+
+// ================= v1.4 en 3D: sombra en la pared, retratos, ofrenda, teles modeladas, radio, zaguán desesperado =================
+glitch = function () {}; // el efecto rojo de estática ya no se usa: sacaba de la inmersión
+const imgCache = {};
+const imgOf = id => { if (!imgCache[id]) { const im = new Image(); im.src = charImg(id); imgCache[id] = im; } return imgCache[id]; };
+const texOf = id => { const k = 't:' + id; if (!imgCache[k]) imgCache[k] = new THREE.TextureLoader().load(charImg(id)); return imgCache[k]; };
+let casa3d = { portraits: [], ofrenda: null, shadow: null, tvRT: null, tvRig: null, pix: null, cvSmall: null, tvcamT: 0, nextStatic: 0, nextKnock: 0 };
+const _buildHouseC = buildHouse; buildHouse = function () { casa3d = { portraits: [], ofrenda: null, shadow: null, tvRT: null, tvRig: null, pix: null, cvSmall: null, tvcamT: 0, nextStatic: 0, nextKnock: 0 }; _buildHouseC(); };
+
+// ---------- 3. La sombra sin dueño: la sombra de alguien invisible en la pared ----------
+spawnShadow = function (e) {
+  const V = viewer(); if (!V || !scene) return; const dx = Math.cos(yaw), dy = Math.sin(yaw); let hit = null, x = V.x, y = V.y;
+  for (let s = 0.4; s < 9; s += 0.08) { const nx = V.x + dx * s, ny = V.y + dy * s; if (tileAt(V.f, nx, ny) === T.WALL) { hit = { x: nx, y: ny, s }; break; } x = nx; y = ny; }
+  if (!hit || hit.s < 1.6) return;
+  const tx = hit.x | 0, ty = hit.y | 0, nx = tx !== (x | 0) ? Math.sign((x | 0) - tx) : 0, ny = nx ? 0 : Math.sign((y | 0) - ty);
+  const wx = nx ? (nx > 0 ? tx + 1.02 : tx - 0.02) : hit.x, wy = ny ? (ny > 0 ? ty + 1.02 : ty - 0.02) : hit.y;
+  // la silueta proyectada en la pared (se ve aunque no apuntes la linterna)
+  const cv = document.createElement('canvas'); cv.width = 128; cv.height = 256; const c = cv.getContext('2d'); c.filter = 'blur(6px)'; c.fillStyle = '#000';
+  c.beginPath(); c.ellipse(64, 46, 20, 25, 0, 0, 7); c.fill(); c.beginPath(); c.moveTo(30, 82); c.quadraticCurveTo(64, 66, 98, 82); c.lineTo(106, 190); c.lineTo(86, 250); c.lineTo(42, 250); c.lineTo(22, 190); c.closePath(); c.fill();
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 2.0), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, opacity: 0, depthWrite: false }));
+  m.position.set(wx, V.f * FH + 1.15, wy); m.rotation.y = nx ? (nx > 0 ? Math.PI / 2 : -Math.PI / 2) : (ny > 0 ? 0 : Math.PI); scene.add(m);
+  // y alguien invisible entre tú y la pared, que tapa la luz de la linterna
+  const r = makeCharacter('ines'); const inv = m0 => { const m1 = m0.clone(); m1.colorWrite = false; m1.depthWrite = false; return m1; }; r.g.traverse(o => { if (o.material) { o.material = Array.isArray(o.material) ? o.material.map(inv) : inv(o.material); o.castShadow = true; } });
+  r.g.position.set(wx + nx * 1.3, V.f * FH, wy + ny * 1.3); r.g.rotation.y = -Math.atan2(V.y - wy, V.x - wx) + Math.PI / 2; scene.add(r.g);
+  if (casa3d.shadow) { scene.remove(casa3d.shadow.m); scene.remove(casa3d.shadow.g); } casa3d.shadow = { m, g: r.g, t0: performance.now(), dx: nx ? 0 : 1, dz: nx ? 1 : 0 };
+};
+function shadowTick(now) {
+  const s = casa3d.shadow; if (!s) return; const k = (now - s.t0) / 1000;
+  s.m.material.opacity = k < 0.4 ? k / 0.4 * 0.6 : k < 2.2 ? 0.6 : Math.max(0, 0.6 - (k - 2.2) / 0.6 * 0.6);
+  const slide = k * 0.9; s.m.position.x += s.dx * 0.01; s.m.position.z += s.dz * 0.01; s.g.position.x += s.dx * 0.01; s.g.position.z += s.dz * 0.01;
+  if (k > 2.9) { scene.remove(s.m); scene.remove(s.g); casa3d.shadow = null; }
+}
+
+// ---------- 8. retratos que cambian · 18. foto en la ofrenda ----------
+function portraitMesh(char, wdt, hgt) {
+  const g = new THREE.Group(); const fr = new THREE.Mesh(new THREE.BoxGeometry(wdt + 0.12, hgt + 0.12, 0.05), LambertFlat({ color: 0x6a4a1a })); g.add(fr);
+  const pic = new THREE.Mesh(new THREE.PlaneGeometry(wdt, hgt), new THREE.MeshLambertMaterial({ map: texOf(char), color: 0x9a9a9a })); pic.position.z = 0.03; g.add(pic); return g;
+}
+function portraitsTick() {
+  const P = w.portraits || []; while (casa3d.portraits.length < P.length) { const p = P[casa3d.portraits.length], g = portraitMesh(p.char, 0.55, 0.75);
+    g.position.set(p.x, p.f * FH + 1.75, p.y); g.rotation.y = p.nx ? (p.nx > 0 ? Math.PI / 2 : -Math.PI / 2) : (p.ny > 0 ? 0 : Math.PI); scene.add(g); casa3d.portraits.push(g); }
+  const o = w.ofrenda; if (o && (!casa3d.ofrenda || casa3d.ofrenda.char !== o.char)) { if (casa3d.ofrenda) scene.remove(casa3d.ofrenda.g); const g = portraitMesh(o.char, 0.26, 0.34);
+    g.position.set(ALTAR_POS.x, ALTAR_POS.f * FH + 1.28, ALTAR_POS.y - 0.12); g.rotation.x = -0.15; scene.add(g); casa3d.ofrenda = { g, char: o.char }; }
+}
+
+// ---------- 20. el señuelo metido en la pared tiembla ----------
+function decoyTick() { const dc = w.decoy, m = casMeshes.decoy; if (!dc || !m || !m.g.visible) return; const inWall = !walkableT(tileAt(dc.f, dc.x, dc.y)) || !walkableT(tileAt(dc.f, dc.x + 0.3, dc.y)) || !walkableT(tileAt(dc.f, dc.x - 0.3, dc.y));
+  if (inWall) { m.g.position.x += (Math.random() - 0.5) * 0.12; m.g.position.z += (Math.random() - 0.5) * 0.12; m.g.rotation.y += (Math.random() - 0.5) * 0.3; } }
+
+// ---------- teles: noticiero, vigilancia y barras, dibujados en la pantalla ----------
+const TVW = 256, TVH = 192;
+function noiseOver(ctx, a) { for (let k = 0; k < 260; k++) { ctx.fillStyle = `rgba(255,255,255,${Math.random() * a})`; ctx.fillRect(Math.random() * TVW, Math.random() * TVH, 2 + Math.random() * 3, 1); } }
+function drawBars(ctx, t, txt) { const cols = ['#c0c0c0', '#c0c000', '#00c0c0', '#00c000', '#c000c0', '#c00000', '#0000c0']; cols.forEach((c, k) => { ctx.fillStyle = c; ctx.fillRect(k * 37, 0, 37, 128); });
+  ['#0000c0', '#111', '#c000c0', '#111', '#00c0c0', '#111', '#c0c0c0'].forEach((c, k) => { ctx.fillStyle = c; ctx.fillRect(k * 37, 128, 37, 16); }); ctx.fillStyle = '#000'; ctx.fillRect(0, 144, 256, 48);
+  ctx.fillStyle = '#fff'; ctx.font = 'bold 13px monospace'; (txt || []).forEach((l, k) => ctx.fillText(l, 12, 162 + k * 18)); }
+function drawEyes(ctx, t, lookX, lookY) {
+  ctx.fillStyle = '#050303'; ctx.fillRect(0, 0, TVW, TVH); const blink = (t % 2.6) > 2.45 ? 0.1 : 1;
+  for (const cx of [80, 176]) { ctx.save(); ctx.translate(cx, 96); ctx.scale(1, blink);
+    ctx.fillStyle = '#d8d0c0'; ctx.beginPath(); ctx.ellipse(0, 0, 40, 22, 0, 0, 7); ctx.fill(); ctx.strokeStyle = '#4a1010'; ctx.lineWidth = 1.5; for (let k = 0; k < 5; k++) { ctx.beginPath(); ctx.moveTo(-40 + k * 3, -6 + k * 3); ctx.lineTo(-22, 0); ctx.stroke(); }
+    const px = lookX * 22, py = lookY * 9; ctx.fillStyle = '#3a1a10'; ctx.beginPath(); ctx.arc(px, py, 14, 0, 7); ctx.fill(); ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(px, py, 7, 0, 7); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.7)'; ctx.fillRect(px - 5, py - 6, 3, 3); ctx.restore(); }
+  ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(0, 0, TVW, TVH); noiseOver(ctx, 0.12); }
+function drawNews(ctx, el, missing) {
+  ctx.fillStyle = '#0b1a3a'; ctx.fillRect(0, 0, TVW, TVH); ctx.fillStyle = '#16305e'; ctx.fillRect(0, 120, TVW, 72);
+  // reportero
+  ctx.fillStyle = '#1a1a22'; ctx.beginPath(); ctx.moveTo(40, 150); ctx.quadraticCurveTo(80, 104, 120, 150); ctx.fill(); ctx.fillStyle = '#e8e0d0'; ctx.fillRect(74, 118, 12, 20); ctx.fillStyle = '#7a1020'; ctx.fillRect(77, 122, 6, 22);
+  ctx.fillStyle = '#c99a78'; ctx.beginPath(); ctx.ellipse(80, 88, 18, 23, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#2a1a10'; ctx.beginPath(); ctx.ellipse(80, 72, 19, 10, 0, Math.PI, 0); ctx.fill();
+  ctx.fillStyle = '#111'; ctx.fillRect(71, 84, 5, 3); ctx.fillRect(84, 84, 5, 3); const mo = Math.random() < 0.5 ? 2 : 6; ctx.fillStyle = '#3a1010'; ctx.fillRect(75, 98, 10, mo);
+  ctx.fillStyle = '#5a3a2a'; ctx.fillRect(20, 150, 216, 10); // escritorio
+  ctx.fillStyle = '#b01010'; ctx.fillRect(0, 8, 150, 22); ctx.fillStyle = '#fff'; ctx.font = 'bold 14px sans-serif'; ctx.fillText('ÚLTIMA HORA', 10, 24);
+  // cintillo
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 170, TVW, 22); ctx.fillStyle = '#ffd040'; ctx.font = '12px sans-serif'; const msg = '  REPORTAN DESAPARECIDOS EN LA CASONA DEL FINAL DE LA CALLE · NO SALGA DE SU CASA · NO ABRA SI TOCAN ·'; ctx.fillText(msg, 256 - (el * 60) % 900, 185);
+  if (el > 7.5 && missing) { ctx.fillStyle = '#eee'; ctx.fillRect(150, 40, 96, 118); ctx.fillStyle = '#b01010'; ctx.fillRect(150, 40, 96, 16); ctx.fillStyle = '#fff'; ctx.font = 'bold 11px sans-serif'; ctx.fillText('DESAPARECIDO', 154, 52);
+    const im = imgOf(missing.char); if (im.complete && im.naturalWidth) { ctx.save(); ctx.filter = 'grayscale(1) contrast(1.2)'; ctx.drawImage(im, 156, 58, 84, 78); ctx.restore(); } ctx.fillStyle = '#111'; ctx.font = 'bold 11px sans-serif'; ctx.fillText(missing.name.slice(0, 13), 156, 150); }
+  noiseOver(ctx, 0.08);
+}
+function tvLook(d) { const V = viewer(), m = devMeshes && devMeshes.find(x => x.d === d); if (!V || !m) return [0, 0]; const th = m.g.rotation.y, vx = V.x - d.x, vy = V.y - d.y, l = Math.hypot(vx, vy) || 1; return [Math.max(-1, Math.min(1, (vx * Math.cos(th) - vy * Math.sin(th)) / l * 1.6)), 0.2]; }
+// la cámara de vigilancia: una esquina del cuarto donde está esa persona
+function tvcamFrame(target) {
+  if (!casa3d.tvRT) { casa3d.tvRT = new THREE.WebGLRenderTarget(160, 120); casa3d.tvRig = new THREE.PerspectiveCamera(80, 4 / 3, 0.1, 26); casa3d.pix = new Uint8Array(160 * 120 * 4); casa3d.cvSmall = document.createElement('canvas'); casa3d.cvSmall.width = 160; casa3d.cvSmall.height = 120; }
+  const r = roomOf(target); if (r < 0) return false; const [x0, y0, x1, y1] = ROOMS[target.f][r].r; const corners = [[x0 + 0.6, y0 + 0.6], [x1 + 0.4, y0 + 0.6], [x0 + 0.6, y1 + 0.4], [x1 + 0.4, y1 + 0.4]].filter(([x, y]) => walkableT(tileAt(target.f, x, y)) && los(target.f, x, y, target.x, target.y));
+  if (!corners.length) return false; const [cx, cy] = corners.sort((a, b) => Math.hypot(b[0] - target.x, b[1] - target.y) - Math.hypot(a[0] - target.x, a[1] - target.y))[0];
+  const cam = casa3d.tvRig, base = target.f * FH; cam.position.set(cx, base + FH - 0.45, cy); cam.lookAt(target.x, base + 0.9, target.y);
+  const f1 = floorGroups[1].visible, cv = ceilMeshes.map(m => m.visible), sc = wallRuns.map(q => q.g.scale.y), gv = ghostMesh.g.visible;
+  floorGroups[1].visible = target.f === 1; ceilMeshes.forEach(m => m.visible = cam.position.y < m.userData.f * FH + FH - 0.05); wallRuns.forEach(q => q.g.scale.y = 1); ghostMesh.g.visible = false;
+  irLight.position.set(cx, base + FH - 0.6, cy); irLight.intensity = 22; renderer.setRenderTarget(casa3d.tvRT); renderer.render(scene, cam); irLight.intensity = 0; renderer.readRenderTargetPixels(casa3d.tvRT, 0, 0, 160, 120, casa3d.pix); renderer.setRenderTarget(null);
+  floorGroups[1].visible = f1; ceilMeshes.forEach((m, k) => m.visible = cv[k]); wallRuns.forEach((q, k) => q.g.scale.y = sc[k]); ghostMesh.g.visible = gv;
+  const c = casa3d.cvSmall.getContext('2d'), img = c.createImageData(160, 120); for (let yy = 0; yy < 120; yy++) img.data.set(casa3d.pix.subarray((119 - yy) * 640, (120 - yy) * 640), yy * 640); c.putImageData(img, 0, 0); return true;
+}
+tvDraw = function (now) {
+  const ctx = casMeshes.tvCtx; if (!ctx || !w) return; const tv = w.tvOn; if (!tv) { if (casLocal.tvDrawn !== 'off') { ctx.fillStyle = '#050505'; ctx.fillRect(0, 0, TVW, TVH); casMeshes.tvTex.needsUpdate = true; casLocal.tvDrawn = 'off'; } return; }
+  casLocal.tvDrawn = tv.k; const el = w.t - tv.t0, left = tv.until - w.t, d = w.devices && w.devices[tv.dev], [lx, ly] = d ? tvLook(d) : [0, 0];
+  if (tv.k === 'barras') { drawBars(ctx, el, ['3:33 · SI OYES TU NOMBRE,', 'NO CONTESTES']); noiseOver(ctx, 0.06); }
+  else if (tv.k === 'tv') { if (el < 3.5) { drawBars(ctx, el, ['FIN DE LA TRANSMISIÓN', '00:00']); noiseOver(ctx, 0.25); } else if (left > 5) drawNews(ctx, el, w.invs[tv.missing]); else drawEyes(ctx, el, lx, ly); }
+  else if (tv.k === 'tvcam') { if (left <= 3.5) drawEyes(ctx, el, lx, ly); else {
+      const ids = tv.targets || [tv.who], tg = w.invs[ids[Math.floor(el / 6) % ids.length]]; const V = viewer(); const near = V && d && V.f === d.f && Math.hypot(V.x - d.x, V.y - d.y) < 14;
+      if (tg && near && (casa3d.tvcamT++ % 3 === 0)) tvcamFrame(tg);
+      ctx.fillStyle = '#000'; ctx.fillRect(0, 0, TVW, TVH); if (casa3d.cvSmall) { ctx.save(); ctx.filter = 'grayscale(1) brightness(3.6) contrast(1.3)'; ctx.drawImage(casa3d.cvSmall, 0, 0, TVW, TVH); ctx.restore(); }
+      for (let yy = 0; yy < TVH; yy += 3) { ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(0, yy, TVW, 1); }
+      ctx.fillStyle = Math.floor(el * 2) % 2 ? '#e22' : '#600'; ctx.beginPath(); ctx.arc(14, 14, 5, 0, 7); ctx.fill(); ctx.fillStyle = '#eee'; ctx.font = '11px monospace';
+      ctx.fillText(`REC  CAM 0${(Math.floor(el / 6) % 3) + 2} · ${tg ? (roomName(tg) || '').toUpperCase().slice(0, 16) : ''}`, 24, 18); ctx.fillText(`03:33:${String(Math.floor(el) % 60).padStart(2, '0')}`, 190, 182); noiseOver(ctx, 0.06); } }
+  casMeshes.tvTex.needsUpdate = true;
+};
+tvShow = function (e) { ensureTV(); if (casMeshes.tv) casMeshes.tv.visible = false; S('tv_on', e.f !== undefined ? { f: e.f, x: e.x, y: e.y } : null, { vol: 0.9 }); casa3d.nextStatic = 0; };
+
+// ---------- radio: estática con frases suyas distorsionadas, gritos y respiraciones ----------
+function radioPhrase(c, pos, delay) {
+  const a = audio.ctx, src = c.d || c, sr = c.sr || 22050, b = a.createBuffer(1, src.length, sr), dd = b.getChannelData(0); dd.set(src);
+  for (let i = 0; i < dd.length; i++) dd[i] = Math.tanh(dd[i] * 6) * 0.5; // saturada
+  const s = a.createBufferSource(); s.buffer = b; s.playbackRate.value = 0.82 + Math.random() * 0.12;
+  const bp = a.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1400; bp.Q.value = 1.2; const g = a.createGain(); g.gain.value = 1.1 * VOL.voz;
+  s.connect(bp).connect(g).connect(out(pos)); s.start(a.currentTime + delay); return true;
+}
+function radioPlay(e) {
+  const p = e.f !== undefined ? { f: e.f, x: e.x, y: e.y } : null; S(['static1', 'static2', 'static3'], p, { vol: 0.5, dur: 10 }); S('hiss', p, { vol: 0.3, dur: 10 });
+  const pool = VOICE.clips.slice(); Object.values(VOICE.byInv || {}).forEach(L => pool.push(...L)); let tt = 1.2;
+  for (let k = 0; k < 3; k++) { if (pool.length && Math.random() < 0.75) radioPhrase(pool[Math.floor(Math.random() * pool.length)], p, tt); else S(pick([['r_zombies'], ['r_riser'], ['r_echo'], ['scream1', 'scream2'], ['r_breath', 'breath1']]), p, { vol: 0.55, delay: tt, hp: 500, lp: 2600, rate: 0.85 }); tt += 2.2 + Math.random() * 1.2; }
+  if (Math.random() < 0.5) S(['scream_fc1', 'scream_fc2', 'scream_fc3'], p, { vol: 0.5, delay: 8.2, hp: 700, lp: 2400 });
+}
+const _casSoundC = casSound;
+casSound = function (e, p, V) {
+  if (e.k === 'radio') return radioPlay(e);
+  if (e.k === 'leyenda' && SND.buf.llorona) { duck(1); S('llorona', p, { vol: 1 }); S('choir', p, { rate: 0.6, vol: 0.5, lp: 1800 }); return; }
+  if (e.k === 'zaguan') { casa3d.nextKnock = 0; return; } // los golpes los da el bucle de abajo
+  if (e.k === 'serenata' || e.k === 'sombralag') return;
+  return _casSoundC(e, p, V);
+};
+// zaguán: golpes fuertes y desesperados que se oyen en toda la casa hasta que alguien abre
+function knockTick(now) {
+  const k = w.cas && w.cas.knock; if (!k || w.t > k.until || !audio || audio.muted) return; if (now < casa3d.nextKnock) return; casa3d.nextKnock = now + 2400 + Math.random() * 1400;
+  const p = { f: 0, x: ZAG.x, y: ZAG.y + 0.7 }, n = 4 + Math.floor(Math.random() * 4); let tt = 0;
+  for (let i = 0; i < n; i++) { S(['knock1', 'knock2', 'slam1'], p, { vol: 1.5, far: true, delay: tt, rate: 0.9 + Math.random() * 0.25, offset: 0 }); tt += 0.11 + Math.random() * 0.12; }
+  if (Math.random() < 0.6) S('handle', p, { vol: 1.2, far: true, delay: tt + 0.2, rate: 1.3 });
+  if (Math.random() < 0.25) S(['r_breath', 'breath2'], p, { vol: 0.8, far: true, delay: tt + 0.5 });
+}
+// estática cerca de la tele encendida
+function tvStaticTick(now) { const tv = w.tvOn, d = tv && w.devices && w.devices[tv.dev]; if (!d || now < casa3d.nextStatic) return; casa3d.nextStatic = now + 2400; S(['static1', 'static2', 'static3'], { f: d.f, x: d.x, y: d.y }, { vol: tv.k === 'barras' ? 0.25 : 0.4, dur: 2.6 }); }
+const _playEventsC = playEvents;
+playEvents = function () { if (w) for (const e of w.events) if (e.type === 'tvoff') S('tv_off', { f: e.f, x: e.x, y: e.y }, { vol: 0.9 }); _playEventsC(); };
+// apagar la tele: aviso
+const _primaryC = primaryAction;
+primaryAction = function (i) { if (w && w.tvOn && i && i.alive && !i.escaped) { const d = w.devices && w.devices[w.tvOn.dev]; if (d && d.f === i.f && Math.hypot(d.x - i.x, d.y - i.y) < 1.9) return { k: 'E', txt: 'Apagar la tele', btn: 'Apagar' }; } return _primaryC(i); };
+const _updateSceneC = updateScene;
+updateScene = function (t, dt) {
+  _updateSceneC(t, dt); if (!w || !scene) return; const now = performance.now();
+  if (w.tvOn) { casLocal.tvUntil = now + 500; casLocal.tvDev = w.tvOn.dev; casLocal.tvMode = w.tvOn.k; } else casLocal.tvUntil = 0;
+  try { shadowTick(now); portraitsTick(); decoyTick(); knockTick(now); tvStaticTick(now); } catch (e) { console.warn(e); }
+};
+// la bitácora avisa cuando se guarda una frase (para probar el eco y el teléfono)
+window.__onClip = (c, who) => { if (!w || !w.bitacora) return; const P = who === null || who === undefined ? w.invs[ME] : w.invs[who]; blog(w, 'equipo', `🎙 Se guardó una frase de ${P ? P.name : 'ti'} (${c.tag}, ${(c.d.length / (c.sr || 22050)).toFixed(1)} s)`, P, P && P.id); };
+window.__casM = () => casMeshes;
+window.__casa3dpix = () => casa3d.pix;
 
 document.getElementById('loading').remove();
 </script>

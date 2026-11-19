@@ -6,7 +6,7 @@ const SND_FILES = ['door_open1', 'door_open2', 'door_close1', 'door_close2', 'sl
   'wood1', 'wood2', 'wood3', 'wood4', 'stone1', 'stone2', 'bell_heavy', 'bell1', 'bell2', 'bell_small', 'thunder', 'rain', 'static1', 'static2', 'hiss', 'howl', 'bark', 'breath1', 'breath2',
   'weird1', 'weird2', 'weird3', 'weird4', 'growl1', 'growl2', 'glass_break1', 'glass_break2', 'fall1', 'fall2', 'wood_break', 'crack1', 'crack2', 'keys', 'cineboom', 'haunted_hum', 'dark_woosh',
   'choir', 'glass_rub', 'crow', 'guitar', 'glitch1', 'glitch2', 'beep', 'buzz',
-  'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
+  'r_growly', 'r_echo', 'r_breath', 'r_riser', 'r_zombies', 'static3', 'llorona', 'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
 const SND = { buf: {}, loading: false, loops: {} };
 function sndLoad() {
   if (SND.loading || !audio || !audio.ctx) return; SND.loading = true;
@@ -20,11 +20,13 @@ function S(keys, pos, o) {
   const g = ctx.createGain(); g.gain.value = o.vol === undefined ? 0.8 : o.vol; let node = src;
   if (o.lp) { const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = o.lp; node.connect(f); node = f; }
   if (o.hp) { const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = o.hp; node.connect(f); node = f; }
-  node.connect(g).connect(out(pos)); const t0 = ctx.currentTime + (o.delay || 0); src.start(t0, o.offset || 0);
+  node.connect(g).connect(o.far && pos ? outFar(pos) : out(pos)); const t0 = ctx.currentTime + (o.delay || 0); src.start(t0, o.offset || 0);
   if (o.dur) { g.gain.setValueAtTime(g.gain.value, t0 + o.dur - 0.05); g.gain.linearRampToValueAtTime(0.0001, t0 + o.dur); src.stop(t0 + o.dur + 0.02); }
   if (o.cut) src.stop(t0 + o.cut); // corte seco (la serenata)
   return true;
 }
+// se oye en toda la casa (bajito lejos): para el zaguán que exige que vayan
+function outFar(pos) { const ctx = audio.ctx, p = ctx.createPanner(); p.panningModel = 'HRTF'; p.distanceModel = 'inverse'; p.refDistance = 7; p.maxDistance = 80; p.rolloffFactor = 0.45; const y = pos.f * FH + 1.2; if (p.positionX) { p.positionX.value = pos.x; p.positionY.value = y; p.positionZ.value = pos.y; } else p.setPosition(pos.x, y, pos.y); p.connect(audio.master); return p; }
 // sonido en bucle con volumen ajustable (ambiente de afuera, lluvia, zumbido de la cacería)
 function sndLoop(k, vol) {
   if (!audio || !SND.buf[k]) return; let L = SND.loops[k];
@@ -94,7 +96,7 @@ playEvents = function () {
           const mine = V && e.who === V.id;
           if (e.k === 'tv' || e.k === 'tvcam' || e.k === 'barras') S('tv_on', p, { vol: 0.9 });
           if (e.k === 'telefono' && mine && e.near) S('phone_pick', p, { delay: 3.2, vol: 0.8 });
-          if (e.k === 'estatuaGrito' && mine) { S(['scream_fc1', 'scream_fc2', 'scream_fc3', 'scream1'], p, { vol: 1 }); S('bonk', p, { vol: 0.6, delay: 0.05 }); }
+          if (e.k === 'estatuaGrito' && mine) { if (Math.random() < 0.5) { S(['scream_fc1', 'scream_fc2', 'scream_fc3'], p, { vol: 1.2, rate: 0.82, lp: 3500 }); S(['growl1', 'growl2'], p, { vol: 0.9, rate: 0.7, delay: 0.1 }); S('cineboom', null, { vol: 0.7 }); } else { S(['laugh1', 'laugh2', 'laugh3'], p, { vol: 1.1, rate: 0.55, lp: 1800 }); S('r_growly', p, { vol: 0.7, delay: 0.2 }); S('dark_woosh', null, { vol: 0.6 }); } }
           if (e.k === 'estatuaHabla' && mine) S('mouth', p, { vol: 0.2, dur: 0.6 });
           if ((e.k === 'pasillo' || e.k === 'reconectando' || e.k === 'sombralag') && mine) S(['glitch1', 'glitch2'], null, { vol: 0.6 });
           if (e.k === 'sombra' && mine) S('dark_woosh', p, { vol: 0.7 });

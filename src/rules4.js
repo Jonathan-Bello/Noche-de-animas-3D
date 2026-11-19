@@ -329,3 +329,60 @@ function ghostWatch(w, dt) {
   if (m.state !== g._mot) { g._mot = m.state; blog(w, 'ánima', `👻 ${txt}`, g); }
 }
 const _rulesTickL = rulesTick; rulesTick = function (w, dt) { _rulesTickL(w, dt); try { teamWatch(w, dt); ghostWatch(w, dt); } catch (e) {} };
+
+// ================= v1.4: la casa, afinada con la retroalimentación =================
+// fuera la sombra que se retrasa y la serenata
+CAS.splice(0, CAS.length, [1, 40, 'nada'], [41, 48, 'ambiente'], [49, 50, 'estatua'], [51, 52, 'ecoya'], [53, 56, 'anomalia'], [57, 59, 'senuelo'], [60, 62, 'doble'], [63, 65, 'eco'], [66, 72, 'pasos'],
+  [73, 76, 'sombra'], [77, 80, 'puerta'], [81, 84, 'zaguan'], [85, 86, 'foto'], [87, 88, 'cadaver'], [89, 90, 'telefono'], [91, 91, 'tv'], [92, 92, 'tvcam'], [93, 93, 'barras'], [94, 94, 'radio'],
+  [95, 95, 'reconectando'], [96, 96, 'clima'], [97, 97, 'rezando'], [98, 98, 'ofrenda'], [99, 99, 'pasillo'], [100, 100, 'elige']);
+const VIS_TXT = { nadie: 'nadie (solo viento)', pista: 'un visitante con una pista (verdad o mentira)', nino: 'una niña con veladora que señala dónde está el ánima', doble: 'tu doble, afuera' };
+function casZaguan(w, v) {
+  const d = w.doors.find(d => d.ext); if (d) { d.closed = true; d.anim = 1; }
+  const kind = pick(['nadie', 'pista', 'pista', 'nino', 'doble']); w.cas.knock = { until: w.t + 40, kind, t0: w.t };
+  w.ev('cas', { k: 'zaguan', who: v.id, f: 0, x: ZAG.x, y: ZAG.y + 0.6 }); blog(w, 'casa', `   El zaguán se cerró solo y tocan desesperados. Detrás: ${VIS_TXT[kind]}.`, ZAG);
+}
+visitor = function (w, i) {
+  const k = w.cas.knock, kind = k ? k.kind : 'nadie', g = w.g; w.cas.knock = null; const d = w.doors.find(d => d.ext); if (d) { d.closed = false; d.anim = 1; }
+  w.ev('visita', { who: i.id, kind }); w.actor = i;
+  if (kind === 'nadie') { w.say('Abres el zaguán… no hay nadie. El viento azota la puerta contra la pared.', 'i'); w.haunt(i, 4); }
+  else if (kind === 'pista') { const truth = Math.random() < 0.5, other = pick(GHOSTS.filter(G => G !== w.g.def)), who = pick(['La vecina', 'Un señor con sombrero', 'El sereno', 'Una señora con rebozo']);
+    w.say(`${who}: «Dicen que no es ${truth ? other.n : w.g.def.n}». Se da la vuelta y se pierde en la calle. (Puede ser verdad o mentira.)`, 'i'); }
+  else if (kind === 'nino') { const up = g.home.f === 1, truth = Math.random() < 0.7, says = truth ? up : !up; w.say(`Una niña con una veladora te mira y señala ${says ? 'hacia arriba' : 'hacia abajo'}: «La señora está ${says ? 'arriba' : 'abajo'}». La vela se apaga y ya no está.`, 'i'); w.haunt(i, 3); }
+  else { w.say('Afuera estás tú… o alguien idéntico a ti. Sonríe, se da la vuelta y camina hacia la calle.', 'i'); w.haunt(i, 8); }
+  w.actor = null; blog(w, 'casa', `   ${i.name} abrió el zaguán: ${VIS_TXT[kind]}.`, ZAG);
+};
+function casRezando(w, v) {
+  const rs = ROOM_LIST.filter(r => r.f === v.f && !isHall(r.f, r.r) && ROOM_CENTER[r.f][r.r] && r.r !== roomOf(v)).map(r => ({ r, d: pathLen(w, v, ROOM_CENTER[r.f][r.r]) })).filter(o => o.d < 30).sort((a, b) => a.d - b.d);
+  const o = rs.find(o => !w.lights[o.r.f][o.r.r]) || rs[0]; if (!o) { w.cas.retry = true; w.cas.retryWhy = 'no hay un cuarto cerca'; return; }
+  w.lights[o.r.f][o.r.r] = 0; const p = randomIn(o.r.f, o.r.r); w.kneel = Object.assign(p, { until: w.t + 60, char: pick(NAMES)[2] });
+  w.ev('cas', { k: 'rezando', who: v.id, f: p.f, x: p.x, y: p.y });
+}
+function casRetrato(w, v) {
+  const dx = Math.cos(v.face), dy = Math.sin(v.face); let x = v.x, y = v.y, hit = null;
+  for (let s = 0.3; s < 9; s += 0.08) { const nx = v.x + dx * s, ny = v.y + dy * s; if (tileAt(v.f, nx, ny) === T.WALL) { hit = { x: nx, y: ny }; break; } x = nx; y = ny; }
+  if (!hit) { w.cas.retry = true; w.cas.retryWhy = 'no hay pared enfrente'; return; }
+  const tx = hit.x | 0, ty = hit.y | 0, px = x | 0, py = y | 0, nx = tx !== px ? Math.sign(px - tx) : 0, ny = nx ? 0 : Math.sign(py - ty);
+  const p = { f: v.f, x: nx ? (nx > 0 ? tx + 1.03 : tx - 0.03) : hit.x, y: ny ? (ny > 0 ? ty + 1.03 : ty - 0.03) : hit.y, nx, ny, char: v.char, name: v.name };
+  (w.portraits || (w.portraits = [])).push(p); w.actor = v; w.say('En el retrato de la pared… ahora apareces tú.', 'i'); w.actor = null; w.ev('cas', { k: 'foto', who: v.id, f: p.f, x: p.x, y: p.y });
+}
+const _casDo14 = casDo;
+casDo = function (w, k, v) {
+  if (k === 'zaguan') return casZaguan(w, v);
+  if (k === 'rezando') return casRezando(w, v);
+  if (k === 'foto') return casRetrato(w, v);
+  if (k === 'ofrenda') { w.ofrenda = { char: v.char, name: v.name, t: w.t }; w.say(`En la ofrenda apareció una foto de ${v.name}.`, 'a'); w.ev('cas', { k, who: v.id, f: ALTAR_POS.f, x: ALTAR_POS.x, y: ALTAR_POS.y, name: v.name }); return; }
+  if (k === 'tv' || k === 'tvcam' || k === 'barras') { const n0 = w.events.length; _casDo14(w, k, v); if (w.cas.retry) return; const ev = w.events.slice(n0).find(e => e.type === 'cas' && e.k === k);
+    const mates = alive(w).filter(i => i !== v && !(i.f === 0 && i.y >= 39)); w.tvOn = { k, dev: ev ? ev.dev : -1, t0: w.t, until: w.t + { tv: 19, tvcam: 18, barras: 45 }[k], who: v.id, missing: pick(w.invs).id, targets: [v.id].concat(mates.length ? [pick(mates).id] : []) }; return; }
+  return _casDo14(w, k, v);
+};
+// la tele se apaga sola al terminar, o si alguien se acerca y la apaga (E)
+const tvDev = w => w.tvOn && w.devices && w.devices[w.tvOn.dev];
+const _interact14 = interact;
+interact = function (w, i) { const d = tvDev(w); if (d && d.f === i.f && d2(d, i) < 1.9) { w.ev('tvoff', { f: d.f, x: d.x, y: d.y, who: i.id }); blog(w, 'equipo', `${i.name} apaga la tele`, i, i.id); w.tvOn = null; return 'tv'; } return _interact14(w, i); };
+const _step14 = step; step = function (w, dt, input) { _step14(w, dt, input); if (w.tvOn && w.t > w.tvOn.until) { const d = tvDev(w); w.tvOn = null; if (d) w.ev('tvoff', { f: d.f, x: d.x, y: d.y }); } };
+// anomalías: cuál fue
+const ANOM_TXT = { flota: 'un objeto flota en el aire', invertido: 'un cuadro quedó de cabeza', puerta: 'una puerta cambió sola (abierta ↔ cerrada)' };
+const _newWorld14 = newWorld;
+newWorld = function (opt) { const w = _newWorld14(opt), ev1 = w.ev; w.portraits = []; w.ofrenda = null; w.tvOn = null;
+  w.ev = (type, d) => { ev1(type, d); if (type === 'anomaly' && d) { const o = w.loose.filter(o => o.f === d.f).sort((a, b) => d2(a, d) - d2(b, d))[0]; blog(w, 'casa', `   Anomalía: ${d.kind === 'aparece' && o ? `apareció ${LOOSE_N[o.kind]} que no estaba` : ANOM_TXT[d.kind] || d.kind}`, d); } };
+  return w; };

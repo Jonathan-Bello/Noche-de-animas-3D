@@ -196,10 +196,9 @@ casSound = function (e, p, V) {
     case 'telefono': CSFX.ring(p); if (mine && e.near) setTimeout(() => { if (e.leyenda) { duck(1); speak('¡Ay, mis hijos!', { pitch: 0.1, rate: 0.6 }); } else if (!VOICE.playClip(p, e.distort, { prefer: ['pregunta', 'llamado'] })) speak(pick(['¿Hay alguien ahí?', 'Ven… aquí…', 'Ya te vi']), { pitch: 0.2, rate: 0.7 }); }, 3400); return;
     case 'eco': if (mine && V) { const a = Math.random() * 6.28; VOICE.playClip({ f: V.f, x: V.x + Math.cos(a) * 9, y: V.y + Math.sin(a) * 9 }, Math.random() < 0.1, { prefer: ['llamado'] }); } return;
     case 'estatua': return;
-    case 'estatuaGrito': if (mine) { Math.random() < 0.5 ? (SFX.laugh(p), SFX.giggle(p)) : (noise(1.2, 'bandpass', 1400, 2, 0.6, p), tone(900, 1.1, 'sawtooth', 0.12, p, 600)); shake(0.6); flashUI('nuca'); buzz(200); } return;
-    case 'estatuaHabla': if (mine) { if (!VOICE.playClip(p, false, { who: e.as, prefer: ['pregunta', 'frase'], vol: 1.3 })) speak(pick(['¿Qué haces aquí?', '¿Ya viste eso?', 'Ven, sígueme', '¿Me escuchas?', 'No hay nada aquí']), { pitch: 0.9, rate: 1 }); } return;
+    case 'estatuaGrito': if (mine) { shake(0.6); flashUI('nuca'); buzz(200); } return;
+    case 'estatuaHabla': if (mine) { if (!VOICE.playClip(p, false, { who: e.as, prefer: ['pregunta', 'frase'], vol: 1.3 })) S('r_breath', p, { vol: 0.8, rate: 0.8 }); } return;
     case 'ecoya': if (mine && V) VOICE.playClip({ f: V.f, x: V.x + 0.6, y: V.y + 0.4 }, false, { last: true, wifi: true, delay: 0.05 }); return;
-    case 'radio': CSFX.static(p, 4); duck(1.2); setTimeout(() => speak(`…reportan como desaparecidos a: ${(e.names || []).join(', ')}. Si los ven, no les abran…`, { pitch: 0.5, rate: 0.85 }), 1200); return;
   }
   _casSound4(e, p, V);
 };

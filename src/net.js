@@ -290,7 +290,7 @@ const VOICE = {
   },
   keep(back) {
     const n = Math.min(this.ring.length, Math.ceil((back + 0.1) * this.sr)), out = new Float32Array(n); for (let i = 0; i < n; i++) out[i] = this.ring[(this.ringPos - n + i + this.ring.length) % this.ring.length];
-    const clip = { d: out, sr: this.sr, tag: this.tagOf(out, this.sr, back), t: performance.now() }; this.clips.push(clip); while (this.clips.length > 5) this.clips.shift(); this.share(clip);
+    const clip = { d: out, sr: this.sr, tag: this.tagOf(out, this.sr, back), t: performance.now() }; this.clips.push(clip); while (this.clips.length > 5) this.clips.shift(); this.share(clip); if (window.__onClip) window.__onClip(clip, null);
   },
   // ¿qué clase de frase es? grito (muy fuerte), llamado (corta, como un nombre), pregunta (el tono sube al final) o frase
   tagOf(x, sr, dur) {
@@ -312,7 +312,7 @@ const VOICE = {
   },
   gotClip(who, tag, d) {
     try { const bin = atob(d), f = new Float32Array(bin.length); for (let i = 0; i < bin.length; i++) { const v = bin.charCodeAt(i); f[i] = (v > 127 ? v - 256 : v) / 140; }
-      const L = this.byInv[who] || (this.byInv[who] = []); L.push({ d: f, sr: 8000, tag, t: performance.now() }); while (L.length > 4) L.shift(); } catch (e) {}
+      const L = this.byInv[who] || (this.byInv[who] = []); L.push({ d: f, sr: 8000, tag, t: performance.now() }); while (L.length > 4) L.shift(); if (window.__onClip) window.__onClip(L[L.length - 1], who); } catch (e) {}
   },
   pick(list, prefer) { if (!list || !list.length) return null; const a = prefer ? list.filter(c => prefer.includes(c.tag)) : []; if (a.length) return a[Math.floor(Math.random() * a.length)]; const b = list.filter(c => c.tag !== 'grito'); return (b.length ? b : list)[Math.floor(Math.random() * (b.length ? b : list).length)]; },
   // la casona usa una frase: sonido de bocina; 1 de cada 10, al revés y grave; «wifi»: se entrecorta

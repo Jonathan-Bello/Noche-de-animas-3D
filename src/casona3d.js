@@ -62,7 +62,7 @@ function casSound(e, p, V) {
     case 'tv': case 'tvcam': case 'barras': tvShow(e); break;
     case 'radio': CSFX.static(null, 4); duck(1.2); setTimeout(() => speak(`…reportan como desaparecidos a: ${(e.names || []).join(', ')}. Si los ven, no les abran…`, { pitch: 0.5, rate: 0.85 }), 1200); break;
     case 'reconectando': if (mine) { casLocal.reconUntil = performance.now() + 2000; CSFX.steps(V ? { f: V.f, x: V.x + 2, y: V.y } : null); } break;
-    case 'clima': if (mine) { const el = document.createElement('div'); el.className = 'redsky'; $('#game').appendChild(el); setTimeout(() => el.remove(), 2000); CSFX.thunder(); glitch(0.4); } break;
+    case 'clima': if (mine) { const el = document.createElement('div'); el.className = 'flashw'; $('#game').appendChild(el); setTimeout(() => el.remove(), 900); CSFX.thunder(); } break;
     case 'ofrenda': SFX.bell(p); break;
     case 'pasillo': if (mine) { glitch(0.7); tone(60, 0.6, 'sine', 0.2, null, -15); } break;
     case 'puerta': SFX.door(p); break;
