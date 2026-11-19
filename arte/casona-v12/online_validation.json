@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "movementOnHost": 3.593473779999975,
+  "flashSynced": true,
+  "layoutAndRandomStateSynced": true,
+  "drawerOpenSynced": true,
+  "independentBookThrowSynced": true,
+  "disconnectHandled": true,
+  "snapshotBytes": [
+    37846,
+    5086
+  ],
+  "errors": [],
+  "note": "PeerJS transport shim; drawing tested independently, no WAN latency benchmark."
+}

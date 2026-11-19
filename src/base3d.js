@@ -18,7 +18,7 @@ buildHouse = function () {
   const work=new THREE.PointLight(0xdfe6ff,9,13,1);work.position.set(13.4,3.1,53.2);scene.add(work);
   irLight=new THREE.PointLight(0xffffff,0,9,1);scene.add(irLight);
   // la camioneta de los investigadores
-  { const g = new THREE.Group(); g.position.set(30.4, 0, 52.9); out.add(g); const add = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; g.add(o); return o; };
+  { const g = new THREE.Group(); g.position.set(NDALayout.exterior.van.position[0], 0, NDALayout.exterior.van.position[1]); out.add(g); const add = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; g.add(o); return o; };
     const cream = lamB(0xd9cfb4), wine = lamB(COL.wine), dark = LambertFlat({ color: 0x0b0d14, emissive: 0x04050a }), tire = lamB(0x141212);
     add(new THREE.BoxGeometry(4.4, 1.9, 2.3), cream, -0.3, 1.35, 0); add(new THREE.BoxGeometry(4.42, 0.28, 2.32), wine, -0.3, 0.75, 0);
     add(new THREE.BoxGeometry(1.1, 1.05, 2.2), cream, 2.45, 0.95, 0); add(new THREE.BoxGeometry(0.06, 0.7, 1.9), dark, 2.0, 1.95, 0);

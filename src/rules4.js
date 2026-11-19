@@ -4,7 +4,7 @@
 
 // ---------- Afuera: la base de los investigadores ----------
 const OUT_R = RID[0].afuera;
-Object.assign(EXIT, { f: 0, x: 27.3, y: 52.6 });          // la puerta de la camioneta: aquí se termina la noche
+Object.assign(EXIT, { f: 0, x: NDALayout.exterior.van.exit[0], y: NDALayout.exterior.van.exit[1] });          // la puerta de la camioneta: aquí se termina la noche
 Object.assign(MALETIN, { f: 0, x: 16.5, y: 54.4 });       // mesa del equipo
 const TV_TABLE = { f: 0, x: 16.5, y: 51.5 };              // mesa con las teles de las cámaras
 const BASE_TVS = [0, 1, 2].map(k => ({ f: 0, x: 14.9 + k * 2, y: 51.45, k }));
@@ -29,7 +29,7 @@ newWorld = function (opt) {
   let cams = tools.filter(it => it.kind === 'cam'); while (cams.length < 3) { const c = newItem('cam', MALETIN); w.items.push(c); cams.push(c); }
   cams.slice(0, 3).forEach((c, k) => Object.assign(c, { f: 0, x: BASE_TVS[k].x, y: 51.85, h: 0.78, tv: k, dir: -Math.PI / 2, onTable: true }));
   tools.filter(it => it.kind !== 'cam').forEach((it, k) => Object.assign(it, { f: 0, x: 14.4 + (k % 6) * 0.95, y: 55.2 + Math.floor(k / 6) * 0.35, h: 0.78 }));
-  w.invs.forEach((i, k) => { i.f = 0; i.x = 20.5 + k * 1.1; i.y = 53; i.face = -Math.PI / 2; });
+  w.invs.forEach((i, k) => { i.f = 0; i.x = 27.5 + k * .9; i.y = 54; i.face = -Math.PI / 2; });
   w.lights[0][OUT_R] = 1;
 
   // aparatos repartidos al azar: puede que haya o no en cada cuarto

@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "profiles": [
+    {
+      "version": "casona-v12",
+      "quality": "low",
+      "shadows": false,
+      "dpr": 1,
+      "active": 21,
+      "drawers": 66,
+      "invalid": 0,
+      "draw": {
+        "frame": 1,
+        "calls": 327,
+        "triangles": 45668,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "version": "casona-v12",
+      "quality": "balanced",
+      "shadows": true,
+      "dpr": 1.35,
+      "active": 21,
+      "drawers": 66,
+      "invalid": 0,
+      "draw": {
+        "frame": 1,
+        "calls": 342,
+        "triangles": 47530,
+        "points": 0,
+        "lines": 0
+      },
+      "geometryAudit": {
+        "portals": 44,
+        "nonFinite": 0,
+        "mixedFaceColors": 0,
+        "coplanarOverlaps": []
+      }
+    },
+    {
+      "version": "casona-v12",
+      "quality": "high",
+      "shadows": true,
+      "dpr": 2,
+      "active": 21,
+      "drawers": 66,
+      "invalid": 0,
+      "draw": {
+        "frame": 1,
+        "calls": 323,
+        "triangles": 47164,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "version": "casona-v12",
+      "quality": "auto",
+      "shadows": false,
+      "dpr": 1,
+      "active": 21,
+      "drawers": 66,
+      "invalid": 0,
+      "draw": {
+        "frame": 1,
+        "calls": 179,
+        "triangles": 32980,
+        "points": 0,
+        "lines": 0
+      }
+    }
+  ],
+  "errors": [],
+  "note": "Emulated screen/input and software rendering; no physical-device FPS claim."
+}

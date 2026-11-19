@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "profiles": [
+    {
+      "layout": "casona-v12",
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "deviceDpr": 3,
+      "renderDpr": 1,
+      "shadows": false,
+      "draw": {
+        "frame": 1,
+        "calls": 216,
+        "triangles": 34440,
+        "points": 0,
+        "lines": 0
+      },
+      "renderer": "Apple GPU",
+      "device": "iPhone 12",
+      "errors": []
+    },
+    {
+      "layout": "casona-v12",
+      "viewport": {
+        "width": 750,
+        "height": 340
+      },
+      "deviceDpr": 3,
+      "renderDpr": 1,
+      "shadows": false,
+      "draw": {
+        "frame": 1,
+        "calls": 376,
+        "triangles": 50352,
+        "points": 0,
+        "lines": 0
+      },
+      "renderer": "Apple GPU",
+      "device": "iPhone 12 landscape",
+      "errors": []
+    }
+  ],
+  "note": "WebKit on Windows with emulated iPhone dimensions/input, not an iPhone GPU or physical FPS measurement."
+}

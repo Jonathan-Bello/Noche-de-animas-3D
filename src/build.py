@@ -7,7 +7,7 @@ three = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js' if mo
 s = src('shell2.html')
 logic_files = ['logic2.js', 'rules3.js', 'rules4.js', 'layout-rules.js', 'lab.js', 'net.js']
 game_files = ['chars3d.js', 'alex-art.js', 'elenco-art.js', 'character-qc.js',
-              'anima-art.js', 'house-art.js', 'casona-layout3d.js', 'game3d.js', 'casona3d.js',
+              'anima-art.js', 'house-art.js', 'casona-layout3d.js', 'furniture-props3d.js', 'game3d.js', 'casona3d.js',
               'base3d.js', 'snd3d.js', 'lab3d.js', 'casa3d.js']
 logic = '\n'.join(src(f) for f in logic_files).replace('/*LAYOUT_RUNTIME*/', src('layout-runtime.js'))
 logic = 'const NDALayout=' + json.dumps(json.loads(src('layout-v11.json')), ensure_ascii=False, separators=(',', ':')) + ';\n' + logic

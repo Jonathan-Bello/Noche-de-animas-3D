@@ -125,7 +125,7 @@ function buildHouse() {
   { const g = new THREE.Group(); g.position.set(FUSE.x, 0, FUSE.y); g.rotation.y = -(FUSE.face || 0) + Math.PI / 2;     const box = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.55, 0.16), lam(0x5a5a5a)); box.position.set(0, 1.45, 0.02); box.castShadow = true; g.add(box);
     const lampF = new THREE.Mesh(new THREE.OctahedronGeometry(0.04), new THREE.MeshBasicMaterial({ color: 0x40c060 })); lampF.position.set(0.12, 1.62, 0.12); g.add(lampF); floorGroups[FUSE.f].add(g); fuseMesh = { g, lamp: lampF }; }
   // objetos sueltos de cada cuarto (lo que el ánima puede aventar)
-  looseMeshes = w.loose.map(o => { const m = makeLooseMesh(o.kind, lam); floorGroups[o.f].add(m); return m; });
+  looseMeshes = w.loose.map(o => { const m = makeLooseMesh(o.kind, lam,o); floorGroups[o.f].add(m); return m; });
   // maletín, altar, salida
   
   altarGlow = new THREE.Mesh(new THREE.IcosahedronGeometry(0.4, 1), new THREE.MeshBasicMaterial({ color: COL.gold, transparent: true, opacity: 0.35 })); altarGlow.position.set(ALTAR_POS.x, 1.5, ALTAR_POS.y); floorGroups[ALTAR_POS.f].add(altarGlow);
@@ -151,7 +151,8 @@ function buildHouse() {
 }
 let halluMesh = null, ceilMeshes = [], propMeshes = [], switchMeshes = [], fuseMesh = null, looseMeshes = [];
 const LOOSE_COL = { jarron: 0xe0782a, plato: 0xf3e6cf, vela: 0xf3e6cf, libro: 0x5a0f1e, taza: 0x23565c, figura: 0xb85a2a, cuadro: 0xb8902a };
-function makeLooseMesh(kind, lam) {
+function makeLooseMesh(kind, lam,object) {
+  if(kind==='libro'&&object?.shelfId)return NDAHouseArt.bookMesh(object);
   const g = new THREE.Group(), c = LOOSE_COL[kind] || 0x8a6a40, add = (geo, col, y) => { const m = new THREE.Mesh(geo, lam(col)); m.position.y = y; m.castShadow = true; g.add(m); return m; };
   switch (kind) {
     case 'jarron': add(new THREE.CylinderGeometry(0.06, 0.09, 0.12, 6), c, 0.06); add(new THREE.CylinderGeometry(0.04, 0.09, 0.1, 6), c, 0.17); add(new THREE.CylinderGeometry(0.05, 0.04, 0.05, 6), c, 0.245); break;
@@ -170,10 +171,11 @@ function makeLooseMesh(kind, lam) {
 }
 function updateLoose(t) {
   w.loose.forEach((o, k) => { const m = looseMeshes[k]; if (!m) return; const a = w.t - o.flyT;
-    if (a >= 0 && a < 0.55 && o.from) { const u = a / 0.55; m.position.set(o.from.x + (o.x - o.from.x) * u, o.from.h * (1 - u) + Math.sin(u * Math.PI) * 0.9, o.from.y + (o.y - o.from.y) * u); m.rotation.set(u * 6, o.rot, u * 3); }
+    if (a >= 0 && a < 0.55 && o.from) { const u = a / 0.55; m.position.set(o.from.x + (o.x - o.from.x) * u, o.from.h * (1 - u) + Math.sin(u * Math.PI) * 0.9, o.from.y + (o.y - o.from.y) * u); m.rotation.set(u * 6, o.rot, u * 3);if(o.shelfId){m.position.y+=.13*u;m.rotation.set(-u*Math.PI/2,o.rot*u,0);} }
+    else if(o.shelfId&&o.h===0){m.position.set(o.x,.13,o.y);m.rotation.set(-Math.PI/2,o.rot,0);}
     else if (o.float) { m.position.set(o.x, o.h + Math.sin(t * 0.7 + k) * 0.03, o.y); m.rotation.set(0, o.rot + t * 0.15, 0); }
     else { m.position.set(o.x, o.h, o.y); m.rotation.set(o.h > 0 ? 0 : (o.anom ? 0 : Math.PI / 2 * (k % 2)), o.rot, o.upside ? Math.PI : 0); } });
-  for (let k = looseMeshes.length; k < w.loose.length; k++) { const o = w.loose[k], m = makeLooseMesh(o.kind, c0 => LambertFlat({ color: c0 })); floorGroups[o.f].add(m); looseMeshes.push(m); }
+  for (let k = looseMeshes.length; k < w.loose.length; k++) { const o = w.loose[k], m = makeLooseMesh(o.kind, c0 => LambertFlat({ color: c0 }),o); floorGroups[o.f].add(m); looseMeshes.push(m); }
 }
 function buildProps(lam) {
   propMeshes = [];
@@ -182,6 +184,7 @@ function buildProps(lam) {
     const box = (sx, sy, sz, x, y, z, c) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), lam(c)); m.position.set(x, y, z); m.castShadow = true; part.add(m); return m; };
     const cyl = (r, h, x, y, z, c) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 8), lam(c)); m.position.set(x, y, z); m.castShadow = true; part.add(m); return m; };
     if(p.kind==='fuente'){propMeshes.push({p,g,part});continue;}
+    if(NDAFurnitureProps.build(part,p)){NDAHouseArt.mergeProp(part);propMeshes.push({p,g,part});continue;}
     switch (p.kind) {
       case 'mecedora': case 'caballito': box(0.6, 0.06, 0.6, 0, 0.45, 0, 0x6a3a20); box(0.6, 0.6, 0.06, 0, 0.8, -0.28, 0x6a3a20); box(0.8, 0.05, 0.08, 0, 0.05, 0.25, 0x4a2a14); box(0.8, 0.05, 0.08, 0, 0.05, -0.25, 0x4a2a14); if (p.kind === 'caballito') { box(0.2, 0.3, 0.5, 0, 0.75, 0, 0xc95f3a); } break;
       case 'cuna':{box(1.65,.08,.75,0,.48,0,0x66412b);box(1.5,.07,.65,0,.56,0,0xe4d4b7);for(const z of[-.36,.36]){box(1.7,.06,.06,0,1.0,z,0x66412b);for(let x=-.78;x<.8;x+=.22)box(.035,.52,.035,x,.74,z,0x66412b);}break;}
@@ -859,6 +862,7 @@ function canvasUp(e) { if (e.button === 2 && throwing) { throwing = false; press
 let last = 0, hudT = 0;
 function frame(ts) {
   if (!running) return; requestAnimationFrame(frame);
+  NDAVisualQuality.frame(renderer,ts-last,ts);
   const dt = Math.min(0.05, (ts - last) / 1000 || 0); last = ts;
   const vk = viewKind();
   if (keys.has('turnl')) yaw -= dt * 2.2; if (keys.has('turnr')) yaw += dt * 2.2;

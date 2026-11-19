@@ -94,7 +94,10 @@ function solidFor(w, e, f, tx, ty) {
   if (ethereal(e)) { if (tx < 1 || ty < 1 || tx >= W - 1 || ty >= H - 1 || t === T.VOID) return true; const n = f * FL + ty * W + tx; return !!w.ghostMask[n] && !w.ghostMask[nodeOf(e)]; }
   if (!walkableT(t)) return true;
   const n = f * FL + ty * W + tx;
-  if (!(e.kind === 'ghost' && e.def.fly) && (STAIR_BLOCK[n] || stairSideBlock((e.y | 0) * W + (e.x | 0), ty * W + tx))) return true;
+  const ci=(e.y|0)*W+(e.x|0),ni=ty*W+tx;
+  // The capsule spans both sides of the half-height landing before its root changes floor.
+  const transferClearance=isStairMid[ci]&&isStair[ni]&&stairAt(e.x,e.y)===stairAt(tx+.5,ty+.5);
+  if (!(e.kind === 'ghost' && e.def.fly) && ((STAIR_BLOCK[n]&&!transferClearance) || stairSideBlock(ci,ni))) return true;
   if (w.doorTile) { const dd = w.doorTile.get(n); if (dd && dd.closed) return true; }
   if (e.kind === 'ghost' && w.ghostMask[n] && !w.ghostMask[nodeOf(e)]) return true;
   if (e.kind === 'inv' && w.invMask[n]) return true;
@@ -113,7 +116,7 @@ function tryMove(w, e, dx, dy) {
   for (const k of [1, 0.5, 0.25]) if (!collides(w, e, e.x, e.y + dy * k)) { e.y += dy * k; break; }
 }
 function steer(w, e, px, py, speed, dt) {
-  const dx = px - e.x, dy = py - e.y, l = Math.hypot(dx, dy); if (l < 0.04) return true;
+  const dx = px - e.x, dy = py - e.y, l = Math.hypot(dx, dy); if (l < 0.008) return true;
   const s = Math.min(l, speed * dt); tryMove(w, e, dx / l * s, dy / l * s); e.face = Math.atan2(dy, dx); return false;
 }
 function snapWalkable(w, e) {
@@ -125,13 +128,19 @@ function changeFloor(w, e, nf) { e.f = nf; w.noise(e, 6, e.kind === 'ghost' ? 'g
 // mueve a e hacia target {f,x,y}; devuelve true al llegar
 function navTo(w, e, tg, speed, dt) {
   if (!tg) return true;
+  // Recover an off-centre capsule at a stair entry without jumping to another cell or floor.
+  if(stairAt(e.x,e.y)>=0&&collides(w,e,e.x,e.y)){
+    const x=(e.x|0)+.5,y=(e.y|0)+.5;
+    if(Math.hypot(x-e.x,y-e.y)<.6&&!collides(w,e,x,y)){e.x=x;e.y=y;}
+  }
   if (ethereal(e)) { if (tg.f !== e.f) { const t2 = tileAt(tg.f, e.x, e.y); if (t2 !== T.VOID) { changeFloor(w, e, tg.f); return false; } } else return steer(w, e, tg.x, tg.y, speed, dt); }
   const mode = e.kind === 'ghost' && e.def.fly ? 'fly' : 'walk';
   const mask = e.kind === 'ghost' ? w.ghostMask : w.invMask, ver = e.kind === 'ghost' ? w.ghostMaskVer : w.invMaskVer;
   const tn = nodeOf(tg), cn = nodeOf(e);
   if (tn === cn) return steer(w, e, tg.x, tg.y, speed, dt);
   const fld = getField(tn, mode, mask, ver);
-  if(e.bot||e.kind==='ghost'){const door=w.doors.find(d=>d.f===e.f&&d.closed&&!d.locked&&!(e.kind==='ghost'&&d.ext)&&d2(d,e)<1.8&&fld[nodeOf(d)]<fld[cn]);if(door){door.closed=false;door.anim=0;w.noise(door,6,'door');}}
+  if(w.t<(e.doorActionUntil||0))return false;
+  if(e.bot||e.kind==='ghost'){const door=w.doors.find(d=>d.f===e.f&&d.closed&&!d.locked&&!(e.kind==='ghost'&&d.ext)&&d2(d,e)<1.8&&fld[nodeOf(d)]<=fld[cn]);if(door){door.closed=false;door.anim=0;e.doorActionUntil=w.t+(e.kind==='ghost'?.65:.35);w.noise(door,6,'door');return false;}}
   if (fld[cn] === 65535) { if (tg.f === e.f) steer(w, e, tg.x, tg.y, speed, dt); return false; }
   const cx = e.x | 0, cy = e.y | 0, f = e.f; let best = -1, bd = fld[cn], bx = 0, by = 0;
   for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
@@ -144,6 +153,11 @@ function navTo(w, e, tg, speed, dt) {
   const other = (1 - f) * FL + cy * W + cx;
   if ((mode === 'fly' || isStairMid[cy * W + cx]) && fld[other] < bd && fld[other] < fld[cn]) { const k = stairAt(e.x, e.y); if (k >= 0 && mode === 'walk') { const p=stairNext(k,f===0); steer(w,e,p.x,p.y,speed,dt); return false; } changeFloor(w, e, 1 - f); return false; }
   if (best < 0) return steer(w, e, tg.x, tg.y, speed, dt);
+  if(mode==='walk'&&(isStair[cy*W+cx]||isStair[by*W+bx])){
+    // Centre the entry before advancing; diagonal approaches otherwise catch the capsule on the rail.
+    const alignX=by!==cy&&Math.abs(e.x-cx-.5)>.035,alignY=bx!==cx&&Math.abs(e.y-cy-.5)>.035;
+    if(alignX||alignY){steer(w,e,alignX?cx+.5:e.x,alignY?cy+.5:e.y,speed,dt);return false;}
+  }
   steer(w, e, bx + 0.5, by + 0.5, speed, dt); return false;
 }
 const pathLen = (w, a, b, mode = 'walk') => { if (!a || !b) return 999; const fld = getField(nodeOf(b), mode, null, 0); const v = fld[nodeOf(a)]; return v === 65535 ? 999 : v; };
@@ -694,8 +708,8 @@ function gMover(w, g) {
   if (!gReady(w, g, 'c')) return false;
   const r0 = roomOf(g); const cand = w.loose.filter(o => o.f === g.f && d2(o, g) <= 3.5 && w.t - o.flyT > 1.2).sort((a, b) => (roomAt(a.f, a.x, a.y) !== r0) - (roomAt(b.f, b.x, b.y) !== r0) || d2(a, g) - d2(b, g));
   const o = cand[0]; if (!o) return false; g.ready.c = w.t + cdFor(g, 'c', CFG.cds.c);
-  let tx = o.x, ty = o.y; for (let k = 0; k < 12; k++) { const a = Math.random() * 6.28, dd = 1.5 + Math.random() * 1.6, nx = o.x + Math.cos(a) * dd, ny = o.y + Math.sin(a) * dd; if (walkableT(tileAt(o.f, nx, ny)) && los(o.f, o.x, o.y, nx, ny)) { tx = nx; ty = ny; break; } }
-  o.from = { x: o.x, y: o.y, h: o.h }; o.x = tx; o.y = ty; o.h = 0; o.flyT = w.t; o.rot = Math.random() * 6.28;
+  let tx = o.x, ty = o.y; for (let k = 0; k < 12; k++) { const a = Math.random() * 6.28, dd = 1.5 + Math.random() * 1.6, nx = o.x + Math.cos(a) * dd, ny = o.y + Math.sin(a) * dd; if (walkableT(tileAt(o.f, nx, ny)) && los(o.f,o.releaseX??o.x,o.releaseY??o.y,nx,ny,(o.h||0)+.2,(o.h||0)+.2,w)) { tx = nx; ty = ny; break; } }
+  o.from = { x: o.x, y: o.y, h: o.h };delete o.releaseX;delete o.releaseY;o.x = tx; o.y = ty; o.h = 0; o.flyT = w.t; o.rot = Math.random() * 6.28;
   w.noise(o, 12, 'mover'); w.sub(o, `Cae ${LOOSE_N[o.kind]} al piso`, 12);
   exposedInvs(w).filter(i => i.f === o.f && d2(i, o) <= 4).forEach(i => w.haunt(i, 2));
   ghostEvent(w, g, 'move'); w.ev('mover', { f: o.f, x: o.x, y: o.y, id: o.id }); return true;
@@ -703,6 +717,7 @@ function gMover(w, g) {
 function nearestProp(w, g, R) { let b = null, bd = R; for (const p of PROPS) if (p.f === g.f) { const d = d2(p, g); if (d < bd) { bd = d; b = p; } } return b; }
 function gProp(w, g) {
   if (!gReady(w, g, 'c')) return false; const p = nearestProp(w, g, 2.6); if (!p) return false;
+  if(p.kind==='libros')return gMover(w,g);
   g.ready.c = w.t + cdFor(g, 'c', CFG.cds.c); w.propAnim = w.propAnim || {}; w.propAnim[p.id] = w.t;
   const [txt, snd] = PROP_INFO[p.kind]; w.sub(p, txt, 14); w.noise(p, 14, 'prop'); w.ev('prop', { f: p.f, x: p.x, y: p.y, snd });
   exposedInvs(w).filter(i => i.f === p.f && roomOf(i) === roomAt(p.f, p.x, p.y)).forEach(i => w.haunt(i, 2));
@@ -862,7 +877,7 @@ function botInv(w, b, dt) {
     if (lm && gk >= 0 && lm.f === b.f && d2(lm, b) < 9) { b.hand = gk; if (w.t >= (b.slots[gk].cd || 0)) useItem(w, b); }
     else if (!ai.study) { const ek = b.slots.findIndex(s => s && s.kind === 'emf'); if (ek >= 0) b.hand = ek; } }
   // recoger consumibles cercanos
-  if (b.slots.filter(x => !x).length >= 1 && !(b.f === 0 && b.y >= 39)) { const it = w.items.find(t => !t.holder && t.f === b.f && ['te', 'rosario', 'copal'].includes(t.kind) && !b.slots.some(x => x && x.kind === t.kind) && d2(t, b) < 6);
+  if (stairAt(b.x,b.y)<0&&b.slots.filter(x => !x).length >= 1 && !(b.f === 0 && b.y >= 39)) { const it = w.items.find(t => !t.holder && t.f === b.f && ['te', 'rosario', 'copal'].includes(t.kind) && !b.slots.some(x => x && x.kind === t.kind) && d2(t, b) < 6);
     if (it) { if (d2(it, b) < 1.2) { const e = b.slots.indexOf(null); b.hand = e; pickUp(w, b); } else { moveBot(w, b, approach(it), CFG.walk * sp, dt); return; } } }
   ai.think -= dt;
   if (ai.lure && w.t < ai.lure.until && !g.hunt) { if (moveBot(w, b, ai.lure, CFG.walk * sp, dt) || d2(ai.lure, b) < 1.2 && b.f === ai.lure.f) { if (ai.lure.fuse) resetFuse(w, b); ai.lure = null; } return; }
@@ -910,6 +925,7 @@ function botInv(w, b, dt) {
 }
 // explorar: detenerse en cada cuarto con el termómetro quieto hasta que se asiente
 function botTermoSweep(w, b, dt) {
+  if(stairAt(b.x,b.y)>=0)return false;
   const k = b.slots.findIndex(s => s && s.kind === 'termo'), r = roomOf(b); if (k < 0 || r < 0 || isHall(b.f, r) || ['afuera', 'zaguan'].includes(ROOMS[b.f][r].id)) return false;
   const key = b.f + ':' + r; b.ai.termoDone = b.ai.termoDone || {}; if ((b.ai.termoDone[key] || -99) > w.t - 45) return false;
   const c = w.cold[b.f][r]; b.hand = k; if (!b.ai.sweep || b.ai.sweep.key !== key) b.ai.sweep = { key, p: Math.random() < 0.6 && c ? { f: b.f, x: c.x + rnd(-1, 1), y: c.y + rnd(-1, 1) } : randomIn(b.f, r), t: 0 };

@@ -2,7 +2,7 @@
 import sys,asyncio,json,threading,functools
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Reconstruccion_Casona_v11';OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Revision_Casona_v12';OUT.mkdir(exist_ok=True)
 sys.path.insert(0,str(ROOT.parent/'QA_Arte_Alex/python_lib'))
 from playwright.async_api import async_playwright
 class Quiet(SimpleHTTPRequestHandler):
@@ -27,11 +27,16 @@ async def main():
     await page.evaluate("Object.assign(__game.menuOpt,{role:'inv',nInv:1,char:'curandero',tips:'no',cam:'fp'});__game.start.skipSlot=true;__game.start();")
     await page.wait_for_timeout(1300)
     data=await page.evaluate("()=>{const w=__game.w,m=w.invs[0];Object.assign(m,{x:35.5,y:25.5,f:0,flash:true});w.g.stunUntil=1e9;__qa.frame();let invalid=0;__game.scene.traverse(o=>{for(const v of o.matrixWorld.elements)if(!Number.isFinite(v))invalid++;if(o.isMesh&&o.geometry.attributes.position)for(const x of o.geometry.attributes.position.array)if(!Number.isFinite(x))invalid++;});return{version:w.layout,quality:__game.quality.preference,shadows:__qa.renderer.shadowMap.enabled,dpr:__qa.renderer.getPixelRatio(),active:w.spotsActive.size,drawers:w.containers.length,invalid,draw:__qa.renderer.info.render};}")
-    assert data['version']=='casona-v11';assert 18<=data['active']<=20;assert data['drawers']==66;assert data['invalid']==0
+    assert data['version']=='casona-v12';assert 20<=data['active']<=22;assert data['drawers']==66;assert data['invalid']==0
     assert data['shadows']==(quality not in ['low','auto']);assert data['dpr']<=({'low':1,'balanced':1.35,'high':2,'auto':1}[quality])
+    if quality=='balanced':
+     await page.evaluate('()=>{'+(ROOT/'test/scene-geometry-qc.js').read_text(encoding='utf-8')+';window.auditSceneGeometry=auditSceneGeometry;}')
+     audit=await page.evaluate('auditSceneGeometry(__game.scene)');print('GEOMETRY',json.dumps(audit),flush=True)
+     assert audit['portals']==len(json.loads((ROOT/'src/layout-v11.json').read_text(encoding='utf-8'))['doors']);assert audit['nonFinite']==0;assert audit['mixedFaceColors']==0;assert not audit['coplanarOverlaps'],audit
+     data['geometryAudit']=audit
     result.append(data)
     if not mobile and quality=='balanced':
-     action=await page.evaluate("()=>{const w=__game.w,c=w.containers.find(c=>c.items.length&&!w.items.some(it=>!it.holder&&it.f===c.f&&layoutItemVisible(w,it)&&Math.hypot(it.x-c.ax,it.y-c.ay)<1.3)),m=w.invs[0];if(!c)throw Error('No searchable drawer');Object.assign(m,{f:c.f,x:c.ax,y:c.ay,hidden:-1,alive:true,bot:false});window.__testDrawer=c.id;return __qa.action(m);}")
+     action=await page.evaluate("()=>{const w=__game.w,c=w.containers.find(c=>c.items.length&&nearSpot(w,{...w.invs[0],f:c.f,x:c.ax,y:c.ay,hidden:-1})<0&&!w.items.some(it=>!it.holder&&it.f===c.f&&layoutItemVisible(w,it)&&Math.hypot(it.x-c.ax,it.y-c.ay)<1.3)),m=w.invs[0];if(!c)throw Error('No searchable drawer');Object.assign(m,{f:c.f,x:c.ax,y:c.ay,hidden:-1,alive:true,bot:false});window.__testDrawer=c.id;return __qa.action(m);}")
      assert action['txt'].endswith('(1 s)'),action
      opened=await page.evaluate("()=>{const w=__game.w,m=w.invs[0],c=w.containers[window.__testDrawer];interact(w,m);for(let k=0;k<40;k++)__game.step(w,1/30,{mx:0,my:0,press:new Set()});__qa.frame();return{open:c.open,visible:c.items.every(id=>layoutItemVisible(w,w.items.find(it=>it.id===id)))};}")
      assert opened=={'open':True,'visible':True},opened

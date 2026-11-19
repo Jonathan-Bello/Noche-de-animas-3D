@@ -1,0 +1,423 @@
+{
+  "passed": true,
+  "completeBrowserSession": {
+    "t": 557.3000000000582,
+    "over": {
+      "win": "inv",
+      "cause": "Jenny sali\u00f3 con la apuesta correcta"
+    },
+    "hunts": 2,
+    "draw": {
+      "frame": 56,
+      "calls": 185,
+      "triangles": 33980,
+      "points": 0,
+      "lines": 0
+    },
+    "finite": true
+  },
+  "adaptiveSyntheticSlowFrames": {
+    "low": {
+      "scale": 0.65,
+      "dpr": 0.65
+    },
+    "recovered": 1
+  },
+  "renderSamples": [
+    {
+      "frame": 1,
+      "calls": 188,
+      "triangles": 34502,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 2,
+      "calls": 202,
+      "triangles": 34848,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 3,
+      "calls": 277,
+      "triangles": 36448,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 4,
+      "calls": 185,
+      "triangles": 32922,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 5,
+      "calls": 300,
+      "triangles": 41960,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 6,
+      "calls": 268,
+      "triangles": 37504,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 7,
+      "calls": 182,
+      "triangles": 33192,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 8,
+      "calls": 222,
+      "triangles": 37328,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 9,
+      "calls": 213,
+      "triangles": 37570,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 10,
+      "calls": 236,
+      "triangles": 35676,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 11,
+      "calls": 322,
+      "triangles": 41256,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 12,
+      "calls": 431,
+      "triangles": 41256,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 13,
+      "calls": 217,
+      "triangles": 38996,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 14,
+      "calls": 198,
+      "triangles": 35034,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 15,
+      "calls": 182,
+      "triangles": 34994,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 16,
+      "calls": 268,
+      "triangles": 36454,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 17,
+      "calls": 195,
+      "triangles": 36170,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 18,
+      "calls": 362,
+      "triangles": 42188,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 19,
+      "calls": 190,
+      "triangles": 34718,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 20,
+      "calls": 289,
+      "triangles": 43231,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 21,
+      "calls": 200,
+      "triangles": 34052,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 22,
+      "calls": 190,
+      "triangles": 34480,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 23,
+      "calls": 198,
+      "triangles": 34558,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 24,
+      "calls": 290,
+      "triangles": 38648,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 25,
+      "calls": 272,
+      "triangles": 40138,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 26,
+      "calls": 277,
+      "triangles": 38498,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 27,
+      "calls": 183,
+      "triangles": 33018,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 28,
+      "calls": 183,
+      "triangles": 32978,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 29,
+      "calls": 184,
+      "triangles": 32800,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 30,
+      "calls": 213,
+      "triangles": 36920,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 31,
+      "calls": 314,
+      "triangles": 38676,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 32,
+      "calls": 208,
+      "triangles": 37122,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 33,
+      "calls": 282,
+      "triangles": 37652,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 34,
+      "calls": 213,
+      "triangles": 37504,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 35,
+      "calls": 188,
+      "triangles": 35240,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 36,
+      "calls": 190,
+      "triangles": 33470,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 37,
+      "calls": 236,
+      "triangles": 39636,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 38,
+      "calls": 226,
+      "triangles": 38872,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 39,
+      "calls": 211,
+      "triangles": 35728,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 40,
+      "calls": 202,
+      "triangles": 35492,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 41,
+      "calls": 191,
+      "triangles": 35828,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 42,
+      "calls": 236,
+      "triangles": 34992,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 43,
+      "calls": 279,
+      "triangles": 36756,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 44,
+      "calls": 180,
+      "triangles": 32902,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 45,
+      "calls": 208,
+      "triangles": 37242,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 46,
+      "calls": 244,
+      "triangles": 38312,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 47,
+      "calls": 325,
+      "triangles": 43434,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 48,
+      "calls": 205,
+      "triangles": 38806,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 49,
+      "calls": 192,
+      "triangles": 36750,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 50,
+      "calls": 278,
+      "triangles": 40474,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 51,
+      "calls": 187,
+      "triangles": 36834,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 52,
+      "calls": 244,
+      "triangles": 36628,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 53,
+      "calls": 285,
+      "triangles": 36162,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 54,
+      "calls": 183,
+      "triangles": 33014,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 55,
+      "calls": 183,
+      "triangles": 34682,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "frame": 56,
+      "calls": 185,
+      "triangles": 33980,
+      "points": 0,
+      "lines": 0
+    }
+  ],
+  "planInteractionsPassed": true,
+  "errors": [],
+  "note": "Touch-screen emulation and software renderer, not physical-phone FPS."
+}

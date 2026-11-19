@@ -23,9 +23,15 @@ function layoutSurfacePacking(w){
 }
 const _newWorldLayout=newWorld;
 newWorld=function(opt){fieldCache.clear();const w=_newWorldLayout(opt);w.layout=NDALayout.version;
+ const contents={despensa:['jarron','taza'],planchaduria:['taza','libro'],capilla:['vela','figura'],cocina:['plato','taza'],biblioteca:['libro','libro'],comedor:['plato','taza'],reposteria:['plato','jarron'],cochera:['jarron','libro'],despacho:['libro','cuadro'],porteria:['taza','libro'],botica:['jarron','figura'],desvan:['cuadro','libro'],costura:['taza','libro'],nana:['vela','cuadro'],recn:['libro','figura'],musica:['libro','taza'],banoalto:['jarron','taza'],huespedes:['cuadro','taza'],abuelo:['vela','cuadro'],recp:['cuadro','vela'],salon:['jarron','figura'],hija:['cuadro','jarron']};
+ for(const o of w.loose){const kinds=contents[roomId(o)];if(kinds)o.kind=kinds[o.id%kinds.length];}
  // Keep the fuse box on solid plaster, never on a real window or behind a moving door.
  const fr=w.fuseRoom,candidates=shuffle(ROOM_TILES[fr.f][fr.r].slice());for(const[x,y]of candidates){const side=[[1,0],[-1,0],[0,1],[0,-1]].find(([a,b])=>tileAt(fr.f,x+a,y+b)===T.WALL);if(!side||layoutWindowNear(fr.f,x+.5+side[0]*.5,y+.5+side[1]*.5)||w.doors.some(d=>d.f===fr.f&&Math.hypot(d.x-x-.5,d.y-y-.5)<2)||SPOTS.some(s=>s.f===fr.f&&Math.hypot(s.hx-x-.5,s.hy-y-.5)<1.5))continue;Object.assign(FUSE,{f:fr.f,x:x+.5+side[0]*.38,y:y+.5+side[1]*.38,face:Math.atan2(-side[1],-side[0])});break;}
  layoutSurfacePacking(w);
+ for(const shelf of LAYOUT_FURN.filter(o=>o.model==='bookcase'))for(const h of[.18,.65,1.12,1.59])for(let k=0;k<6;k++){
+  const x=shelf.rect[0]+.3+k*.27,y=shelf.rect[3]-.38;
+  w.loose.push({id:w.loose.length,kind:'libro',f:shelf.floor,x,y,h,rot:0,flyT:-99,from:null,shelfId:shelf.id,releaseX:x,releaseY:shelf.rect[3]+.12});
+ }
  w.propPositions=PROPS.map(p=>({id:p.id,f:p.f,x:p.x,y:p.y,h:p.h||0}));
  w.containers=[];for(const h of HOME_CHOICES){const s=SURFACES[h.f][h.r].find(([x,y])=>tileAt(h.f,x,y)===T.TABLE)||SURFACES[h.f][h.r][0];if(!s)continue;const side=[[0,1],[0,-1],[-1,0],[1,0]].find(([dx,dy])=>walkableT(tileAt(h.f,s[0]+dx,s[1]+dy)));if(!side)continue;for(let level=0;level<3;level++)w.containers.push({id:w.containers.length,f:h.f,room:h.r,x:s[0]+.5,y:s[1]+.5,h:s[2],ax:s[0]+.5+side[0],ay:s[1]+.5+side[1],dx:side[0],dy:side[1],level,open:false,until:0,by:-1,items:[]});}
  for(const it of shuffle(w.items.filter(it=>!it.holder&&!TOOLS.includes(it.kind)&&it.kind!=='fotocam'&&it.y<39))){const ri=roomAt(it.f,it.x,it.y),c=w.containers.find(c=>c.f===it.f&&c.room===ri&&c.items.length<2&&Math.hypot(it.x-c.ax,it.y-c.ay)<1.25);if(c){c.items.push(it.id);it.containerId=c.id;it.stowX=it.x;it.stowY=it.y;}}

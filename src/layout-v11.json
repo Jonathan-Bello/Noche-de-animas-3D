@@ -1,5 +1,5 @@
 {
-  "version": "casona-v11",
+  "version": "casona-v12",
   "status": "runtime registry",
   "units": "metros",
   "coordinates": "[x0,z0,x1,z1), norte z=0, calle z=40; reticula logica 1m; suelo PA y=3.8",
@@ -1043,19 +1043,29 @@
         16
       ],
       "height": 0.78,
-      "blocksSight": false
+      "blocksSight": false,
+      "model": "dining",
+      "label": "Mesa de comedor",
+      "contents": [
+        "Pan, taza y platos"
+      ]
     },
     {
       "floor": 0,
       "id": "trinchero_comedor",
       "rect": [
-        57,
-        17,
         58,
+        16,
+        59,
         19
       ],
       "height": 1.9,
-      "blocksSight": true
+      "blocksSight": true,
+      "model": "china",
+      "label": "Trinchero de vajilla",
+      "contents": [
+        "Platos y tazas"
+      ]
     },
     {
       "floor": 0,
@@ -1067,7 +1077,12 @@
         35
       ],
       "height": 1.05,
-      "blocksSight": false
+      "blocksSight": false,
+      "model": "counter",
+      "label": "Mostrador de botica",
+      "contents": [
+        "Frascos, ruda y limpia"
+      ]
     },
     {
       "floor": 0,
@@ -1079,7 +1094,10 @@
         37
       ],
       "height": 1.9,
-      "blocksSight": true
+      "blocksSight": true,
+      "model": "screen",
+      "label": "Biombo de madera y tela",
+      "contents": []
     },
     {
       "floor": 0,
@@ -1087,11 +1105,16 @@
       "rect": [
         5,
         14,
-        9,
+        7,
         15
       ],
       "height": 2.1,
-      "blocksSight": true
+      "blocksSight": true,
+      "model": "bookcase",
+      "label": "Librero de consulta",
+      "contents": [
+        "Libros independientes arrojables"
+      ]
     },
     {
       "floor": 0,
@@ -1320,7 +1343,10 @@
         18
       ],
       "height": 1.9,
-      "blocksSight": true
+      "blocksSight": true,
+      "model": "screen",
+      "label": "Biombo de madera y tela",
+      "contents": []
     },
     {
       "floor": 1,
@@ -1332,7 +1358,13 @@
         36
       ],
       "height": 0.65,
-      "blocksSight": false
+      "blocksSight": false,
+      "model": "bed",
+      "label": "Cama de madera",
+      "contents": [
+        "Colcha y almohadas"
+      ],
+      "visualHeight": 1.5
     },
     {
       "floor": 1,
@@ -1344,7 +1376,13 @@
         36
       ],
       "height": 0.65,
-      "blocksSight": false
+      "blocksSight": false,
+      "model": "bed",
+      "label": "Cama de madera",
+      "contents": [
+        "Colcha y almohadas"
+      ],
+      "visualHeight": 1.5
     },
     {
       "floor": 1,
@@ -1356,7 +1394,13 @@
         36
       ],
       "height": 0.65,
-      "blocksSight": false
+      "blocksSight": false,
+      "model": "bed",
+      "label": "Cama de madera",
+      "contents": [
+        "Colcha y almohadas"
+      ],
+      "visualHeight": 1.5
     },
     {
       "floor": 0,
@@ -1567,6 +1611,634 @@
       "height": 1.15,
       "kind": "prop",
       "blocksSight": false
+    },
+    {
+      "id": "am_B01",
+      "floor": 0,
+      "room": "B01",
+      "rect": [
+        1,
+        2,
+        2,
+        5
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "pantry",
+      "label": "Estante bajo de despensa",
+      "contents": [
+        "Té, pan y frascos"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_B02",
+      "floor": 0,
+      "room": "B02",
+      "rect": [
+        15,
+        3,
+        17,
+        4
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "ironing",
+      "label": "Mesa de planchar",
+      "contents": [
+        "Ropa doblada y costurero"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_B04",
+      "floor": 0,
+      "room": "B04",
+      "rect": [
+        43,
+        8,
+        45,
+        9
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "counter",
+      "label": "Mesa de preparación",
+      "contents": [
+        "Té, ceniza y vajilla"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_B06",
+      "floor": 0,
+      "room": "B06",
+      "rect": [
+        10,
+        17,
+        12,
+        18
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "desk",
+      "label": "Mesa de lectura",
+      "contents": [
+        "Libro y taza"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_B09",
+      "floor": 0,
+      "room": "B09",
+      "rect": [
+        54,
+        22,
+        58,
+        23
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "counter",
+      "label": "Mesa de repostería",
+      "contents": [
+        "Pan, moldes y plato"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_B10",
+      "floor": 0,
+      "room": "B10",
+      "rect": [
+        1,
+        35,
+        2,
+        38
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "workbench",
+      "label": "Banco de herramientas",
+      "contents": [
+        "Focos y aperos"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_B11",
+      "floor": 0,
+      "room": "B11",
+      "rect": [
+        19,
+        35,
+        22,
+        36
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "desk",
+      "label": "Escritorio",
+      "contents": [
+        "Papeles, libro y radio maldita"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_B13",
+      "floor": 0,
+      "room": "B13",
+      "rect": [
+        39,
+        37,
+        41,
+        38
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "desk",
+      "label": "Mesa del portero",
+      "contents": [
+        "Foco y llaves decorativas"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A01",
+      "floor": 1,
+      "room": "A01",
+      "rect": [
+        1,
+        3,
+        2,
+        6
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "trunkTable",
+      "label": "Arcón bajo del desván",
+      "contents": [
+        "Copal y recuerdos"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A02",
+      "floor": 1,
+      "room": "A02",
+      "rect": [
+        15,
+        3,
+        17,
+        4
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "sewing",
+      "label": "Mesa de costura",
+      "contents": [
+        "Máquina de coser y tela"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A04",
+      "floor": 1,
+      "room": "A04",
+      "rect": [
+        41,
+        8,
+        43,
+        9
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "dresser",
+      "label": "Cómoda de la nana",
+      "contents": [
+        "Rosario y ropa blanca"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A06",
+      "floor": 1,
+      "room": "A06",
+      "rect": [
+        11,
+        17,
+        13,
+        18
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "desk",
+      "label": "Escritorio infantil",
+      "contents": [
+        "Muñeca, libro y dibujos"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A08",
+      "floor": 1,
+      "room": "A08",
+      "rect": [
+        57,
+        11,
+        59,
+        12
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "console",
+      "label": "Consola de música",
+      "contents": [
+        "Partituras y radio"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A09",
+      "floor": 1,
+      "room": "A09",
+      "rect": [
+        46,
+        28,
+        48,
+        29
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "washstand",
+      "label": "Mesa de aseo",
+      "contents": [
+        "Toalla y recipientes"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A15",
+      "floor": 1,
+      "room": "A15",
+      "rect": [
+        57,
+        24,
+        59,
+        25
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "dresser",
+      "label": "Cómoda de huéspedes",
+      "contents": [
+        "Taza y maleta decorativa"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A10",
+      "floor": 1,
+      "room": "A10",
+      "rect": [
+        9,
+        35,
+        11,
+        36
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "bedside",
+      "label": "Buró de la abuela",
+      "contents": [
+        "Rosario, vela y fotografía"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A11",
+      "floor": 1,
+      "room": "A11",
+      "rect": [
+        22,
+        35,
+        24,
+        36
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "bedside",
+      "label": "Cómoda principal",
+      "contents": [
+        "Rosario y retratos"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A12",
+      "floor": 1,
+      "room": "A12",
+      "rect": [
+        36,
+        35,
+        39,
+        36
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "console",
+      "label": "Mesa del estrado",
+      "contents": [
+        "Velas y cerámica"
+      ],
+      "drawers": true
+    },
+    {
+      "id": "am_A14",
+      "floor": 1,
+      "room": "A14",
+      "rect": [
+        52,
+        35,
+        54,
+        36
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "model": "vanity",
+      "label": "Tocador de la hija",
+      "contents": [
+        "Espejo de plata y peineta"
+      ],
+      "drawers": true,
+      "visualHeight": 1.73
+    },
+    {
+      "id": "am_cama_nana",
+      "floor": 1,
+      "room": "A04",
+      "rect": [
+        38,
+        6,
+        40,
+        8
+      ],
+      "height": 0.58,
+      "blocksSight": false,
+      "kind": null,
+      "model": "bed",
+      "label": "Cama de la nana",
+      "contents": [],
+      "visualHeight": 1.5
+    },
+    {
+      "id": "am_cama_nino",
+      "floor": 1,
+      "room": "A06",
+      "rect": [
+        1,
+        15,
+        3,
+        18
+      ],
+      "height": 0.58,
+      "blocksSight": false,
+      "kind": null,
+      "model": "bed",
+      "label": "Cama infantil",
+      "contents": [],
+      "visualHeight": 1.5
+    },
+    {
+      "id": "am_cama_huesped",
+      "floor": 1,
+      "room": "A15",
+      "rect": [
+        55,
+        27,
+        57,
+        29
+      ],
+      "height": 0.58,
+      "blocksSight": false,
+      "kind": null,
+      "model": "bed",
+      "label": "Cama de huéspedes",
+      "contents": [],
+      "visualHeight": 1.5
+    },
+    {
+      "id": "am_fogony",
+      "floor": 0,
+      "room": "B04",
+      "rect": [
+        40,
+        8,
+        42,
+        9
+      ],
+      "height": 0.78,
+      "blocksSight": false,
+      "kind": null,
+      "model": "stove",
+      "label": "Fogón y comal",
+      "contents": []
+    },
+    {
+      "id": "am_alacena_abierta",
+      "floor": 0,
+      "room": "B01",
+      "rect": [
+        1,
+        1,
+        4,
+        2
+      ],
+      "height": 2.1,
+      "blocksSight": true,
+      "kind": null,
+      "model": "pantryTall",
+      "label": "Alacena de conservas",
+      "contents": []
+    },
+    {
+      "id": "am_herbolario",
+      "floor": 0,
+      "room": "B14",
+      "rect": [
+        56,
+        31,
+        59,
+        32
+      ],
+      "height": 2.1,
+      "blocksSight": true,
+      "kind": null,
+      "model": "apothecary",
+      "label": "Frascos de botica",
+      "contents": []
+    },
+    {
+      "id": "am_banca_estrado",
+      "floor": 1,
+      "room": "A12",
+      "rect": [
+        28,
+        37,
+        32,
+        38
+      ],
+      "height": 0.5,
+      "blocksSight": false,
+      "kind": "bench",
+      "model": "bench",
+      "label": "Banca del estrado",
+      "contents": []
+    },
+    {
+      "id": "am_silla_0",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        50,
+        12,
+        51,
+        13
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 0
+    },
+    {
+      "id": "am_silla_1",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        52,
+        12,
+        53,
+        13
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 0
+    },
+    {
+      "id": "am_silla_2",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        54,
+        12,
+        55,
+        13
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 0
+    },
+    {
+      "id": "am_silla_3",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        50,
+        17,
+        51,
+        18
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 3.14159265
+    },
+    {
+      "id": "am_silla_4",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        52,
+        17,
+        53,
+        18
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 3.14159265
+    },
+    {
+      "id": "am_silla_5",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        54,
+        17,
+        55,
+        18
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 3.14159265
+    },
+    {
+      "id": "am_silla_6",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        47,
+        14,
+        48,
+        15
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": 1.5707963267948966
+    },
+    {
+      "id": "am_silla_7",
+      "floor": 0,
+      "room": "B08",
+      "rect": [
+        57,
+        14,
+        58,
+        15
+      ],
+      "height": 1.05,
+      "blocksSight": false,
+      "kind": "chair",
+      "model": "chair",
+      "label": "Silla de comedor",
+      "contents": [],
+      "facing": -1.5707963267948966
     }
   ],
   "stairs": [
@@ -1670,21 +2342,31 @@
       "id": "HB01",
       "room": "B01",
       "floor": 0,
-      "x": 7,
+      "x": 3,
       "z": 7,
       "type": "alacena",
       "mandatory": true,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        3,
+        8
+      ],
+      "contents": "Conservas en compartimentos laterales; hueco central libre para esconderse."
     },
     {
       "id": "HB02",
       "room": "B02",
       "floor": 0,
-      "x": 19,
+      "x": 21,
       "z": 7,
       "type": "ropero de ropa blanca",
       "mandatory": true,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        21,
+        8
+      ],
+      "contents": "Ropa blanca; espacio central libre."
     },
     {
       "id": "HB03",
@@ -1694,11 +2376,12 @@
       "z": 8,
       "type": "confesionario",
       "mandatory": true,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D",
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
       "preferredSolid": [
         33,
         8
-      ]
+      ],
+      "contents": "Compartimento interior del confesionario."
     },
     {
       "id": "HB04",
@@ -1708,7 +2391,12 @@
       "z": 5,
       "type": "alacena de servicio",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        47,
+        5
+      ],
+      "contents": "Vajilla y ollas en compartimentos laterales; hueco central libre."
     },
     {
       "id": "HB06",
@@ -1718,17 +2406,27 @@
       "z": 15,
       "type": "librero de doble fondo",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        7,
+        14
+      ],
+      "contents": "Libros arrojables en el librero contiguo; gabinete de doble fondo vacío."
     },
     {
       "id": "HB08",
       "room": "B08",
       "floor": 0,
-      "x": 53,
+      "x": 47,
       "z": 12,
       "type": "trinchero",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        46,
+        12
+      ],
+      "contents": "Mantelería y vajilla en módulos laterales; hueco central libre."
     },
     {
       "id": "HB09",
@@ -1738,7 +2436,12 @@
       "z": 25,
       "type": "alacena",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        46,
+        25
+      ],
+      "contents": "Recipientes y moldes; compartimento central libre."
     },
     {
       "id": "HB10",
@@ -1748,17 +2451,27 @@
       "z": 32,
       "type": "arcon de aperos",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        7,
+        31
+      ],
+      "contents": "Arnés y aperos laterales; espacio libre dentro del arcón."
     },
     {
       "id": "HB11",
       "room": "B11",
       "floor": 0,
-      "x": 21,
+      "x": 22,
       "z": 32,
       "type": "armario de archivo",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        22,
+        31
+      ],
+      "contents": "Carpetas y documentos en módulos laterales; compartimento libre."
     },
     {
       "id": "HB13",
@@ -1768,7 +2481,12 @@
       "z": 32,
       "type": "ropero",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        35,
+        31
+      ],
+      "contents": "Abrigos y ropa de servicio."
     },
     {
       "id": "HB14",
@@ -1778,57 +2496,87 @@
       "z": 32,
       "type": "armario de trastienda",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        50,
+        31
+      ],
+      "contents": "Frascos en módulos laterales; compartimento de trastienda libre."
     },
     {
       "id": "HA01",
       "room": "A01",
       "floor": 1,
-      "x": 7,
+      "x": 3,
       "z": 7,
       "type": "baul",
       "mandatory": true,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        3,
+        8
+      ],
+      "contents": "Recuerdos y telas en compartimentos laterales."
     },
     {
       "id": "HA02",
       "room": "A02",
       "floor": 1,
-      "x": 19,
+      "x": 21,
       "z": 7,
       "type": "ropero",
       "mandatory": true,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        21,
+        8
+      ],
+      "contents": "Telas y prendas de costura."
     },
     {
       "id": "HA04",
       "room": "A04",
       "floor": 1,
-      "x": 43,
+      "x": 46,
       "z": 7,
       "type": "ropero",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        47,
+        7
+      ],
+      "contents": "Ropa de cama de la nana."
     },
     {
       "id": "HA06",
       "room": "A06",
       "floor": 1,
       "x": 7,
-      "z": 15,
+      "z": 11,
       "type": "ropero infantil",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        7,
+        10
+      ],
+      "contents": "Ropa infantil."
     },
     {
       "id": "HA08",
       "room": "A08",
       "floor": 1,
       "x": 47,
-      "z": 15,
+      "z": 17,
       "type": "armario de partituras",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        46,
+        17
+      ],
+      "contents": "Partituras en módulos laterales."
     },
     {
       "id": "HA09",
@@ -1838,7 +2586,12 @@
       "z": 23,
       "type": "armario de ropa blanca",
       "mandatory": true,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        46,
+        23
+      ],
+      "contents": "Toallas y ropa blanca."
     },
     {
       "id": "HA15",
@@ -1848,7 +2601,12 @@
       "z": 22,
       "type": "ropero",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        52,
+        22
+      ],
+      "contents": "Ropa de huéspedes."
     },
     {
       "id": "HA10",
@@ -1858,27 +2616,42 @@
       "z": 31,
       "type": "ropero",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        6,
+        31
+      ],
+      "contents": "Ropa y mantas de la abuela."
     },
     {
       "id": "HA11",
       "room": "A11",
       "floor": 1,
-      "x": 21,
+      "x": 23,
       "z": 32,
       "type": "vestidor",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        23,
+        31
+      ],
+      "contents": "Ropa del vestidor."
     },
     {
       "id": "HA12",
       "room": "A12",
       "floor": 1,
-      "x": 30,
+      "x": 32,
       "z": 32,
       "type": "armario de mantas",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        32,
+        31
+      ],
+      "contents": "Mantas del estrado."
     },
     {
       "id": "HA14",
@@ -1888,27 +2661,42 @@
       "z": 32,
       "type": "ropero",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        50,
+        31
+      ],
+      "contents": "Ropa de la hija."
     },
     {
-      "id": "HB14_alt",
-      "room": "B14",
+      "id": "HB07",
+      "room": "B07",
       "floor": 0,
-      "x": 49,
-      "z": 33,
-      "type": "armario de trastienda",
+      "x": 3,
+      "z": 22,
+      "type": "arcon de aperos",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        3,
+        21
+      ],
+      "contents": "Aperos en un compartimento lateral; hueco de refugio libre."
     },
     {
-      "id": "HA14_alt",
-      "room": "A14",
+      "id": "HA07",
+      "room": "A07",
       "floor": 1,
-      "x": 49,
-      "z": 33,
-      "type": "ropero",
+      "x": 3,
+      "z": 22,
+      "type": "arcon de mantas",
       "mandatory": false,
-      "coordinateRole": "punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"
+      "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
+      "preferredSolid": [
+        3,
+        21
+      ],
+      "contents": "Mantas en un compartimento lateral; hueco de refugio libre."
     }
   ],
   "windows": [
@@ -2312,9 +3100,10 @@
     "coverageMetric": "Distancia horizontal por celdas transitables del mismo piso al punto de aproximacion; incluye rellanos.",
     "coverageLimitMeters": 18,
     "activeRangeObserved": [
-      20,
-      20
-    ]
+      21,
+      22
+    ],
+    "walkableCoverageCells": 3228
   },
   "caveats": [
     "Cobertura medida por camino horizontal con puertas transitables; una puerta cerrada puede cambiar el tiempo de escape.",
@@ -2355,6 +3144,42 @@
     "fuse": "Sortear entre anclajes accesibles, versionados y libres de escondites, puertas y fuentes. Preservar las reglas actuales de circuitos.",
     "loot": "Muebles y superficies segun funcion; cajas y cajones tienen volumen de apertura; nunca suelo como spawn inicial.",
     "anomaly": "Excluir corredor, galeria, patio, traspatio, escaleras, rellano, coro y exterior. Zaguan solo evento de puerta. Nunca crear oclusores aleatorios sobre rutas criticas.",
-    "hides": "24 candidatos; presupuesto aprobado 18–20 activos, actualmente 20 en las selecciones ensayadas; cobertura <=18m mismo piso; un activo por cuarto; callejones cubiertos."
+    "hides": "24 muebles fijos; presupuesto 20–22 activos, 21–22 observados; cobertura <=18m mismo piso, un activo por zona. Se incluyen arcones de vestíbulo fuera de las escaleras."
+  },
+  "exterior": {
+    "van": {
+      "position": [
+        23,
+        53.4
+      ],
+      "rotation": 0,
+      "collision": [
+        20,
+        52,
+        26,
+        55
+      ],
+      "exit": [
+        19.3,
+        53.4
+      ]
+    },
+    "path": [
+      27,
+      40,
+      33,
+      57
+    ]
+  },
+  "furnishingContract": {
+    "fixed": true,
+    "randomized": "Solo disponibilidad de refugios, suministros, altar ritual, fusibles y hogar; los muebles no cambian de sitio.",
+    "stairs": "Sin mesas, cajones ni objetos en entradas, descansos y desembarcos.",
+    "books": "Libros de estantes son objetos independientes sincronizados; se eliminan del estante al ser arrojados."
+  },
+  "hideBudget": {
+    "min": 20,
+    "max": 22,
+    "coverageMeters": 18
   }
 }

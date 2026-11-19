@@ -1,0 +1,164 @@
+{
+  "seed": 37,
+  "dt": 0.1,
+  "players": 4,
+  "games": 22,
+  "completed": 22,
+  "stairStalls": 0,
+  "sessions": [
+    {
+      "ghost": "pena",
+      "seconds": 292.499999999998,
+      "win": "inv",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "nachito",
+      "seconds": 561.9000000000592,
+      "win": "ghost",
+      "hunts": 0,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "llorona",
+      "seconds": 562.3000000000593,
+      "win": "ghost",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "chaneque",
+      "seconds": 591.600000000066,
+      "win": "ghost",
+      "hunts": 2,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "matla",
+      "seconds": 585.0000000000645,
+      "win": "ghost",
+      "hunts": 3,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "cucuy",
+      "seconds": 188.49999999999358,
+      "win": "inv",
+      "hunts": 0,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "guardian",
+      "seconds": 563.8000000000596,
+      "win": "ghost",
+      "hunts": 3,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "nahual",
+      "seconds": 548.4000000000561,
+      "win": "ghost",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "demonio",
+      "seconds": 537.0000000000535,
+      "win": "ghost",
+      "hunts": 3,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "planchada",
+      "seconds": 546.7000000000558,
+      "win": "ghost",
+      "hunts": 2,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "chocarrero",
+      "seconds": 561.6000000000591,
+      "win": "inv",
+      "hunts": 0,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "tlahuel",
+      "seconds": 554.4000000000575,
+      "win": "inv",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "malaire",
+      "seconds": 550.8000000000567,
+      "win": "ghost",
+      "hunts": 0,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "aparecido",
+      "seconds": 552.000000000057,
+      "win": "ghost",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "bruja",
+      "seconds": 490.10000000004294,
+      "win": "inv",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "yohual",
+      "seconds": 557.8000000000583,
+      "win": "inv",
+      "hunts": 3,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "cihuateteo",
+      "seconds": 566.5000000000603,
+      "win": "ghost",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "xtabay",
+      "seconds": 550.5000000000566,
+      "win": "ghost",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "cadejo",
+      "seconds": 422.3000000000275,
+      "win": "inv",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "mulata",
+      "seconds": 570.7000000000612,
+      "win": "inv",
+      "hunts": 2,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "uaychivo",
+      "seconds": 554.7000000000576,
+      "win": "inv",
+      "hunts": 1,
+      "stairStalls": 0
+    },
+    {
+      "ghost": "charro",
+      "seconds": 599.0000000000676,
+      "win": "ghost",
+      "hunts": 2,
+      "stairStalls": 0
+    }
+  ]
+}

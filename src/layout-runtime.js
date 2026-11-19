@@ -27,7 +27,7 @@ for(const f of[0,1]){
 for(const d of NDALayout.doors){const adjacent=LAYOUT_ROOMS.get(d.a)||LAYOUT_ROOMS.get(d.b);fillLayout(d.floor,d.rect,T.FLOOR,adjacent?adjacent.r:RID[0].zaguan);}
 // Heights and sight collision are independent: low tables never become opaque walls.
 const SURF_H={[T.TABLE]:.78,[T.ALTAR]:.95},FURN=[[],[]],LAYOUT_FURN=[],LAYOUT_OCCLUDERS=[];
-for(const o of NDALayout.obstacles){if(o.id.startsWith('reserva_'))continue;const[a,b,c,d]=o.rect,type=o.kind==='prop'?T.PROP:o.kind==='bench'?T.BENCH:o.kind==='bath'?T.WATER:o.id.startsWith('columna')?T.PILLAR:o.id==='fuente'?T.WATER:o.id.startsWith('cama_')?T.BED:o.id==='altar_fijo'?T.ALTAR:o.blocksSight?T.SHELF:T.TABLE;fillLayout(o.floor,o.rect,type);FURN[o.floor].push([type,a,b,c-1,d-1]);LAYOUT_FURN.push({...o,type});if(o.blocksSight)LAYOUT_OCCLUDERS.push(o);}
+for(const o of NDALayout.obstacles){if(o.id.startsWith('reserva_'))continue;const[a,b,c,d]=o.rect,type=(o.kind==='prop'||o.kind==='chair')?T.PROP:o.kind==='bench'?T.BENCH:o.kind==='bath'?T.WATER:o.id.startsWith('columna')?T.PILLAR:o.id==='fuente'?T.WATER:(o.id.startsWith('cama_')||o.model==='bed')?T.BED:o.id==='altar_fijo'?T.ALTAR:o.blocksSight?T.SHELF:T.TABLE;fillLayout(o.floor,o.rect,type);FURN[o.floor].push([type,a,b,c-1,d-1]);LAYOUT_FURN.push({...o,type});if(o.blocksSight)LAYOUT_OCCLUDERS.push(o);}
 // Continuous height profiles, with a single shared half-height transfer cell per staircase.
 const STAIRS=NDALayout.stairs.map(s=>[Math.floor(s.hole[0]),Math.floor(s.hole[1]),Math.ceil(s.hole[2])-1,Math.ceil(s.hole[3])-1]);
 const STAIR_DIR=[-1,1],isStair=new Uint8Array(FL),isStairMid=new Uint8Array(FL),STAIR_BLOCK=new Uint8Array(2*FL),STAIR_ENDS=new Set();
@@ -52,28 +52,20 @@ const stairNext=(k,up)=>k===0?{x:7.5,y:up?24.5:26.5}:{x:up?42.5:40.5,y:2.5};
 // Exterior keeps the existing van, tables and spawn, with its path centered on the new portón.
 fillLayout(0,[0,40,60,60],T.VOID,RID[0].afuera);fillLayout(0,[27,40,33,51],T.FLOOR,RID[0].afuera);fillLayout(0,[12,50,35,57],T.FLOOR,RID[0].afuera);
 for(let y=41;y<57;y++)for(let x=1;x<59;x++)if(grids[0][y*W+x]===T.VOID&&[[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>grids[0][(y+b)*W+x+a]===T.FLOOR))grids[0][y*W+x]=T.BUSH;
-fillLayout(0,[12,57,35,58],T.GATE);fillLayout(0,[28,51,33,55],T.VAN);
+fillLayout(0,[12,57,35,58],T.GATE);fillLayout(0,NDALayout.exterior.van.collision,T.VAN);
 for(const r of[[14,51,20,52],[14,55,20,56]]){fillLayout(0,r,T.TABLE);FURN[0].push([T.TABLE,r[0],r[1],r[2]-1,r[3]-1]);LAYOUT_FURN.push({id:'mesa_base_'+r[1],floor:0,rect:r,type:T.TABLE,height:.78});}
 const tileAt=(f,x,y)=>x<0||y<0||x>=W||y>=H?T.WALL:grids[f][(y|0)*W+(x|0)];
 const roomAt=(f,x,y)=>x<0||y<0||x>=W||y>=H?-1:roomGrid[f][(y|0)*W+(x|0)];
 const roomOf=e=>roomAt(e.f,e.x,e.y),roomId=e=>{const r=roomOf(e);return r<0?'':ROOMS[e.f][r].id;},isHall=(f,r)=>r>=0&&HALLS[f].includes(ROOMS[f][r].id);
 // Each socket owns one solid cell beside its approach point; keep doorway and stair clearances.
 const SPOTS=[];
-for(const h of NDALayout.hidingSockets){const f=h.floor,ri=LAYOUT_ROOMS.get(h.room).r,approach=[h.x,h.z];let cell=null;const directions=h.preferredSolid?[[h.preferredSolid[0]-h.x,h.preferredSolid[1]-h.z],[0,-1],[-1,0],[1,0],[0,1]]:[[0,-1],[-1,0],[1,0],[0,1]];for(const[dx,dy]of directions){const x=h.x+dx,y=h.z+dy;if(tileAt(f,x,y)!==T.FLOOR||roomAt(f,x,y)!==ri||NDALayout.doors.some(d=>d.floor===f&&x>=d.rect[0]-1&&x<d.rect[2]+1&&y>=d.rect[1]-1&&y<d.rect[3]+1)||NDALayout.hidingSockets.some(o=>o.floor===f&&o.x===x&&o.z===y))continue;cell=[x,y];break;}if(!cell)throw Error('No furniture clearance for '+h.id);grids[f][cell[1]*W+cell[0]]=T.CLOSET;SPOTS.push({f,x:cell[0],y:cell[1],hx:h.x+.5,hy:h.z+.5,room:ri,id:h.id,type:h.type,mandatory:h.mandatory});}
+for(const h of NDALayout.hidingSockets){const f=h.floor,ri=LAYOUT_ROOMS.get(h.room).r,[x,y]=h.preferredSolid;if(tileAt(f,x,y)!==T.FLOOR||tileAt(f,h.x,h.z)!==T.FLOOR)throw Error('Authored hide obstructed: '+h.id);grids[f][y*W+x]=T.CLOSET;SPOTS.push({f,x,y,hx:h.x+.5,hy:h.z+.5,room:ri,id:h.id,type:h.type,mandatory:h.mandatory});}
 const SPOT_DEFS=[0,1].map(f=>SPOTS.filter(s=>s.f===f).map(s=>[s.x,s.y]));
-// Every inhabited room owns a real supporting surface, fitted around doors and hiding approaches.
-for(const f of[0,1])ROOMS[f].forEach((r,ri)=>{
- if(!r.home||FURN[f].some(([t,x,y])=>SURF_H[t]&&roomAt(f,x,y)===ri))return;
- const free=(x,y)=>tileAt(f,x,y)===T.FLOOR&&roomAt(f,x,y)===ri&&!isStair[y*W+x]&&!NDALayout.stairs.some(s=>x+.5>s.hole[0]-1&&x+.5<s.hole[2]+1&&y+.5>s.hole[1]-1&&y+.5<s.hole[3]+1)&&!SPOTS.some(s=>s.f===f&&Math.hypot(s.hx-x-.5,s.hy-y-.5)<2)&&!NDALayout.doors.some(d=>d.floor===f&&Math.hypot((d.rect[0]+d.rect[2])/2-x-.5,(d.rect[1]+d.rect[3])/2-y-.5)<2);
- let site=null;for(let y=r.r[1]+1;y<r.r[3];y++)for(let x=r.r[0]+1;x<r.r[2];x++)if(!site&&free(x,y))site=[x,y];if(!site)throw Error('No surface '+r.id);
- const width=free(site[0]+1,site[1])?2:1,depth=width===1&&free(site[0],site[1]+1)?2:1;
- for(let dy=0;dy<depth;dy++)for(let dx=0;dx<width;dx++)grids[f][(site[1]+dy)*W+site[0]+dx]=T.TABLE;
- FURN[f].push([T.TABLE,...site,site[0]+width-1,site[1]+depth-1]);LAYOUT_FURN.push({id:'mesa_'+r.id,floor:f,rect:[site[0],site[1],site[0]+width,site[1]+depth],height:.78,type:T.TABLE});
-});
+// All supporting furniture is authored in the registry; never auto-fill an arbitrary corner.
 const ROOM_TILES=ROOMS.map((rs,f)=>rs.map((r,i)=>{const out=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(tileAt(f,x,y)===T.FLOOR&&roomAt(f,x,y)===i)out.push([x,y]);return out;}));
 const ROOM_CENTER=ROOMS.map((rs,f)=>rs.map((r,i)=>{const c=[(r.r[0]+r.r[2]+1)/2,(r.r[1]+r.r[3]+1)/2],list=ROOM_TILES[f][i].slice().sort((a,b)=>Math.hypot(a[0]+.5-c[0],a[1]+.5-c[1])-Math.hypot(b[0]+.5-c[0],b[1]+.5-c[1]));return list.length?{f,x:list[0][0]+.5,y:list[0][1]+.5}:null;}));
 const randomIn=(f,r)=>{const t=pick(ROOM_TILES[f][r]);if(!t)throw Error('Empty spawn room '+f+':'+r);return{f,x:t[0]+.5,y:t[1]+.5};};
-const SURFACES=ROOMS.map((rs,f)=>rs.map((r,i)=>{const out=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(roomAt(f,x,y)===i&&SURF_H[tileAt(f,x,y)]&&[[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>walkableT(tileAt(f,x+a,y+b))))out.push([x,y,SURF_H[tileAt(f,x,y)]]);return out;}));
+const SURFACES=ROOMS.map((rs,f)=>rs.map((r,i)=>{const out=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(roomAt(f,x,y)===i&&SURF_H[tileAt(f,x,y)]&&[[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>walkableT(tileAt(f,x+a,y+b))))out.push([x,y,LAYOUT_FURN.find(o=>o.floor===f&&x>=o.rect[0]&&x<o.rect[2]&&y>=o.rect[1]&&y<o.rect[3])?.height||SURF_H[tileAt(f,x,y)]]);return out;}));
 const onFurniture=(f,r)=>{const t=pick(SURFACES[f][r]);if(!t)return Object.assign(randomIn(f,r),{h:0});return{f,x:t[0]+.35+Math.random()*.3,y:t[1]+.35+Math.random()*.3,h:t[2]};};
 const SWITCHES=[[],[]];for(const f of[0,1])ROOMS[f].forEach((r,i)=>{if(!ROOM_CENTER[f][i]||['patio','traspatio','afuera'].includes(r.id))return;for(const[o,x,y]of DOOR_DEFS_BY_FLOOR[f]){if(SWITCHES[f][i])break;for(const sd of[-1,1]){const px=o==='V'?x+.5+sd*.9:x+1,py=o==='V'?y+1:y+.5+sd*.9;if(roomAt(f,px,py)!==i)continue;const sx=o==='V'?(sd<0?x-.035:x+1.035):x+2.28,sy=o==='V'?y+2.28:(sd<0?y-.035:y+1.035);if(roomAt(f,o==='V'?sx+sd*.3:sx,o==='V'?sy:sy+sd*.3)!==i)continue;SWITCHES[f][i]={f,r:i,x:sx,y:sy,o,side:sd};}}});
 for(const f of[0,1]){const ri=RID[f][f?'galeria':'corredor'],corners=[[15.035,11.5,1],[44.965,11.5,-1],[15.035,28.5,1],[44.965,28.5,-1]];SWITCHES[f][ri]={f,r:ri,x:corners[0][0],y:corners[0][1],o:'V',side:corners[0][2]};for(const[x,y,side]of corners.slice(1))SWITCHES[f].push({f,r:ri,x,y,o:'V',side});}
@@ -88,8 +80,9 @@ function layoutDistances(f,x,y){const d=new Int16Array(FL).fill(-1),q=new Int32A
 function layoutHideCache(){if(LAYOUT_HIDE_CACHE)return LAYOUT_HIDE_CACHE;const points=[];for(const f of[0,1])for(let y=1;y<39;y++)for(let x=1;x<59;x++){const i=y*W+x;if(walkableT(grids[f][i])&&!STAIR_BLOCK[f*FL+i]&&roomAt(f,x,y)>=0)points.push(f*FL+i);}const distances=SPOTS.map(s=>layoutDistances(s.f,s.hx,s.hy));const covers=SPOTS.map((s,k)=>new Set(points.filter(n=>Math.floor(n/FL)===s.f&&distances[k][n%FL]>=0&&distances[k][n%FL]<=18)));const missing=points.filter(n=>!covers.some(c=>c.has(n)));if(missing.length)throw Error('Hide coverage failed at '+missing.slice(0,12).map(n=>`${n>=FL?1:0}:${n%W},${Math.floor(n%FL/W)}`).join(';'));return LAYOUT_HIDE_CACHE={points,distances,covers};}
 function chooseLayoutSpots(){const{points,covers}=layoutHideCache(),act=new Set(SPOTS.flatMap((s,k)=>s.mandatory?[k]:[])),used=new Set([...act].map(k=>SPOTS[k].f+':'+SPOTS[k].room));let missing=new Set(points);for(const k of act)for(const n of covers[k])missing.delete(n);
  while(missing.size){let best=-1,gain=0;for(const k of shuffle(SPOTS.map((s,k)=>k))){if(act.has(k)||used.has(SPOTS[k].f+':'+SPOTS[k].room))continue;let g=0;for(const n of covers[k])if(missing.has(n))g++;if(g>gain){gain=g;best=k;}}if(best<0||!gain)throw Error('No legal hide selection: '+missing.size+' cells uncovered');act.add(best);used.add(SPOTS[best].f+':'+SPOTS[best].room);for(const n of covers[best])missing.delete(n);}
- for(const k of shuffle(SPOTS.map((s,k)=>k))){if(act.size>=18)break;if(!used.has(SPOTS[k].f+':'+SPOTS[k].room)){act.add(k);used.add(SPOTS[k].f+':'+SPOTS[k].room);}}
- if(act.size>20)throw Error('Hide budget exceeded: '+act.size);const target=Math.min(20,act.size+Math.floor(Math.random()*3));for(const k of shuffle(SPOTS.map((s,k)=>k))){if(act.size>=target)break;if(!used.has(SPOTS[k].f+':'+SPOTS[k].room)){act.add(k);used.add(SPOTS[k].f+':'+SPOTS[k].room);}}return act;
+ for(const k of shuffle([...act])){if(SPOTS[k].mandatory)continue;const covered=new Set([...act].filter(j=>j!==k).flatMap(j=>[...covers[j]]));if(points.every(n=>covered.has(n))){act.delete(k);used.delete(SPOTS[k].f+':'+SPOTS[k].room);}}
+ for(const k of shuffle(SPOTS.map((s,k)=>k))){if(act.size>=NDALayout.hideBudget.min)break;if(!used.has(SPOTS[k].f+':'+SPOTS[k].room)){act.add(k);used.add(SPOTS[k].f+':'+SPOTS[k].room);}}
+ if(act.size>NDALayout.hideBudget.max)throw Error('Hide budget exceeded: '+act.size);const target=Math.min(NDALayout.hideBudget.max,act.size+Math.floor(Math.random()*3));for(const k of shuffle(SPOTS.map((s,k)=>k))){if(act.size>=target)break;if(!used.has(SPOTS[k].f+':'+SPOTS[k].room)){act.add(k);used.add(SPOTS[k].f+':'+SPOTS[k].room);}}return act;
 }
 
 const PROP_INFO = {
