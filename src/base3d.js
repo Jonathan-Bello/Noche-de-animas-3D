@@ -152,8 +152,9 @@ function updateBase(t, dt) {
   floorGroups[1].visible = true; ghostMesh.g.visible = false; ceilMeshes.forEach(m => m.visible = cy < m.userData.f * FH + FH - 0.05); wallRuns.forEach(r => r.g.scale.y = 1); scene.fog = null;
   camSil.visible = !!cam.ghostOn; if (camSil.visible) { camSil.position.set(w.g.x, w.g.f * FH, w.g.y); camSil.rotation.y = -Math.atan2(cam.y - w.g.y, cam.x - w.g.x) + Math.PI / 2; }
   irLight.position.set(cam.x, cy, cam.y); irLight.intensity = 7;
+  const hid = []; for (const [id, im] of itemMeshes) { if (id === cam.id && im.g.visible) { im.g.visible = false; hid.push(im.g); } if (im.beam && im.beam.visible) { im.beam.visible = false; hid.push(im.beam); } }
   renderer.setRenderTarget(tv.rt); renderer.render(scene, camRig); renderer.setRenderTarget(null);
-  irLight.intensity = 0; camSil.visible = false; floorGroups[1].visible = f1; ghostMesh.g.visible = gv; ceilMeshes.forEach((m, k) => m.visible = cv[k]); wallRuns.forEach((r, k) => r.g.scale.y = sc[k]); scene.fog = fog;
+  hid.forEach(o => o.visible = true); irLight.intensity = 0; camSil.visible = false; floorGroups[1].visible = f1; ghostMesh.g.visible = gv; ceilMeshes.forEach((m, k) => m.visible = cv[k]); wallRuns.forEach((r, k) => r.g.scale.y = sc[k]); scene.fog = fog;
 }
 const _updateScene4 = updateScene; updateScene = function (t, dt) { _updateScene4(t, dt); updateBase(t, dt); };
 
@@ -174,7 +175,9 @@ makeItemMesh = function (it) {
       cyl(0.01, 0.1, 0x222222, 0.04, 0.22, 0); break;
     case 'espejo': { const fr = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.025, 6, 18), L(0xb8902a, 0x201000)); fr.position.y = 0.42; g.add(fr); const gl = new THREE.Mesh(new THREE.CircleGeometry(0.16, 18), L(0xc8d4e4, 0x202838)); gl.position.set(0, 0.42, 0.005); g.add(gl);
       box(0.035, 0.24, 0.03, 0x5a3a20, 0, 0.13, 0); box(0.16, 0.025, 0.12, 0x4a2c18, 0, 0.012, 0); } break;
-    case 'cam': { const tri = new THREE.Group(); g.add(tri); [0, 2.09, 4.19].forEach(a => { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1.35, 4), L(0x161414)); leg.position.set(Math.cos(a) * 0.2, 0.62, Math.sin(a) * 0.2); leg.rotation.set(Math.sin(a) * 0.3, 0, -Math.cos(a) * 0.3); tri.add(leg); });
+    case 'cam': if (it.id === undefined) { // en la mano: el tripié plegado, como un palo junto a la cámara
+        box(0.3, 0.16, 0.14, 0x2a2a2e, 0, 0.1, 0); const ln = cyl(0.05, 0.12, 0x111111, 0.2, 0.1, 0, 0, Math.PI / 2, 10); const st = cyl(0.025, 0.62, 0x161414, -0.12, 0.0, 0, 0, Math.PI / 2, 6); im.ind.visible = false; break; }
+      { const tri = new THREE.Group(); g.add(tri); [0, 2.09, 4.19].forEach(a => { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1.35, 4), L(0x161414)); leg.position.set(Math.cos(a) * 0.2, 0.62, Math.sin(a) * 0.2); leg.rotation.set(Math.sin(a) * 0.3, 0, -Math.cos(a) * 0.3); tri.add(leg); });
       const body = new THREE.Group(); g.add(body); const add = (sx, sy, sz, c, x, y, z, e) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), L(c, e)); m.position.set(x, y, z); m.castShadow = true; body.add(m); return m; };
       add(0.3, 0.16, 0.14, 0x2a2a2e, 0, 0, 0); add(0.1, 0.06, 0.08, 0x161618, -0.08, 0.1, 0); const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.055, 0.12, 10), L(0x111111)); lens.rotation.z = Math.PI / 2; lens.position.set(0.2, 0, 0); body.add(lens);
       const gl = new THREE.Mesh(new THREE.CircleGeometry(0.04, 10), new THREE.MeshBasicMaterial({ color: 0x3050a0 })); gl.position.set(0.261, 0, 0); gl.rotation.y = Math.PI / 2; body.add(gl);
