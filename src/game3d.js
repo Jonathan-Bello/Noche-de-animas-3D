@@ -425,10 +425,12 @@ function footstep(i, speed, self) {
   else { noise(0.05, 'bandpass', 1400, 1.5, vol, p); noise(0.06, 'lowpass', 300, 1, vol, p); }
 }
 // ---------- Visibilidad según quién mira ----------
+let specIdx = 0; // ya en la camioneta: a qué compañero sigues
+addEventListener('keydown', e => { if (w && running && w.opt.role === 'inv' && w.invs[ME] && w.invs[ME].escaped && [' ', 'ArrowRight', 'e', 'E', 'Enter'].includes(e.key)) { specIdx++; e.preventDefault(); } });
 function viewer() {
   if (!w) return null;
   if (w.opt.role === 'ghost') return w.g;
-  if (w.opt.role === 'inv') { const me = w.invs[ME]; if (me.alive && !me.escaped) return me; return me; }
+  if (w.opt.role === 'inv') { const me = w.invs[ME]; if (me.alive && !me.escaped) return me; if (me.escaped) { const L = w.invs.filter(i => i.alive && !i.escaped); if (L.length) return L[specIdx % L.length]; } return me; }
   const list = [w.g, ...alive(w)]; return list[follow % list.length];
 }
 function viewKind() { if (!w) return 'inv'; if (w.opt.role === 'ghost') return 'ghost'; if (w.opt.role === 'bots') return 'all'; const me = w.invs[ME]; return me.alive ? 'inv' : 'spirit'; }
@@ -761,9 +763,10 @@ function journalHTML(canName) {
   return h;
 }
 function primaryAction(i) {
-  if (!i.alive) return null; if (i.hidden >= 0) return { k: 'E', txt: 'Salir del escondite', btn: 'Salir' };
+  if (!i.alive || i.escaped) return null; if (i.hidden >= 0) return { k: 'E', txt: 'Salir del escondite', btn: 'Salir' };
   const ti = (i.y | 0) * W + (i.x | 0);
-  if (i.f === ALTAR_POS.f && Math.hypot(i.x - ALTAR_POS.x, i.y - ALTAR_POS.y) < 2.2) return { k: 'E', txt: 'Nombrar al ánima en el altar', btn: 'Altar' };
+  if (i.f === EXIT.f && Math.hypot(i.x - EXIT.x, i.y - EXIT.y) < 1.8) return { k: 'E', txt: (w.exitAsk && w.exitAsk[i.id] && w.t - w.exitAsk[i.id] < 4 ? 'Otra vez: subirte y terminar' : 'Subirte a la camioneta') + (i.guess ? ` · apuesta: ${GT[i.guess].n}` : ' · ⚠ aún no apuestas (libreta)'), btn: 'Camioneta' };
+  if (i.f === 0 && w.cas && w.cas.knock && w.t < w.cas.knock.until && Math.hypot(i.x - ZAG.x, i.y - ZAG.y) < 1.8) return { k: 'E', txt: 'Alguien toca: abrir el zaguán', btn: 'Abrir' };
   if (i.f === FUSE.f && Math.hypot(i.x - FUSE.x, i.y - FUSE.y) < 1.6 && !w.fuse.every(Boolean)) return { k: 'E', txt: 'Subir los fusibles', btn: 'Fusibles' };
   const s = nearSpot(w, i); if (s >= 0) return { k: 'E', txt: 'Esconderte' + (elecOnW(w, i) ? ' (¡apaga la linterna!)' : ''), btn: 'Esconder' };
   const sn = spotNear(w, i); if (sn && sn.why) return { k: '', txt: sn.why === 'candado' ? '🔒 Este ropero tiene candado esta noche: busca otro escondite' : `Ocupado: ${sn.who.name} está escondido aquí`, btn: '—' };
@@ -775,6 +778,7 @@ function primaryAction(i) {
 const USE_VERB = { termo: 'Quédate quieto para medir', grab: 'Preguntar en voz alta', cam: 'Apuntar (suéltala con G)', foco: 'Cambiar el foco (Q en el apagador)', te: 'Tomar el té', rosario: 'Alzar el rosario', ruda: 'Colgar la ruda en la puerta', copal: 'Encender copal', vela: 'Dejar la veladora', ceniza: 'Regar la ceniza', cruz: 'Dejar la cruz', pan: 'Dejar el pan', limpia: 'Hacer la limpia', tarot: 'Sacar una carta', tablilla: 'Preguntar a la tablilla', espejoplata: 'Mirar en la plata', mano: 'Pedir un deseo', muneca: 'Clavar un alfiler', pentagrama: 'Prender una vela', radio: 'Preguntar por radio' };
 const USE_BTN = { termo: 'Medir', grab: 'Preguntar', cam: 'Ver foto', foco: 'Foco', te: 'Beber', rosario: 'Alzar', ruda: 'Colgar', copal: 'Copal', vela: 'Dejar', ceniza: 'Regar', cruz: 'Dejar', pan: 'Dejar', limpia: 'Limpia', tarot: 'Carta', tablilla: 'Preguntar', espejoplata: 'Mirar', mano: 'Desear', muneca: 'Alfiler', pentagrama: 'Vela', radio: 'Radio' };
 function contextHint(i) {
+  if (i.escaped) return 'En la camioneta: <kbd>Espacio</kbd> o toca la pantalla para ver a otro compañero';
   if (!i.alive) return 'Eres espíritu: <kbd>Espacio</kbd> manifestarte para estorbar al ánima · <kbd>Z</kbd> cambiar de piso';
   if (i.hidden >= 0) return `Escondido. ${elecOnW(w, i) ? '<b class="warn">¡Tu aparato encendido te delata!</b> Apaga la linterna (F) o cambia de ranura. ' : ''}<kbd>E</kbd> salir`;
   const t = []; const h = handItem(i), touch = matchMedia('(pointer: coarse)').matches;
@@ -902,7 +906,7 @@ function hud() {
       L += `<div class="row"><b>Cordura ${Math.round(me.san)}</b>${bar(me.san, 100, sanCol(me.san))}</div><div class="row small">Aliento${bar(me.stam, 100, me.tired ? '#e04a5a' : '#9aa6d9')}</div>
         <div class="row small">📍 ${r >= 0 ? ROOMS[me.f][r].n : '—'} · ${me.f ? 'planta alta' : 'planta baja'} · ${litAt(w, me) ? 'con luz' : 'a oscuras'} (apagador <kbd>Q</kbd>) · linterna ${me.flash && w.t >= me.flashOffUntil ? 'encendida' : 'apagada'} <kbd>F</kbd></div>
         <div class="slots">${me.slots.map((s, k) => `<div class="slot ${me.hand === k ? 'sel' : ''}" data-slot="${k}"><kbd>${k + 1}</kbd>${s ? cardImg(s.kind) + ITEMS[s.kind].n + itemCount(s) : '<em>vacía</em>'}</div>`).join('')}</div>`;
-    } else if (me.escaped) L += '<b>Saliste de la casona.</b>'; else L += '<b>Eres un espíritu.</b> Ves al ánima siempre.';
+    } else if (me.escaped) { const V = viewer(); L += `<b>Estás en la camioneta.</b> ${V && V !== me ? `Viendo a <b style="color:${V.color}">${V.name}</b> · <kbd>Espacio</kbd> cambiar` : 'Ya no queda nadie adentro.'}`; } else L += '<b>Eres un espíritu.</b> Ves al ánima siempre.';
     if (me.alive && handItem(me) && ITEMS[handItem(me).kind].hint) L += `<p class="small">${ITEMS[handItem(me).kind].hint}</p>`;
     L += '<div class="team">' + w.invs.map(i => `<span style="color:${i.color}"><img class="av" src="${portrait(i, !i.alive)}" alt="">${i.name}${i.alive ? (i.escaped ? ' ✓' : ` ${Math.round(i.san)}`) : ' ✿'}</span>`).join(' · ') + '</div>';
     const hh = contextHint(me); $('#hint').innerHTML = hh; $('#hint').classList.toggle('empty', hh === '&nbsp;'); $('#hint').classList.remove('ghosthint');
@@ -990,7 +994,7 @@ addEventListener('keyup', e => { let k = e.key.toLowerCase(); k = KEYMAP[k] || k
 addEventListener('blur', () => keys.clear());
 addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.has = true; if (running && !$('#game').hidden && $('#modal').hidden) { const locked = document.pointerLockElement === (renderer && renderer.domElement); const k = locked ? 0.0026 : 0.004; yaw += (e.movementX || 0) * k; pitch = clamp(pitch - (e.movementY || 0) * k * 0.7, -0.7, 0.55); } });
 addEventListener('wheel', e => { if (running && w && w.opt.role === 'inv') pressed.add(e.deltaY > 0 ? 'wheeldown' : 'wheelup'); }, { passive: true });
-function canvasDown(e) { if (!running || !w || journalOpen || !$('#modal').hidden) return; if (e.pointerType !== 'touch' && !matchMedia('(pointer: coarse)').matches && document.pointerLockElement !== renderer.domElement) { try { const r = renderer.domElement.requestPointerLock(); if (r && r.catch) r.catch(() => {}); } catch (err) {} } if (e.button === 0) pressed.add(' '); if (e.button === 2 && w.opt.role === 'inv') { throwing = true; throwHold = 0; } }
+function canvasDown(e) { if (!running || !w || journalOpen || !$('#modal').hidden) return; if (w.opt.role === 'inv' && w.invs[ME] && w.invs[ME].escaped) { specIdx++; return; } if (e.pointerType !== 'touch' && !matchMedia('(pointer: coarse)').matches && document.pointerLockElement !== renderer.domElement) { try { const r = renderer.domElement.requestPointerLock(); if (r && r.catch) r.catch(() => {}); } catch (err) {} } if (e.button === 0) pressed.add(' '); if (e.button === 2 && w.opt.role === 'inv') { throwing = true; throwHold = 0; } }
 function canvasUp(e) { if (e.button === 2 && throwing) { throwing = false; pressed.add('throw'); } }
 
 // ---------- Bucle ----------
