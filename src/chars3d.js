@@ -56,7 +56,7 @@ function vecMat(hex, o) {
   return m;
 }
 
-function makeCharacter(id) {
+function makeBaseCharacter(id) {
   const S = CHARS[id] || CHARS.ines, b = S.build || 1, k = (S.h || 170) / 170, mats = [];
   const M = {}; const L = (c, o) => { const key = c + (o ? JSON.stringify(o) : ''); if (M[key]) return M[key]; const m = vecMat(c, o); m.userData = { c, e: 0 }; mats.push(m); M[key] = m; return m; };
   const mesh = (geo, mat, parent, x, y, z, rx, ry, rz) => { const o = new THREE.Mesh(geo, mat); o.position.set(x || 0, y || 0, z || 0); if (rx || ry || rz) o.rotation.set(rx || 0, ry || 0, rz || 0); o.castShadow = true; o.receiveShadow = true; parent.add(o); return o; };
@@ -170,7 +170,7 @@ function makeCharacter(id) {
 const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
 const ease = p => p * p * (3 - 2 * p);
 // st: { x, y, t, dt, hidden, dead, manifest, lamp, holding, aim, tremble }
-function animateCharacter(r, st) {
+function animateBaseCharacter(r, st) {
   const { t, dt } = st, H0 = r.hipY;
   if (r.prev) { const v = Math.hypot(st.x - r.prev.x, st.y - r.prev.y) / Math.max(1e-3, dt); r.speed += ((v > 8 ? 0 : v) - r.speed) * Math.min(1, dt * 10); }
   r.prev = { x: st.x, y: st.y };

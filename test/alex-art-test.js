@@ -1,8 +1,8 @@
 function runAlexArtContractTest(THREE, baselineSource, charsSource, artSource) {
-  const compile = source => new Function('THREE', source + '\nreturn {makeCharacter,animateCharacter,CHARS};')(THREE);
+  const compile = source => new Function('THREE', source + '\nreturn {makeCharacter:typeof makeCharacter==="function"?makeCharacter:makeBaseCharacter,animateCharacter:typeof animateCharacter==="function"?animateCharacter:animateBaseCharacter,CHARS};')(THREE);
   const baseline = compile(baselineSource), revised = compile(charsSource + '\n' + artSource);
   const assert = (condition, message) => { if (!condition) throw new Error(message); };
-  assert(baseline.animateCharacter.toString() === revised.animateCharacter.toString(), 'animateCharacter changed');
+  assert(baseline.animateCharacter.toString().replace('function animateCharacter(', 'function animateBaseCharacter(') === revised.animateCharacter.toString(), 'animateCharacter changed');
   assert(JSON.stringify(baseline.CHARS) === JSON.stringify(revised.CHARS), 'Character configuration changed');
   function signature(r) {
     let hash = 2166136261;

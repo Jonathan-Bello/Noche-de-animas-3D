@@ -1,0 +1,11 @@
+# Elenco estilizado integrado
+
+El usuario aprobó los trece modelos de la tanda v07 y pidió integrar el elenco, con una corrección explícita del Sensitivo: Alex vivo pintado de catrín en tonos rojos, camisa roja elegante y adornos de rojo más oscuro. La corrección utiliza pintura marfil, rosetones carmesí y cuencas vino, sin globos oculares ni pupilas; sonrisa y rayas de dientes son pintura sobre las facetas originales. Conserva el cuerpo y cabello del Curandero, sin lentes. El Técnico conserva su pañuelo morado #72509A solicitado.
+
+`src/elenco-art.js` contiene la construcción del elenco aprobado, incluido el Sensitivo corregido. `src/alex-art.js` conserva la versión aprobada del Curandero con lentes redondos. `src/chars3d.js` conserva la configuración CHARS y las funciones originales del rig, renombradas a `makeBaseCharacter` y `animateBaseCharacter`. Las funciones públicas `makeCharacter` y `animateCharacter` se definen al final de elenco-art.js y mantienen el contrato que consume el juego. No llamar a la fábrica pública desde el constructor de un personaje: usar la fábrica base para evitar recursión.
+
+Las diferencias de silueta proceden de cabello, prendas y accesorios; no cambian las posiciones ni las referencias de cabeza/cuello, hombros, codos, manos, caderas y rodillas. Se mantienen lámpara, estados de objetos y transición a espíritu. Los materiales son independientes por instancia. La ropa incluye respuesta geométrica sencilla de faldas al agacharse y de ponchos al elevar los brazos; no añade simulación física ni reglas de juego.
+
+La construcción se concatena después de chars3d.js y alex-art.js. Regenerar la página de producción con `python src/build.py`. No editar únicamente juego/index.html, porque es un archivo generado.
+
+Validación: `test/elenco-art-test.js` expone `runElencoArtContractTest(THREE, baselineSource, source)`, donde baselineSource concatena chars3d.js y alex-art.js del commit 75f8de1, y source concatena los tres archivos de arte actuales. Se comparan 13 personajes por 8 estados con Three.js 0.160.0: reposo, caminar, correr, usar equipo, agacharse, arrojar, muerte y espíritu. También comprueba geometría finita, cabello compartido de Alex, pintura de catrín, camisa bordada, pañuelo morado y aislamiento de materiales.
