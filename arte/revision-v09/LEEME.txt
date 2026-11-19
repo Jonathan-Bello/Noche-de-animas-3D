@@ -1,0 +1,8 @@
+NOCHE DE ÁNIMAS — REVISIÓN VISUAL v09
+
+Reparaciones publicadas: commit 8cbde65.
+Plan y propuestas: abrir plan_grafico.html o usar el servidor local. Los visores 3D requieren HTTP: python servidor.py y visitar http://127.0.0.1:8772/plan_grafico.html
+
+El catálogo de propuestas no sustituye las ánimas actuales. El plan de casona está preparado para la siguiente etapa, con capturas de la versión actual claramente identificadas.
+
+Las auditorías incluyen todas las mallas físicas, 14 combinaciones de animación y 240 fotogramas por caso. La inspección de topología y costuras no garantiza ausencia de cualquier intersección en futuras animaciones; repetir revisión cuando se amplíe el rig.

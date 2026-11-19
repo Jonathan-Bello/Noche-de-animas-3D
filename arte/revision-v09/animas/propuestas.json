@@ -1,0 +1,32 @@
+{
+  "velo": {
+    "name": "La Encapuchada",
+    "idea": "Rebozo de papel picado con calados reales, capucha profunda y cinco paños angulares. Guinda, magenta y sombra ciruela.",
+    "motion": "Reposo: pliegues quietos y oscilación lenta. Cacería: torso inclinado y brazos hacia delante. Desvanecer: quedan primero los calados y la silueta."
+  },
+  "blanca": {
+    "name": "Mujer de blanco",
+    "idea": "Vestido marfil largo, tres pliegues dominantes y cabello oscuro en dos masas. Un faldón más largo rompe la simetría.",
+    "motion": "Reposo: silueta vertical y cabello pesado. Cacería: mangas y manos adelantadas. Desvanecer: el vestido pierde densidad sin aura."
+  },
+  "sombra": {
+    "name": "Sombra alta",
+    "idea": "Columna estrecha, hombros triangulares y brazos desproporcionados con tres dedos angulares. Violeta casi negro.",
+    "motion": "Reposo: figura inmóvil con microbalanceo. Cacería: gesto adelantado de brazos largos. La identidad se lee por la proporción, no por brillo."
+  },
+  "nino": {
+    "name": "Niño en camisón",
+    "idea": "Camisón hueso cerrado, cuello antiguo, puños amplios y dos pies pequeños. Escala infantil conservada.",
+    "motion": "Reposo: figura recogida. Cacería: brazos al frente y desplazamiento entrecortado. Sin sangre ni rostro de cadáver."
+  },
+  "anciano": {
+    "name": "Anciano del sarape",
+    "idea": "Silueta ancha y baja, sombrero existente, sarape vino de ocho planos con franjas crema/ocre y bastón facetado.",
+    "motion": "Reposo: peso visual bajo y pausado. Cacería: avance inclinado. El sarape sigue siendo el ancla de identidad."
+  },
+  "humo": {
+    "name": "Nube con ojos",
+    "idea": "Tres volutas angulares con huecos grandes, color petróleo y pequeños ojos ámbar. Reemplaza los discos apilados por espacio vacío.",
+    "motion": "Reposo: volutas a distinta velocidad. Cacería: masa más compacta y ojos al frente. Desvanecer: se desarman las tres capas."
+  }
+}

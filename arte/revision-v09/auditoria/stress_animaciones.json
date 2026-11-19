@@ -1,0 +1,131 @@
+{
+  "passed": true,
+  "framesPerCase": 240,
+  "poses": [
+    "idle",
+    "walk",
+    "run",
+    "lamp",
+    "aim",
+    "holding",
+    "crouch",
+    "crouchAim",
+    "use",
+    "dip",
+    "throw",
+    "runThrow",
+    "death",
+    "spirit"
+  ],
+  "characters": [
+    {
+      "id": "ines",
+      "frames": 3360,
+      "verticesInspected": 27316800,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "rafael",
+      "frames": 3360,
+      "verticesInspected": 18466560,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "mateo",
+      "frames": 3360,
+      "verticesInspected": 22034880,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "tomas",
+      "frames": 3360,
+      "verticesInspected": 24575040,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "amalia",
+      "frames": 3360,
+      "verticesInspected": 27578880,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "vigia",
+      "frames": 3360,
+      "verticesInspected": 20482560,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "improvisador",
+      "frames": 3360,
+      "verticesInspected": 21067200,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "tecnico",
+      "frames": 3360,
+      "verticesInspected": 17599680,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "detective",
+      "frames": 3360,
+      "verticesInspected": 24131520,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "curandero",
+      "frames": 3360,
+      "verticesInspected": 21127680,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "sensitivo",
+      "frames": 3360,
+      "verticesInspected": 22619520,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "devota",
+      "frames": 3360,
+      "verticesInspected": 31127040,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    },
+    {
+      "id": "guardaespaldas",
+      "frames": 3360,
+      "verticesInspected": 19010880,
+      "maxJointSeamGap": 0,
+      "nonfinite": 0,
+      "collapsedJointTriangles": 0
+    }
+  ],
+  "verticesInspected": 297138240,
+  "frames": 43680,
+  "maxJointSeamGap": 0,
+  "nonfinite": 0,
+  "collapsedJointTriangles": 0
+}

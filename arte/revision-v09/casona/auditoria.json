@@ -1,0 +1,1238 @@
+{
+  "rooms": [
+    {
+      "id": "capilla",
+      "name": "Capilla",
+      "f": 0,
+      "i": 0,
+      "r": [
+        1,
+        1,
+        13,
+        8
+      ],
+      "c": {
+        "f": 0,
+        "x": 7.5,
+        "y": 4.5
+      },
+      "v": {
+        "x": 9.5,
+        "y": 7.5,
+        "score": 0.6403124237432851
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 2,
+          "calls": 89,
+          "triangles": 32608,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 785,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "biblioteca",
+      "name": "Biblioteca",
+      "f": 0,
+      "i": 1,
+      "r": [
+        15,
+        1,
+        29,
+        8
+      ],
+      "c": {
+        "f": 0,
+        "x": 22.5,
+        "y": 5.5
+      },
+      "v": {
+        "x": 25.5,
+        "y": 6.5,
+        "score": 0.5385164807134502
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 3,
+          "calls": 170,
+          "triangles": 34540,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 785,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "sala",
+      "name": "Sala",
+      "f": 0,
+      "i": 2,
+      "r": [
+        31,
+        1,
+        44,
+        8
+      ],
+      "c": {
+        "f": 0,
+        "x": 37.5,
+        "y": 5.5
+      },
+      "v": {
+        "x": 40.5,
+        "y": 6.5,
+        "score": 0.5099019513592787
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 4,
+          "calls": 257,
+          "triangles": 36820,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 785,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "recp",
+      "name": "Recámara principal",
+      "f": 0,
+      "i": 3,
+      "r": [
+        46,
+        1,
+        58,
+        8
+      ],
+      "c": {
+        "f": 0,
+        "x": 52.5,
+        "y": 5.5
+      },
+      "v": {
+        "x": 54.5,
+        "y": 6.5,
+        "score": 0.640312423743284
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 5,
+          "calls": 301,
+          "triangles": 37488,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 786,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "comedor",
+      "name": "Comedor",
+      "f": 0,
+      "i": 4,
+      "r": [
+        1,
+        10,
+        13,
+        19
+      ],
+      "c": {
+        "f": 0,
+        "x": 7.5,
+        "y": 13.5
+      },
+      "v": {
+        "x": 9.5,
+        "y": 17.5,
+        "score": 0.6403124237432851
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 6,
+          "calls": 145,
+          "triangles": 34042,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 786,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "cocina",
+      "name": "Cocina",
+      "f": 0,
+      "i": 5,
+      "r": [
+        1,
+        21,
+        13,
+        29
+      ],
+      "c": {
+        "f": 0,
+        "x": 7.5,
+        "y": 26.5
+      },
+      "v": {
+        "x": 9.5,
+        "y": 27.5,
+        "score": 0.6403124237432851
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 7,
+          "calls": 111,
+          "triangles": 38074,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 786,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "recn",
+      "name": "Recámara de niños",
+      "f": 0,
+      "i": 6,
+      "r": [
+        46,
+        10,
+        58,
+        19
+      ],
+      "c": {
+        "f": 0,
+        "x": 52.5,
+        "y": 14.5
+      },
+      "v": {
+        "x": 54.5,
+        "y": 17.5,
+        "score": 0.640312423743284
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 8,
+          "calls": 256,
+          "triangles": 35872,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 794,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "bano",
+      "name": "Baño",
+      "f": 0,
+      "i": 7,
+      "r": [
+        46,
+        21,
+        58,
+        29
+      ],
+      "c": {
+        "f": 0,
+        "x": 52.5,
+        "y": 25.5
+      },
+      "v": {
+        "x": 54.5,
+        "y": 27.5,
+        "score": 0.640312423743284
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 9,
+          "calls": 408,
+          "triangles": 45540,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 818,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "despensa",
+      "name": "Despensa",
+      "f": 0,
+      "i": 8,
+      "r": [
+        1,
+        31,
+        13,
+        38
+      ],
+      "c": {
+        "f": 0,
+        "x": 7.5,
+        "y": 34.5
+      },
+      "v": {
+        "x": 9.5,
+        "y": 36.5,
+        "score": 0.6403124237432851
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 10,
+          "calls": 201,
+          "triangles": 41468,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 818,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "zaguan",
+      "name": "Zaguán",
+      "f": 0,
+      "i": 9,
+      "r": [
+        15,
+        31,
+        29,
+        38
+      ],
+      "c": {
+        "f": 0,
+        "x": 22.5,
+        "y": 34.5
+      },
+      "v": {
+        "x": 25.5,
+        "y": 36.5,
+        "score": 0.5385164807134502
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 11,
+          "calls": 304,
+          "triangles": 44838,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 818,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "estudio",
+      "name": "Estudio",
+      "f": 0,
+      "i": 10,
+      "r": [
+        31,
+        31,
+        44,
+        38
+      ],
+      "c": {
+        "f": 0,
+        "x": 37.5,
+        "y": 33.5
+      },
+      "v": {
+        "x": 40.5,
+        "y": 36.5,
+        "score": 0.5099019513592787
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 12,
+          "calls": 411,
+          "triangles": 47504,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 826,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "servicio",
+      "name": "Cuarto de servicio",
+      "f": 0,
+      "i": 11,
+      "r": [
+        46,
+        31,
+        58,
+        38
+      ],
+      "c": {
+        "f": 0,
+        "x": 52.5,
+        "y": 34.5
+      },
+      "v": {
+        "x": 54.5,
+        "y": 36.5,
+        "score": 0.640312423743284
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 13,
+          "calls": 541,
+          "triangles": 50040,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 864,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "patio",
+      "name": "Patio",
+      "f": 0,
+      "i": 12,
+      "r": [
+        18,
+        13,
+        41,
+        26
+      ],
+      "c": {
+        "f": 0,
+        "x": 27.5,
+        "y": 17.5
+      },
+      "v": {
+        "x": 34.5,
+        "y": 24.5,
+        "score": 0.5099019513592787
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 14,
+          "calls": 392,
+          "triangles": 60314,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 865,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "corredor",
+      "name": "Corredor",
+      "f": 0,
+      "i": 13,
+      "r": [
+        15,
+        10,
+        44,
+        29
+      ],
+      "c": {
+        "f": 0,
+        "x": 22.5,
+        "y": 11.5
+      },
+      "v": {
+        "x": 35.5,
+        "y": 27.5,
+        "score": 0.5830951894845285
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 15,
+          "calls": 283,
+          "triangles": 43274,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 865,
+          "textures": 2
+        }
+      }
+    },
+    {
+      "id": "afuera",
+      "name": "Afuera (la base)",
+      "f": 0,
+      "i": 14,
+      "r": [
+        1,
+        40,
+        58,
+        58
+      ],
+      "c": {
+        "f": 0,
+        "x": 29.5,
+        "y": 50.5
+      },
+      "v": {
+        "x": 34.5,
+        "y": 56.5,
+        "score": 6.918092222571189
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 16,
+          "calls": 745,
+          "triangles": 70176,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 945,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "juegos",
+      "name": "Cuarto de juegos",
+      "f": 1,
+      "i": 0,
+      "r": [
+        1,
+        1,
+        13,
+        8
+      ],
+      "c": {
+        "f": 1,
+        "x": 7.5,
+        "y": 5.5
+      },
+      "v": {
+        "x": 9.5,
+        "y": 7.5,
+        "score": 0.6403124237432851
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1461,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 17,
+          "calls": 155,
+          "triangles": 48056,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 950,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "costura",
+      "name": "Cuarto de costura",
+      "f": 1,
+      "i": 1,
+      "r": [
+        15,
+        1,
+        29,
+        8
+      ],
+      "c": {
+        "f": 1,
+        "x": 22.5,
+        "y": 4.5
+      },
+      "v": {
+        "x": 25.5,
+        "y": 6.5,
+        "score": 0.5385164807134502
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 18,
+          "calls": 261,
+          "triangles": 50932,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 957,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "musica",
+      "name": "Sala de música",
+      "f": 1,
+      "i": 2,
+      "r": [
+        31,
+        1,
+        44,
+        8
+      ],
+      "c": {
+        "f": 1,
+        "x": 37.5,
+        "y": 4.5
+      },
+      "v": {
+        "x": 40.5,
+        "y": 7.5,
+        "score": 0.5099019513592787
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 19,
+          "calls": 331,
+          "triangles": 52582,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 967,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "huespedes",
+      "name": "Recámara de huéspedes",
+      "f": 1,
+      "i": 3,
+      "r": [
+        46,
+        1,
+        58,
+        8
+      ],
+      "c": {
+        "f": 1,
+        "x": 52.5,
+        "y": 5.5
+      },
+      "v": {
+        "x": 54.5,
+        "y": 6.5,
+        "score": 0.640312423743284
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 20,
+          "calls": 570,
+          "triangles": 57638,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 994,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "abuelo",
+      "name": "Recámara del abuelo",
+      "f": 1,
+      "i": 4,
+      "r": [
+        1,
+        10,
+        13,
+        19
+      ],
+      "c": {
+        "f": 1,
+        "x": 7.5,
+        "y": 14.5
+      },
+      "v": {
+        "x": 8.5,
+        "y": 17.5,
+        "score": 1.4866068747318508
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 21,
+          "calls": 264,
+          "triangles": 50608,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 994,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "banoalto",
+      "name": "Baño alto",
+      "f": 1,
+      "i": 5,
+      "r": [
+        1,
+        21,
+        13,
+        29
+      ],
+      "c": {
+        "f": 1,
+        "x": 7.5,
+        "y": 25.5
+      },
+      "v": {
+        "x": 9.5,
+        "y": 27.5,
+        "score": 0.6403124237432851
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 22,
+          "calls": 308,
+          "triangles": 58144,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 998,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "oratorio",
+      "name": "Oratorio",
+      "f": 1,
+      "i": 6,
+      "r": [
+        46,
+        10,
+        58,
+        19
+      ],
+      "c": {
+        "f": 1,
+        "x": 52.5,
+        "y": 14.5
+      },
+      "v": {
+        "x": 54.5,
+        "y": 17.5,
+        "score": 0.640312423743284
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 23,
+          "calls": 501,
+          "triangles": 55906,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1023,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "nana",
+      "name": "Cuarto de la nana",
+      "f": 1,
+      "i": 7,
+      "r": [
+        46,
+        21,
+        58,
+        29
+      ],
+      "c": {
+        "f": 1,
+        "x": 52.5,
+        "y": 23.5
+      },
+      "v": {
+        "x": 54.5,
+        "y": 27.5,
+        "score": 0.640312423743284
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 24,
+          "calls": 665,
+          "triangles": 65374,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1109,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "desvan",
+      "name": "Desván",
+      "f": 1,
+      "i": 8,
+      "r": [
+        1,
+        31,
+        13,
+        38
+      ],
+      "c": {
+        "f": 1,
+        "x": 7.5,
+        "y": 34.5
+      },
+      "v": {
+        "x": 9.5,
+        "y": 37.5,
+        "score": 0.6403124237432851
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 25,
+          "calls": 440,
+          "triangles": 60248,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1112,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "rellano",
+      "name": "Rellano",
+      "f": 1,
+      "i": 9,
+      "r": [
+        15,
+        31,
+        29,
+        38
+      ],
+      "c": {
+        "f": 1,
+        "x": 22.5,
+        "y": 34.5
+      },
+      "v": {
+        "x": 25.5,
+        "y": 36.5,
+        "score": 0.5385164807134502
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 26,
+          "calls": 535,
+          "triangles": 63954,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1118,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "archivo",
+      "name": "Archivo",
+      "f": 1,
+      "i": 10,
+      "r": [
+        31,
+        31,
+        44,
+        38
+      ],
+      "c": {
+        "f": 1,
+        "x": 37.5,
+        "y": 34.5
+      },
+      "v": {
+        "x": 40.5,
+        "y": 36.5,
+        "score": 0.5099019513592787
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 27,
+          "calls": 724,
+          "triangles": 70082,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1147,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "azotehuela",
+      "name": "Azotehuela",
+      "f": 1,
+      "i": 11,
+      "r": [
+        46,
+        31,
+        58,
+        38
+      ],
+      "c": {
+        "f": 1,
+        "x": 52.5,
+        "y": 34.5
+      },
+      "v": {
+        "x": 54.5,
+        "y": 36.5,
+        "score": 0.640312423743284
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 28,
+          "calls": 994,
+          "triangles": 75054,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1184,
+          "textures": 6
+        }
+      }
+    },
+    {
+      "id": "galeria",
+      "name": "Galería",
+      "f": 1,
+      "i": 13,
+      "r": [
+        15,
+        10,
+        44,
+        29
+      ],
+      "c": {
+        "f": 1,
+        "x": 22.5,
+        "y": 11.5
+      },
+      "v": {
+        "x": 35.5,
+        "y": 27.5,
+        "score": 0.5830951894845285
+      },
+      "metrics": {
+        "meshes": 1640,
+        "visibleMeshes": 1422,
+        "trianglesInScene": 99520,
+        "materials": 1110,
+        "lights": 16,
+        "fog": {
+          "near": 14,
+          "far": 34
+        },
+        "frame": {
+          "frame": 29,
+          "calls": 528,
+          "triangles": 63136,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1200,
+          "textures": 6
+        }
+      }
+    }
+  ],
+  "browserErrors": [],
+  "note": "Capturas con iluminación de la habitación encendida, una partida local y cámara en primera persona. Renderizado por software; sin benchmark de FPS de equipo real."
+}
