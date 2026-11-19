@@ -102,87 +102,21 @@ function buildHouse() {
   const lam = (c, extra) => LambertFlat(Object.assign({ color: c, map: paper }, extra || {}));
   floorGroups = [new THREE.Group(), new THREE.Group()]; floorGroups[1].position.y = FH; floorGroups.forEach(g => scene.add(g));
   wallRuns = []; ceilMeshes = []; doorMeshes = []; candleMeshes = []; lampMeshes = []; spotMeshes = [];
-  const wallMat = lam(COL.wine), capMat = lam(COL.wine2);
-  for (let f = 0; f < 2; f++) {
-    const G = floorGroups[f], grid = grids[f];
-    // pisos por cuarto
-    ROOMS[f].forEach((r, i) => {
-      if (r.id === 'vacio' || r.id === 'afuera1') return; const parts = r.id === 'galeria' ? [[15, 10, 44, 12], [15, 27, 44, 29], [15, 13, 17, 26], [42, 13, 44, 26]] : [r.r];
-      (f === 1 ? holeRects(parts) : parts).forEach(([x0, y0, x1, y1]) => { const w_ = x1 - x0 + 1, h_ = y1 - y0 + 1;
-      const m = new THREE.Mesh(new THREE.PlaneGeometry(w_, h_), LambertFlat({ color: FLOOR_COL[r.id] || 0x504040 }));
-      m.rotation.x = -Math.PI / 2; m.position.set(x0 + w_ / 2, 0.001 * (i + 1), y0 + h_ / 2); m.receiveShadow = true; G.add(m); });
-    });
-    // puertas (umbral)
-    DOOR_DEFS.forEach(([o, x, y]) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(o === 'V' ? 1 : 2, o === 'V' ? 2 : 1), lam(0x82503a)); m.rotation.x = -Math.PI / 2; m.position.set(o === 'V' ? x + 0.5 : x + 1, 0.02, o === 'V' ? y + 1 : y + 0.5); m.receiveShadow = true; G.add(m); });
-    // muros: tramos horizontales de casillas de muro que tocan algo caminable
-    const touches = (x, y) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]].some(([dx, dy]) => { const t = tileAt(f, x + dx, y + dy); return t !== T.WALL; });
-    for (let y = 0; y < H; y++) { let x = 0; while (x < W) {
-      const gap = (xx) => f === 0 && y === 39 && xx >= 22 && xx <= 23;
-      if (grid[y * W + x] === T.WALL && touches(x, y) && !gap(x)) { let x2 = x; while (x2 + 1 < W && grid[y * W + x2 + 1] === T.WALL && touches(x2 + 1, y) && !gap(x2 + 1)) x2++;
-        const len = x2 - x + 1; const g = new THREE.Group(); g.position.set(x + len / 2, 0, y + 0.5);
-        const b1 = new BoxBatch(); b1.add(0, WALL_H / 2, 0, len, WALL_H, 1); const m = b1.mesh(wallMat);
-        g.add(m); G.add(g); wallRuns.push({ f, y, x0: x, x1: x2, g }); x = x2 + 1; }
-      else x++; } }
-    { const lt = new BoxBatch(); DOOR_DEFS.forEach(([o, x, y]) => { const hh = WALL_H - 2.3; if (o === 'V') lt.add(x + 0.5, 2.3 + hh / 2, y + 1, 1, hh, 2); else lt.add(x + 1, 2.3 + hh / 2, y + 0.5, 2, hh, 1); }); const lm = lt.mesh(wallMat); G.add(lm);
-      const fr = new BoxBatch(); DOOR_DEFS.forEach(([o, x, y]) => { if (o === 'V') { fr.add(x + 0.5, 1.15, y + 0.04, 1.04, 2.3, 0.08); fr.add(x + 0.5, 1.15, y + 1.96, 1.04, 2.3, 0.08); fr.add(x + 0.5, 2.32, y + 1, 1.04, 0.1, 2); } else { fr.add(x + 0.04, 1.15, y + 0.5, 0.08, 2.3, 1.04); fr.add(x + 1.96, 1.15, y + 0.5, 0.08, 2.3, 1.04); fr.add(x + 1, 2.32, y + 0.5, 2, 0.1, 1.04); } }); G.add(fr.mesh(lam(0x3a2414))); }
-    // muebles combinados por material
-    const batches = {}; const B = k => (batches[k] = batches[k] || new BoxBatch());
-    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-      const t = grid[y * W + x], cx = x + 0.5, cz = y + 0.5;
-      if (t === T.TABLE && !NDAHouseArt.replacesTile(f,t,x,y)) { B('wood').add(cx, 0.78, cz, 1, 0.08, 1); B('wood2').add(cx, 0.37, cz, 0.12, 0.74, 0.12); }
-      if (t === T.SHELF) { B('wood2').add(cx, 0.95, cz, 1, 1.9, 0.8); const cs = ['bookR', 'bookB', 'bookG', 'bookY']; for (let k = 0; k < 3; k++) B(cs[(x + k + y) % 4]).add(cx, 0.45 + k * 0.6, cz, 0.85, 0.32, 0.84); }
-      if (t === T.BED) { B('wood2').add(cx, 0.25, cz, 1, 0.5, 1); B('sheet').add(cx, 0.55, cz, 0.98, 0.12, 0.98); }
-      if (t === T.WATER && !NDAHouseArt.replacesTile(f,t,x,y)) B('water').add(cx, 0.35, cz, 1, 0.7, 1);
-      if (t === T.ALTAR && !NDAHouseArt.replacesTile(f,t,x,y)) { B('altar').add(cx, 0.55, cz, 1, 1.1, 1); B('flower').add(cx, 1.18, cz, 0.6, 0.18, 0.4); }
-      if (t === T.PILLAR) B('bone').add(cx, WALL_H / 2, cz, 0.6, WALL_H, 0.6);
-      if (t === T.VOID) { for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (walkableT(tileAt(f, x + dx, y + dy))) B('rail').add(cx + dx * 0.46, 0.5, cz + dy * 0.46, dx ? 0.08 : 1, 1, dy ? 0.08 : 1); }
-    }
-    const mats = { stepE: lam(0xb8902a), wood: lam(0x7a4a28), wood2: lam(0x4a2c18), bookR: lam(0xa23b3b), bookB: lam(0x3b6aa2), bookG: lam(0x5f8a4a), bookY: lam(0xc9a24a), sheet: lam(0xe8d7b8),
-      water: LambertFlat({ color: 0x1f3a6c, emissive: 0x0a1a3a }), altar: lam(COL.wine2), flower: lam(COL.gold, { emissive: 0x3a2000 }), bone: lam(COL.bone), rail: lam(0x3a2414) };
-    Object.entries(batches).forEach(([k, b]) => G.add(b.mesh(mats[k])));
-    // escaleras: 16 escalones de verdad y barandal inclinado; arriba, barandal alrededor del hueco
-    STAIRS.forEach(([x0, y0, x1, y1], k) => { const dir = STAIR_DIR[k], L = x1 + 1 - x0, N = 16, run = L / N, rise = FH / N, zc = (y0 + y1 + 1) / 2, wd = y1 + 1 - y0;
-      if (f === 0) { const sb = new BoxBatch(), nb = new BoxBatch();
-        for (let s2 = 0; s2 < N; s2++) { const d = (s2 + 0.5) * run, x = dir > 0 ? x0 + d : x1 + 1 - d, hh = (s2 + 1) * rise; sb.add(x, hh - 0.06, zc, run, 0.12, wd); nb.add(x, hh / 2 - 0.06, zc, run, hh - 0.12, wd - 0.2); }
-        G.add(sb.mesh(mats.stepE)); G.add(nb.mesh(mats.wood2));
-        const len = Math.hypot(L, FH), ang = Math.atan2(FH, L) * dir; const rail = new THREE.Mesh(new THREE.BoxGeometry(len, 0.07, 0.07), mats.rail); rail.position.set((x0 + x1 + 1) / 2, FH / 2 + 0.95, y0 + 0.08); rail.rotation.z = ang; G.add(rail);
-        const pb = new BoxBatch(); for (let s2 = 0; s2 <= N; s2 += 2) { const d = s2 * run, x = dir > 0 ? x0 + d : x1 + 1 - d; pb.add(x, s2 * rise + 0.48, y0 + 0.08, 0.05, 0.95, 0.05); } G.add(pb.mesh(mats.rail)); }
-      else { const rb = new BoxBatch(); const lowEnd = dir > 0 ? x0 : x1 + 1; rb.add(lowEnd, 0.5, zc, 0.08, 1, wd); for (let s2 = 0; s2 < 2; s2++) { const xx = dir > 0 ? x0 + s2 + 0.5 : x1 - s2 + 0.5; rb.add(xx, 0.5, y0 + 0.04, 1, 1, 0.08); rb.add(xx, 0.98, y0 + 0.04, 1, 0.06, 0.12); } G.add(rb.mesh(mats.rail)); } });
-    // techos y vigas (el patio y el vacío quedan abiertos al cielo)
-    const ceilMat = LambertFlat({ color: f ? 0x2e2238 : 0x3a2a2a, map: paper, side: THREE.DoubleSide });
-    const ceil = (...rr) => (f === 0 ? holeRects([rr]) : [rr]).forEach(([x0, y0, x1, y1]) => { const cw = x1 - x0 + 1, ch = y1 - y0 + 1; const m = new THREE.Mesh(new THREE.PlaneGeometry(cw, ch), ceilMat); m.rotation.x = Math.PI / 2; m.position.set(x0 + cw / 2, FH - 0.01, y0 + ch / 2); m.userData.f = f; ceilMeshes.push(m); G.add(m); });
-    ROOMS[f].forEach(r => { if (['patio', 'vacio', 'corredor', 'galeria', 'afuera', 'afuera1'].includes(r.id)) return; ceil(...r.r); });
-    ceil(15, 10, 44, 12); ceil(15, 27, 44, 29); ceil(15, 13, 17, 26); ceil(42, 13, 44, 26);
-    DOOR_DEFS.forEach(([o, x, y]) => o === 'V' ? ceil(x, y, x, y + 1) : ceil(x, y, x + 1, y));
-    const beams = new BoxBatch();
-    ROOMS[f].forEach(r => { if (['patio', 'vacio', 'afuera', 'afuera1'].includes(r.id)) return; const [x0, y0, x1, y1] = r.r;
-      if (r.id === 'corredor' || r.id === 'galeria') { for (let x = 15; x <= 44; x += 3) { beams.add(x + 0.5, FH - 0.15, 11.5, 0.22, 0.22, 3); beams.add(x + 0.5, FH - 0.15, 28, 0.22, 0.22, 3); } return; }
-      if (STAIRS.some(([a, b, c, d]) => a >= x0 && c <= x1 && b >= y0 && d <= y1)) return;
-      for (let x = x0 + 1; x < x1; x += 2) beams.add(x + 0.5, FH - 0.15, (y0 + y1 + 1) / 2, 0.22, 0.22, y1 - y0 + 1); });
-    const bm = beams.mesh(lam(0x2a160c)); bm.castShadow = false; G.add(bm);
+  houseArtState=NDAHouseArt.build({floors:floorGroups,world:w});
+  for(let f=0;f<2;f++){const G=floorGroups[f];
     // velas de cada cuarto y focos
-    ROOMS[f].forEach((r, i) => { const c = ROOM_CENTER[f][i]; if (!c || r.id === 'afuera' || r.id === 'afuera1') return;
-      const cg = new THREE.Group(); cg.position.set(c.x, 0, c.y);
+    ROOMS[f].forEach((r, i) => { const c = ROOM_CENTER[f][i]; if(!c||['afuera','afuera1','patio','traspatio'].includes(r.id))return;
+      const cg=new THREE.Group(),surface=SURFACES[f][i][0];cg.position.set(surface?surface[0]+.25:c.x,surface?surface[2]:0,surface?surface[1]+.25:c.y);cg.visible=!!surface&&r.home&&!((w.devices||[]).some(d=>d.f===f&&d.r===i)&&SURFACES[f][i].length<2)&&!(w.altarRoom.f===f&&w.altarRoom.r===i);
       const base = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.3, 8), lam(COL.bone)); base.position.y = 0.15; cg.add(base);
       const fl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.06, 1), new THREE.MeshBasicMaterial({ color: COL.gold })); fl.position.y = 0.36; fl.scale.y = 1.8; cg.add(fl);
       G.add(cg); candleMeshes.push({ f, r: i, flame: fl });
-      const lamp = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 1), new THREE.MeshBasicMaterial({ color: 0x3a3020 })); lamp.position.set(c.x, FH - 0.35, c.y); G.add(lamp); { const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.3, 4), lam(0x161414)); cord.position.set(c.x, FH - 0.12, c.y); G.add(cord); const shade = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.18, 8, 1, true), lam(0x7a4a28, { side: THREE.DoubleSide })); shade.position.set(c.x, FH - 0.24, c.y); G.add(shade); } lampMeshes.push({ f, r: i, m: lamp });
+      const lampY=r.id==='capilla'?5.65:FH-.35;const lamp = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 1), new THREE.MeshBasicMaterial({ color: 0x3a3020 })); lamp.position.set(c.x,lampY,c.y); G.add(lamp); { const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.012,r.id==='capilla'?1.6:.3,4), lam(0x161414)); cord.position.set(c.x,r.id==='capilla'?6.67:FH-.12,c.y); G.add(cord); const shade = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.18, 8, 1, true), lam(0x7a4a28, { side: THREE.DoubleSide })); shade.position.set(c.x,lampY+.11,c.y); G.add(shade); } lampMeshes.push({ f, r: i, m: lamp });
     });
   }
   // escondites (posibles): activos con puerta entreabierta, inactivos con candado
-  SPOTS.forEach((s, k) => {
-    const g = new THREE.Group(); g.position.set(s.x + 0.5, 0, s.y + 0.5); floorGroups[s.f].add(g);
-    const body = new THREE.Mesh(new THREE.BoxGeometry(0.95, 2.0, 0.95), lam(0x3a2010)); body.position.y = 1.0; body.castShadow = true; body.receiveShadow = true; g.add(body);
-    const ang = Math.atan2(s.hy - (s.y + 0.5), s.hx - (s.x + 0.5));
-    const front = new THREE.Group(); front.rotation.y = -ang + Math.PI / 2; g.add(front);
-    const door = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.85, 0.05), lam(0x5b3a20)); door.position.set(0, 0.98, 0.5); front.add(door);
-    const lock = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.14, 0.06), lam(COL.gold, { emissive: 0x201000 })); lock.position.set(0, 1.0, 0.54); front.add(lock);
-    const slit = new THREE.Mesh(new THREE.BoxGeometry(0.04, 1.6, 0.02), new THREE.MeshBasicMaterial({ color: 0xffd48a })); slit.position.set(0.42, 0.98, 0.53); front.add(slit);
-    const eyes = new THREE.Group(); [-0.08, 0.08].forEach(dx => { const e = new THREE.Mesh(new THREE.IcosahedronGeometry(0.035, 1), new THREE.MeshBasicMaterial({ color: 0xffe066 })); e.position.set(dx + 0.38, 1.5, 0.56); eyes.add(e); }); eyes.visible = false; front.add(eyes);
-    spotMeshes.push({ k, g, door, lock, slit, eyes });
-  });
+  NDAHouseArt.buildHides(lam);
   // puertas con bisagra
-  doorMeshesBuild();
+  doorMeshesBuild();NDAHouseArt.buildDrawers(w);
   // apagadores junto a las puertas y caja de fusibles del Zaguán
   switchMeshes = [];
   SWITCHES.forEach(list => list.forEach(sw => { if (!sw) return; const g = new THREE.Group(); g.position.set(sw.x, 1.25, sw.y); if (sw.o === 'V') g.rotation.y = sw.side < 0 ? -Math.PI / 2 : Math.PI / 2; else g.rotation.y = sw.side < 0 ? Math.PI : 0;
@@ -194,33 +128,26 @@ function buildHouse() {
   looseMeshes = w.loose.map(o => { const m = makeLooseMesh(o.kind, lam); floorGroups[o.f].add(m); return m; });
   // maletín, altar, salida
   
-  { const pg = new THREE.Group(); pg.position.set(23, 0, 39.5); floorGroups[0].add(pg);
-    const wood = LambertFlat({ color: 0x4a2c18, map: paper, emissive: 0x000000 }), stone = lam(COL.bone);
-    [-1.15, 1.15].forEach(x => { const post = new THREE.Mesh(new THREE.BoxGeometry(0.3, FH, 1), stone); post.position.set(x, FH / 2, 0); post.castShadow = true; pg.add(post); });
-    const lintel = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.5, 1), stone); lintel.position.set(0, FH - 0.25, 0); pg.add(lintel);
-    const leaves = [-1, 1].map(sd => { const piv = new THREE.Group(); piv.position.set(sd * 1.0, 0, -0.1); const leaf = new THREE.Mesh(new THREE.BoxGeometry(0.98, 2.65, 0.12), wood); leaf.position.set(-sd * 0.49, 1.33, 0); leaf.castShadow = true; piv.add(leaf);
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.02, 6, 12), lam(COL.gold)); ring.position.set(-sd * 0.8, 1.3, -0.08); piv.add(ring); pg.add(piv); return piv; });
-    exitMesh = { material: wood, leaves }; }
   altarGlow = new THREE.Mesh(new THREE.IcosahedronGeometry(0.4, 1), new THREE.MeshBasicMaterial({ color: COL.gold, transparent: true, opacity: 0.35 })); altarGlow.position.set(ALTAR_POS.x, 1.5, ALTAR_POS.y); floorGroups[ALTAR_POS.f].add(altarGlow);
   { // altar de muertos (cuarto al azar)
-    const g = new THREE.Group(); g.position.set(ALTAR_POS.x, 0, ALTAR_POS.y); floorGroups[ALTAR_POS.f].add(g); const add = (geo, c, x, y, z, e) => { const m = new THREE.Mesh(geo, lam(c, e ? { emissive: e } : undefined)); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m; };
-    add(new THREE.BoxGeometry(1.5, 0.7, 0.8), 0x5a0f1e, 0, 0.35, 0); add(new THREE.BoxGeometry(1.1, 0.35, 0.55), 0x7a1f2e, 0, 0.87, -0.08); add(new THREE.BoxGeometry(0.7, 0.3, 0.35), 0x8c1e3c, 0, 1.2, -0.15);
-    add(new THREE.BoxGeometry(1.55, 0.02, 0.85), 0xf3e6cf, 0, 0.71, 0); for (let k = 0; k < 7; k++) add(new THREE.OctahedronGeometry(0.07), 0xf08a1a, -0.6 + k * 0.2, 0.78, 0.3, 0x3a1800);
-    for (let k = 0; k < 4; k++) { add(new THREE.CylinderGeometry(0.035, 0.035, 0.22, 6), 0xf3e6cf, -0.45 + k * 0.3, 1.16, 0.12); add(new THREE.OctahedronGeometry(0.03), 0xffc860, -0.45 + k * 0.3, 1.31, 0.12, 0xffa020); }
-    add(new THREE.BoxGeometry(0.06, 0.5, 0.04), 0x3a2414, 0, 1.6, -0.2); add(new THREE.BoxGeometry(0.3, 0.06, 0.04), 0x3a2414, 0, 1.7, -0.2); }
+    const g = new THREE.Group(); const surface=w.altarSurface;g.position.set(surface.x,surface.h,surface.y);floorGroups[surface.f].add(g); const add = (geo, c, x, y, z, e) => { const m = new THREE.Mesh(geo, lam(c, e ? { emissive: e } : undefined)); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m; };
+    add(new THREE.BoxGeometry(.75,.10,.65),0x5a0f1e,0,.05,0);
+    add(new THREE.BoxGeometry(0.78, 0.02, 0.68), 0xf3e6cf, 0, 0.11, 0); for (let k = 0; k < 7; k++) add(new THREE.OctahedronGeometry(0.07), 0xf08a1a, -0.30 + k * 0.10, 0.18, 0.3, 0x3a1800);
+    for (let k = 0; k < 4; k++) { add(new THREE.CylinderGeometry(0.035, 0.035, 0.22, 6), 0xf3e6cf, -0.27 + k * 0.18, 0.24, 0.12); add(new THREE.OctahedronGeometry(0.03), 0xffc860, -0.27 + k * 0.18, 0.39, 0.12, 0xffa020); }
+ }
   // luces
   ambient = new THREE.AmbientLight(0x3a3060, 0.9); scene.add(ambient);
   hemi = new THREE.HemisphereLight(0x6070a0, 0x100810, 0.45); scene.add(hemi);
-  flash = new THREE.SpotLight(0xffe6b8, 18, 18, 0.5, 0.45, 1); flash.castShadow = true; flash.shadow.mapSize.set(1024, 1024); flash.shadow.bias = -0.002; scene.add(flash); scene.add(flash.target);
-  botFlashes = [0, 1].map(() => { const s = new THREE.SpotLight(0xffe6b8, 10, 12, 0.5, 0.5, 1); scene.add(s); scene.add(s.target); return s; });
-  roomLights = [0, 1, 2, 3].map(() => { const p = new THREE.PointLight(0xffd59a, 10, 13, 1); scene.add(p); return p; });
-  velaLights = [0, 1].map(() => { const p = new THREE.PointLight(0xffa850, 5, 5, 1); scene.add(p); return p; });
-  blueLight = new THREE.PointLight(0x7ec8ff, 4, 5, 1); scene.add(blueLight);
-  buildProps(lam); buildDecor(lam);
+  flash = new THREE.SpotLight(0xffe6b8, 18, 18, 0.5, 0.45, 1); flash.castShadow = true; flash.shadow.mapSize.set(1024, 1024); flash.shadow.bias = -0.002;flash.shadow.normalBias=.03; scene.add(flash); scene.add(flash.target);
+  botFlashes = (NDAVisualQuality.current().detail?[0,1]:[]).map(() => { const s = new THREE.SpotLight(0xffe6b8, 10, 12, 0.5, 0.5, 1); scene.add(s); scene.add(s.target); return s; });
+  roomLights = (NDAVisualQuality.current().detail?[0,1,2,3]:[0,1]).map(() => { const p = new THREE.PointLight(0xffd59a, 10, 13, 1); scene.add(p); return p; });
+  velaLights = (NDAVisualQuality.current().detail?[0,1]:[0]).map(() => { const p = new THREE.PointLight(0xffa850, 5, 5, 1); scene.add(p); return p; });
+  blueLight = new THREE.PointLight(0x7ec8ff, 4, 5, 1);
+  if(w.propPositions)w.propPositions.forEach(p=>Object.assign(PROPS[p.id],p));buildProps(lam);
   // personajes
   halluMesh = null; invMeshes = []; itemMeshes = new Map(); fxMeshes = new Map(); heardMarks = [];
   ghostMesh = makeGhostRig(w.g.look, w.g.def.n); scene.add(ghostMesh.g);
-  houseArtState=NDAHouseArt.build({floors:floorGroups,world:w,candles:candleMeshes});NDAVisualQuality.apply(renderer,flash);
+  NDAVisualQuality.apply(renderer,flash);
 }
 let halluMesh = null, ceilMeshes = [], propMeshes = [], switchMeshes = [], fuseMesh = null, looseMeshes = [];
 const LOOSE_COL = { jarron: 0xe0782a, plato: 0xf3e6cf, vela: 0xf3e6cf, libro: 0x5a0f1e, taza: 0x23565c, figura: 0xb85a2a, cuadro: 0xb8902a };
@@ -251,22 +178,24 @@ function updateLoose(t) {
 function buildProps(lam) {
   propMeshes = [];
   for (const p of PROPS) {
-    const g = new THREE.Group(); g.position.set(p.x, 0, p.y); floorGroups[p.f].add(g); const part = new THREE.Group(); g.add(part);
+    const g = new THREE.Group(); g.position.set(p.x,p.h||0,p.y); floorGroups[p.f].add(g); const part = new THREE.Group(); g.add(part);
     const box = (sx, sy, sz, x, y, z, c) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), lam(c)); m.position.set(x, y, z); m.castShadow = true; part.add(m); return m; };
     const cyl = (r, h, x, y, z, c) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 8), lam(c)); m.position.set(x, y, z); m.castShadow = true; part.add(m); return m; };
+    if(p.kind==='fuente'){propMeshes.push({p,g,part});continue;}
     switch (p.kind) {
-      case 'mecedora': case 'caballito': case 'cuna': box(0.6, 0.06, 0.6, 0, 0.45, 0, 0x6a3a20); box(0.6, 0.6, 0.06, 0, 0.8, -0.28, 0x6a3a20); box(0.8, 0.05, 0.08, 0, 0.05, 0.25, 0x4a2a14); box(0.8, 0.05, 0.08, 0, 0.05, -0.25, 0x4a2a14); if (p.kind === 'caballito') { box(0.2, 0.3, 0.5, 0, 0.75, 0, 0xc95f3a); } break;
-      case 'grifo': cyl(0.05, 0.3, 0, 1.0, 0, 0xb0b0b0); box(0.5, 0.25, 0.4, 0, 0.75, 0, 0xe8e8e0); break;
+      case 'mecedora': case 'caballito': box(0.6, 0.06, 0.6, 0, 0.45, 0, 0x6a3a20); box(0.6, 0.6, 0.06, 0, 0.8, -0.28, 0x6a3a20); box(0.8, 0.05, 0.08, 0, 0.05, 0.25, 0x4a2a14); box(0.8, 0.05, 0.08, 0, 0.05, -0.25, 0x4a2a14); if (p.kind === 'caballito') { box(0.2, 0.3, 0.5, 0, 0.75, 0, 0xc95f3a); } break;
+      case 'cuna':{box(1.65,.08,.75,0,.48,0,0x66412b);box(1.5,.07,.65,0,.56,0,0xe4d4b7);for(const z of[-.36,.36]){box(1.7,.06,.06,0,1.0,z,0x66412b);for(let x=-.78;x<.8;x+=.22)box(.035,.52,.035,x,.74,z,0x66412b);}break;}
+      case 'grifo':cyl(.085,.65,0,.325,0,0xe8e8e0);cyl(0.05, 0.3, 0, 1.0, 0, 0xb0b0b0); box(0.5, 0.25, 0.4, 0, 0.75, 0, 0xe8e8e0); break;
       case 'fuente': cyl(0.08, 0.6, 0, 1.0, 0, COL.bone); break;
       case 'cuadro': box(0.7, 0.55, 0.05, 0, 1.6, -0.45, 0xb8902a); box(0.6, 0.45, 0.06, 0, 1.6, -0.43, 0x4a5a6a); break;
-      case 'campanita': cyl(0.06, 0.12, 0, 1.2, 0, COL.gold); break;
+      case 'campanita': cyl(0.06,0.12,0,.06,0, COL.gold); break;
       case 'libros': for (let k = 0; k < 3; k++) box(0.25, 0.08, 0.18, 0, 0.04 + k * 0.08, 0, [0xa23b3b, 0x3b6aa2, 0x5f8a4a][k]); break;
       case 'reloj': box(0.4, 1.9, 0.3, 0, 0.95, 0, 0x4a2a14); cyl(0.14, 0.04, 0, 1.6, 0.16, COL.bone).rotation.x = Math.PI / 2; break;
       case 'muneca': box(0.14, 0.25, 0.1, 0, 0.62, 0, 0xe8d0c0); cyl(0.07, 0.12, 0, 0.82, 0, 0xf0dccc); box(0.4, 0.5, 0.4, 0, 0.25, 0, 0x6a3a20); break;
       case 'ventana': box(1.2, 1.1, 0.05, 0, 1.5, -0.45, 0x1a2a50); box(1.3, 0.06, 0.08, 0, 1.5, -0.42, 0x6a3a20); break;
-      case 'radio': box(0.5, 0.35, 0.25, 0, 0.92, 0, 0x6a3a20); box(0.6, 0.75, 0.4, 0, 0.37, 0, 0x4a2a14); break;
-      case 'piano': box(1.4, 0.9, 0.5, 0, 0.45, -0.2, 0x1a1012); box(1.3, 0.04, 0.2, 0, 0.92, 0.1, 0xf0f0f0); break;
-      case 'maquina': box(0.5, 0.25, 0.25, 0, 1.0, 0, 0x202020); box(0.7, 0.85, 0.45, 0, 0.42, 0, 0x6a3a20); break;
+      case 'radio':box(.5,.30,.25,0,.15,0,0x6a3a20); break;
+      case 'piano':box(2.6,1.05,1.5,0,.525,-.05,0x1a1012);box(2.4,.05,.25,0,.85,.77,0xf0f0f0);for(let k=0;k<15;k++)box(.035,.04,.14,-1.05+k*.15,.89,.74,0x202020); break;
+      case 'maquina':box(.5,.25,.25,0,.17,0,0x202020);box(.6,.045,.35,0,.025,0,0x6a3a20); break;
       case 'cajita': box(0.2, 0.12, 0.15, 0, 0.06, 0, 0xb83a5a); break;
       case 'baul': box(0.9, 0.5, 0.5, 0, 0.25, 0, 0x5b3a20); break;
       case 'papeles': for (let k = 0; k < 5; k++) box(0.2, 0.005, 0.28, Math.sin(k) * 0.3, 0.01 + k * 0.004, Math.cos(k) * 0.3, 0xf0e6cf); break;
@@ -277,93 +206,14 @@ function buildProps(lam) {
 function updateProps(t, vf) {
   const pa = w.propAnim || {};
   for (const pm of propMeshes) { pm.g.visible = pm.p.f === vf || vf === 1 || (vf === 0 && pm.p.f === 0); const a = pa[pm.p.id] !== undefined ? w.t - pa[pm.p.id] : 99; const k = Math.max(0, 1 - a / 6);
-    switch (pm.p.kind) { case 'mecedora': case 'caballito': case 'cuna': case 'muneca': pm.part.rotation.x = Math.sin(t * 4) * 0.18 * k; pm.part.rotation.y = pm.p.kind === 'muneca' ? k * 2.5 : 0; break;
+    switch (pm.p.kind) { case 'mecedora': case 'caballito': case 'muneca': pm.part.rotation.x = Math.sin(t * 4) * 0.18 * k; pm.part.rotation.y = pm.p.kind === 'muneca' ? k * 2.5 : 0; break;
       case 'cuadro': pm.part.position.y = a < 99 ? -1.4 * Math.min(1, a * 2) : 0; pm.part.rotation.z = a < 99 ? 0.6 : 0; break;
       case 'baul': case 'piano': case 'maquina': case 'radio': case 'ventana': case 'reloj': pm.part.position.x = Math.sin(t * 40) * 0.02 * k; break;
       default: pm.part.position.y = Math.abs(Math.sin(t * 6)) * 0.15 * k; } }
 }
 
 // ---------- Decoración de la casona (sin colisión) ----------
-function buildDecor(lam) {
-  const lists = [[], []], glow = [[], []]; const _gp = glow.map(a => a.push.bind(a)); glow.forEach((a, f) => { a.push = (...it) => { for (const g0 of it) if (!(g0[0] === 'win' && w.doors.some(d => d.f === f && Math.hypot(d.x - g0[1], d.y - g0[2]) < 1.9))) _gp[f](g0); return a.length; }; });
-  const put = (f, geo, color, x, y, z, rx, ry, rz, sx, sy, sz) => lists[f].push({ geo, color, x, y, z, rx: rx || 0, ry: ry || 0, rz: rz || 0, sx: sx || 1, sy: sy || 1, sz: sz || 1 });
-  const B = (w, h, d) => new THREE.BoxGeometry(w, h, d), C = (rt, rb, h, n) => new THREE.CylinderGeometry(rt, rb, h, n || 10), S = (r, a, b) => new THREE.SphereGeometry(r, a || 8, b || 6);
-  const PAL = { capilla: 0x7a1f2e, biblioteca: 0x3a4a6a, sala: 0x8a3a20, recp: 0x5a2a4a, comedor: 0x6a3a1a, cocina: 0x8a6a3a, recn: 0x3a6a5a, bano: 0x4a6a7a, despensa: 0x5a4a2a, estudio: 0x2a4a3a, servicio: 0x5a3a3a, juegos: 0x8a4a2a, costura: 0x7a2a5a, musica: 0x2a3a5a, huespedes: 0x4a3a6a, abuelo: 0x5a4a3a, banoalto: 0x3a5a6a, oratorio: 0x6a1a2a, nana: 0x6a4a5a, desvan: 0x4a3a2a, archivo: 0x3a3a2a, zaguan: 0x6a4a2a };
-  const nearDoorXY = (f, x, z) => w.doors.some(d => d.f === f && Math.hypot(d.x - x, d.y - z) < 1.9);
-  const frame = (f, x, z, ry, w_, h, art) => { if (nearDoorXY(f, x, z)) return; put(f, B(w_ + 0.1, h + 0.1, 0.04), 0x8a6a2a, x, 1.75, z, 0, ry); put(f, B(w_, h, 0.05), art, x, 1.75, z, 0, ry); };
-  const candles = (f, x, z, n, y0) => { for (let k = 0; k < n; k++) { const a = k / n * 6.28, r = 0.08 + (k % 3) * 0.05; put(f, C(0.025, 0.025, 0.12 + (k % 3) * 0.06, 6), 0xf0e6cf, x + Math.cos(a) * r, (y0 || 0) + 0.08, z + Math.sin(a) * r); glow[f].push([x + Math.cos(a) * r, (y0 || 0) + 0.2 + (k % 3) * 0.03, z + Math.sin(a) * r]); } };
-  const plant = (f, x, z) => { if(NDAHouseArt.ownsPoint(f,x,z))return;put(f, C(0.16, 0.12, 0.3, 10), 0xa0522d, x, 0.15, z); for (let k = 0; k < 5; k++) { const a = k * 1.3; put(f, S(0.14, 8, 6), 0x2a5a2a + (k % 2) * 0x061006, x + Math.cos(a) * 0.1, 0.42 + (k % 3) * 0.1, z + Math.sin(a) * 0.1); } };
-  const papel = (f, x0, z0, x1, z1, y) => { const n = Math.max(4, Math.round(Math.hypot(x1 - x0, z1 - z0) / 0.45)); const cols = [0xe0405a, 0xf2b04e, 0x4ab0a0, 0xc95fb5, 0x7ac04a, 0xe0782a]; const ry = -Math.atan2(z1 - z0, x1 - x0);
-    put(f, B(Math.hypot(x1 - x0, z1 - z0), 0.01, 0.01), 0xd8d0c0, (x0 + x1) / 2, y + 0.02, (z0 + z1) / 2, 0, ry); for (let k = 0; k < n; k++) { const t = (k + 0.5) / n; put(f, B(0.3, 0.26, 0.004), cols[k % cols.length], x0 + (x1 - x0) * t, y - 0.12 - Math.sin(t * Math.PI) * 0.15, z0 + (z1 - z0) * t, 0, ry); } };
-  const wallScan = (f, cx, cy, dx, dy) => { let x = cx | 0, y = cy | 0; for (let k = 0; k < 20; k++) { const t = tileAt(f, x + dx, y + dy); if (t === T.WALL || t === undefined) return { x: x + 0.5 + dx * 0.5, y: y + 0.5 + dy * 0.5 }; x += dx; y += dy; } return null; };
-  ROOMS.forEach((rs, f) => rs.forEach((room, ri) => {
-    const id = room.id, [x0, y0, x1, y1] = room.r, c = ROOM_CENTER[f][ri]; if (!c || ['vacio', 'corredor', 'galeria'].includes(id)) return;
-    const cx = (x0 + x1 + 1) / 2, cy = (y0 + y1 + 1) / 2;
-    if (id === 'patio') { if(!NDAHouseArt.ownsPoint(f,29.8,19.8)){put(f, C(1.4, 1.5, 0.5, 18), 0xb0a090, 29.8, 0.25, 19.8); put(f, C(0.2, 0.25, 1.2, 10), 0xb0a090, 29.8, 0.8, 19.8); put(f, C(0.6, 0.5, 0.14, 14), 0xb0a090, 29.8, 1.4, 19.8);}
-      papel(f, x0 + 0.5, y0 + 0.5, x1 + 0.5, y1 + 0.5, 3.3); papel(f, x0 + 0.5, y1 + 0.5, x1 + 0.5, y0 + 0.5, 3.2); papel(f, x0 + 0.5, cy, x1 + 0.5, cy, 3.4);
-      [[x0 + 1, y0 + 1], [x1, y0 + 1], [x0 + 1, y1], [x1, y1], [cx - 5, y0 + 1], [cx + 5, y1]].forEach(([x, y]) => plant(f, x, y)); return; }
-    // alfombra
-    const rw = Math.min(x1 - x0 - 3, 6), rh = Math.min(y1 - y0 - 3, 4); if (rw > 1.5 && rh > 1.5 && !['cocina', 'bano', 'banoalto', 'despensa', 'zaguan', 'azotehuela', 'rellano'].includes(id)) { put(f, B(rw, 0.012, rh), PAL[id] || 0x5a3a3a, cx, 0.012, cy); put(f, B(rw - 0.4, 0.014, rh - 0.4), 0xb8902a, cx, 0.013, cy); put(f, B(rw - 0.6, 0.016, rh - 0.6), PAL[id] || 0x5a3a3a, cx, 0.014, cy); }
-    // candil del techo
-    put(f, C(0.012, 0.012, 0.7, 4), 0x2a2420, cx, FH - 0.35, cy); put(f, new THREE.TorusGeometry(0.28, 0.025, 6, 16), 0x2a2420, cx, FH - 0.72, cy, Math.PI / 2); for (let k = 0; k < 5; k++) { const a = k / 5 * 6.28; put(f, C(0.02, 0.02, 0.1, 6), 0xf0e6cf, cx + Math.cos(a) * 0.28, FH - 0.66, cy + Math.sin(a) * 0.28); }
-    // cuadros en la pared norte y sur
-    const wn = wallScan(f, cx, cy, 0, -1), ws = wallScan(f, cx, cy, 0, 1);
-    const ext = { n: y0 === 1, s: y1 === 38 };
-    if (wn) { if (ext.n && !['capilla'].includes(id)) { glow[f].push(['win', wn.x - 2.5, wn.y + 0.04, 0]); glow[f].push(['win', wn.x + 2.5, wn.y + 0.04, 0]); } frame(f, wn.x, wn.y + 0.04, 0, 0.7, 0.9, [0x3a4a5a, 0x5a3a2a, 0x2a3a2a, 0x4a2a3a][ri % 4]); }
-    if (ws) { if (ext.s && !['zaguan', 'rellano'].includes(id)) glow[f].push(['win', ws.x - 2.5, ws.y - 0.04, Math.PI]); frame(f, ws.x + 2, ws.y - 0.04, Math.PI, 0.5, 0.6, [0x6a5a3a, 0x3a3a5a, 0x5a2a2a][ri % 3]); }
-    // macetas en esquinas
-    if (!['bano', 'banoalto', 'despensa', 'rellano', 'azotehuela'].includes(id)) { plant(f, x1 + 0.55, y1 + 0.45); }
-    // por cuarto
-    switch (id) {
-      case 'capilla': case 'oratorio': { const ax = f ? 48.5 : 6.5, az = f ? 18.6 : 1.6; candles(f, ax - 1.2, az + 0.6, 7); candles(f, ax + 1.2, az + 0.6, 7); for (let k = 0; k < 14; k++) put(f, S(0.08, 7, 5), 0xf08a1a, ax - 1.6 + (k % 7) * 0.5, 0.08, az + 1.1 + ((k / 7) | 0) * 0.3); papel(f, x0 + 1, y0 + 3, x1, y0 + 3, 3.0);
-        put(f, B(0.12, 1.2, 0.06), 0x5a3a1a, ax, 2.4, (wn ? wn.y : az) + 0.06); put(f, B(0.6, 0.12, 0.06), 0x5a3a1a, ax, 2.7, (wn ? wn.y : az) + 0.06); break; }
-      case 'cocina': for (let k = 0; k < 5; k++) { put(f, S(0.18, 10, 8), 0xa0522d, x0 + 1 + k * 0.6, 0.2, y1 + 0.4); put(f, C(0.06, 0.09, 0.12, 8), 0xa0522d, x0 + 1 + k * 0.6, 0.42, y1 + 0.4); }
-        for (let k = 0; k < 9; k++) put(f, S(0.045, 6, 4), 0xb01a1a, x0 + 0.6, 2.4 - k * 0.12, y0 + 2, 0, 0, 0, 0.7, 1.6, 0.7); break;
-      case 'musica': put(f, S(0.22, 10, 8), 0x8a4a1a, x1 + 0.45, 1.3, cy, 0, 0, 0, 0.35, 1.2, 1); put(f, B(0.05, 0.6, 0.06), 0x3a2010, x1 + 0.45, 1.85, cy); break;
-      case 'juegos': case 'recn': [[x0 + 1, y1 - 0.5, 0xe0405a], [x0 + 2, y1, 0x4a8ad9], [x1 - 1, y0 + 1, 0xf2b04e]].forEach(([x, z, col]) => { put(f, S(0.12, 10, 8), col, x, 0.12, z); put(f, B(0.18, 0.18, 0.18), col ^ 0x303030, x + 0.4, 0.09, z + 0.2, 0, 0.5); }); break;
-      case 'bano': case 'banoalto': if (wn) { put(f, B(0.6, 0.8, 0.03), 0xc8d0dc, wn.x - 2, 1.6, wn.y + 0.03); put(f, B(0.7, 0.9, 0.025), 0x8a6a2a, wn.x - 2, 1.6, wn.y + 0.02); } break;
-      case 'biblioteca': case 'estudio': case 'archivo': put(f, C(0.03, 0.12, 0.8, 8), 0x4a2a14, x1 - 0.5, 0.4, y1 - 0.5); put(f, S(0.22, 14, 10), 0x3a6a8a, x1 - 0.5, 1.0, y1 - 0.5); break;
-      case 'recp': case 'huespedes': case 'abuelo': case 'nana': case 'servicio': if (wn) { put(f, B(0.05, 0.3, 0.03), 0x5a3a1a, wn.x + 3, 2.1, wn.y + 0.04); put(f, B(0.18, 0.05, 0.03), 0x5a3a1a, wn.x + 3, 2.15, wn.y + 0.04); } break;
-      case 'zaguan': papel(f, x0 + 1, y0 + 1, x1, y0 + 1, 3.1); plant(f, x0 + 1, y1); plant(f, x1, y0 + 1); break;
-      case 'desvan': for (let k = 0; k < 4; k++) put(f, B(0.6, 0.5, 0.5), 0x6a4a2a, x0 + 1 + k * 1.2, 0.25 + (k % 2) * 0.5, y1 - 0.2, 0, k * 0.3); break;
-      case 'comedor': candles(f, cx, cy, 5, 0.78); break;
-    }
-  }));
-  // juntar todo en una malla por piso (con colores por vértice)
-  for (let f = 0; f < 2; f++) {
-    const L = lists[f]; if (!L.length) continue;
-    const canMerge = L[0].geo.toNonIndexed && THREE.BufferAttribute && THREE.Matrix4 && THREE.Euler && THREE.Quaternion;
-    if (canMerge) {
-      const pos = [], nor = [], col = [], m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), cc = new THREE.Color();
-      for (const it of L) { const g2 = it.geo.index ? it.geo.toNonIndexed() : it.geo; q.setFromEuler(e.set(it.rx, it.ry, it.rz)); m4.compose(new THREE.Vector3(it.x, it.y, it.z), q, new THREE.Vector3(it.sx, it.sy, it.sz)); g2.applyMatrix4(m4); if (!g2.attributes.normal) g2.computeVertexNormals();
-        const pa = g2.attributes.position.array, na = g2.attributes.normal.array; cc.setHex(it.color); for (let k = 0; k < pa.length; k++) { pos.push(pa[k]); nor.push(na[k]); } for (let k = 0; k < pa.length / 3; k++) col.push(cc.r, cc.g, cc.b); }
-      const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3)); geo.setAttribute('normal', new THREE.BufferAttribute(new Float32Array(nor), 3)); geo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(col), 3));
-      const mesh = new THREE.Mesh(geo, LambertFlat({ vertexColors: true })); mesh.receiveShadow = true; floorGroups[f].add(mesh);
-    } else for (const it of L) { const m = new THREE.Mesh(it.geo, lam(it.color)); m.position.set(it.x, it.y, it.z); m.rotation.set(it.rx, it.ry, it.rz); m.scale.set(it.sx, it.sy, it.sz); floorGroups[f].add(m); }
-    // ventanas con luz de luna y llamas de velas
-    const moon = new THREE.MeshBasicMaterial({ color: 0x2a3a6a }), flame = new THREE.MeshBasicMaterial({ color: 0xffc860 }), curtain = lam(0x5a0f1e);
-    for (const gl of glow[f]) { if (gl[0] === 'win') { const [, x, z, ry] = gl; const wg = new THREE.Group(); wg.position.set(x, 0, z); wg.rotation.y = ry; floorGroups[f].add(wg);
-        const pane = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 1.4), moon); pane.position.set(0, 1.75, 0.01); wg.add(pane); const fr = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.06, 0.06), lam(0x4a2a14)); fr.position.set(0, 1.75, 0.03); wg.add(fr); const fr2 = new THREE.Mesh(new THREE.BoxGeometry(0.06, 1.5, 0.06), lam(0x4a2a14)); fr2.position.set(0, 1.75, 0.03); wg.add(fr2);
-        [-1, 1].forEach(sd => { const cu = new THREE.Mesh(new THREE.BoxGeometry(0.35, 2.0, 0.05), curtain); cu.position.set(sd * 0.7, 1.6, 0.06); wg.add(cu); }); }
-      else { const fl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.02, 1), flame); fl.position.set(gl[0], gl[1], gl[2]); fl.scale.y = 1.8; floorGroups[f].add(fl); } }
-  }
-}
-function doorMeshesBuild() {
-  doorMeshes = [];
-  w.doors.forEach(d => { if (d.ext) return;
-    const piv = new THREE.Group(); const [t0] = d.tiles;
-    if (d.o === 'V') piv.position.set(t0[0] + 0.5, 0, t0[1]); else piv.position.set(t0[0], 0, t0[1] + 0.5);
-    const panel = new THREE.Mesh(new THREE.BoxGeometry(d.o === 'V' ? 0.08 : 1.9, 2.2, d.o === 'V' ? 1.9 : 0.08), LambertFlat({ color: 0x5b3a20, map: paper }));
-    if (d.o === 'V') panel.position.set(0, 1.1, 0.95); else panel.position.set(0.95, 1.1, 0);
-    panel.castShadow = true; piv.add(panel);
-    const glow = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.2), new THREE.MeshBasicMaterial({ map: handT, transparent: true, depthWrite: false, side: THREE.DoubleSide }));
-    if (d.o === 'V') { glow.position.set(0.06, 1.2, 0.95); glow.rotation.y = Math.PI / 2; } else glow.position.set(0.95, 1.2, 0.06);
-    glow.visible = false; piv.add(glow);
-    const ruda = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.45, 6), LambertFlat({ color: 0x4f8a3a, emissive: 0x0a2008 })); ruda.position.set(d.o === 'V' ? 0 : 0.95, 2.35, d.o === 'V' ? 0.95 : 0); ruda.rotation.x = Math.PI; ruda.visible = false; piv.add(ruda);
-    const ros = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.025, 6, 16), LambertFlat({ color: COL.bone, emissive: 0x302820 })); ros.position.set(d.o === 'V' ? 0.08 : 0.95, 1.9, d.o === 'V' ? 0.95 : 0.08); ros.visible = false; piv.add(ros);
-    floorGroups[d.f].add(piv); doorMeshes.push({ d, piv, glow, ruda, ros, base: d.o === 'V' ? -1.35 : 1.35 });
-  });
-}
+function doorMeshesBuild(){NDAHouseArt.buildDoors();}
 const ITEM_COLOR = { foco: 0xf3e6cf, ceniza: 0x8a8580, cruz: 0xc8b070, pan: 0xc9853a, limpia: 0xf3efe6, tarot: 0x3a1f5a, tablilla: 0xe0a040, espejoplata: 0xd8dce4, mano: 0x8a6a40, muneca: 0xe8c0c8, pentagrama: 0x2a2030, radio: 0x202020, termo: 0xcfd6dd, grab: 0x222428, espejo: 0xd8e0ea, uv: 0x7a3cff, cam: 0x30343a, emf: 0x2d4a2d, gases: 0xd8b030, te: COL.orange, rosario: COL.bone, ruda: 0x4f8a3a, copal: 0x9a8f80, vela: 0xf3e6cf };
 function makeItemMesh(it) {
   const g = new THREE.Group(); const c = ITEM_COLOR[it.kind]; let m;
@@ -446,7 +296,7 @@ function ghostOpacity(t, V, vk) {
   const d = Math.hypot(V.x - g.x, V.y - g.y);
   if (t < g.blindUntil) return Math.sin(t * 30) > 0 ? 0.9 : 0.1;
   if (g.exposed) return 0.8;
-  if (g.hunt) return def.visibleHunt(w, g, V) && sees(V, g, 20) ? (Math.sin(t * 23) + Math.sin(t * 7.3) > -0.5 ? 0.9 : 0.1) : 0;
+  if (g.hunt) return def.visibleHunt(w, g, V) && sees(V,g,20,w) ? (Math.sin(t * 23) + Math.sin(t * 7.3) > -0.5 ? 0.9 : 0.1) : 0;
   if (t < g.revealUntil && d < 10) return 0.6;
   if (d < 2.6 && V.flash && t >= V.flashOffUntil) return 0.22 + Math.sin(t * 5) * 0.06;
   return 0;
@@ -456,14 +306,14 @@ function ghostOpacity(t, V, vk) {
 function updateScene(t, dt) {
   const V = viewer(), vk = viewKind(), g = w.g;
   const vf = V ? V.f : 0;
-  floorGroups[1].visible = vf === 1 || (V && V.f === 0 && (roomId(V) === 'patio' || V.y >= 39));
+  floorGroups[1].visible = true;
   floorGroups[0].visible = true;
   // muros recortados entre la cámara y el personaje
   for (const r of wallRuns) { const cut = vk === 'all' && r.f === vf && V && r.y > V.y - 0.5 && r.y - V.y < 9 && r.x1 >= V.x - 9 && r.x0 <= V.x + 9; const s = cut ? 0.22 : 1; r.g.scale.y += (s - r.g.scale.y) * Math.min(1, dt * 8); }
   // puertas
-  for (const dm of doorMeshes) { const d = dm.d; const target = d.closed ? 0 : dm.base * (1 - d.anim * 0.9); dm.piv.rotation.y += (target - dm.piv.rotation.y) * Math.min(1, dt * 10); dm.glow.visible = t < d.glowUntil; dm.ruda.visible = t < d.rudaUntil; dm.ros.visible = !!d.rosario; }
+  for (const dm of doorMeshes) { const d=dm.d;dm.leaves.forEach((leaf,k)=>{const target=d.closed?0:(k?-dm.base:dm.base)*(1-d.anim*.9);leaf.rotation.y+=(target-leaf.rotation.y)*Math.min(1,dt*10);}); dm.glow.visible = t < d.glowUntil; dm.ruda.visible = t < d.rudaUntil; dm.ros.visible = !!d.rosario; }
   // escondites
-  for (const sm of spotMeshes) { const act = w.spotsActive.has(sm.k); sm.lock.visible = !act; sm.slit.visible = act; const occ = w.invs.some(i => i.alive && i.hidden === sm.k); sm.door.rotation.y = act && !occ ? 0.12 : 0; sm.eyes.visible = w.fx.some(f => f.kind === 'sello_ropero' && Math.hypot(f.x - SPOTS[sm.k].hx, f.y - SPOTS[sm.k].hy) < 0.6 && t - f.t < 6); }
+  for (const sm of spotMeshes) { const act = w.spotsActive.has(sm.k); sm.lock.visible = !act; sm.slit.visible = !act; const occ = w.invs.some(i => i.alive && i.hidden === sm.k); sm.door.rotation.y = act && !occ ? 0.12 : 0; sm.eyes.visible = w.fx.some(f => f.kind === 'sello_ropero' && Math.hypot(f.x - SPOTS[sm.k].hx, f.y - SPOTS[sm.k].hy) < 0.6 && t - f.t < 6); }
   // velas y focos
   const huntFlick = g.hunt && Math.random() < 0.35;
   for (const c of candleMeshes) { c.flame.material.color.setHex(COL.gold); c.flame.scale.x = c.flame.scale.z = 1 + Math.sin(t * 13 + c.r) * 0.15; }
@@ -483,7 +333,7 @@ function updateScene(t, dt) {
   const amb = vk === 'ghost' ? 2.6 : vk === 'spirit' || vk === 'all' ? 2.0 : 1.02;
   ambient.intensity = amb; hemi.intensity=vk==='inv'?.58:.45; ambient.color.setHex(vk === 'ghost' ? 0x5070a0 : 0x3a3060); scene.fog.near = vk === 'inv' ? 14 : 30; scene.fog.far = vk === 'inv' ? 34 : 80;
   // linterna del jugador
-  if (V && V.kind === 'inv' && V.alive) { const on = V.flash && t >= V.flashOffUntil && V.hidden < 0; flash.intensity = !on ? 0 : g.hunt && sees(V, g, 12) && Math.random() < 0.25 ? 4 : 18; flash.position.set(V.x + Math.cos(V.face + 0.6) * 0.3, elv(V) + 1.3, V.y + Math.sin(V.face + 0.6) * 0.3); if (V === me0() && viewKind() === 'inv') { const dir = camLook.clone().sub(camera.position).normalize(); if (menuOpt.cam === 'fp') flash.position.copy(camera.position).addScaledVector(dir, 0.25).add(new THREE.Vector3(Math.cos(V.face + 1.4) * 0.18, -0.25, Math.sin(V.face + 1.4) * 0.18)); flash.target.position.copy(flash.position).addScaledVector(dir, 8); } else flash.target.position.set(V.x + Math.cos(V.face) * 7, elv(V) + 1.0, V.y + Math.sin(V.face) * 7); }
+  if (V && V.kind === 'inv' && V.alive) { const on = V.flash && t >= V.flashOffUntil; flash.intensity = !on ? 0 : g.hunt && sees(V, g, 12) && Math.random() < 0.25 ? 4 : 18; flash.position.set(V.x + Math.cos(V.face + 0.6) * 0.3, elv(V) + 1.3, V.y + Math.sin(V.face + 0.6) * 0.3); if (V === me0() && viewKind() === 'inv') { const dir = camLook.clone().sub(camera.position).normalize(); if (menuOpt.cam === 'fp') flash.position.copy(camera.position).addScaledVector(dir, 0.25).add(new THREE.Vector3(Math.cos(V.face + 1.4) * 0.18, -0.25, Math.sin(V.face + 1.4) * 0.18)); flash.target.position.copy(flash.position).addScaledVector(dir, 8); } else flash.target.position.set(V.x + Math.cos(V.face) * 7, elv(V) + 1.0, V.y + Math.sin(V.face) * 7); }
   else flash.intensity = 0;
   const others = w.invs.filter(i => i !== V && i.alive && !i.escaped && i.flash && t >= i.flashOffUntil && i.hidden < 0 && (i.f === vf || vf === 1));
   botFlashes.forEach((s, k) => { const i = others[k]; s.intensity = i ? 10 : 0; if (i) { s.position.set(i.x, elv(i) + 1.1, i.y); s.target.position.set(i.x + Math.cos(i.face) * 6, i.f * FH, i.y + Math.sin(i.face) * 6); } });
@@ -531,7 +381,7 @@ function updateScene(t, dt) {
   // objetos
   const seenIds = new Set();
   for (const it of w.items) { if (it.holder) continue; seenIds.add(it.id); let im = itemMeshes.get(it.id); if (!im) { im = makeItemMesh(it); itemMeshes.set(it.id, im); }
-    im.g.visible = it.f === vf || vf === 1; im.g.position.set(it.x, it.f * FH + (it.h || 0), it.y); im.g.rotation.y = -it.dir;
+    im.g.visible = layoutItemVisible(w,it)&&(it.f === vf || vf === 1); im.g.position.set(it.x, it.f * FH + (it.h || 0), it.y); im.g.rotation.y = -it.dir;
     im.halo.material.opacity = 0.2 + Math.sin(t * 3 + it.id) * 0.12;
     if (it.kind === 'emf') { const on = t < it.emfUntil; im.ind.visible = on; im.ind.material.color.setHex(it.emfLvl >= 5 ? 0xff2020 : it.emfLvl >= 4 ? 0xff9020 : 0x40ff60); }
     if (it.kind === 'gases') { im.ind.visible = t < it.redUntil || t < (it.yellowUntil || 0); im.ind.material.color.setHex(t < it.redUntil ? 0xff2020 : 0xffb020); }
@@ -543,7 +393,7 @@ function updateScene(t, dt) {
   }
   for (const [id, im] of itemMeshes) if (!seenIds.has(id)) { scene.remove(im.g); itemMeshes.delete(id); }
   // efectos
-  updateFx(t, vf); updateProps(t, vf); updateLoose(t);
+  updateFx(t, vf); updateProps(t, vf); updateLoose(t);NDAHouseArt.updateDrawers(w,dt);
   for (const m of ceilMeshes) m.visible = camera.position.y < m.userData.f * FH + FH - 0.05;
   // salida y altar
   const xd = w.doors.find(d => d.ext); exitMesh.material.emissive.setHex(xd && xd.locked ? 0x400000 : 0x000000);
@@ -560,7 +410,7 @@ function updateFx(t, vf) {
   w.fx.forEach((f, k) => { const key = f.kind + ':' + f.t + ':' + f.x.toFixed(2); alive_.add(key); let m = fxMeshes.get(key);
     if (!m) { m = new THREE.Group(); const col = FX_COLORS[f.kind] || 0xffffff;
       if (f.kind === 'ceniza') { const d = new THREE.Mesh(new THREE.CircleGeometry(0.7, 14), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.75, depthWrite: false })); d.rotation.x = -Math.PI / 2; d.position.y = 0.025; m.add(d); m.userData.disc = d;
-        const pr = new THREE.Group(); for (let k = 0; k < 6; k++) { const fp = new THREE.Mesh(new THREE.CircleGeometry(0.08, 8), new THREE.MeshBasicMaterial({ color: 0xc080ff, transparent: true, opacity: 0.95 })); fp.rotation.x = -Math.PI / 2; fp.scale.set(0.7, 1.4, 1); fp.position.set(-0.6 + k * 0.24, 0.03, (k % 2) * 0.16 - 0.08); pr.add(fp); } pr.visible = false; m.add(pr); m.userData.prints = pr; }
+        const pr = new THREE.Group(); for (let k = 0; k < 6; k++) { const fp = new THREE.Mesh(new THREE.CircleGeometry(0.08, 8), new THREE.MeshBasicMaterial({ color: 0xc080ff, transparent: true, opacity: 0.95 })); fp.rotation.x = -Math.PI / 2; fp.scale.set(0.7, 1.4, 1); fp.position.set(-0.30 + k * 0.104, 0.03, (k % 2) * 0.16 - 0.08); pr.add(fp); } pr.visible = false; m.add(pr); m.userData.prints = pr; }
       else if (f.kind === 'copal') { for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(0.9 + Math.random() * 0.6, 10, 8), LambertFlat({ color: col, transparent: true, opacity: 0.28, depthWrite: false })); s.position.set(Math.random() * 3 - 1.5, 0.7 + Math.random(), Math.random() * 3 - 1.5); m.add(s); } }
       else if (f.kind === 'sello_charcos') { for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.CircleGeometry(0.22 + Math.random() * 0.1, 12), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.7 })); s.rotation.x = -Math.PI / 2; s.position.set(i * 0.5, 0.03, Math.sin(i) * 0.3); m.add(s); } }
       else if (f.kind === 'sello_escarcha') { for (let i = 0; i < 10; i++) { const s = new THREE.Mesh(new THREE.CircleGeometry(0.15, 6), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.8 })); s.rotation.x = -Math.PI / 2; s.position.set(Math.random() * 2 - 1, 0.03, Math.random() * 2 - 1); m.add(s); } }
@@ -585,6 +435,7 @@ let yaw = -Math.PI / 2, pitch = -0.12;
 // Cámara de hombro: detrás y a la derecha del personaje; se acerca si un muro estorba
 function updateCamera(dt) {
   const V = viewer(); if (!V) return; const vk = viewKind();
+  if(V.hidden<0||!V.alive)camera.userData.hideSpot=-1;
   if (vk === 'all') { const target = new THREE.Vector3(V.x, elv(V) + 0.8, V.y), want = new THREE.Vector3(V.x, elv(V) + 16, V.y + 9);
     camPos.lerp(want, Math.min(1, dt * 5)); camLook.lerp(target, Math.min(1, dt * 6)); if (camPos.distanceTo(want) > 20) { camPos.copy(want); camLook.copy(target); }
     camera.position.copy(camPos); camera.lookAt(camLook); return; }
@@ -597,8 +448,8 @@ function updateCamera(dt) {
     if (sightBlockT(tileAt(V.f, px, py)) || (tileAt(V.f, px, py) === T.WALL)) { ok = Math.max(0.15, (k - 1.5) / n); break; } }
   wx = head.x + (wx - head.x) * ok; wy = head.y + (wy - head.y) * ok;
   const rig = V.kind === 'inv' && V.alive ? invMeshes[V.id] : null, bob = rig && vk === 'inv' ? Math.abs(Math.cos(rig.ph)) * 0.05 * Math.min(1, rig.speed / 2.6) : 0;
-  if (vk === 'inv' && V.alive && V.hidden >= 0) { const sp = SPOTS[V.hidden], ox = sp.hx - (sp.x + 0.5), oy = sp.hy - (sp.y + 0.5), a0 = Math.atan2(oy, ox), a = a0 + clamp(Math.atan2(Math.sin(yaw - a0), Math.cos(yaw - a0)), -0.5, 0.5);
-    camera.position.set(sp.x + 0.5 + ox * 0.42, base + 1.5, sp.y + 0.5 + oy * 0.42); camPos.copy(camera.position); camLook.set(camera.position.x + Math.cos(a) * 4, base + 1.4 + Math.sin(pitch) * 2, camera.position.z + Math.sin(a) * 4); camera.lookAt(camLook);
+  if (vk === 'inv' && V.alive && V.hidden >= 0) { const sp = SPOTS[V.hidden], ox = sp.hx - (sp.x + 0.5), oy = sp.hy - (sp.y + 0.5), a0 = Math.atan2(oy, ox);if(camera.userData.hideSpot!==V.hidden){yaw=a0;pitch=0;camera.userData.hideSpot=V.hidden;}const a=a0+clamp(Math.atan2(Math.sin(yaw-a0),Math.cos(yaw-a0)),-.5,.5);
+    camera.position.set(sp.x + 0.5 + ox * 0.28, base + (sp.eyeHeight||1.5), sp.y + 0.5 + oy * 0.28); camPos.copy(camera.position); camLook.set(camera.position.x + Math.cos(a) * 4, base + (sp.eyeHeight||1.5)-.1 + Math.sin(pitch) * 2, camera.position.z + Math.sin(a) * 4); camera.lookAt(camLook);
     if (Math.abs(camera.fov - 62) > 0.05) { camera.fov = 62; camera.updateProjectionMatrix(); } return; }
   if (menuOpt.cam === 'fp' && vk === 'inv' && V.alive) { const ey = base + (V.hidden >= 0 ? 0.9 : 1.58) + bob * 0.6; camera.position.set(V.x + fx * 0.12, ey, V.y + fy * 0.12); camPos.copy(camera.position); camLook.set(V.x + fx * 4 * Math.cos(pitch), ey + Math.sin(pitch) * 4, V.y + fy * 4 * Math.cos(pitch)); camera.lookAt(camLook);
     const fovF = rig && rig.speed > 3.0 ? 74 : 68; if (Math.abs(camera.fov - fovF) > 0.05) { camera.fov += (fovF - camera.fov) * Math.min(1, dt * 4); camera.updateProjectionMatrix(); } return; }
@@ -706,7 +557,7 @@ function playEvents() {
       case 'mover': SFX.scrape(p); break;
       case 'susurro': SFX.whisper(p); break;
       case 'sello': SFX[SELLO_SFX[e.kind] || 'whisper'](p); break;
-      case 'noise': if (e.kind === 'juguete') SFX.toy(p); if (e.kind === 'stairs' || e.kind === 'ghoststairs') SFX.stairs(p); if (e.kind === 'throw') tone(300, 0.08, 'triangle', 0.2, p); break;
+      case 'noise': if(e.kind==='drawer')tone(160,.2,'sawtooth',.04,p,-35);if (e.kind === 'juguete') SFX.toy(p); if (e.kind === 'stairs' || e.kind === 'ghoststairs') SFX.stairs(p); if (e.kind === 'throw') tone(300, 0.08, 'triangle', 0.2, p); break;
       case 'manifest': { const k = e.snd; if (k === 'risa') { SFX.laugh(p); SFX.giggle(p); } else if (k === 'canto') [392, 370, 349, 330].forEach((fq, j) => tone(fq, 0.6, 'sine', 0.22, p, -8, j * 0.45)); else if (k === 'llanto') { for (let j = 0; j < 3; j++) tone(700 - j * 60, 0.7, 'sawtooth', 0.12, p, -300, j * 0.6); } else if (k === 'grito') { noise(0.9, 'bandpass', 1800, 0.6, 0.6, p); tone(900, 0.9, 'sawtooth', 0.3, p, -500); } else { tone(180, 1.6, 'sawtooth', 0.18, p, -40); noise(1.4, 'lowpass', 500, 1, 0.2, p, 0, 0.4); } shake(0.35); break; }
       case 'eco': duck(1.2); setTimeout(() => speak(e.text, { pitch: 0.2, rate: 0.75 }), 1200); break;
       case 'loteria': duck(1.2); setTimeout(() => speak(pick(['¡Corre y se va! ¡La muerte!', '¡La calavera!', '¡El catrín… detrás de ti!', '¡La muerte… y lotería!']), { pitch: 0.6, rate: 1.05 }), 1200); break;
@@ -751,6 +602,7 @@ function ghostCard(G) {
   const sp = G.speed || 2.2; const rule = huntRuleTxt(G);
   return `<div class="gcard"><p><b>Evidencias:</b> ${G.ev.map(k => EV[k].n).join(', ')}</p><p><b>Caza cuando:</b> ${rule}</p>${G.special ? `<p><b>Habilidad:</b> ${G.special.n}. ${G.special.d}</p>` : ''}${G.passive ? `<p><b>Pasiva:</b> ${G.passive.n}${G.passive.d ? '. ' + G.passive.d : ''}</p>` : ''}<p><b>Sello:</b> ${G.sello.n}${G.sello.parecido ? ` <small>(se confunde con: ${G.sello.parecido})</small>` : ''}</p><p class="small">Velocidad ${sp} m/s · escucha a ${G.hear || 12} m</p></div>`;
 }
+function casonaJournalMap(){let out='<details><summary>Plano de la casona</summary>';for(const f of[0,1]){out+='<h3>'+(f?'Planta alta':'Planta baja')+'</h3><div style="overflow:auto"><svg width="600" height="400" viewBox="0 0 60 40" role="img" aria-label="Plano de '+(f?'planta alta':'planta baja')+'"><rect width="60" height="40" fill="#302a30"/><rect x="15" y="10" width="30" height="20" fill="#9e8a74"/><rect x="18" y="13" width="24" height="14" fill="#242434"/>';for(const r of NDALayout.rooms.filter(r=>r.floor===f)){const[a,b,c,d]=r.rect;out+='<rect x="'+a+'" y="'+b+'" width="'+(c-a)+'" height="'+(d-b)+'" fill="#e4d4b7"><title>'+r.name+'</title></rect><text x="'+(a+c)/2+'" y="'+((b+d)/2+.5)+'" text-anchor="middle" font-size="1.45" fill="#302a30">'+r.id+'</text>';}for(const d of NDALayout.doors.filter(d=>d.floor===f)){const[a,b,c,e]=d.rect;out+='<rect x="'+a+'" y="'+b+'" width="'+(c-a)+'" height="'+(e-b)+'" fill="#c2aa85"/>';}const me=w.invs[ME];if(me?.f===f&&me.y<39)out+='<circle cx="'+me.x+'" cy="'+me.y+'" r=".55" fill="#df8b34"/>';out+='</svg></div><p class="small">'+NDALayout.rooms.filter(r=>r.floor===f).map(r=>r.id+' '+r.name).join(' · ')+'</p>';}return out+'<p class="small">Norte arriba. La calle y el portón quedan al sur. El punto naranja eres tú.</p></details>';}
 function journalHTML(canName) {
   const c = candidates(w, true), p = pruebas(w);
   let h = `<h3>Evidencias <small>clic: marcar ✓ → tachar ✗ → borrar</small></h3>`;
@@ -761,7 +613,8 @@ function journalHTML(canName) {
   GHOSTS.forEach(G => { const ok = c.includes(G) && !(w.discardG && w.discardG[G.id]); h += `<div class="cand ${ok ? '' : 'out'}" data-g="${G.id}"><span>${canName ? `<img class="idc" src="${idCard(G)}" alt="">` : ''}${G.n}<button class="gx" title="Tachar o destachar">${w.discardG && w.discardG[G.id] ? '↺' : '✗'}</button><small>${G.ev.map(k => EV[k].n).join(' · ')}</small></span>${canName ? `<button data-name="${G.id}">Nombrar</button>` : ''}</div>`; });
   if (jSel && !canName) { const G = GT[jSel]; h = h.replace(`data-g="${jSel}">`, `data-g="${jSel}" class="sel">`); h += `<h3>${G.n}</h3>${ghostCard(G)}`; }
   if (w.team.home) h += `<p class="hint">Vive en: <b>${ROOMS[w.team.home.f][w.team.home.r].n}</b></p>`;
-  h += `<h3>Dónde buscar objetos</h3><p class="small">Té: Cocina, Comedor, Despensa · Rosario: Capilla, Oratorio, recámaras · Ruda: Cocina, Despensa, Patio, Azotehuela · Copal: Capilla, Oratorio, Desván · Veladora: Capilla, Oratorio, Comedor · Ceniza: Cocina, Cuarto de servicio, Azotehuela · Cruz de palma: Capilla, Oratorio, Recámara principal · Pan de muerto: Comedor, Cocina · Limpia: Cocina, Capilla</p>${w.cursed ? `<p class="small">${cardImg(w.cursed, 'mci')} <b>Objeto maldito de esta noche:</b> ${ITEMS[w.cursed].n}, en ${ROOMS[CURSED_PLACES[w.cursed][0]][RID[CURSED_PLACES[w.cursed][0]][CURSED_PLACES[w.cursed][1]]].n}. ${ITEMS[w.cursed].hint}</p>` : ''}`;
+  h += `<h3>Dónde buscar objetos</h3><p class="small">Té y pan: Cocina, Comedor, Despensa y Repostería · Rosario y cruz: Capilla y recámaras · Ruda, copal y limpia: Botica, Cocina y Capilla · Veladoras: Capilla y Salón · Ceniza: Cocina y Capilla · Focos: Portería, Despacho y Cochera</p>${w.cursed ? `<p class="small">${cardImg(w.cursed, 'mci')} <b>Objeto maldito de esta noche:</b> ${ITEMS[w.cursed].n}, en ${ROOMS[CURSED_PLACES[w.cursed][0]][RID[CURSED_PLACES[w.cursed][0]][CURSED_PLACES[w.cursed][1]]].n}. ${ITEMS[w.cursed].hint}</p>` : ''}`;
+  h+=casonaJournalMap();
   return h;
 }
 function primaryAction(i) {
@@ -772,7 +625,8 @@ function primaryAction(i) {
   if (i.f === FUSE.f && Math.hypot(i.x - FUSE.x, i.y - FUSE.y) < 1.6 && !w.fuse.every(Boolean)) return { k: 'E', txt: 'Subir los fusibles', btn: 'Fusibles' };
   const s = nearSpot(w, i); if (s >= 0) return { k: 'E', txt: 'Esconderte' + (elecOnW(w, i) ? ' (¡apaga la linterna!)' : ''), btn: 'Esconder' };
   const sn = spotNear(w, i); if (sn && sn.why) return { k: '', txt: sn.why === 'candado' ? '🔒 Este ropero tiene candado esta noche: busca otro escondite' : `Ocupado: ${sn.who.name} está escondido aquí`, btn: '—' };
-  let best = null, bd = 1.3; for (const x of w.items) if (!x.holder && x.f === i.f) { const d = Math.hypot(x.x - i.x, x.y - i.y); if (d < bd) { bd = d; best = x; } }
+  const storage=nearLayoutContainer(w,i);if(storage&&!w.items.some(it=>!it.holder&&it.f===i.f&&layoutItemVisible(w,it)&&Math.hypot(it.x-i.x,it.y-i.y)<1.3))return{k:'E',txt:storage.until?'Revisando el cajón…':'Revisar cajón (1 s)',btn:storage.until?'Revisando':'Cajón'};
+  let best = null, bd = 1.3; for (const x of w.items) if (!x.holder && x.f === i.f && layoutItemVisible(w,x)) { const d = Math.hypot(x.x - i.x, x.y - i.y); if (d < bd) { bd = d; best = x; } }
   if (best) return { k: 'E', txt: (i.slots.includes(null) || !i.slots[i.hand] ? 'Tomar ' : 'Ranuras llenas: ') + ITEMS[best.kind].n, btn: 'Tomar', item: best };
   const dr = nearDoor(w, i); if (dr) return { k: 'E', txt: dr.closed ? 'Abrir la puerta' : 'Cerrar la puerta', btn: dr.closed ? 'Abrir' : 'Cerrar' };
   return null;
@@ -1077,7 +931,7 @@ function start(netStart) {
     ME = Math.max(0, opt.humans.findIndex(h => h.peer === NET.id));
     netApply(w, netStart, ME); w.events.length = 0;
   } else w = newWorld(Object.assign({}, menuOpt));
-  if (scene) { scene.traverse(o => { if (o.geometry) o.geometry.dispose && o.geometry.dispose();if(o.userData.NDAHouseArt)o.material.dispose(); }); }
+  if(scene){const geos=new Set(),mats=new Set(),textures=new Set();for(const tv of baseTVs||[])tv.rt?.dispose();casa3d?.tvRT?.dispose();scene.traverse(o=>{if(o.geometry)geos.add(o.geometry);for(const m of(o.material?(Array.isArray(o.material)?o.material:[o.material]):[])){mats.add(m);for(const value of Object.values(m))if(value?.isTexture)textures.add(value);}o.shadow?.map?.dispose();});geos.forEach(g=>g.dispose());mats.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());}
   buildHouse(); camPos.set(0, 0, 0); yaw = -Math.PI / 2; pitch = -0.12; if (w.opt.role !== 'bots') setTimeout(nightRoulette, 300);
   follow = 0; speedMult = menuOpt.role === 'bots' && NET.mode === 'off' ? 2 : 1; keys.clear(); pressed.clear(); journalOpen = false; $('#journal').hidden = true;
   $('#menu').hidden = true; $('#modal').hidden = true; $('#game').hidden = false; setupTouch();

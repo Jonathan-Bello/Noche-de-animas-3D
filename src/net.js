@@ -31,7 +31,7 @@ function netJoin(code, name, char) {
   NET.peer = new Peer({ config: NET_ICE });
   NET.peer.on('open', id => {
     NET.id = id; netStatus('Buscando la sala…');
-    const c = NET.peer.connect('nda3d-' + code, { reliable: true, metadata: { name, char } }); NET.hostConn = c;
+    const c = NET.peer.connect('nda3d-' + code, { reliable: true, metadata: { name, char, layout:NDALayout.version } }); NET.hostConn = c;
     c.on('open', () => netStatus(`Dentro de la sala ${code}. Espera a que el anfitrión empiece.`, true));
     c.on('data', d => netGuestData(d));
     c.on('close', () => { netStatus('El anfitrión cerró la sala.', false); if (NET.cb.end) NET.cb.end('El anfitrión salió de la partida.'); });
@@ -54,6 +54,7 @@ function netLobbyChanged() {
 }
 function netGuestConn(c) {
   c.on('open', () => {
+    if(c.metadata?.layout!==NDALayout.version){c.send({t:'full',why:'La sala usa otra versión de la casona. Actualicen el juego y vuelvan a entrar.'});setTimeout(()=>c.close(),300);return;}
     if (NET.started || NET.lobby.length >= 4) { c.send({ t: 'full', why: NET.started ? 'La partida ya empezó.' : 'La sala está llena (4 investigadores).' }); setTimeout(() => c.close(), 300); return; }
     NET.conns.set(c.peer, c); const m = c.metadata || {};
     NET.lobby.push({ peer: c.peer, name: String(m.name || 'Investigador').slice(0, 16), char: m.char || 'ines' }); netLobbyChanged();
@@ -75,13 +76,14 @@ function netGuestData(d) {
   if (!d || typeof d !== 'object') return;
   if (d.t === 'lobby') { NET.lobby = d.p; if (NET.cb.lobby) NET.cb.lobby(NET.lobby); }
   else if (d.t === 'full') netStatus(d.why, false);
+  else if(d.t==='start'&&d.s?.layout!==NDALayout.version){netStatus('Actualiza el juego: esta sala usa otra versión de la casona.',false);return;}
   else if (d.t === 'start') { NET.started = true; if (NET.cb.start) NET.cb.start(d); }
   else if (d.t === 'snap') { if (NET.cb.snap) NET.cb.snap(d); }
   else if (d.t === 'clip') VOICE.gotClip(d.who, d.tag, d.d);
 }
 
 // ---------- serializar el mundo ----------
-const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'bitacora']);
+const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'bitacora','layoutPackingMisses']);
 function netEnc(w, full) {
   const invs = new Set(w.invs), its = new Set(w.items), dr = new Map(w.doors.map((d, k) => [d, k]));
   const R = v => Math.round(v * 1000) / 1000;
@@ -98,14 +100,16 @@ function netEnc(w, full) {
     if (Array.isArray(v)) return v.map(x => { const e = E(x); return e === undefined ? null : e; });
     const o = {}; for (const k in v) { const e = E(v[k]); if (e !== undefined) o[k] = e; } return o;
   }
-  const out = { ALTAR: Object.assign({}, ALTAR_POS), FUSE: Object.assign({}, FUSE) };
+  const out = { layout:NDALayout.version, ALTAR: Object.assign({}, ALTAR_POS), FUSE: Object.assign({}, FUSE) };
   // objetos, puertas y objetos sueltos casi no cambian: solo se mandan los que cambiaron (y todo cada 3 s)
-  const key = full || !NET.cache || w.t - NET.cache.t > 3; if (key) NET.cache = { t: w.t, items: new Map(), doors: [], loose: [] };
+  const key = full || !NET.cache || w.t - NET.cache.t > 3; if (key) NET.cache = { t: w.t, items: new Map(), doors: [], loose: [], containers: [] };
   const C = NET.cache, diff = (arr, store, canon, idOf) => { const ch = []; arr.forEach((x, k) => { const e = E(x, canon), j = JSON.stringify(e), id = idOf ? idOf(x, k) : k; if (store instanceof Map ? store.get(id) !== j : store[id] !== j) { if (store instanceof Map) store.set(id, j); else store[id] = j; ch.push([id, e]); } }); return ch; };
   for (const k in w) {
     if (NET_SKIP.has(k)) continue;
     if (k === 'invs') out.invs = w.invs.map(x => E(x, true));
     else if (k === 'items') out.items = { ids: w.items.map(x => x.id), ch: diff(w.items, C.items, true, x => x.id) };
+    else if(k==='containers')out.containers={n:w.containers.length,ch:diff(w.containers,C.containers,true)};
+    else if(k==='propPositions'&&!key)continue;
     else if (k === 'doors') out.doors = { ch: diff(w.doors, C.doors, true) };
     else if (k === 'loose') out.loose = { n: w.loose.length, ch: diff(w.loose, C.loose, false) };
     else if (k === 'g') out.g = E(w.g, true);
@@ -132,6 +136,7 @@ function netApply(w, pkt, meIdx) {
   for (const [id, o] of s.items.ch) { const it = itemMap.get(id); if (it) put(it, o); } w.items = items;
   for (const [k, o] of s.doors.ch) if (w.doors[k]) put(w.doors[k], o);
   if (s.loose) { w.loose.length = Math.min(w.loose.length, s.loose.n); for (const [k, o] of s.loose.ch) { if (!w.loose[k]) w.loose[k] = {}; put(w.loose[k], o); } }
+  if(s.containers){w.containers.length=s.containers.n;for(const[k,o]of s.containers.ch){if(!w.containers[k])w.containers[k]={};put(w.containers[k],o);}}
   // investigadores: el mío lo muevo yo (salvo que el anfitrión me haya movido); los demás se suavizan
   const POSE = new Set(['x', 'y', 'face', 'vx', 'vy', 'stam', 'tired']);
   s.invs.forEach((o, k) => {
@@ -145,7 +150,7 @@ function netApply(w, pkt, meIdx) {
     }
   });
   { const g = w.g, o = s.g, far = (g.f !== o.f && stairAt(o.x, o.y) < 0) || Math.hypot(g.x - o.x, g.y - o.y) > 3; put(g, o, POSE); g._tx = o.x; g._ty = o.y; g._tf = o.face; if (far) { g.x = o.x; g.y = o.y; g.face = o.face; } }
-  for (const k in s) { if (['items', 'doors', 'loose', 'invs', 'g', 'ALTAR', 'FUSE'].includes(k)) continue; w[k] = D(s[k]); }
+  for (const k in s) { if (['items', 'doors', 'loose', 'containers', 'invs', 'g', 'ALTAR', 'FUSE'].includes(k)) continue; w[k] = D(s[k]); }
   for (const e of pkt.ev || []) w.events.push(D(e));
   for (const l of pkt.lg || []) { w.log.push(l); if (w.log.length > 120) w.log.shift(); }
 }

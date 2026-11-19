@@ -6,7 +6,7 @@ const SND_FILES = ['door_open1', 'door_open2', 'door_close1', 'door_close2', 'sl
   'wood1', 'wood2', 'wood3', 'wood4', 'stone1', 'stone2', 'bell_heavy', 'bell1', 'bell2', 'bell_small', 'thunder', 'rain', 'static1', 'static2', 'hiss', 'howl', 'bark', 'breath1', 'breath2',
   'weird1', 'weird2', 'weird3', 'weird4', 'growl1', 'growl2', 'glass_break1', 'glass_break2', 'fall1', 'fall2', 'wood_break', 'crack1', 'crack2', 'keys', 'cineboom', 'haunted_hum', 'dark_woosh',
   'choir', 'glass_rub', 'crow', 'guitar', 'glitch1', 'glitch2', 'beep', 'buzz',
-  'r_growly', 'r_echo', 'r_breath', 'r_riser', 'r_zombies', 'static3', 'llorona', 'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
+  'r_growly', 'r_echo', 'r_breath', 'r_riser', 'r_zombies', 'static3', 'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
 const SND = { buf: {}, loading: false, loops: {} };
 function sndLoad() {
   if (SND.loading || !audio || !audio.ctx) return; SND.loading = true;

@@ -263,6 +263,7 @@ img.idc{width:30px;height:45px;object-fit:cover;border-radius:3px;vertical-align
 <div id="galui" hidden></div>
 <div id="modal" hidden><div id="modalIn"></div></div>
 <script>
+const NDALayout={"version":"casona-v11","status":"runtime registry","units":"metros","coordinates":"[x0,z0,x1,z1), norte z=0, calle z=40; reticula logica 1m; suelo PA y=3.8","footprint":[60,40],"ringOuter":[15,10,45,30],"patio":[18,13,42,27],"rooms":[{"floor":0,"id":"B01","name":"Despensa seca","rect":[1,1,13,9],"home":true,"key":"despensa"},{"floor":0,"id":"B02","name":"Planchaduría","rect":[14,1,23,9],"home":true,"key":"planchaduria"},{"floor":0,"id":"B03","name":"Capilla","rect":[24,1,36,9],"home":true,"key":"capilla"},{"floor":0,"id":"B04","name":"Cocina","rect":[37,1,48,9],"home":true,"key":"cocina"},{"floor":0,"id":"B05","name":"Traspatio","rect":[49,1,59,9],"home":false,"key":"traspatio"},{"floor":0,"id":"B06","name":"Biblioteca","rect":[1,10,14,20],"home":true,"key":"biblioteca"},{"floor":0,"id":"B07","name":"Escalera principal","rect":[1,21,14,30],"home":false,"key":"escalera"},{"floor":0,"id":"B08","name":"Comedor","rect":[46,10,59,20],"home":true,"key":"comedor"},{"floor":0,"id":"B09","name":"Despensa de diario / repostería","rect":[46,21,59,30],"home":true,"key":"reposteria"},{"floor":0,"id":"B10","name":"Cochera","rect":[1,31,14,39],"home":true,"key":"cochera"},{"floor":0,"id":"B11","name":"Despacho","rect":[15,31,26,39],"home":true,"key":"despacho"},{"floor":0,"id":"B12","name":"Zaguán","rect":[27,31,33,39],"home":false,"key":"zaguan"},{"floor":0,"id":"B13","name":"Portería","rect":[34,31,41,39],"home":true,"key":"porteria"},{"floor":0,"id":"B14","name":"Botica","rect":[42,31,59,39],"home":true,"key":"botica"},{"floor":1,"id":"A01","name":"Desván","rect":[1,1,13,9],"home":true,"key":"desvan"},{"floor":1,"id":"A02","name":"Costura","rect":[14,1,23,9],"home":true,"key":"costura"},{"floor":1,"id":"A03","name":"Coro","rect":[24,6,36,9],"home":false,"key":"coro"},{"floor":1,"id":"A04","name":"Cuarto de la nana","rect":[37,1,48,9],"home":true,"key":"nana"},{"floor":1,"id":"A06","name":"Recámara de niños","rect":[1,10,14,20],"home":true,"key":"recn"},{"floor":1,"id":"A07","name":"Rellano principal","rect":[1,21,14,30],"home":false,"key":"rellano"},{"floor":1,"id":"A08","name":"Sala de música","rect":[46,10,59,20],"home":true,"key":"musica"},{"floor":1,"id":"A09","name":"Baño","rect":[46,21,51,30],"home":true,"key":"banoalto"},{"floor":1,"id":"A15","name":"Huéspedes","rect":[52,21,59,30],"home":true,"key":"huespedes"},{"floor":1,"id":"A10","name":"Recámara de la abuela","rect":[1,31,14,39],"home":true,"key":"abuelo"},{"floor":1,"id":"A11","name":"Recámara principal","rect":[15,31,26,39],"home":true,"key":"recp"},{"floor":1,"id":"A12","name":"Salón de estrado","rect":[27,31,41,39],"home":true,"key":"salon"},{"floor":1,"id":"A14","name":"Recámara de la hija","rect":[42,31,59,39],"home":true,"key":"hija"}],"doors":[{"id":"D01","floor":0,"a":"B01","b":"B06","rect":[6,9,8,10],"kind":"puerta","clearWidth":2},{"id":"D02","floor":0,"a":"B02","b":"corredor","rect":[18,9,20,10],"kind":"puerta","clearWidth":2},{"id":"D03","floor":0,"a":"B03","b":"corredor","rect":[29,9,31,10],"kind":"puerta","clearWidth":2},{"id":"D04","floor":0,"a":"B04","b":"corredor","rect":[39,9,41,10],"kind":"puerta","clearWidth":2},{"id":"D05","floor":0,"a":"B06","b":"corredor","rect":[14,14,15,16],"kind":"puerta","clearWidth":2},{"id":"D06","floor":0,"a":"B06","b":"B07","rect":[7,20,9,21],"kind":"puerta","clearWidth":2},{"id":"D07","floor":0,"a":"B07","b":"corredor","rect":[14,24,15,26],"kind":"arco abierto","clearWidth":2},{"id":"D08","floor":0,"a":"B07","b":"B10","rect":[7,30,9,31],"kind":"puerta","clearWidth":2},{"id":"D09","floor":0,"a":"B08","b":"corredor","rect":[45,14,46,16],"kind":"puerta","clearWidth":2},{"id":"D11","floor":0,"a":"B10","b":"B11","rect":[14,34,15,36],"kind":"puerta","clearWidth":2},{"id":"D12","floor":0,"a":"B11","b":"B12","rect":[26,34,27,36],"kind":"puerta","clearWidth":2},{"id":"D13","floor":0,"a":"B11","b":"corredor","rect":[20,30,22,31],"kind":"puerta","clearWidth":2},{"id":"D14","floor":0,"a":"B12","b":"corredor","rect":[29,30,31,31],"kind":"puerta","clearWidth":2},{"id":"D15","floor":0,"a":"B14","b":"corredor","rect":[42,30,44,31],"kind":"puerta","clearWidth":2},{"id":"D16","floor":1,"a":"A01","b":"A06","rect":[6,9,8,10],"kind":"puerta","clearWidth":2},{"id":"D17","floor":1,"a":"A02","b":"galeria","rect":[18,9,20,10],"kind":"puerta","clearWidth":2},{"id":"D18","floor":1,"a":"A03","b":"galeria","rect":[29,9,31,10],"kind":"puerta","clearWidth":2},{"id":"D19","floor":1,"a":"A04","b":"galeria","rect":[39,9,41,10],"kind":"puerta","clearWidth":2},{"id":"D20","floor":1,"a":"A06","b":"galeria","rect":[14,14,15,16],"kind":"puerta","clearWidth":2},{"id":"D21","floor":1,"a":"A06","b":"A07","rect":[7,20,9,21],"kind":"puerta","clearWidth":2},{"id":"D22","floor":1,"a":"A07","b":"galeria","rect":[14,24,15,26],"kind":"arco abierto","clearWidth":2},{"id":"D23","floor":1,"a":"A07","b":"A10","rect":[7,30,9,31],"kind":"puerta","clearWidth":2},{"id":"D24","floor":1,"a":"A08","b":"galeria","rect":[45,14,46,16],"kind":"puerta","clearWidth":2},{"id":"D25","floor":1,"a":"A08","b":"A09","rect":[48,20,50,21],"kind":"puerta","clearWidth":2},{"id":"D26","floor":1,"a":"A10","b":"A11","rect":[14,34,15,36],"kind":"puerta","clearWidth":2},{"id":"D27","floor":1,"a":"A11","b":"A12","rect":[26,34,27,36],"kind":"puerta","clearWidth":2},{"id":"D28","floor":1,"a":"A12","b":"A14","rect":[41,34,42,36],"kind":"puerta","clearWidth":2},{"id":"D29","floor":1,"a":"A11","b":"galeria","rect":[20,30,22,31],"kind":"puerta","clearWidth":2},{"id":"D30","floor":1,"a":"A12","b":"galeria","rect":[29,30,31,31],"kind":"puerta","clearWidth":2},{"id":"D31","floor":1,"a":"A14","b":"galeria","rect":[42,30,44,31],"kind":"puerta","clearWidth":2},{"id":"D32","floor":0,"a":"B04","b":"B05","rect":[48,4,49,6],"kind":"puerta","clearWidth":2},{"id":"D33","floor":0,"a":"B05","b":"B08","rect":[52,9,54,10],"kind":"puerta","clearWidth":2},{"id":"D34","floor":0,"a":"B04","b":"B08","rect":[46,9,48,10],"kind":"puerta","clearWidth":2},{"id":"D35","floor":0,"a":"B08","b":"B09","rect":[51,20,53,21],"kind":"puerta","clearWidth":2},{"id":"D36","floor":0,"a":"B09","b":"corredor","rect":[45,24,46,26],"kind":"puerta","clearWidth":2},{"id":"D37","floor":0,"a":"B09","b":"B14","rect":[51,30,53,31],"kind":"puerta","clearWidth":2},{"id":"D38","floor":0,"a":"B12","b":"B13","rect":[33,34,34,36],"kind":"puerta","clearWidth":2},{"id":"D39","floor":0,"a":"B13","b":"B14","rect":[41,34,42,36],"kind":"puerta","clearWidth":2},{"id":"D40","floor":0,"a":"B13","b":"corredor","rect":[36,30,38,31],"kind":"puerta","clearWidth":2},{"id":"D41","floor":0,"a":"B12","b":"base","rect":[29,39,31,40],"kind":"portón","clearWidth":2},{"id":"D42","floor":1,"a":"A08","b":"A15","rect":[55,20,57,21],"kind":"puerta","clearWidth":2},{"id":"D43","floor":1,"a":"A15","b":"A14","rect":[55,30,57,31],"kind":"puerta","clearWidth":2},{"id":"D44","floor":1,"a":"A02","b":"A03","rect":[23,7,24,9],"kind":"puerta","clearWidth":2},{"id":"D45","floor":1,"a":"A03","b":"A04","rect":[36,7,37,9],"kind":"puerta","clearWidth":2}],"obstacles":[{"floor":0,"id":"fuente","rect":[28,18,32,22],"height":0.6,"blocksSight":false},{"floor":0,"id":"figura_central_fuente","rect":[29,19,31,21],"height":2.2,"blocksSight":true,"sightRect":[29.82,19.82,30.18,20.18]},{"floor":0,"id":"carruaje","rect":[5,33,9,36],"height":2.2,"blocksSight":true},{"floor":0,"id":"mesa_comedor","rect":[49,14,56,16],"height":0.78,"blocksSight":false},{"floor":0,"id":"trinchero_comedor","rect":[57,17,58,19],"height":1.9,"blocksSight":true},{"floor":0,"id":"mostrador_botica","rect":[47,34,54,35],"height":1.05,"blocksSight":false},{"floor":0,"id":"biombo_botica","rect":[54,35,55,37],"height":1.9,"blocksSight":true},{"floor":0,"id":"librero_isla","rect":[5,14,9,15],"height":2.1,"blocksSight":true},{"floor":0,"id":"altar_fijo","rect":[26,1,34,2],"height":0.95,"blocksSight":false},{"floor":0,"id":"columna_18_13","rect":[18,13,19,14],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_18_26","rect":[18,26,19,27],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_23_13","rect":[23,13,24,14],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_23_26","rect":[23,26,24,27],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_27_13","rect":[27,13,28,14],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_27_26","rect":[27,26,28,27],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_33_13","rect":[33,13,34,14],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_33_26","rect":[33,26,34,27],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_37_13","rect":[37,13,38,14],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_37_26","rect":[37,26,38,27],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_41_13","rect":[41,13,42,14],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_41_26","rect":[41,26,42,27],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_18_17","rect":[18,17,19,18],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_41_17","rect":[41,17,42,18],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_18_22","rect":[18,22,19,23],"height":3.8,"blocksSight":true},{"floor":0,"id":"columna_41_22","rect":[41,22,42,23],"height":3.8,"blocksSight":true},{"floor":1,"id":"piano","rect":[50,14,53,16],"height":1.1,"blocksSight":false,"kind":"prop"},{"floor":1,"id":"biombo_musica","rect":[55,16,56,18],"height":1.9,"blocksSight":true},{"floor":1,"id":"cama_A10","rect":[6,34,8,36],"height":0.65,"blocksSight":false},{"floor":1,"id":"cama_A11","rect":[19,34,21,36],"height":0.65,"blocksSight":false},{"floor":1,"id":"cama_A14","rect":[49,34,51,36],"height":0.65,"blocksSight":false},{"floor":0,"id":"reserva_escalera_principal","rect":[6,23,12,28],"height":3.8,"blocksSight":false},{"floor":1,"id":"reserva_escalera_principal","rect":[6,23,12,28],"height":3.8,"blocksSight":false},{"floor":0,"id":"reserva_escalera_servicio","rect":[38,2,46,4],"height":3.8,"blocksSight":false},{"floor":1,"id":"reserva_escalera_servicio","rect":[38,2,46,4],"height":3.8,"blocksSight":false},{"floor":0,"id":"banca_oeste_1","rect":[26,4,28,5],"height":0.5,"kind":"bench","blocksSight":false},{"floor":0,"id":"banca_este_1","rect":[32,4,34,5],"height":0.5,"kind":"bench","blocksSight":false},{"floor":0,"id":"banca_oeste_2","rect":[26,6,28,7],"height":0.5,"kind":"bench","blocksSight":false},{"floor":0,"id":"banca_este_2","rect":[32,6,34,7],"height":0.5,"kind":"bench","blocksSight":false},{"floor":1,"id":"prop_mecedora","rect":[2,35,3,36],"height":1.1,"kind":"prop","blocksSight":false},{"floor":1,"id":"prop_caballito","rect":[3,12,4,13],"height":1.1,"kind":"prop","blocksSight":false},{"floor":1,"id":"prop_cuna","rect":[45,6,47,7],"height":1.1,"kind":"prop","blocksSight":false},{"floor":0,"id":"prop_reloj","rect":[25,37,26,38],"height":1.9,"kind":"prop","blocksSight":true,"sightRect":[25.3,37.35,25.7,37.65]},{"floor":0,"id":"prop_grifo_traspatio","rect":[55,2,57,3],"height":0.9,"kind":"prop","blocksSight":false},{"floor":1,"id":"banera","rect":[48,25,50,28],"height":0.65,"kind":"bath","blocksSight":false},{"floor":0,"id":"prop_grifo_cocina","rect":[38,7,39,8],"height":1.15,"kind":"prop","blocksSight":false},{"floor":1,"id":"prop_grifo_banoalto","rect":[49,22,50,23],"height":1.15,"kind":"prop","blocksSight":false}],"stairs":[{"id":"principal","lower":"B07","upper":"A07","width":1.6,"risers":20,"riser":0.19,"tread":0.28,"landing":1.6,"headroom":2.2,"path":[[11,26.3,0],[8.48,26.3,1.9],[7.68,26.3,1.9],[7.68,24.3,1.9],[8.48,24.3,1.9],[11,24.3,3.8]],"hole":[6.8,23.2,11.9,27.4],"lowerAnchor":[12.5,26.5],"upperAnchor":[12.5,23.5]},{"id":"servicio","lower":"B04","upper":"A04","width":1.3,"risers":20,"riser":0.19,"tread":0.28,"landing":1.3,"headroom":2.2,"path":[[39,2.8,0],[44.32,2.8,3.8]],"hole":[38.7,2.1,45.7,3.5],"lowerAnchor":[37.5,4.5],"upperAnchor":[46.5,4.5]}],"hidingSockets":[{"id":"HB01","room":"B01","floor":0,"x":7,"z":7,"type":"alacena","mandatory":true,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB02","room":"B02","floor":0,"x":19,"z":7,"type":"ropero de ropa blanca","mandatory":true,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB03","room":"B03","floor":0,"x":32,"z":8,"type":"confesionario","mandatory":true,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D","preferredSolid":[33,8]},{"id":"HB04","room":"B04","floor":0,"x":46,"z":5,"type":"alacena de servicio","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB06","room":"B06","floor":0,"x":7,"z":15,"type":"librero de doble fondo","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB08","room":"B08","floor":0,"x":53,"z":12,"type":"trinchero","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB09","room":"B09","floor":0,"x":47,"z":25,"type":"alacena","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB10","room":"B10","floor":0,"x":7,"z":32,"type":"arcon de aperos","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB11","room":"B11","floor":0,"x":21,"z":32,"type":"armario de archivo","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB13","room":"B13","floor":0,"x":35,"z":32,"type":"ropero","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB14","room":"B14","floor":0,"x":50,"z":32,"type":"armario de trastienda","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA01","room":"A01","floor":1,"x":7,"z":7,"type":"baul","mandatory":true,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA02","room":"A02","floor":1,"x":19,"z":7,"type":"ropero","mandatory":true,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA04","room":"A04","floor":1,"x":43,"z":7,"type":"ropero","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA06","room":"A06","floor":1,"x":7,"z":15,"type":"ropero infantil","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA08","room":"A08","floor":1,"x":47,"z":15,"type":"armario de partituras","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA09","room":"A09","floor":1,"x":47,"z":23,"type":"armario de ropa blanca","mandatory":true,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA15","room":"A15","floor":1,"x":53,"z":22,"type":"ropero","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA10","room":"A10","floor":1,"x":7,"z":31,"type":"ropero","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA11","room":"A11","floor":1,"x":21,"z":32,"type":"vestidor","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA12","room":"A12","floor":1,"x":30,"z":32,"type":"armario de mantas","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA14","room":"A14","floor":1,"x":50,"z":32,"type":"ropero","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HB14_alt","room":"B14","floor":0,"x":49,"z":33,"type":"armario de trastienda","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"},{"id":"HA14_alt","room":"A14","floor":1,"x":49,"z":33,"type":"ropero","mandatory":false,"coordinateRole":"punto de aproximacion; volumen y orientacion del mueble pendientes de maqueta 3D"}],"windows":[{"id":"V01","floor":0,"room":"B10","wall":"sur","start":[6.5,39],"end":[8.5,39],"state":"postigos cerrados","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V02","floor":0,"room":"B11","wall":"sur","start":[19.5,39],"end":[21.5,39],"state":"vidrio roto con reja","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V03","floor":0,"room":"B13","wall":"sur","start":[36.5,39],"end":[38.5,39],"state":"tablas con rendijas","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V04","floor":0,"room":"B14","wall":"sur","start":[49.5,39],"end":[51.5,39],"state":"tapiada","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":false},{"id":"V05","floor":1,"room":"A10","wall":"sur","start":[6.5,39],"end":[8.5,39],"state":"postigos cerrados","sillRelative":0,"height":2.1,"kind":"balcon con barandal","lightThrough":true},{"id":"V06","floor":1,"room":"A11","wall":"sur","start":[19.5,39],"end":[21.5,39],"state":"vidrio roto con reja","sillRelative":0,"height":2.1,"kind":"balcon con barandal","lightThrough":true},{"id":"V07","floor":1,"room":"A12","wall":"sur","start":[29,39],"end":[31,39],"state":"tablas con rendijas","sillRelative":0,"height":2.1,"kind":"balcon con barandal","lightThrough":true},{"id":"V08","floor":1,"room":"A14","wall":"sur","start":[49.5,39],"end":[51.5,39],"state":"tapiada","sillRelative":0,"height":2.1,"kind":"balcon con barandal","lightThrough":false},{"id":"V09","floor":0,"room":"B06","wall":"este","start":[14,17],"end":[14,18.5],"state":"tablas con rendijas","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V10","floor":0,"room":"B08","wall":"oeste","start":[46,18],"end":[46,19.5],"state":"vidrio roto con reja","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V11","floor":0,"room":"B09","wall":"oeste","start":[46,27],"end":[46,28.5],"state":"postigos cerrados","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V12","floor":0,"room":"B02","wall":"sur","start":[21,9],"end":[22.5,9],"state":"postigos cerrados","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V13","floor":0,"room":"B04","wall":"sur","start":[43,9],"end":[44.5,9],"state":"tablas con rendijas","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V14","floor":1,"room":"A06","wall":"este","start":[14,17],"end":[14,18.5],"state":"postigos cerrados","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V15","floor":1,"room":"A08","wall":"oeste","start":[46,18],"end":[46,19.5],"state":"vidrio roto con reja","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V16","floor":1,"room":"A09","wall":"oeste","start":[46,27],"end":[46,28.5],"state":"postigos cerrados","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true},{"id":"V17","floor":1,"room":"A02","wall":"sur","start":[21,9],"end":[22.5,9],"state":"tablas con rendijas","sillRelative":0,"height":2.1,"kind":"balcon con barandal","lightThrough":true},{"id":"V18","floor":1,"room":"A04","wall":"sur","start":[43,9],"end":[44.5,9],"state":"postigos cerrados","sillRelative":0,"height":2.1,"kind":"balcon con barandal","lightThrough":true},{"id":"V19","floor":0,"room":"B03","wall":"alta hacia patio","start":[33,9],"end":[35,9],"state":"vidrio roto con reja","sillRelative":4.6,"height":1.4,"kind":"ventana","lightThrough":true},{"id":"V20","floor":0,"room":"B04","wall":"este a traspatio","start":[48,6.5],"end":[48,8],"state":"postigos cerrados","sillRelative":1.05,"height":1.5,"kind":"ventana","lightThrough":true}],"audit":{"roomsEligible":22,"deadEnds":["B01","B02","B03","A01","A09"],"deadEndFraction":0.22727272727272727,"candidateHides":24,"maxActivePerRoom":1,"northStraight":27,"sideStraight":17,"ringCenterlinePerimeter":88,"validation":"node test/layout-v11-test.cjs; test/browser-layout-v11.py; test/online-layout-v11.py","coverageMetric":"Distancia horizontal por celdas transitables del mismo piso al punto de aproximacion; incluye rellanos.","coverageLimitMeters":18,"activeRangeObserved":[20,20]},"caveats":["Cobertura medida por camino horizontal con puertas transitables; una puerta cerrada puede cambiar el tiempo de escape.","Escaleras verificadas con capsula de radio 0.22m y transicion continua de altura; balance de persecucion pendiente de partidas humanas.","Calidad ajustable comprobada en navegador y pantalla movil emulada; FPS pendientes de medir en dispositivos fisicos."],"sourceGDD":{"filename":"Texto pegado.txt","sha256":"ab9586d601bfd9acd4c3892afdbd4e5bbc4022b8ebfdf5daec85d3c114b34737","basis":"seccion 8.5 plano v2; prevalece frente a 8.1–8.4 y apendice 12 contradictorios"},"randomContracts":{"homes":["B01","B02","B03","B04","B06","B08","B09","B10","B11","B13","B14","A01","A02","A04","A06","A08","A09","A15","A10","A11","A12","A14"],"altar":"Sortear entre superficies validas en cuartos autorizados; el retablo fijo de B03 es decorativo. Mantener ritual y huida del juego actual.","fuse":"Sortear entre anclajes accesibles, versionados y libres de escondites, puertas y fuentes. Preservar las reglas actuales de circuitos.","loot":"Muebles y superficies segun funcion; cajas y cajones tienen volumen de apertura; nunca suelo como spawn inicial.","anomaly":"Excluir corredor, galeria, patio, traspatio, escaleras, rellano, coro y exterior. Zaguan solo evento de puerta. Nunca crear oclusores aleatorios sobre rutas criticas.","hides":"24 candidatos; presupuesto aprobado 18–20 activos, actualmente 20 en las selecciones ensayadas; cobertura <=18m mismo piso; un activo por cuarto; callejones cubiertos."}};
 // ===================== NOCHE DE ÁNIMAS v0.2 · MOTOR DE REGLAS =====================
 // Sin DOM ni gráficos: corre en el navegador o en node (simulador).
 'use strict';
@@ -328,52 +329,100 @@ const CFG = {
   cam: { p: 0.25, min: 50 }, esp: { p: 0.25, min: 40 }, gasP: 0.5, interf: { r: 6, cd: 20, dur: 8, cost: 4 }, bulb: { flips: 6, win: 30 }, mustHunt: 60, possess: { cd: 100, cost: 8, dur: 16, drain: 1.2 }, anomaly: { cd: 22, cost: 3, max: 14 }, analog: { gap: [150, 230] }, manifest: { cd: 30, cost: 4, dmg: 5, show: 1.6 }, hallu: { cd: 35, cost: 5, dur: 3.2 }, tablillaCost: 15, mirrorDrain: 7.5, mirrorMin: 20, pinCost: 5, candleCost: 12, radio: { cost: 5, r: 10, cd: 8 },
 };
 
-// ---------- La casona ----------
-const W = 60, H = 60, FL = W * H; // y 40–58: afuera (la base de los investigadores)
-const T = { FLOOR: 0, WALL: 1, TABLE: 2, CLOSET: 3, WATER: 4, PILLAR: 5, ALTAR: 6, BED: 7, SHELF: 8, VOID: 9, STAIR: 10, BUSH: 11, GATE: 12, VAN: 13 };
-const walkableT = t => t === T.FLOOR || t === T.STAIR;
-const sightBlockT = t => t === T.WALL || t === T.CLOSET || t === T.SHELF;
-const RECTS = [[1, 1, 13, 8], [15, 1, 29, 8], [31, 1, 44, 8], [46, 1, 58, 8], [1, 10, 13, 19], [1, 21, 13, 29], [46, 10, 58, 19], [46, 21, 58, 29], [1, 31, 13, 38], [15, 31, 29, 38], [31, 31, 44, 38], [46, 31, 58, 38], [18, 13, 41, 26], [15, 10, 44, 29], [1, 40, 58, 58]];
-const ROOMS = [
-  ['capilla', 'Capilla', 'biblioteca', 'Biblioteca', 'sala', 'Sala', 'recp', 'Recámara principal', 'comedor', 'Comedor', 'cocina', 'Cocina', 'recn', 'Recámara de niños', 'bano', 'Baño', 'despensa', 'Despensa', 'zaguan', 'Zaguán', 'estudio', 'Estudio', 'servicio', 'Cuarto de servicio', 'patio', 'Patio', 'corredor', 'Corredor', 'afuera', 'Afuera (la base)'],
-  ['juegos', 'Cuarto de juegos', 'costura', 'Cuarto de costura', 'musica', 'Sala de música', 'huespedes', 'Recámara de huéspedes', 'abuelo', 'Recámara del abuelo', 'banoalto', 'Baño alto', 'oratorio', 'Oratorio', 'nana', 'Cuarto de la nana', 'desvan', 'Desván', 'rellano', 'Rellano', 'archivo', 'Archivo', 'azotehuela', 'Azotehuela', 'vacio', 'Vacío del patio', 'galeria', 'Galería', 'afuera1', '(afuera)'],
-].map(l => RECTS.map((r, i) => ({ id: l[i * 2], n: l[i * 2 + 1], r })));
-const RID = [{}, {}]; ROOMS.forEach((rs, f) => rs.forEach((r, i) => (RID[f][r.id] = i)));
-const NO_HOME = [['zaguan', 'patio', 'corredor', 'afuera'], ['rellano', 'azotehuela', 'vacio', 'galeria', 'afuera1']];
-const HALLS = [['corredor', 'patio'], ['galeria']];
-const WATER_ROOMS = [['cocina', 'bano', 'patio'], ['banoalto']];
-const BEDROOMS = [['recp', 'recn', 'servicio'], ['huespedes', 'abuelo', 'nana']];
-const DOOR_DEFS = [['V', 14, 4], ['V', 30, 4], ['V', 45, 4], ['H', 22, 9], ['H', 37, 9], ['H', 6, 9], ['H', 52, 9], ['V', 14, 14], ['H', 6, 20], ['V', 14, 25], ['H', 6, 30], ['V', 45, 14], ['H', 52, 20], ['V', 45, 25], ['H', 52, 30], ['H', 22, 30], ['H', 37, 30], ['V', 14, 34], ['V', 30, 34], ['V', 45, 34]];
-const FURN = [
-  [[T.ALTAR, 5, 1, 8, 1], [T.TABLE, 3, 4, 5, 4], [T.TABLE, 8, 4, 10, 4], [T.TABLE, 3, 6, 5, 6], [T.TABLE, 8, 6, 10, 6], [T.SHELF, 16, 1, 26, 1], [T.SHELF, 19, 4, 26, 4],
-    [T.TABLE, 34, 4, 39, 4], [T.TABLE, 35, 6, 38, 6], [T.BED, 51, 2, 53, 4], [T.TABLE, 5, 14, 9, 15], [T.TABLE, 5, 24, 8, 25], [T.TABLE, 1, 22, 1, 26],
-    [T.BED, 48, 16, 49, 18], [T.BED, 52, 16, 53, 17], [T.WATER, 55, 22, 57, 23], [T.SHELF, 1, 31, 1, 35], [T.SHELF, 4, 33, 10, 33], [T.TABLE, 16, 37, 18, 37],
-    [T.TABLE, 35, 34, 38, 35], [T.BED, 54, 33, 55, 34], [T.WATER, 28, 18, 31, 21], [T.TABLE, 20, 32, 23, 32]],
-  [[T.TABLE, 5, 3, 7, 4], [T.TABLE, 9, 6, 10, 6], [T.TABLE, 18, 4, 21, 5], [T.TABLE, 34, 2, 37, 3], [T.TABLE, 38, 6, 41, 6], [T.BED, 51, 2, 53, 4],
-    [T.BED, 9, 16, 11, 18], [T.WATER, 2, 23, 4, 24], [T.ALTAR, 47, 18, 49, 18], [T.TABLE, 50, 13, 54, 13], [T.TABLE, 50, 15, 54, 15], [T.BED, 51, 24, 53, 26],
-    [T.TABLE, 4, 34, 6, 34], [T.TABLE, 8, 36, 10, 36], [T.SHELF, 33, 33, 40, 33], [T.SHELF, 33, 35, 40, 35], [T.TABLE, 55, 32, 57, 32]],
-];
-const SPOT_DEFS = [
-  [[2, 1], [10, 1], [28, 1], [43, 1], [48, 1], [56, 1], [1, 11], [12, 28], [57, 11], [52, 18], [57, 28], [2, 37], [43, 31], [57, 37]],
-  [[2, 1], [12, 7], [28, 1], [43, 1], [48, 1], [56, 7], [1, 11], [12, 18], [57, 11], [57, 28], [2, 37], [12, 32], [43, 31], [32, 37]],
-];
-const STAIRS = [[26, 36, 28, 38], [46, 36, 48, 38]];
-// escaleras de verdad: una rampa de 3 casillas. La primera escalera sube hacia el este y la segunda hacia el oeste.
-// En la casilla de en medio se cambia de piso; la planta baja no pisa el tramo de arriba y la alta no pisa el de abajo.
-const STAIR_DIR = [1, -1];
-const stairAt = (x, y) => { for (let k = 0; k < STAIRS.length; k++) { const [x0, y0, x1, y1] = STAIRS[k]; if (x >= x0 && x < x1 + 1 && y >= y0 && y < y1 + 1) return k; } return -1; };
-const stairP = (k, x) => { const [x0, , x1] = STAIRS[k], p = (x - x0) / (x1 + 1 - x0); return Math.max(0, Math.min(1, STAIR_DIR[k] > 0 ? p : 1 - p)); };
-const elevOf = e => { const k = stairAt(e.x, e.y); return k >= 0 ? stairP(k, e.x) : e.f; };
-const ALTAR_POS = { f: 0, x: 6.5, y: 2.6 };
-const EXIT = { f: 0, x: 22.5, y: 38.4 };
-const ZAG = { f: 0, x: 23, y: 38.4 };
-const MALETIN = { f: 0, x: 21.5, y: 33.6 };
-// Objetos de la casa con los que interactúa el ánima (no estorban el paso)
-const PROPS = [
-  [0, 'mecedora', 32.5, 7.5], [0, 'grifo', 1.5, 28.5], [0, 'cuadro', 7.5, 10.5], [0, 'campanita', 4.5, 2.5], [0, 'libros', 25.5, 5.5], [0, 'reloj', 31.5, 31.5],
-  [0, 'muneca', 50.5, 12.5], [0, 'grifo', 49.5, 28.5], [0, 'fuente', 27.5, 19.5], [0, 'ventana', 16.5, 31.5], [0, 'radio', 12.5, 33.5],
-  [1, 'piano', 35.5, 4.5], [1, 'maquina', 20.5, 6.5], [1, 'caballito', 3.5, 7.5], [1, 'cajita', 11.5, 3.5], [1, 'mecedora', 5.5, 12.5], [1, 'campanita', 50.5, 18.5],
-  [1, 'cuna', 48.5, 23.5], [1, 'baul', 6.5, 31.5], [1, 'papeles', 41.5, 37.5], [1, 'grifo', 6.5, 27.5], [1, 'ventana', 31.5, 1.5]].map(([f, kind, x, y], id) => ({ id, f, kind, x, y }));
+// Casona v11: one registry owns geometry, rooms, interactions and navigation.
+const W=60,H=60,FL=W*H;
+const T={FLOOR:0,WALL:1,TABLE:2,CLOSET:3,WATER:4,PILLAR:5,ALTAR:6,BED:7,SHELF:8,VOID:9,STAIR:10,BUSH:11,GATE:12,VAN:13,PROP:14,BENCH:15};
+const walkableT=t=>t===T.FLOOR||t===T.STAIR;
+const sightBlockT=t=>t===T.WALL||t===T.CLOSET||t===T.SHELF||t===T.PILLAR;
+const ROOMS=[[],[]],RID=[{},{}],LAYOUT_ROOMS=new Map();
+for(const r of NDALayout.rooms){const [a,b,c,d]=r.rect,rm={id:r.key,n:r.name,r:[a,b,c-1,d-1],code:r.id,home:r.home};LAYOUT_ROOMS.set(r.id,{f:r.floor,r:ROOMS[r.floor].length});ROOMS[r.floor].push(rm);}
+for(const [f,id,n,r]of[[0,'patio','Patio',[18,13,41,26]],[0,'corredor','Corredor',[15,10,44,29]],[0,'afuera','Afuera (la base)',[1,40,58,58]],[1,'vacio','Vacío del patio',[18,13,41,26]],[1,'vaciocapilla','Vacío de la capilla',[24,1,35,5]],[1,'galeria','Galería',[15,10,44,29]],[1,'afuera1','Exterior superior',[0,40,59,59]]])ROOMS[f].push({id,n,r,home:false});
+ROOMS.forEach((rs,f)=>rs.forEach((r,i)=>RID[f][r.id]=i));
+// Compatibility names remain indexes into real rooms, never duplicate rooms.
+Object.assign(RID[0],{sala:RID[0].botica,recp:RID[0].despacho,recn:RID[0].porteria,bano:RID[0].cocina,estudio:RID[0].despacho,servicio:RID[0].cochera});
+Object.assign(RID[1],{juegos:RID[1].recn,oratorio:RID[1].coro,archivo:RID[1].salon,azotehuela:RID[1].nana});
+const RECTS=ROOMS[0].map(r=>r.r),NO_HOME=ROOMS.map(rs=>rs.filter(r=>!r.home).map(r=>r.id));
+const HALLS=[['corredor','patio','escalera'],['galeria','rellano']];
+const WATER_ROOMS=[['cocina','patio','traspatio'],['banoalto']];
+const BEDROOMS=[[],['recn','recp','abuelo','nana','hija','huespedes']];
+const DOOR_DEFS_BY_FLOOR=[[],[]];
+for(const d of NDALayout.doors){if(d.kind==='portón')continue;const[a,b,c,e]=d.rect;DOOR_DEFS_BY_FLOOR[d.floor].push([c-a===1?'V':'H',a,b,d.id,d.kind]);}
+const DOOR_DEFS=DOOR_DEFS_BY_FLOOR[0];
+const grids=[new Uint8Array(FL).fill(T.WALL),new Uint8Array(FL).fill(T.WALL)],roomGrid=[new Int8Array(FL).fill(-1),new Int8Array(FL).fill(-1)];
+const fillLayout=(f,r,t,ri)=>{for(let y=r[1];y<r[3];y++)for(let x=r[0];x<r[2];x++){grids[f][y*W+x]=t;if(ri!==undefined)roomGrid[f][y*W+x]=ri;}};
+for(const f of[0,1]){
+ for(const r of ROOMS[f]){if(['corredor','galeria','vacio','vaciocapilla','afuera','afuera1','patio'].includes(r.id))continue;fillLayout(f,[r.r[0],r.r[1],r.r[2]+1,r.r[3]+1],T.FLOOR,RID[f][r.id]);}
+ for(let y=10;y<30;y++)for(let x=15;x<45;x++){const inner=x>=18&&x<42&&y>=13&&y<27;grids[f][y*W+x]=inner&&f?T.VOID:T.FLOOR;roomGrid[f][y*W+x]=RID[f][inner?(f?'vacio':'patio'):(f?'galeria':'corredor')];}
+ if(f){fillLayout(1,[24,1,36,6],T.VOID,RID[1].vaciocapilla);fillLayout(1,[49,1,59,9],T.VOID);fillLayout(1,[0,40,60,60],T.VOID,RID[1].afuera1);}
+}
+for(const d of NDALayout.doors){const adjacent=LAYOUT_ROOMS.get(d.a)||LAYOUT_ROOMS.get(d.b);fillLayout(d.floor,d.rect,T.FLOOR,adjacent?adjacent.r:RID[0].zaguan);}
+// Heights and sight collision are independent: low tables never become opaque walls.
+const SURF_H={[T.TABLE]:.78,[T.ALTAR]:.95},FURN=[[],[]],LAYOUT_FURN=[],LAYOUT_OCCLUDERS=[];
+for(const o of NDALayout.obstacles){if(o.id.startsWith('reserva_'))continue;const[a,b,c,d]=o.rect,type=o.kind==='prop'?T.PROP:o.kind==='bench'?T.BENCH:o.kind==='bath'?T.WATER:o.id.startsWith('columna')?T.PILLAR:o.id==='fuente'?T.WATER:o.id.startsWith('cama_')?T.BED:o.id==='altar_fijo'?T.ALTAR:o.blocksSight?T.SHELF:T.TABLE;fillLayout(o.floor,o.rect,type);FURN[o.floor].push([type,a,b,c-1,d-1]);LAYOUT_FURN.push({...o,type});if(o.blocksSight)LAYOUT_OCCLUDERS.push(o);}
+// Continuous height profiles, with a single shared half-height transfer cell per staircase.
+const STAIRS=NDALayout.stairs.map(s=>[Math.floor(s.hole[0]),Math.floor(s.hole[1]),Math.ceil(s.hole[2])-1,Math.ceil(s.hole[3])-1]);
+const STAIR_DIR=[-1,1],isStair=new Uint8Array(FL),isStairMid=new Uint8Array(FL),STAIR_BLOCK=new Uint8Array(2*FL),STAIR_ENDS=new Set();
+const STAIR_PATHS=[[[[11,26],[10,26],[9,26],[8,26],[7,26],[7,25]],[[7,25],[7,24],[8,24],[9,24],[10,24],[11,24]]],[[[38,2],[39,2],[40,2],[41,2]],[[41,2],[42,2],[43,2],[44,2],[45,2]]]];
+for(let k=0;k<2;k++){
+ const s=NDALayout.stairs[k],r=[Math.floor(s.hole[0]),Math.floor(s.hole[1]),Math.ceil(s.hole[2]),Math.ceil(s.hole[3])];
+ for(const f of[0,1])fillLayout(f,r,T.PILLAR);
+ const both=new Set(STAIR_PATHS[k].flat().map(([x,y])=>y*W+x));
+ for(const i of both){isStair[i]=1;for(const f of[0,1]){grids[f][i]=T.STAIR;STAIR_BLOCK[f*FL+i]=1;}}
+ for(const f of[0,1])for(const[x,y]of STAIR_PATHS[k][f])STAIR_BLOCK[f*FL+y*W+x]=0;
+ const midpoint=k===0?[7,25]:[41,2];isStairMid[midpoint[1]*W+midpoint[0]]=1;
+ for(const f of[0,1]){const p=STAIR_PATHS[k][f][f?STAIR_PATHS[k][f].length-1:0];STAIR_ENDS.add(p[1]*W+p[0]);}
+}
+const STAIR_INDEX=new Int8Array(FL).fill(-1);STAIR_PATHS.forEach((paths,k)=>paths.flat().forEach(([x,y])=>STAIR_INDEX[y*W+x]=k));
+const stairAt=(x,y)=>x<0||y<0||x>=W||y>=H?-1:STAIR_INDEX[(y|0)*W+(x|0)];
+function stairProjection(k,x,y){const p=NDALayout.stairs[k].path;let best=null,travel=0,total=0;for(let j=1;j<p.length;j++)total+=Math.hypot(p[j][0]-p[j-1][0],p[j][1]-p[j-1][1]);for(let j=1;j<p.length;j++){const a=p[j-1],b=p[j],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy),t=clamp(((x-a[0])*dx+(y-a[1])*dy)/(l*l),0,1),dist=Math.hypot(x-a[0]-dx*t,y-a[1]-dy*t);if(!best||dist<best.dist)best={dist,height:(a[2]+(b[2]-a[2])*t)/3.8,p:(travel+l*t)/total};travel+=l;}return best;}
+const stairP=(k,x,y)=>stairProjection(k,x,y).p;
+const elevOf=e=>{const k=stairAt(e.x,e.y);return k<0?e.f:stairProjection(k,e.x,e.y).height;};
+const stairSideBlock=(a,b)=>a!==b&&((isStair[a]&&!isStair[b]&&!STAIR_ENDS.has(a))||(isStair[b]&&!isStair[a]&&!STAIR_ENDS.has(b)));
+function stairFlip(w,e,quiet){if(!e||(e.kind==='ghost'&&ethereal(e)))return;const k=stairAt(e.x,e.y);if(k<0)return;const p=stairP(k,e.x,e.y);if(e.f===0&&p>.505)quiet?(e.f=1):changeFloor(w,e,1);else if(e.f===1&&p<.495)quiet?(e.f=0):changeFloor(w,e,0);}
+const stairNext=(k,up)=>k===0?{x:7.5,y:up?24.5:26.5}:{x:up?42.5:40.5,y:2.5};
+// Exterior keeps the existing van, tables and spawn, with its path centered on the new portón.
+fillLayout(0,[0,40,60,60],T.VOID,RID[0].afuera);fillLayout(0,[27,40,33,51],T.FLOOR,RID[0].afuera);fillLayout(0,[12,50,35,57],T.FLOOR,RID[0].afuera);
+for(let y=41;y<57;y++)for(let x=1;x<59;x++)if(grids[0][y*W+x]===T.VOID&&[[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>grids[0][(y+b)*W+x+a]===T.FLOOR))grids[0][y*W+x]=T.BUSH;
+fillLayout(0,[12,57,35,58],T.GATE);fillLayout(0,[28,51,33,55],T.VAN);
+for(const r of[[14,51,20,52],[14,55,20,56]]){fillLayout(0,r,T.TABLE);FURN[0].push([T.TABLE,r[0],r[1],r[2]-1,r[3]-1]);LAYOUT_FURN.push({id:'mesa_base_'+r[1],floor:0,rect:r,type:T.TABLE,height:.78});}
+const tileAt=(f,x,y)=>x<0||y<0||x>=W||y>=H?T.WALL:grids[f][(y|0)*W+(x|0)];
+const roomAt=(f,x,y)=>x<0||y<0||x>=W||y>=H?-1:roomGrid[f][(y|0)*W+(x|0)];
+const roomOf=e=>roomAt(e.f,e.x,e.y),roomId=e=>{const r=roomOf(e);return r<0?'':ROOMS[e.f][r].id;},isHall=(f,r)=>r>=0&&HALLS[f].includes(ROOMS[f][r].id);
+// Each socket owns one solid cell beside its approach point; keep doorway and stair clearances.
+const SPOTS=[];
+for(const h of NDALayout.hidingSockets){const f=h.floor,ri=LAYOUT_ROOMS.get(h.room).r,approach=[h.x,h.z];let cell=null;const directions=h.preferredSolid?[[h.preferredSolid[0]-h.x,h.preferredSolid[1]-h.z],[0,-1],[-1,0],[1,0],[0,1]]:[[0,-1],[-1,0],[1,0],[0,1]];for(const[dx,dy]of directions){const x=h.x+dx,y=h.z+dy;if(tileAt(f,x,y)!==T.FLOOR||roomAt(f,x,y)!==ri||NDALayout.doors.some(d=>d.floor===f&&x>=d.rect[0]-1&&x<d.rect[2]+1&&y>=d.rect[1]-1&&y<d.rect[3]+1)||NDALayout.hidingSockets.some(o=>o.floor===f&&o.x===x&&o.z===y))continue;cell=[x,y];break;}if(!cell)throw Error('No furniture clearance for '+h.id);grids[f][cell[1]*W+cell[0]]=T.CLOSET;SPOTS.push({f,x:cell[0],y:cell[1],hx:h.x+.5,hy:h.z+.5,room:ri,id:h.id,type:h.type,mandatory:h.mandatory});}
+const SPOT_DEFS=[0,1].map(f=>SPOTS.filter(s=>s.f===f).map(s=>[s.x,s.y]));
+// Every inhabited room owns a real supporting surface, fitted around doors and hiding approaches.
+for(const f of[0,1])ROOMS[f].forEach((r,ri)=>{
+ if(!r.home||FURN[f].some(([t,x,y])=>SURF_H[t]&&roomAt(f,x,y)===ri))return;
+ const free=(x,y)=>tileAt(f,x,y)===T.FLOOR&&roomAt(f,x,y)===ri&&!isStair[y*W+x]&&!NDALayout.stairs.some(s=>x+.5>s.hole[0]-1&&x+.5<s.hole[2]+1&&y+.5>s.hole[1]-1&&y+.5<s.hole[3]+1)&&!SPOTS.some(s=>s.f===f&&Math.hypot(s.hx-x-.5,s.hy-y-.5)<2)&&!NDALayout.doors.some(d=>d.floor===f&&Math.hypot((d.rect[0]+d.rect[2])/2-x-.5,(d.rect[1]+d.rect[3])/2-y-.5)<2);
+ let site=null;for(let y=r.r[1]+1;y<r.r[3];y++)for(let x=r.r[0]+1;x<r.r[2];x++)if(!site&&free(x,y))site=[x,y];if(!site)throw Error('No surface '+r.id);
+ const width=free(site[0]+1,site[1])?2:1,depth=width===1&&free(site[0],site[1]+1)?2:1;
+ for(let dy=0;dy<depth;dy++)for(let dx=0;dx<width;dx++)grids[f][(site[1]+dy)*W+site[0]+dx]=T.TABLE;
+ FURN[f].push([T.TABLE,...site,site[0]+width-1,site[1]+depth-1]);LAYOUT_FURN.push({id:'mesa_'+r.id,floor:f,rect:[site[0],site[1],site[0]+width,site[1]+depth],height:.78,type:T.TABLE});
+});
+const ROOM_TILES=ROOMS.map((rs,f)=>rs.map((r,i)=>{const out=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(tileAt(f,x,y)===T.FLOOR&&roomAt(f,x,y)===i)out.push([x,y]);return out;}));
+const ROOM_CENTER=ROOMS.map((rs,f)=>rs.map((r,i)=>{const c=[(r.r[0]+r.r[2]+1)/2,(r.r[1]+r.r[3]+1)/2],list=ROOM_TILES[f][i].slice().sort((a,b)=>Math.hypot(a[0]+.5-c[0],a[1]+.5-c[1])-Math.hypot(b[0]+.5-c[0],b[1]+.5-c[1]));return list.length?{f,x:list[0][0]+.5,y:list[0][1]+.5}:null;}));
+const randomIn=(f,r)=>{const t=pick(ROOM_TILES[f][r]);if(!t)throw Error('Empty spawn room '+f+':'+r);return{f,x:t[0]+.5,y:t[1]+.5};};
+const SURFACES=ROOMS.map((rs,f)=>rs.map((r,i)=>{const out=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(roomAt(f,x,y)===i&&SURF_H[tileAt(f,x,y)]&&[[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>walkableT(tileAt(f,x+a,y+b))))out.push([x,y,SURF_H[tileAt(f,x,y)]]);return out;}));
+const onFurniture=(f,r)=>{const t=pick(SURFACES[f][r]);if(!t)return Object.assign(randomIn(f,r),{h:0});return{f,x:t[0]+.35+Math.random()*.3,y:t[1]+.35+Math.random()*.3,h:t[2]};};
+const SWITCHES=[[],[]];for(const f of[0,1])ROOMS[f].forEach((r,i)=>{if(!ROOM_CENTER[f][i]||['patio','traspatio','afuera'].includes(r.id))return;for(const[o,x,y]of DOOR_DEFS_BY_FLOOR[f]){if(SWITCHES[f][i])break;for(const sd of[-1,1]){const px=o==='V'?x+.5+sd*.9:x+1,py=o==='V'?y+1:y+.5+sd*.9;if(roomAt(f,px,py)!==i)continue;const sx=o==='V'?(sd<0?x-.035:x+1.035):x+2.28,sy=o==='V'?y+2.28:(sd<0?y-.035:y+1.035);if(roomAt(f,o==='V'?sx+sd*.3:sx,o==='V'?sy:sy+sd*.3)!==i)continue;SWITCHES[f][i]={f,r:i,x:sx,y:sy,o,side:sd};}}});
+for(const f of[0,1]){const ri=RID[f][f?'galeria':'corredor'],corners=[[15.035,11.5,1],[44.965,11.5,-1],[15.035,28.5,1],[44.965,28.5,-1]];SWITCHES[f][ri]={f,r:ri,x:corners[0][0],y:corners[0][1],o:'V',side:corners[0][2]};for(const[x,y,side]of corners.slice(1))SWITCHES[f].push({f,r:ri,x,y,o:'V',side});}
+const ALTAR_POS={f:0,x:30,y:7.5},FUSE={f:0,x:35.5,y:32.5},EXIT={f:0,x:30,y:38.4},ZAG={f:0,x:30,y:38.4},MALETIN={f:0,x:30,y:35};
+const HOME_CHOICES=[];ROOMS.forEach((rs,f)=>rs.forEach((r,i)=>{if(r.home)HOME_CHOICES.push({f,r:i});}));
+const ROOM_LIST=[];ROOMS.forEach((rs,f)=>rs.forEach((r,i)=>{if(ROOM_CENTER[f][i]&&!['afuera','afuera1','vacio','vaciocapilla'].includes(r.id))ROOM_LIST.push({f,r:i});}));
+const PROPS=[];for(const[code,kind]of[['B03','campanita'],['B06','libros'],['B04','grifo'],['B05','grifo'],['B11','reloj'],['B14','radio'],['A06','muneca'],['A08','piano'],['A02','maquina'],['A04','cuna'],['A09','grifo'],['A10','mecedora'],['A01','baul']]){const a=LAYOUT_ROOMS.get(code),p=ROOM_CENTER[a.f][a.r];PROPS.push({id:PROPS.length,f:a.f,kind,x:p.x,y:p.y});}PROPS.push({id:PROPS.length,f:0,kind:'fuente',x:30,y:20});
+for(const p of PROPS){const id=p.kind==='grifo'?'prop_grifo_'+roomId(p):p.kind==='piano'?'piano':'prop_'+p.kind,o=NDALayout.obstacles.find(o=>o.id===id&&o.floor===p.f);if(o){p.x=(o.rect[0]+o.rect[2])/2;p.y=(o.rect[1]+o.rect[3])/2;p.owner=o.id;}}
+
+let LAYOUT_HIDE_CACHE=null;
+function layoutDistances(f,x,y){const d=new Int16Array(FL).fill(-1),q=new Int32Array(FL);let a=0,b=0;const start=(y|0)*W+(x|0);d[start]=0;q[b++]=start;while(a<b){const u=q[a++],xx=u%W,yy=(u/W)|0;for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=xx+dx,ny=yy+dy,v=ny*W+nx;if(nx<0||ny<0||nx>=W||ny>=H||d[v]>=0||!walkableT(grids[f][v])||STAIR_BLOCK[f*FL+v]||stairSideBlock(u,v))continue;d[v]=d[u]+1;q[b++]=v;}}return d;}
+function layoutHideCache(){if(LAYOUT_HIDE_CACHE)return LAYOUT_HIDE_CACHE;const points=[];for(const f of[0,1])for(let y=1;y<39;y++)for(let x=1;x<59;x++){const i=y*W+x;if(walkableT(grids[f][i])&&!STAIR_BLOCK[f*FL+i]&&roomAt(f,x,y)>=0)points.push(f*FL+i);}const distances=SPOTS.map(s=>layoutDistances(s.f,s.hx,s.hy));const covers=SPOTS.map((s,k)=>new Set(points.filter(n=>Math.floor(n/FL)===s.f&&distances[k][n%FL]>=0&&distances[k][n%FL]<=18)));const missing=points.filter(n=>!covers.some(c=>c.has(n)));if(missing.length)throw Error('Hide coverage failed at '+missing.slice(0,12).map(n=>`${n>=FL?1:0}:${n%W},${Math.floor(n%FL/W)}`).join(';'));return LAYOUT_HIDE_CACHE={points,distances,covers};}
+function chooseLayoutSpots(){const{points,covers}=layoutHideCache(),act=new Set(SPOTS.flatMap((s,k)=>s.mandatory?[k]:[])),used=new Set([...act].map(k=>SPOTS[k].f+':'+SPOTS[k].room));let missing=new Set(points);for(const k of act)for(const n of covers[k])missing.delete(n);
+ while(missing.size){let best=-1,gain=0;for(const k of shuffle(SPOTS.map((s,k)=>k))){if(act.has(k)||used.has(SPOTS[k].f+':'+SPOTS[k].room))continue;let g=0;for(const n of covers[k])if(missing.has(n))g++;if(g>gain){gain=g;best=k;}}if(best<0||!gain)throw Error('No legal hide selection: '+missing.size+' cells uncovered');act.add(best);used.add(SPOTS[best].f+':'+SPOTS[best].room);for(const n of covers[best])missing.delete(n);}
+ for(const k of shuffle(SPOTS.map((s,k)=>k))){if(act.size>=18)break;if(!used.has(SPOTS[k].f+':'+SPOTS[k].room)){act.add(k);used.add(SPOTS[k].f+':'+SPOTS[k].room);}}
+ if(act.size>20)throw Error('Hide budget exceeded: '+act.size);const target=Math.min(20,act.size+Math.floor(Math.random()*3));for(const k of shuffle(SPOTS.map((s,k)=>k))){if(act.size>=target)break;if(!used.has(SPOTS[k].f+':'+SPOTS[k].room)){act.add(k);used.add(SPOTS[k].f+':'+SPOTS[k].room);}}return act;
+}
+
 const PROP_INFO = {
   mecedora: ['La mecedora se mece sola', 'creak'], grifo: ['Un grifo se abre: corre el agua', 'water'], cuadro: ['¡Un cuadro cae de la pared!', 'crash'], campanita: ['Suena la campanita del altar', 'ding'],
   libros: ['Caen libros de la repisa', 'books'], reloj: ['El reloj da campanadas fuera de hora', 'chime'], muneca: ['La muñeca gira la cabeza', 'creak'], fuente: ['El agua de la fuente salpica', 'water'],
@@ -382,73 +431,7 @@ const PROP_INFO = {
   papeles: ['Papeles vuelan del archivero', 'books'],
 };
 
-const grids = [new Uint8Array(FL).fill(T.WALL), new Uint8Array(FL).fill(T.WALL)];
-const roomGrid = [new Int8Array(FL).fill(-1), new Int8Array(FL).fill(-1)];
-const isStair = new Uint8Array(FL);
-STAIRS.forEach(([x0, y0, x1, y1]) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) isStair[y * W + x] = 1; });
-const isStairMid = new Uint8Array(W * H), STAIR_BLOCK = new Uint8Array(2 * W * H);
-STAIRS.forEach(([x0, y0, x1, y1], k) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) { const third = STAIR_DIR[k] > 0 ? x - x0 : x1 - x; if (third === 1) isStairMid[y * W + x] = 1; if (third === 2) STAIR_BLOCK[y * W + x] = 1; if (third === 0) STAIR_BLOCK[W * H + y * W + x] = 1; } });
-const stairSideBlock = (a, b) => a !== b && ((isStairMid[a] && !isStair[b]) || (isStairMid[b] && !isStair[a]));
-function stairFlip(w, e, quiet) { if (!e || (e.kind === 'ghost' && ethereal(e))) return; const k = stairAt(e.x, e.y); if (k < 0) return; const p = stairP(k, e.x);
-  if (e.f === 0 && p > 0.52) quiet ? (e.f = 1) : changeFloor(w, e, 1); else if (e.f === 1 && p < 0.48) quiet ? (e.f = 0) : changeFloor(w, e, 0); }
-for (let f = 0; f < 2; f++) {
-  const g = grids[f], fill = (x0, y0, x1, y1, v) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) g[y * W + x] = v; };
-  ROOMS[f].forEach(r => fill(r.r[0], r.r[1], r.r[2], r.r[3], T.FLOOR));
-  ROOMS[f].forEach((r, i) => { for (let y = r.r[1]; y <= r.r[3]; y++) for (let x = r.r[0]; x <= r.r[2]; x++) if (roomGrid[f][y * W + x] < 0) roomGrid[f][y * W + x] = i; });
-  DOOR_DEFS.forEach(([o, x, y]) => { g[y * W + x] = T.FLOOR; if (o === 'V') g[(y + 1) * W + x] = T.FLOOR; else g[y * W + x + 1] = T.FLOOR; });
-  FURN[f].forEach(([v, x0, y0, x1, y1]) => fill(x0, y0, x1, y1, v));
-  if (f === 0) [[18, 13], [22, 13], [26, 13], [30, 13], [34, 13], [38, 13], [41, 13], [18, 26], [22, 26], [26, 26], [30, 26], [34, 26], [38, 26], [41, 26], [18, 17], [18, 22], [41, 17], [41, 22]].forEach(([x, y]) => (g[y * W + x] = T.PILLAR));
-  if (f === 1) { fill(18, 13, 41, 26, T.VOID); fill(0, 40, 59, 59, T.VOID); }
-  if (f === 0) { // afuera: camino de piedra, arbustos, la base con la camioneta y la reja
-    fill(0, 40, 59, 59, T.VOID); fill(21, 39, 24, 49, T.FLOOR); g[39 * W + 21] = T.WALL; g[39 * W + 24] = T.WALL; fill(12, 50, 34, 56, T.FLOOR);
-    for (let y = 40; y <= 57; y++) for (let x = 0; x < W; x++) if (g[y * W + x] === T.VOID && [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, 1]].some(([dx, dy]) => g[(y + dy) * W + x + dx] === T.FLOOR)) g[y * W + x] = T.BUSH;
-    fill(12, 57, 34, 57, T.GATE); fill(28, 51, 32, 54, T.VAN); fill(14, 51, 19, 51, T.TABLE); fill(14, 55, 19, 55, T.TABLE); }
-  for (let i = 0; i < FL; i++) if (isStair[i]) g[i] = T.STAIR;
-  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (walkableT(g[y * W + x]) && roomGrid[f][y * W + x] < 0)
-    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const r = roomGrid[f][(y + dy) * W + x + dx]; if (r >= 0) { roomGrid[f][y * W + x] = r; break; } }
-}
-// Escondites (posibles)
-const SPOTS = [];
-SPOT_DEFS.forEach((list, f) => list.forEach(([x, y]) => {
-  grids[f][y * W + x] = T.CLOSET;
-  let hx = x, hy = y;
-  for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1]]) if (walkableT(grids[f][(y + dy) * W + x + dx])) { hx = x + dx; hy = y + dy; break; }
-  SPOTS.push({ f, x, y, hx: hx + 0.5, hy: hy + 0.5, room: roomGrid[f][hy * W + hx] });
-}));
-const tileAt = (f, x, y) => (x < 0 || y < 0 || x >= W || y >= H) ? T.WALL : grids[f][(y | 0) * W + (x | 0)];
-const roomAt = (f, x, y) => (x < 0 || y < 0 || x >= W || y >= H) ? -1 : roomGrid[f][(y | 0) * W + (x | 0)];
-const roomOf = e => roomAt(e.f, e.x, e.y);
-const roomId = e => { const r = roomOf(e); return r < 0 ? '' : ROOMS[e.f][r].id; };
-const isHall = (f, r) => r >= 0 && HALLS[f].includes(ROOMS[f][r].id);
-const ROOM_CENTER = ROOMS.map((rs, f) => rs.map((r, i) => {
-  const cx = (r.r[0] + r.r[2] + 1) / 2, cy = (r.r[1] + r.r[3] + 1) / 2; let best = null, bd = 1e9;
-  for (let y = r.r[1]; y <= r.r[3]; y++) for (let x = r.r[0]; x <= r.r[2]; x++) if (grids[f][y * W + x] === T.FLOOR && roomGrid[f][y * W + x] === i) {
-    const d = (x + 0.5 - cx) ** 2 + (y + 0.5 - cy) ** 2; if (d < bd) { bd = d; best = { f, x: x + 0.5, y: y + 0.5 }; } }
-  return best;
-}));
-ROOM_CENTER[0][RID[0].patio] = { f: 0, x: 27.5, y: 17.5 };
-ROOM_CENTER[0][RID[0].corredor] = { f: 0, x: 22.5, y: 11.5 };
-ROOM_CENTER[1][RID[1].galeria] = { f: 1, x: 22.5, y: 11.5 };
-ROOM_CENTER[1][RID[1].vacio] = null;
-const ROOM_TILES = ROOMS.map((rs, f) => rs.map((r, i) => { const out = []; for (let y = r.r[1]; y <= r.r[3]; y++) for (let x = r.r[0]; x <= r.r[2]; x++) if (grids[f][y * W + x] === T.FLOOR && roomGrid[f][y * W + x] === i) out.push([x, y]); return out; }));
-const randomIn = (f, r) => { const t = pick(ROOM_TILES[f][r]); return { f, x: t[0] + 0.5, y: t[1] + 0.5 }; };
-// superficies de muebles donde se apoyan las cosas (núcleo v2: nada tirado en el piso)
-const SURF_H = { [T.TABLE]: 0.78, [T.SHELF]: 1.05, [T.ALTAR]: 0.95, [T.BED]: 0.55 };
-const SURFACES = ROOMS.map((rs, f) => rs.map((r, i) => { const out = []; for (let y = r.r[1]; y <= r.r[3]; y++) for (let x = r.r[0]; x <= r.r[2]; x++) { const t = grids[f][y * W + x]; if (SURF_H[t] && roomGrid[f][y * W + x] === i && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => walkableT(grids[f][(y + dy) * W + x + dx]))) out.push([x, y, SURF_H[t]]); } return out; }));
-const onFurniture = (f, r) => { const s = SURFACES[f][r]; if (!s || !s.length) return Object.assign(randomIn(f, r), { h: 0 }); const t = pick(s); return { f, x: t[0] + 0.3 + Math.random() * 0.4, y: t[1] + 0.3 + Math.random() * 0.4, h: t[2] }; };
-// apagadores: uno por cuarto, en el muro junto a una de sus puertas
-const SWITCHES = [[], []];
-for (let f = 0; f < 2; f++) ROOMS[f].forEach((rm, r) => {
-  if (['patio', 'vacio'].includes(rm.id)) return; let best = null;
-  DOOR_DEFS.forEach(([o, x, y]) => { for (const s of [-1, 1]) { const px = o === 'V' ? x + 0.5 + s * 0.9 : x + 1, py = o === 'V' ? y + 1 : y + 0.5 + s * 0.9; if (roomAt(f, px, py) !== r) continue;
-    const sx = o === 'V' ? (s < 0 ? x - 0.04 : x + 1.04) : x + 2.45, sy = o === 'V' ? y + 2.45 : (s < 0 ? y - 0.04 : y + 1.04);
-    if (roomAt(f, o === 'V' ? sx + s * 0.4 : sx, o === 'V' ? sy : sy + s * 0.4) !== r) continue; if (!best) best = { f, r, x: sx, y: sy, o, side: s }; } });
-  if (best) SWITCHES[f][r] = best;
-});
-const FUSE = { f: 0, x: 0, y: 0 };
-const HOME_CHOICES = []; ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!NO_HOME[f].includes(r.id)) HOME_CHOICES.push({ f, r: i }); }));
-{ const zc = ROOM_CENTER[0][RID[0].zaguan]; FUSE.x = zc.x + 2.5; FUSE.y = zc.y - 0.5; }
-const ROOM_LIST = []; ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!['vacio', 'afuera', 'afuera1'].includes(r.id)) ROOM_LIST.push({ f, r: i }); }));
+
 
 // ---------- Navegación (campos de distancia bajo demanda) ----------
 const NN = 2 * FL;
@@ -480,7 +463,7 @@ function solidFor(w, e, f, tx, ty) {
   if (!walkableT(t)) return true;
   const n = f * FL + ty * W + tx;
   if (!(e.kind === 'ghost' && e.def.fly) && (STAIR_BLOCK[n] || stairSideBlock((e.y | 0) * W + (e.x | 0), ty * W + tx))) return true;
-  if (e.kind === 'inv' && !e.bot && w.doorTile) { const dd = w.doorTile.get(n); if (dd && dd.closed) return true; }
+  if (w.doorTile) { const dd = w.doorTile.get(n); if (dd && dd.closed) return true; }
   if (e.kind === 'ghost' && w.ghostMask[n] && !w.ghostMask[nodeOf(e)]) return true;
   if (e.kind === 'inv' && w.invMask[n]) return true;
   return false;
@@ -516,16 +499,18 @@ function navTo(w, e, tg, speed, dt) {
   const tn = nodeOf(tg), cn = nodeOf(e);
   if (tn === cn) return steer(w, e, tg.x, tg.y, speed, dt);
   const fld = getField(tn, mode, mask, ver);
+  if(e.bot||e.kind==='ghost'){const door=w.doors.find(d=>d.f===e.f&&d.closed&&!d.locked&&!(e.kind==='ghost'&&d.ext)&&d2(d,e)<1.8&&fld[nodeOf(d)]<fld[cn]);if(door){door.closed=false;door.anim=0;w.noise(door,6,'door');}}
   if (fld[cn] === 65535) { if (tg.f === e.f) steer(w, e, tg.x, tg.y, speed, dt); return false; }
   const cx = e.x | 0, cy = e.y | 0, f = e.f; let best = -1, bd = fld[cn], bx = 0, by = 0;
   for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
     if (!dx && !dy) continue; const nx = cx + dx, ny = cy + dy; if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
     const n = f * FL + ny * W + nx; if (fld[n] === 65535) continue;
+    if(mode!=='fly'&&(stairSideBlock(cy*W+cx,ny*W+nx)||(dx&&dy&&(isStair[cy*W+cx]||isStair[ny*W+nx]))))continue;
     if (dx && dy && (fld[f * FL + cy * W + nx] === 65535 || fld[f * FL + ny * W + cx] === 65535)) continue;
     const d = fld[n] + (dx && dy ? 0.4 : 0); if (d < bd) { bd = d; best = n; bx = nx; by = ny; }
   }
   const other = (1 - f) * FL + cy * W + cx;
-  if (fld[other] < bd && fld[other] < fld[cn]) { const k = stairAt(e.x, e.y); if (k >= 0 && mode === 'walk') { const [x0, , x1] = STAIRS[k], up = f === 0; steer(w, e, (STAIR_DIR[k] > 0) === up ? x1 + 0.5 : x0 + 0.5, cy + 0.5, speed, dt); return false; } changeFloor(w, e, 1 - f); return false; }
+  if ((mode === 'fly' || isStairMid[cy * W + cx]) && fld[other] < bd && fld[other] < fld[cn]) { const k = stairAt(e.x, e.y); if (k >= 0 && mode === 'walk') { const p=stairNext(k,f===0); steer(w,e,p.x,p.y,speed,dt); return false; } changeFloor(w, e, 1 - f); return false; }
   if (best < 0) return steer(w, e, tg.x, tg.y, speed, dt);
   steer(w, e, bx + 0.5, by + 0.5, speed, dt); return false;
 }
@@ -536,7 +521,7 @@ function los(f, ax, ay, bx, by) {
   for (let i = 1; i < n; i++) { const t = i / n; if (sightBlockT(tileAt(f, ax + dx * t, ay + dy * t))) return false; }
   return true;
 }
-const sees = (a, b, R) => a.f === b.f && d2(a, b) <= R && los(a.f, a.x, a.y, b.x, b.y);
+const sees = (a,b,R,world) => a.f===b.f&&d2(a,b)<=R&&los(a.f,a.x,a.y,b.x,b.y,1.55+(elevOf(a)-a.f)*3.8,1.55+(elevOf(b)-b.f)*3.8,world);
 
 // ---------- Las ánimas ----------
 const BASE = {
@@ -670,23 +655,10 @@ function rebuildMasks(w) {
   if (w.t < w.lockDoorsUntil) w.doors.filter(d => d.f === w.lockDoorsFloor).forEach(d => d.tiles.forEach(([x, y]) => (w.invMask[d.f * FL + y * W + x] = 1)));
   w.ghostMaskVer++; w.invMaskVer++;
 }
-function chooseSpots() {
-  const act = new Set();
-  for (let f = 0; f < 2; f++) {
-    const idx = SPOTS.map((s, i) => i).filter(i => SPOTS[i].f === f);
-    const wing = i => { const s = SPOTS[i]; return s.y <= 9 ? 'N' : s.y >= 30 ? 'S' : s.x <= 14 ? 'O' : 'E'; };
-    const usedRooms = new Set();
-    ['N', 'S', 'E', 'O'].forEach(wg => { const c = shuffle(idx.filter(i => wing(i) === wg && !usedRooms.has(SPOTS[i].room))); if (c.length) { act.add(c[0]); usedRooms.add(SPOTS[c[0]].room); } });
-    const target = 6 + (Math.random() < 0.5 ? 1 : 0);
-    for (const i of shuffle(idx.slice())) { if ([...act].filter(k => SPOTS[k].f === f).length >= target) break; if (!act.has(i) && !usedRooms.has(SPOTS[i].room)) { act.add(i); usedRooms.add(SPOTS[i].room); } }
-  }
-  return act;
-}
-const ITEM_PLACES = { te: [[0, 'cocina'], [0, 'comedor'], [0, 'despensa']], rosario: [[0, 'capilla'], [1, 'oratorio'], [0, 'recp'], [1, 'huespedes'], [1, 'abuelo'], [1, 'nana']],
-  ruda: [[0, 'cocina'], [0, 'despensa'], [0, 'patio'], [1, 'azotehuela']], copal: [[0, 'capilla'], [1, 'oratorio'], [1, 'desvan']], vela: [[0, 'capilla'], [1, 'oratorio'], [0, 'comedor']],
-  ceniza: [[0, 'cocina'], [0, 'servicio'], [1, 'azotehuela']], cruz: [[0, 'capilla'], [1, 'oratorio'], [0, 'recp']], pan: [[0, 'comedor'], [0, 'cocina']], limpia: [[0, 'cocina'], [0, 'capilla']], foco: [[0, 'despensa'], [0, 'servicio'], [1, 'archivo']] };
+function chooseSpots(){return chooseLayoutSpots();}
+const ITEM_PLACES={te:[[0,'cocina'],[0,'comedor'],[0,'despensa'],[0,'reposteria']],rosario:[[0,'capilla'],[1,'abuelo'],[1,'recp'],[1,'nana']],ruda:[[0,'botica'],[0,'cocina'],[1,'abuelo']],copal:[[0,'capilla'],[0,'botica'],[1,'desvan']],vela:[[0,'capilla'],[1,'salon'],[0,'comedor']],ceniza:[[0,'cocina'],[0,'capilla']],cruz:[[0,'capilla'],[1,'abuelo']],pan:[[0,'comedor'],[0,'cocina']],limpia:[[0,'botica'],[0,'cocina']],foco:[[0,'porteria'],[0,'despacho'],[0,'cochera']]};
 // Un objeto maldito por noche, siempre en su lugar (como en las cartas: cada uno tiene su historia en la casa)
-const CURSED_PLACES = { tarot: [0, 'sala'], tablilla: [1, 'juegos'], espejoplata: [1, 'costura'], mano: [1, 'archivo'], muneca: [0, 'recn'], pentagrama: [1, 'desvan'], radio: [0, 'estudio'] };
+const CURSED_PLACES = { tarot:[0,'botica'],tablilla:[1,'desvan'],espejoplata:[1,'hija'],mano:[0,'despacho'],muneca:[1,'recn'],pentagrama:[0,'capilla'],radio:[0,'despacho'] };
 const TAROT = [['sol', 1], ['luna', 1], ['ermitano', 1], ['muerte', 1], ['rueda', 2], ['diablo', 2], ['torre', 2]];
 const TAROT_N = { sol: 'El Sol', luna: 'La Luna', ermitano: 'El Ermitaño', muerte: 'La Muerte', rueda: 'La Rueda de la Fortuna', diablo: 'El Diablo', torre: 'La Torre' };
 let ITEM_ID = 1;
@@ -710,14 +682,13 @@ function newWorld(opt) {
   w.lights[0][RID[0].zaguan] = 1; w.lights[0][RID[0].patio] = 1;
   { // ruleta de la noche: altar y caja de fusibles en cuartos al azar
     const pool = HOME_CHOICES.filter(h => !(h.f === 0 && ['zaguan'].includes(ROOMS[0][h.r].id)));
-    const ar = pick(pool), ac = ROOM_CENTER[ar.f][ar.r]; ALTAR_POS.f = ar.f; ALTAR_POS.x = ac.x; ALTAR_POS.y = ac.y; w.altarRoom = ar;
-    const fr = pick(pool.filter(h => !(h.f === ar.f && h.r === ar.r))); const nearDoorT = (x, y) => DOOR_DEFS.some(([o, dx, dy]) => Math.abs(x - (o === 'V' ? dx : dx + 0.5)) <= (o === 'V' ? 1 : 1.5) && Math.abs(y - (o === 'V' ? dy + 0.5 : dy)) <= (o === 'V' ? 1.5 : 1));
+    const ar=pick(pool),surface=SURFACES[ar.f][ar.r][0];w.altarSurface={f:ar.f,x:surface[0]+.5,y:surface[1]+.5,h:surface[2]};const around=[[1,0],[-1,0],[0,1],[0,-1]].find(([dx,dy])=>walkableT(tileAt(ar.f,surface[0]+dx,surface[1]+dy)));Object.assign(ALTAR_POS,{f:ar.f,x:surface[0]+.5+around[0],y:surface[1]+.5+around[1]});w.altarRoom=ar;
+    const fr = pick(pool.filter(h => !(h.f === ar.f && h.r === ar.r))); const nearDoorT = (x, y) => DOOR_DEFS_BY_FLOOR[fr.f].some(([o, dx, dy]) => Math.abs(x - (o === 'V' ? dx : dx + 0.5)) <= (o === 'V' ? 1 : 1.5) && Math.abs(y - (o === 'V' ? dy + 0.5 : dy)) <= (o === 'V' ? 1.5 : 1));
     const ft = shuffle(ROOM_TILES[fr.f][fr.r].slice()).find(([x, y]) => !nearDoorT(x, y) && !isStair[y * W + x] && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => grids[fr.f][(y + dy) * W + x + dx] === T.WALL)) || ROOM_TILES[fr.f][fr.r][0];
     const wd = [[1, 0], [-1, 0], [0, 1], [0, -1]].find(([dx, dy]) => grids[fr.f][(ft[1] + dy) * W + ft[0] + dx] === T.WALL) || [0, -1];
     FUSE.f = fr.f; FUSE.x = ft[0] + 0.5 + wd[0] * 0.38; FUSE.y = ft[1] + 0.5 + wd[1] * 0.38; FUSE.face = Math.atan2(-wd[1], -wd[0]); w.fuseRoom = fr;
   }
-  DOOR_DEFS.forEach(([o, x, y]) => [0, 1].forEach(f => { const tiles = o === 'V' ? [[x, y], [x, y + 1]] : [[x, y], [x + 1, y]];
-    w.doors.push({ f, o, tiles, x: o === 'V' ? x + 0.5 : x + 1, y: o === 'V' ? y + 1 : y + 0.5, angle: 0, touchedAt: -99, glowUntil: 0, rudaUntil: 0, rosario: false, anim: 0 }); }));
+  NDALayout.doors.forEach(def=>{if(def.kind==='arco abierto')return;const[a,b,c,e]=def.rect,o=c-a===1?'V':'H',tiles=[];for(let y=b;y<e;y++)for(let x=a;x<c;x++)tiles.push([x,y]);w.doors.push({f:def.floor,o,tiles,x:(a+c)/2,y:(b+e)/2,angle:0,touchedAt:-99,glowUntil:0,rudaUntil:0,rosario:false,anim:0,id:def.id,arch:def.kind==='arco abierto',ext:def.kind==='portón'});});
   w.doorTile = new Map(); w.doors.forEach(d => d.tiles.forEach(([x, y]) => w.doorTile.set(d.f * FL + y * W + x, d)));
   // Helpers del mundo
   w.say = (msg, vis = 'a') => { if (vis === 'a' && /: «/.test(msg) && w.lines) { w.lines.push(msg); if (w.lines.length > 20) w.lines.shift(); } w.log.push({ t: w.t, msg, vis, who: vis === 'i' && w.actor ? w.actor.id : undefined }); if (w.log.length > 120) w.log.shift(); };
@@ -853,7 +824,7 @@ function roomTemp(w, f, r) { const c = w.cold[f][r] || ROOM_CENTER[f][r]; return
 const handItem = i => i.slots[i.hand];
 function pickUp(w, i) {
   let best = null, bd = 1.3;
-  for (const it of w.items) if (!it.holder && it.f === i.f && d2(it, i) < bd) { bd = d2(it, i); best = it; }
+  for (const it of w.items) if (!it.holder && layoutItemVisible(w,it) && it.f === i.f && d2(it, i) < bd) { bd = d2(it, i); best = it; }
   if (!best) return false;
   let slot = i.slots[i.hand] ? i.slots.indexOf(null) : i.hand; if (slot < 0) { if (!i.bot) w.say('No tienes ranuras libres.', 'i'); return false; }
   i.slots[slot] = best; best.holder = i; best.lit = false;
@@ -1159,7 +1130,7 @@ function possessTick(w, dt, human) {
 function gAnomaly(w, g) {
   if (w.t < (g.ready.y || 0) || g.state !== 'libre' || g.hunt || g.pres < CFG.anomaly.cost) return false;
   const watched = p => alive(w).some(i => i.f === p.f && i.hidden < 0 && sees(i, p, 14));
-  const r = roomOf(g); if (r < 0) return false; let p = null;
+  const r = roomOf(g); if(r<0||!ROOMS[g.f][r].home)return false;let p=null;
   for (let k = 0; k < 10 && !p; k++) { const q = Math.random() < 0.6 && SURFACES[g.f][r].length ? onFurniture(g.f, r) : Object.assign(randomIn(g.f, r), { h: 0 }); if (d2(q, g) < 4.5 && !watched(q)) p = q; }
   if (!p) { if (!g.bot) w.say('Anomalía: alguien está mirando. Hazlo donde no te vean.', 'g'); return false; }
   g.ready.y = w.t + CFG.anomaly.cd; g.pres -= CFG.anomaly.cost;
@@ -1218,8 +1189,8 @@ function perceives(w, g, i) {
   if (i.hidden >= 0) return elecOnW(w, i) && d <= 6;
   if (g.xray) return true;
   const v = g.def.vision(w, g, i);
-  if (d <= v.near && los(g.f, g.x, g.y, i.x, i.y)) return true;
-  if (d <= v.far && d >= v.farMin && angDiff(Math.atan2(i.y - g.y, i.x - g.x), g.face) <= Math.PI / 3 && los(g.f, g.x, g.y, i.x, i.y)) return true;
+  if (d <= v.near && los(g.f,g.x,g.y,i.x,i.y,1.55+(elevOf(g)-g.f)*3.8,1.55+(elevOf(i)-i.f)*3.8,w)) return true;
+  if (d <= v.far && d >= v.farMin && angDiff(Math.atan2(i.y - g.y, i.x - g.x), g.face) <= Math.PI / 3 && los(g.f,g.x,g.y,i.x,i.y,1.55+(elevOf(g)-g.f)*3.8,1.55+(elevOf(i)-i.f)*3.8,w)) return true;
   if (i.san <= 25) return true;
   return false;
 }
@@ -1243,7 +1214,7 @@ function botInv(w, b, dt) {
       const rk = b.slots.findIndex(s => s && s.kind === 'rosario'); if (rk >= 0 && d2(g, b) < 2) { b.hand = rk; if (useItem(w, b)) return; }
       const ck = b.slots.findIndex(s => s && s.kind === 'copal'); if (ck >= 0 && d2(g, b) < 4) { b.hand = ck; b.face = Math.atan2(g.y - b.y, g.x - b.x); throwItem(w, b, d2(g, b)); return; }
       // escondite cercano
-      let best = -1, bd = 14; w.spotsActive.forEach(k => { const s = SPOTS[k]; if (s.f !== b.f || w.invs.some(o => o.alive && o.hidden === k)) return; const pl = pathLen(w, b, { f: s.f, x: s.hx, y: s.hy }); if (pl < bd && d2({ x: s.hx, y: s.hy }, g) > 2.5) { bd = pl; best = k; } });
+      let best = -1, bd = 19; w.spotsActive.forEach(k => { const s = SPOTS[k]; if (s.f !== b.f || w.invs.some(o => o.alive && o.hidden === k)) return; const pl = pathLen(w, b, { f: s.f, x: s.hx, y: s.hy }); if (pl < bd && d2({ x: s.hx, y: s.hy }, g) > 2.5) { bd = pl; best = k; } });
       if (best >= 0) { const s = SPOTS[best]; const tg = { f: s.f, x: s.hx, y: s.hy }; if (Math.hypot(s.hx - b.x, s.hy - b.y) < 0.6) { b.hidden = best; b.flash = false; const e = b.slots.findIndex(x => !x || !ITEMS[x.kind].elec); b.hand = e >= 0 ? e : b.hand; ai.unhideAt = w.t + rnd(2, 4); return; }
         const run = !b.tired && b.stam > 5; moveBot(w, b, tg, (run ? CFG.sprint : CFG.walk) * sp, dt, run); return; }
       if (!ai.flee || w.t > ai.fleeUntil) { let bp = null, bdist = -1; ROOM_LIST.filter(r => r.f === b.f).forEach(r => { const c = ROOM_CENTER[r.f][r.r]; if (!c) return; const dd = pathLen(w, c, g); if (dd < 999 && dd > bdist) { bdist = dd; bp = c; } }); ai.flee = bp; ai.fleeUntil = w.t + 3; }
@@ -2068,10 +2039,10 @@ newWorld = function (opt) {
   tools.filter(it => it.kind !== 'cam').forEach((it, k) => Object.assign(it, { f: 0, x: 14.4 + (k % 6) * 0.95, y: 55.2 + Math.floor(k / 6) * 0.35, h: 0.78 }));
   w.invs.forEach((i, k) => { i.f = 0; i.x = 20.5 + k * 1.1; i.y = 53; i.face = -Math.PI / 2; });
   w.lights[0][OUT_R] = 1;
-  w.doors.push({ f: 0, o: 'H', tiles: [[22, 39], [23, 39]], x: 23, y: 39.5, angle: 0, touchedAt: -99, glowUntil: 0, rudaUntil: 0, rosario: false, anim: 0, ext: true });
+
   // aparatos repartidos al azar: puede que haya o no en cada cuarto
   const rooms = shuffle(ROOM_LIST.filter(r => !isHall(r.f, r.r) && SURFACES[r.f][r.r] && SURFACES[r.f][r.r].length));
-  w.devices = []; const put = (kind, n) => { for (let k = 0; k < n && rooms.length; k++) { const r = rooms.pop(), p = onFurniture(r.f, r.r); w.devices.push({ kind, f: r.f, x: p.x, y: p.y, h: p.h, r: r.r }); } };
+  w.devices = []; const put = (kind, n) => { for (let k = 0; k < n && rooms.length; k++) { const index=rooms.findIndex(r=>!(w.altarRoom.f===r.f&&w.altarRoom.r===r.r&&SURFACES[r.f][r.r].length<=2)&&(kind!=='tv'||SURFACES[r.f][r.r].length>=2));if(index<0)break;const r=rooms.splice(index,1)[0],p=onFurniture(r.f,r.r); w.devices.push({ kind, f: r.f, x: p.x, y: p.y, h: p.h, r: r.r }); } };
   put('tv', 1 + Math.floor(Math.random() * 3)); put('radio', 1 + Math.floor(Math.random() * 2)); put('telefono', 1 + Math.floor(Math.random() * 2));
   w.emfSrc = []; w.cas.pend = null; w.cas.lastTalk = {};
   return w;
@@ -2424,6 +2395,71 @@ newWorld = function (opt) { const w = _newWorld14(opt), ev1 = w.ev; w.portraits 
   w.ev = (type, d) => { ev1(type, d); if (type === 'anomaly' && d) { const o = w.loose.filter(o => o.f === d.f).sort((a, b) => d2(a, d) - d2(b, d))[0]; blog(w, 'casa', `   Anomalía: ${d.kind === 'aparece' && o ? `apareció ${LOOSE_N[o.kind]} que no estaba` : ANOM_TXT[d.kind] || d.kind}`, d); } };
   return w; };
 
+// Scene-specific rules: all coordinates and room references come from the v11 registry.
+function layoutWindowVolume(win){const[a,z]=win.start,[c,e]=win.end;return a!==c?[a,z,c,z+1]:[win.wall.startsWith('oeste')?a-1:a,z,win.wall.startsWith('oeste')?a:a+1,e];}
+function layoutWindowNear(f,x,y,r=.7){return NDALayout.windows.some(win=>{const a=layoutWindowVolume(win),bottom=win.floor*3.8+win.sillRelative,top=bottom+win.height;return f*3.8+1.25<top&&f*3.8+1.75>bottom&&x>=a[0]-r&&x<=a[2]+r&&y>=a[1]-r&&y<=a[3]+r;});}
+function nearLayoutContainer(w,i){if(i.hidden>=0)return null;return(w.containers||[]).filter(c=>!c.open&&c.f===i.f&&Math.hypot(c.ax-i.x,c.ay-i.y)<1.45).sort((a,b)=>a.id-b.id)[0]||null;}
+function layoutItemVisible(w,it){if(it.containerId===undefined)return true;const c=w.containers?.[it.containerId];return!c||c.open||it.f!==c.f||Math.hypot(it.x-it.stowX,it.y-it.stowY)>.35;}
+function layoutBeginSearch(w,i,c){if(!c||c.open)return false;if(!c.until){c.until=w.t+1;c.by=i.id;w.noise({f:c.f,x:c.x,y:c.y},6,'drawer');}return true;}
+function layoutSurfacePacking(w){
+ const taken=[],reserve=(f,x,y,r)=>taken.push({f,x,y,r});w.layoutPackingMisses=[];
+ reserve(w.altarSurface.f,w.altarSurface.x,w.altarSurface.y,.55);
+ for(const f of[0,1])ROOMS[f].forEach((r,ri)=>{const s=SURFACES[f][ri][0];if(s&&r.home&&!((w.devices||[]).some(d=>d.f===f&&d.r===ri)&&SURFACES[f][ri].length<2))reserve(f,s[0]+.25,s[1]+.25,.14);});
+ const place=(o,radius=.13)=>{
+  const original={f:o.f,r:roomAt(o.f,o.x,o.y)},options=[original];
+  for(const[f,id]of ITEM_PLACES[o.kind]||[]){const r=RID[f][id];if(!options.some(q=>q.f===f&&q.r===r))options.push({f,r});}
+  for(const option of options){const points=[];for(const[x,y,h]of SURFACES[option.f][option.r]||[])for(const dx of(radius>.25?[.5]:[.16,.5,.84]))for(const dy of(radius>.25?[.5]:[.16,.5,.84]))points.push({f:option.f,x:x+dx,y:y+dy,h});points.sort((a,b)=>Math.hypot(a.x-o.x,a.y-o.y)-Math.hypot(b.x-o.x,b.y-o.y));const point=points.find(p=>!taken.some(t=>t.f===p.f&&Math.hypot(t.x-p.x,t.y-p.y)<t.r+radius));if(point){Object.assign(o,point);reserve(point.f,point.x,point.y,radius);return true;}}
+  w.layoutPackingMisses.push({kind:o.kind,f:o.f,room:ROOMS[o.f][original.r]?.id});return false;
+ };
+
+ // Large devices claim their surface first; loose clutter and consumables fill remaining slots.
+ for(const d of w.devices||[])place(d,d.kind==='tv'?.47:.28);
+ for(const p of PROPS)if(['campanita','libros','radio','maquina'].includes(p.kind)){const a=LAYOUT_ROOMS.get(NDALayout.rooms.find(r=>r.floor===p.f&&r.key===roomId(p))?.id);if(a&&SURFACES[p.f][a.r]?.length){const s=SURFACES[p.f][a.r][0];p.x=s[0]+.65;p.y=s[1]+.65;p.h=s[2];place(p,.18);}}
+ for(const o of w.loose)place(o,['plato','cuadro','jarron','libro'].includes(o.kind)?.16:.10);
+ for(const it of w.items)if(!it.holder&&!(it.f===0&&it.y>=40))place(it,.13);
+}
+const _newWorldLayout=newWorld;
+newWorld=function(opt){fieldCache.clear();const w=_newWorldLayout(opt);w.layout=NDALayout.version;
+ // Keep the fuse box on solid plaster, never on a real window or behind a moving door.
+ const fr=w.fuseRoom,candidates=shuffle(ROOM_TILES[fr.f][fr.r].slice());for(const[x,y]of candidates){const side=[[1,0],[-1,0],[0,1],[0,-1]].find(([a,b])=>tileAt(fr.f,x+a,y+b)===T.WALL);if(!side||layoutWindowNear(fr.f,x+.5+side[0]*.5,y+.5+side[1]*.5)||w.doors.some(d=>d.f===fr.f&&Math.hypot(d.x-x-.5,d.y-y-.5)<2)||SPOTS.some(s=>s.f===fr.f&&Math.hypot(s.hx-x-.5,s.hy-y-.5)<1.5))continue;Object.assign(FUSE,{f:fr.f,x:x+.5+side[0]*.38,y:y+.5+side[1]*.38,face:Math.atan2(-side[1],-side[0])});break;}
+ layoutSurfacePacking(w);
+ w.propPositions=PROPS.map(p=>({id:p.id,f:p.f,x:p.x,y:p.y,h:p.h||0}));
+ w.containers=[];for(const h of HOME_CHOICES){const s=SURFACES[h.f][h.r].find(([x,y])=>tileAt(h.f,x,y)===T.TABLE)||SURFACES[h.f][h.r][0];if(!s)continue;const side=[[0,1],[0,-1],[-1,0],[1,0]].find(([dx,dy])=>walkableT(tileAt(h.f,s[0]+dx,s[1]+dy)));if(!side)continue;for(let level=0;level<3;level++)w.containers.push({id:w.containers.length,f:h.f,room:h.r,x:s[0]+.5,y:s[1]+.5,h:s[2],ax:s[0]+.5+side[0],ay:s[1]+.5+side[1],dx:side[0],dy:side[1],level,open:false,until:0,by:-1,items:[]});}
+ for(const it of shuffle(w.items.filter(it=>!it.holder&&!TOOLS.includes(it.kind)&&it.kind!=='fotocam'&&it.y<39))){const ri=roomAt(it.f,it.x,it.y),c=w.containers.find(c=>c.f===it.f&&c.room===ri&&c.items.length<2&&Math.hypot(it.x-c.ax,it.y-c.ay)<1.25);if(c){c.items.push(it.id);it.containerId=c.id;it.stowX=it.x;it.stowY=it.y;}}
+ return w;
+};
+const _pickUpLayout=pickUp;
+pickUp=function(w,i){const stored=w.items.filter(it=>!it.holder&&it.f===i.f&&!layoutItemVisible(w,it)&&d2(i,it)<1.6).sort((a,b)=>d2(a,i)-d2(b,i))[0];if(stored&&!w.items.some(it=>!it.holder&&it.f===i.f&&layoutItemVisible(w,it)&&d2(i,it)<1.3)){layoutBeginSearch(w,i,w.containers[stored.containerId]);return false;}const ok=_pickUpLayout(w,i);if(ok)for(const it of i.slots)if(it)delete it.containerId;return ok;};
+const _interactLayout=interact;
+interact=function(w,i){if(i.hidden>=0||i.f===FUSE.f&&d2(i,FUSE)<1.6&&!w.fuse.every(Boolean)||nearSpot(w,i)>=0)return _interactLayout(w,i);const free=w.items.some(it=>!it.holder&&it.f===i.f&&layoutItemVisible(w,it)&&d2(i,it)<1.3);const c=nearLayoutContainer(w,i);if(c&&!free){layoutBeginSearch(w,i,c);return'cajon';}return _interactLayout(w,i);};
+const _stepLayout=step;
+step=function(w,dt,input){_stepLayout(w,dt,input);for(const c of w.containers||[])if(c.until&&!c.open){const i=w.invs[c.by];if(!i||!i.alive||i.escaped||i.f!==c.f||Math.hypot(i.x-c.ax,i.y-c.ay)>1.65||i.hidden>=0){c.until=0;c.by=-1;continue;}if(w.t>=c.until){c.open=true;c.until=0;w.ev('drawerOpen',{f:c.f,x:c.x,y:c.y,who:i.id,empty:!c.items.some(id=>w.items.some(it=>it.id===id&&!it.holder&&it.f===c.f))});}}};
+// A single visibility height grid is shared by the AI and the investigator-side checks.
+const LAYOUT_SIGHT_HEIGHT=[new Float32Array(FL),new Float32Array(FL)];
+for(const f of[0,1])for(let i=0;i<FL;i++){const t=grids[f][i];LAYOUT_SIGHT_HEIGHT[f][i]=t===T.WALL||t===T.PILLAR?3.8:t===T.CLOSET?2:0;}
+for(const s of SPOTS)LAYOUT_SIGHT_HEIGHT[s.f][s.y*W+s.x]=/arcon|baul/.test(s.type)?1.05:2;
+for(const o of LAYOUT_OCCLUDERS)for(let y=o.rect[1];y<o.rect[3];y++)for(let x=o.rect[0];x<o.rect[2];x++)LAYOUT_SIGHT_HEIGHT[o.floor][y*W+x]=o.height;
+for(const o of LAYOUT_FURN.filter(o=>o.type===T.PILLAR))for(let y=o.rect[1];y<o.rect[3];y++)for(let x=o.rect[0];x<o.rect[2];x++)LAYOUT_SIGHT_HEIGHT[1][y*W+x]=3.8;
+const LAYOUT_SIGHT_LOOKUP={portals:[[],[]],windows:[[],[]],precise:[[],[]]};
+for(const d of NDALayout.doors)for(let y=d.rect[1];y<d.rect[3];y++)for(let x=d.rect[0];x<d.rect[2];x++)LAYOUT_SIGHT_LOOKUP.portals[d.floor][y*W+x]=d;
+for(const w of NDALayout.windows){const r=layoutWindowVolume(w),bottom=w.floor*3.8+w.sillRelative,top=bottom+w.height;for(const f of[0,1])if(f*3.8<top&&(f+1)*3.8>bottom)for(let y=Math.floor(r[1]);y<r[3];y++)for(let x=Math.floor(r[0]);x<r[2];x++)(LAYOUT_SIGHT_LOOKUP.windows[f][y*W+x]||=([])).push(w);}
+for(const o of LAYOUT_OCCLUDERS)if(o.sightRect)for(let y=o.rect[1];y<o.rect[3];y++)for(let x=o.rect[0];x<o.rect[2];x++)LAYOUT_SIGHT_LOOKUP.precise[o.floor][y*W+x]=o;
+function layoutPortalHead(d,x,y){const r=d.rect,u=Math.min(r[2]-r[0]===1?y-r[1]:x-r[0],r[2]-r[0]===1?r[3]-y:r[2]-x),spring=d.kind==='portón'?2.5:2.1,apex=d.kind==='portón'?3.25:2.6;return spring+(u<.36?u*.5:.18+(u-.36)*(apex-spring-.18)/.64);}
+los=function(f,ax,ay,bx,by,az=1.55,bz=1.55,world){
+ const n=Math.max(1,Math.ceil(Math.hypot(bx-ax,by-ay)*8));let prevHeight=f*3.8+az;
+ for(let k=1;k<n;k++){
+  const t=k/n,x=ax+(bx-ax)*t,y=ay+(by-ay)*t,globalHeight=f*3.8+az+(bz-az)*t,level=Math.max(0,Math.min(1,Math.floor(globalHeight/3.8))),h=globalHeight-level*3.8,i=(y|0)*W+(x|0);
+  if(x<0||y<0||x>=W||y>=H)return false;
+  if((prevHeight<3.8)!==(globalHeight<3.8)&&tileAt(1,x,y)!==T.VOID&&!NDALayout.stairs.some(s=>x>=s.hole[0]&&x<=s.hole[2]&&y>=s.hole[1]&&y<=s.hole[3]))return false;prevHeight=globalHeight;
+  let block=LAYOUT_SIGHT_HEIGHT[level][i];
+  const precise=LAYOUT_SIGHT_LOOKUP.precise[level][i];if(precise){const r=precise.sightRect;if(x<r[0]||x>=r[2]||y<r[1]||y>=r[3])block=0;}
+  if(block&&tileAt(level,x,y)===T.WALL){const window=LAYOUT_SIGHT_LOOKUP.windows[level][i]?.find(w=>{const r=layoutWindowVolume(w),bottom=w.floor*3.8+w.sillRelative;return x>=r[0]&&x<r[2]&&y>=r[1]&&y<r[3]&&globalHeight>=bottom&&globalHeight<bottom+w.height;});if(window&&window.state==='vidrio roto con reja')block=0;}
+  const portal=LAYOUT_SIGHT_LOOKUP.portals[level][i];if(portal&&h>layoutPortalHead(portal,x,y))return false;
+  if(world?.doorTile?.get(level*FL+i)?.closed&&h<2.6)return false;
+  if(h>=0&&h<block)return false;
+ }return true;
+};
+
 // ================= Laboratorio: la casona como cuarto de pruebas =================
 // Cada cuarto tiene puestos con un letrero. Te acercas y pulsas E: el suceso ocurre ahí mismo, a tu lado,
 // para oírlo y verlo aislado. Sin cacerías solas, sin muertes y sin que la casa tire dados por su cuenta.
@@ -2584,7 +2620,7 @@ function netJoin(code, name, char) {
   NET.peer = new Peer({ config: NET_ICE });
   NET.peer.on('open', id => {
     NET.id = id; netStatus('Buscando la sala…');
-    const c = NET.peer.connect('nda3d-' + code, { reliable: true, metadata: { name, char } }); NET.hostConn = c;
+    const c = NET.peer.connect('nda3d-' + code, { reliable: true, metadata: { name, char, layout:NDALayout.version } }); NET.hostConn = c;
     c.on('open', () => netStatus(`Dentro de la sala ${code}. Espera a que el anfitrión empiece.`, true));
     c.on('data', d => netGuestData(d));
     c.on('close', () => { netStatus('El anfitrión cerró la sala.', false); if (NET.cb.end) NET.cb.end('El anfitrión salió de la partida.'); });
@@ -2607,6 +2643,7 @@ function netLobbyChanged() {
 }
 function netGuestConn(c) {
   c.on('open', () => {
+    if(c.metadata?.layout!==NDALayout.version){c.send({t:'full',why:'La sala usa otra versión de la casona. Actualicen el juego y vuelvan a entrar.'});setTimeout(()=>c.close(),300);return;}
     if (NET.started || NET.lobby.length >= 4) { c.send({ t: 'full', why: NET.started ? 'La partida ya empezó.' : 'La sala está llena (4 investigadores).' }); setTimeout(() => c.close(), 300); return; }
     NET.conns.set(c.peer, c); const m = c.metadata || {};
     NET.lobby.push({ peer: c.peer, name: String(m.name || 'Investigador').slice(0, 16), char: m.char || 'ines' }); netLobbyChanged();
@@ -2628,13 +2665,14 @@ function netGuestData(d) {
   if (!d || typeof d !== 'object') return;
   if (d.t === 'lobby') { NET.lobby = d.p; if (NET.cb.lobby) NET.cb.lobby(NET.lobby); }
   else if (d.t === 'full') netStatus(d.why, false);
+  else if(d.t==='start'&&d.s?.layout!==NDALayout.version){netStatus('Actualiza el juego: esta sala usa otra versión de la casona.',false);return;}
   else if (d.t === 'start') { NET.started = true; if (NET.cb.start) NET.cb.start(d); }
   else if (d.t === 'snap') { if (NET.cb.snap) NET.cb.snap(d); }
   else if (d.t === 'clip') VOICE.gotClip(d.who, d.tag, d.d);
 }
 
 // ---------- serializar el mundo ----------
-const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'bitacora']);
+const NET_SKIP = new Set(['ghostMask', 'invMask', 'doorTile', 'events', 'log', 'opt', 'roster', 'say', 'ev', 'noise', 'sub', 'fxAdd', 'haunt', 'lines', 'conf', 'discard', 'discardG', 'team', 'bitacora','layoutPackingMisses']);
 function netEnc(w, full) {
   const invs = new Set(w.invs), its = new Set(w.items), dr = new Map(w.doors.map((d, k) => [d, k]));
   const R = v => Math.round(v * 1000) / 1000;
@@ -2651,14 +2689,16 @@ function netEnc(w, full) {
     if (Array.isArray(v)) return v.map(x => { const e = E(x); return e === undefined ? null : e; });
     const o = {}; for (const k in v) { const e = E(v[k]); if (e !== undefined) o[k] = e; } return o;
   }
-  const out = { ALTAR: Object.assign({}, ALTAR_POS), FUSE: Object.assign({}, FUSE) };
+  const out = { layout:NDALayout.version, ALTAR: Object.assign({}, ALTAR_POS), FUSE: Object.assign({}, FUSE) };
   // objetos, puertas y objetos sueltos casi no cambian: solo se mandan los que cambiaron (y todo cada 3 s)
-  const key = full || !NET.cache || w.t - NET.cache.t > 3; if (key) NET.cache = { t: w.t, items: new Map(), doors: [], loose: [] };
+  const key = full || !NET.cache || w.t - NET.cache.t > 3; if (key) NET.cache = { t: w.t, items: new Map(), doors: [], loose: [], containers: [] };
   const C = NET.cache, diff = (arr, store, canon, idOf) => { const ch = []; arr.forEach((x, k) => { const e = E(x, canon), j = JSON.stringify(e), id = idOf ? idOf(x, k) : k; if (store instanceof Map ? store.get(id) !== j : store[id] !== j) { if (store instanceof Map) store.set(id, j); else store[id] = j; ch.push([id, e]); } }); return ch; };
   for (const k in w) {
     if (NET_SKIP.has(k)) continue;
     if (k === 'invs') out.invs = w.invs.map(x => E(x, true));
     else if (k === 'items') out.items = { ids: w.items.map(x => x.id), ch: diff(w.items, C.items, true, x => x.id) };
+    else if(k==='containers')out.containers={n:w.containers.length,ch:diff(w.containers,C.containers,true)};
+    else if(k==='propPositions'&&!key)continue;
     else if (k === 'doors') out.doors = { ch: diff(w.doors, C.doors, true) };
     else if (k === 'loose') out.loose = { n: w.loose.length, ch: diff(w.loose, C.loose, false) };
     else if (k === 'g') out.g = E(w.g, true);
@@ -2685,6 +2725,7 @@ function netApply(w, pkt, meIdx) {
   for (const [id, o] of s.items.ch) { const it = itemMap.get(id); if (it) put(it, o); } w.items = items;
   for (const [k, o] of s.doors.ch) if (w.doors[k]) put(w.doors[k], o);
   if (s.loose) { w.loose.length = Math.min(w.loose.length, s.loose.n); for (const [k, o] of s.loose.ch) { if (!w.loose[k]) w.loose[k] = {}; put(w.loose[k], o); } }
+  if(s.containers){w.containers.length=s.containers.n;for(const[k,o]of s.containers.ch){if(!w.containers[k])w.containers[k]={};put(w.containers[k],o);}}
   // investigadores: el mío lo muevo yo (salvo que el anfitrión me haya movido); los demás se suavizan
   const POSE = new Set(['x', 'y', 'face', 'vx', 'vy', 'stam', 'tired']);
   s.invs.forEach((o, k) => {
@@ -2698,7 +2739,7 @@ function netApply(w, pkt, meIdx) {
     }
   });
   { const g = w.g, o = s.g, far = (g.f !== o.f && stairAt(o.x, o.y) < 0) || Math.hypot(g.x - o.x, g.y - o.y) > 3; put(g, o, POSE); g._tx = o.x; g._ty = o.y; g._tf = o.face; if (far) { g.x = o.x; g.y = o.y; g.face = o.face; } }
-  for (const k in s) { if (['items', 'doors', 'loose', 'invs', 'g', 'ALTAR', 'FUSE'].includes(k)) continue; w[k] = D(s[k]); }
+  for (const k in s) { if (['items', 'doors', 'loose', 'containers', 'invs', 'g', 'ALTAR', 'FUSE'].includes(k)) continue; w[k] = D(s[k]); }
   for (const e of pkt.ev || []) w.events.push(D(e));
   for (const l of pkt.lg || []) { w.log.push(l); if (w.log.length > 120) w.log.shift(); }
 }
@@ -3944,74 +3985,116 @@ const NDAVisualQuality=(()=>{
  function apply(renderer,light){const p=current();if(renderer){renderer.setPixelRatio(Math.min(devicePixelRatio||1,p.dpr));renderer.shadowMap.enabled=p.shadow>0;}if(light){light.castShadow=p.shadow>0;const size=p.shadow||512;if(light.shadow.mapSize.x!==size){light.shadow.map?.dispose();light.shadow.map=null;light.shadow.mapSize.set(size,size);}}}
  return{get preference(){return preference;},current,select,apply};
 })();
+
+// Geometry built exclusively from layout-runtime's collision and interaction registry.
 const NDAHouseArt=(()=>{
- const pilot=new Set(['capilla','zaguan','patio','corredor']);
- const P={stone:0xbca480,stoneLight:0xd5c3a4,stoneShade:0x927d62,wine:0x6b2030,wood:0x66412b,woodLight:0x8e603a,woodDark:0x412a20,bone:0xe4d4b7,teal:0x315c5b,terra:0xa15c3a,green:0x3f5941,gold:0xba8d49,water:0x274c58};
- function ownsPoint(f,x,z){const r=roomAt(f,x,z);return f===0&&r>=0&&pilot.has(ROOMS[f][r].id);}
- function replacesTile(f,t,x,z){if(f!==0)return false;const id=ROOMS[f][roomAt(f,x,z)]?.id;return(t===T.TABLE&&['capilla','zaguan'].includes(id))||(t===T.ALTAR&&id==='capilla')||(t===T.WATER&&id==='patio');}
- class Batch{
-  constructor(name){this.name=name;this.p=[];this.n=[];this.c=[];}
-  add(input,color,x=0,y=0,z=0,rx=0,ry=0,rz=0){const g=input.index?input.toNonIndexed():input.clone(),matrix=new THREE.Matrix4().compose(new THREE.Vector3(x,y,z),new THREE.Quaternion().setFromEuler(new THREE.Euler(rx,ry,rz)),new THREE.Vector3(1,1,1));g.applyMatrix4(matrix);if(!g.attributes.normal)g.computeVertexNormals();
-   const p=g.attributes.position,n=g.attributes.normal,c=new THREE.Color(color);for(let i=0;i<p.count;i++){this.p.push(p.getX(i),p.getY(i),p.getZ(i));this.n.push(n.getX(i),n.getY(i),n.getZ(i));const tone=n.getY(i)>.5?1.035:n.getY(i)<-.5?.86:1;this.c.push(c.r*tone,c.g*tone,c.b*tone);}g.dispose();input.dispose();
+ const P={stone:0xbca480,light:0xd5c3a4,shade:0x927d62,wine:0x6b2030,wood:0x66412b,woodLight:0x8e603a,dark:0x412a20,bone:0xe4d4b7,teal:0x315c5b,terra:0xa15c3a,green:0x3f5941,gold:0xba8d49,water:0x274c58,iron:0x302c31};
+ const STATIC_MATERIAL=new THREE.MeshStandardMaterial({vertexColors:true,flatShading:true,roughness:1,metalness:0});
+ const WALL_COLORS={capilla:P.wine,biblioteca:0x52616a,cocina:0xb2a286,comedor:0x9a735a,reposteria:0x899a8e,botica:0x426568,despacho:0x716a59,despensa:0x96826c,planchaduria:0xb1a395,cochera:0x807369,escalera:0x8f6f64,zaguan:0x996e58,porteria:0x7a7665,desvan:0x7e6e64,costura:0x9a777b,nana:0x818b7a,recn:0x71838c,huespedes:0x938581,abuelo:0x8b7a63,recp:0x99798b,salon:0x86677a,hija:0x8a6f80,coro:P.wine};
+ const wallTint=(f,x,y,z,nx,ny,nz)=>Math.abs(ny)>.5?P.shade:WALL_COLORS[ROOMS[f][roomAt(f,x+nx*.04,z+nz*.04)]?.id]||P.wine;
+ class Batch{constructor(name){this.name=name;this.p=[];this.c=[];}add(input,c,x=0,y=0,z=0,rx=0,ry=0,rz=0){const g=input.index?input.toNonIndexed():input.clone(),m=new THREE.Matrix4().compose(new THREE.Vector3(x,y,z),new THREE.Quaternion().setFromEuler(new THREE.Euler(rx,ry,rz)),new THREE.Vector3(1,1,1));g.applyMatrix4(m);const a=g.attributes.position,n=g.attributes.normal,color=typeof c==='function'?null:new THREE.Color(c);for(let i=0;i<a.count;i++){this.p.push(a.getX(i),a.getY(i),a.getZ(i));const v=color||new THREE.Color(c(a.getX(i),a.getY(i),a.getZ(i),n.getX(i),n.getY(i),n.getZ(i)));this.c.push(v.r,v.g,v.b);}g.dispose();input.dispose();}mesh(){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(this.p,3));g.setAttribute('color',new THREE.Float32BufferAttribute(this.c,3));g.computeVertexNormals();g.computeBoundingSphere();const m=new THREE.Mesh(g,STATIC_MATERIAL);m.name=this.name;m.castShadow=m.receiveShadow=true;m.userData.NDAHouseArt=true;return m;}}
+ const box=(b,x,y,z,w,h,d,c,ry=0)=>{if(w>0&&h>0&&d>0)b.add(new THREE.BoxGeometry(w,h,d),c,x,y,z,0,ry);};
+ function poly(b,pts,depth,c,x,y,z,ry=0,holes=[]){const s=new THREE.Shape(pts.map(p=>new THREE.Vector2(...p)));for(const h of holes)s.holes.push(new THREE.Path(h.map(p=>new THREE.Vector2(...p))));b.add(new THREE.ExtrudeGeometry(s,{depth,bevelEnabled:false,curveSegments:1,steps:1}),c,x,y,z,0,ry);}
+ const cylinder=(b,x,y,z,r1,r2,h,c,n=8)=>b.add(new THREE.CylinderGeometry(r1,r2,h,n,1,false),c,x,y,z);
+ function subtract(a,b){const l=[Math.max(a[0],b[0]),Math.max(a[1],b[1]),Math.max(a[2],b[2])],u=[Math.min(a[3],b[3]),Math.min(a[4],b[4]),Math.min(a[5],b[5])];if(l.some((v,i)=>v>=u[i]))return[a];const out=[];let q=a.slice();for(let i=0;i<3;i++){if(q[i]<l[i]){const p=q.slice();p[i+3]=l[i];out.push(p);q[i]=l[i];}if(q[i+3]>u[i]){const p=q.slice();p[i]=u[i];out.push(p);q[i+3]=u[i];}}return out;}
+ function windowCut(w){const[a,b]=w.start,[c,d]=w.end;if(a!==c)return[a,w.floor*FH+w.sillRelative,b,c,w.floor*FH+w.sillRelative+w.height,b+1];const x=w.wall.startsWith('oeste')?a-1:a;return[x,w.floor*FH+w.sillRelative,b,x+1,w.floor*FH+w.sillRelative+w.height,d];}
+ function table(b,o){const[a,z,c,d]=o.rect,x=(a+c)/2,zz=(z+d)/2,w=c-a,h=d-z;box(b,x,.74,zz,w,.08,h,P.woodLight);for(const dx of[-1,1])for(const dz of[-1,1])box(b,x+dx*(w/2-.12),.35,zz+dz*(h/2-.12),.10,.70,.10,P.dark);box(b,x,.20,zz,w-.16,.065,.07,P.wood);}
+ function cabinet(b,o){const[a,z,c,d]=o.rect,x=(a+c)/2,zz=(z+d)/2,w=c-a,h=d-z,H=o.height||1.9;box(b,x,H/2,zz,w,H,h,P.wood);box(b,x,H/2,zz+h/2+.018,w-.10,H-.12,.035,P.dark);for(let y=.35;y<H;y+=.43){box(b,x,y,zz+h/2+.045,w-.12,.05,.06,P.woodLight);for(let i=0;i<Math.max(1,Math.floor(w*3));i++)box(b,a+.22+i*.28,y+.17,zz+h/2+.03,.18,.27,.055,[P.wine,P.teal,P.bone][i%3]);}}
+ function fountain(b){for(const[x,z,w,d]of[[30,18.15,4,.3],[30,21.85,4,.3],[28.15,20,.3,3.4],[31.85,20,.3,3.4]])box(b,x,.3,z,w,.6,d,P.stone);box(b,30,.12,20,3.4,.08,3.4,P.water);cylinder(b,30,1.1,20,.32,.32,2.2,P.shade);cylinder(b,30,1.0,20,1.2,.70,.25,P.light);cylinder(b,30,1.94,20,.72,.40,.20,P.light);cylinder(b,30,2.31,20,.06,.16,.22,P.water,6);}
+ function plant(b,x,z){cylinder(b,x,.23,z,.24,.16,.46,P.terra,6);for(let j=0;j<4;j++){const a=j*Math.PI/2;poly(b,[[0,0],[.38,.40],[.16,.60],[-.05,.18]],.04,P.green,x,.42,z,a);}}
+ function memories(b,f,r){const[a,z,c,d]=r.r,candidates=[];for(let y=z+1.5;y<d;y+=2)for(const[x,nx]of[[a+.035,1],[c+.965,-1]])candidates.push({x,z:y,nx,nz:0});for(let x=a+1.5;x<c;x+=2)for(const[zz,nz]of[[z+.035,1],[d+.965,-1]])candidates.push({x,z:zz,nx:0,nz});
+  const p=candidates.find(p=>tileAt(f,p.x-p.nx*.15,p.z-p.nz*.15)===T.WALL&&!layoutWindowNear(f,p.x,p.z,.65)&&!NDALayout.doors.some(d=>d.floor===f&&Math.hypot((d.rect[0]+d.rect[2])/2-p.x,(d.rect[1]+d.rect[3])/2-p.z)<1.2)&&!SPOTS.some(s=>s.f===f&&Math.hypot(s.x+.5-p.x,s.y+.5-p.z)<1.25)&&!LAYOUT_FURN.some(o=>o.floor===f&&o.height>1.2&&p.x>o.rect[0]-.2&&p.x<o.rect[2]+.2&&p.z>o.rect[1]-.2&&p.z<o.rect[3]+.2));if(!p)return;const angle=Math.atan2(p.nx,p.nz),x=p.x,zp=p.z;
+  box(b,x+p.nx*.025,1.75,zp+p.nz*.025,.74,.96,.05,P.dark,angle);box(b,x+p.nx*.065,1.75,zp+p.nz*.065,.63,.84,.025,P.bone,angle);
+  poly(b,[[-.2,-.31],[.2,-.31],[.13,-.04],[0,.05],[-.13,-.04]],.008,P.wine,x+p.nx*.09,1.75,zp+p.nz*.09,angle);poly(b,[[-.08,.10],[.08,.10],[.12,.20],[.06,.30],[-.06,.30],[-.12,.20]],.008,P.wood,x+p.nx*.09,1.75,zp+p.nz*.09,angle);
+ }
+ function papelPicado(b,detail){for(const z of[17.5,22.5]){const count=detail?16:8,ys=t=>3.5-.4*(1-Math.abs(2*t-1));for(let k=0;k<8;k++){const a=k/8,c=(k+1)/8,dx=(c-a)*23,dy=ys(c)-ys(a);b.add(new THREE.BoxGeometry(Math.hypot(dx,dy),.012,.012),P.dark,18.5+(a+c)*11.5,(ys(a)+ys(c))/2,z,0,0,Math.atan2(dy,dx));}for(let k=0;k<count;k++){const t=(k+.5)/count,x=18.5+t*23,holes=detail?[[[-.07,-.08],[0,-.02],[.07,-.08],[0,-.15]]]:[];poly(b,[[-.36,0],[.36,0],[.36,-.27],[.24,-.34],[.12,-.27],[0,-.34],[-.12,-.27],[-.24,-.34],[-.36,-.27]],.008,[P.wine,0xc18d40,P.teal,0x8f657d][k%4],x,ys(t)-.025,z,0,holes);}}}
+ function furnishing(b,o){const[a,z,c,d]=o.rect,x=(a+c)/2,zz=(z+d)/2,w=c-a,dep=d-z;
+  if(o.kind==='prop')return;
+  if(o.kind==='bench'){box(b,x,.46,zz,w,.08,dep,P.woodLight);box(b,x,.76,z+.06,w,.55,.10,P.dark);for(const xx of[a+.15,c-.15])box(b,xx,.21,zz,.10,.42,.70,P.dark);return;}
+  if(o.kind==='bath'){for(const[xx,zrow,ww,dd]of[[x,z+.12,w,.24],[x,d-.12,w,.24],[a+.12,zz,.24,dep-.48],[c-.12,zz,.24,dep-.48]])box(b,xx,.45,zrow,ww,.65,dd,P.bone);box(b,x,.24,zz,w-.48,.06,dep-.48,P.water);return;}
+  if(o.type===T.PILLAR){box(b,x,1.9,zz,.90,3.8,.90,P.light);box(b,x,.15,zz,1,.3,1,P.shade);box(b,x,3.61,zz,1,.18,1,P.stone);return;}
+  if(o.id==='fuente'){fountain(b);return;}if(o.id==='figura_central_fuente')return;
+  if(o.id==='carruaje'){box(b,x,1.05,zz,w,1.6,dep,P.wood);poly(b,[[-w/2,0],[w/2,0],[w*.40,.65],[-w*.35,.65]],dep,P.bone,x,1.55,z);for(const xx of[a+.55,c-.55])for(const zc of[z+.35,d-.35])b.add(new THREE.CylinderGeometry(.43,.43,.16,8),P.dark,xx,.46,zc,Math.PI/2);return;}
+  if(o.type===T.BED){box(b,x,.24,zz,w,.48,dep,P.wood);box(b,x,.515,zz,w-.06,.07,dep-.08,P.bone);box(b,x,.565,zz+.3,w-.12,.03,Math.max(.4,dep-.8),P.wine);box(b,x,1.0,z+.10,w,1.0,.16,P.dark);return;}
+  if(o.type===T.ALTAR){box(b,x,.46,zz,w,.92,dep,P.dark);box(b,x,.935,zz,w+.08,.03,dep+.02,P.bone);return;}
+  if(o.blocksSight){cabinet(b,o);return;}if(o.type===T.TABLE)table(b,o);
+ }
+ function archPoints(width,spring,apex){return[[0,0],[width,0],[width,spring],[width*.82,spring+.18],[width*.5,apex],[width*.18,spring+.18],[0,spring]];}
+ function portal(b,d){const[a,z,c,e]=d.rect,vertical=c-a===1,width=2,ext=d.kind==='portón',spring=ext?2.5:2.1,apex=ext?3.25:2.6,ry=vertical?-Math.PI/2:0,x=vertical?a+1:a,zz=z;
+  const pts=[[0,spring],[.36,spring+.18],[1,apex],[1.64,spring+.18],[2,spring],[2,FH],[0,FH]];poly(b,pts,1,(...v)=>wallTint(d.floor,...v),x,0,zz,ry);
+  // A single carved arch owns both faces and the reveal; no old rectangular frame remains.
+  const outline=[[-.12,0],[-.12,spring+.04],[.1,spring+.28],[1,apex+.17],[1.9,spring+.28],[2.12,spring+.04],[2.12,0],[2,0],[2,spring],[1.64,spring+.18],[1,apex],[.36,spring+.18],[0,spring],[0,0]];poly(b,outline,1.08,P.light,x+(vertical?.04:0),0,zz-(vertical?0:.04),ry);
+
+ }
+ function windowModel(b,w){const cut=windowCut(w),[x,y,z,c,h,d]=cut,wide=c-x>1,span=wide?c-x:d-z,cx=(x+c)/2,cz=(z+d)/2,mid=(y+h)/2,ry=wide?0:Math.PI/2;
+  // Infill belongs to the aperture. Its surfaces never coincide with an uncut wall.
+  const put=(u,yy,ww,hh,depth,color,offset=0)=>{if(wide)box(b,cx+u,yy,cz+offset,ww,hh,depth,color);else box(b,cx+offset,yy,cz+u,depth,hh,ww,color);};
+  put(0,y-.035,span+.12,.07,1.08,P.stone);put(0,h+.035,span+.12,.07,1.08,P.stone);
+  for(const sd of[-1,1])put(sd*(span/2+.035),mid,.07,h-y,1.08,P.stone);
+  if(w.kind==='balcon con barandal'){put(0,y+.03,span+.3,.10,.75,P.stone,.8);for(let u=-span/2;u<=span/2;u+=.24)put(u,y+.62,.025,1.1,.035,P.iron,1.12);put(0,y+1.18,span+.12,.035,.05,P.iron,1.12);}
+  if(w.state==='tapiada'){put(0,mid,span,h-y,.85,P.shade);return;}
+  if(w.state==='postigos cerrados'){for(const sd of[-1,1]){put(sd*span*.25,mid,span/2-.025,h-y-.04,.08,P.dark);put(sd*span*.25,mid,span/2-.12,.06,.12,P.woodLight);}return;}
+  if(w.state==='tablas con rendijas'){for(let yy=y+.12;yy<h-.04;yy+=.32)put(0,yy,span-.04,.24,.075,P.wood);}
+  else{for(let j=0;j<3;j++){const u=-span/2+.12+j*(span-.24)/2;put(u,y+.14,.17,.28,.035,0x78919a);}}
+  for(let u=-span/2+.16;u<span/2;u+=.24)put(u,mid,.025,h-y-.05,.03,P.iron,.13);
+
+ }
+ function stairGeometry(b,s){const p=s.path,rise=.19;for(let j=1;j<p.length;j++){const a=p[j-1],c=p[j],dx=c[0]-a[0],dz=c[1]-a[1],run=Math.hypot(dx,dz),up=c[2]-a[2],ry=-Math.atan2(dz,dx);if(Math.abs(up)>.1){const N=s.id==='principal'?10:20;const profile=[[0,0],[run,0],[run,c[2]]];for(let i=N-1;i>=0;i--){profile.push([run*i/N,a[2]+(i+1)*up/N]);if(i)profile.push([run*i/N,a[2]+i*up/N]);}poly(b,profile,s.width,P.stone,a[0]+dz/run*s.width/2,0,a[1]-dx/run*s.width/2,ry);const railLength=Math.hypot(run,up);for(const side of[-1,1]){const nx=-dz/run*side*(s.width/2-.025),nz=dx/run*side*(s.width/2-.025);b.add(new THREE.BoxGeometry(railLength,.055,.055),P.iron,(a[0]+c[0])/2+nx,(a[2]+c[2])/2+1.05,(a[1]+c[1])/2+nz,0,ry,Math.atan2(up,run));for(let i=0;i<=N;i+=2){const t=i/N;box(b,a[0]+dx*t+nx,a[2]+up*t+.5,a[1]+dz*t+nz,.035,1,.035,P.iron);}}}else box(b,(a[0]+c[0])/2,a[2]/2,(a[1]+c[1])/2,Math.abs(dx)>.01?run+s.width:s.width,a[2],Math.abs(dz)>.01?run+s.width:s.width,P.stone);}
+  const end=p[p.length-1],length=s.id==='principal'?1:1.68;box(b,end[0]+length/2,FH-.09,end[1],length,.18,s.width,P.stone);
+  // Trim the upper hole continuously, leaving only the high landing approach open.
+  const[a,z,c,d]=s.hole;for(const zz of[z,d]){box(b,(a+c)/2,FH+1.0,zz,c-a,.055,.055,P.iron);for(let x=a;x<c;x+=.35)box(b,x,FH+.5,zz,.035,1,.035,P.iron);}box(b,a,FH+1.0,(z+d)/2,.055,.055,d-z,P.iron);
+ }
+ function build({floors,world}){const batches=new Map(),get=(f,id)=>{const key=f+':'+id;if(!batches.has(key))batches.set(key,new Batch('casona_v11_'+key));return batches.get(key);};
+  const cuts=NDALayout.windows.map(windowCut);
+  // Drop internal faces between wall cells. Coincident faces cast dotted shadow seams.
+  const wallPiece=(batch,f,a,b,c,d,e,g)=>{const geo=new THREE.BoxGeometry(d-a,e-b,g-c).toNonIndexed(),p=geo.attributes.position,n=geo.attributes.normal,kept=[];geo.translate((a+d)/2,(b+e)/2-f*FH,(c+g)/2);for(let i=0;i<p.count;i+=3){const x=(p.getX(i)+p.getX(i+1)+p.getX(i+2))/3+n.getX(i)*.001,y=(p.getY(i)+p.getY(i+1)+p.getY(i+2))/3+n.getY(i)*.001+f*FH,z=(p.getZ(i)+p.getZ(i+1)+p.getZ(i+2))/3+n.getZ(i)*.001,solid=x>=0&&x<60&&z>=0&&z<40&&y>f*FH&&y<(f+1)*FH&&tileAt(f,x,z)===T.WALL&&!cuts.some(q=>x>q[0]&&x<q[3]&&y>q[1]&&y<q[4]&&z>q[2]&&z<q[5]);if(!solid)for(let j=0;j<3;j++)kept.push(p.getX(i+j),p.getY(i+j),p.getZ(i+j));}geo.dispose();if(kept.length){const out=new THREE.BufferGeometry();out.setAttribute('position',new THREE.Float32BufferAttribute(kept,3));out.computeVertexNormals();batch.add(out,(...v)=>wallTint(f,...v));}};
+  for(const f of[0,1]){
+   for(let z=0;z<40;z++){const wall=new Batch('muros_'+f+'_'+z);for(let x=0;x<60;x++){const t=tileAt(f,x,z),ri=roomAt(f,x,z),rm=ROOMS[f][ri];if(t===T.WALL){if(x>0&&x<59&&z>0&&z<39&&![[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>tileAt(f,x+a,z+b)!==T.WALL))continue;let pieces=[[x,f*FH,z,x+1,(f+1)*FH,z+1]];for(const cut of cuts)pieces=pieces.flatMap(a=>subtract(a,cut));for(const[a,b,c,d,e,g]of pieces)wallPiece(wall,f,a,b,c,d,e,g);}
+    if(t!==T.VOID&&rm&&t!==T.WALL&&!NDALayout.stairs.some(s=>f&&x+.5>s.hole[0]&&x+.5<s.hole[2]&&z+.5>s.hole[1]&&z+.5<s.hole[3])){const b=get(f,rm.id),color=['patio','corredor','galeria'].includes(rm.id)?((x+z)%2?0x877b6c:0x958979):['cocina','banoalto','reposteria'].includes(rm.id)?((x+z)%2?0xbdb6a0:0x6b7975):rm.id==='capilla'?((x+z)%2?0x8d7771:0x826d69):0x8b6a4e;box(b,x+.5,.005,z+.5,1,.02,1,color);}
+   }if(wall.p.length){const g=new THREE.Group(),m=wall.mesh();g.add(m);floors[f].add(g);wallRuns.push({f,y:z,x0:0,x1:59,g});}}
+   for(const r of ROOMS[f]){if(!ROOM_CENTER[f][RID[f][r.id]]||['patio','traspatio','corredor','galeria','afuera','afuera1','capilla','vacio','vaciocapilla'].includes(r.id))continue;const roof=new Batch('techo_'+f+'_'+r.id);for(let z=r.r[1];z<=r.r[3];z++)for(let x=r.r[0];x<=r.r[2];x++){if(!f&&NDALayout.stairs.some(s=>x+.5>s.hole[0]&&x+.5<s.hole[2]&&z+.5>s.hole[1]&&z+.5<s.hole[3]))continue;box(roof,x+.5,FH-.045,z+.5,1,.06,1,0x49352f);}if(roof.p.length){const m=roof.mesh();m.userData.f=f;floors[f].add(m);ceilMeshes.push(m);}
+    const b=get(f,r.id);for(let x=r.r[0]+1;x<r.r[2];x+=2)if(!['escalera','rellano','cocina','nana'].includes(r.id))box(b,x,FH-.16,(r.r[1]+r.r[3]+1)/2,.14,.22,r.r[3]-r.r[1]+1,P.dark);
+   }
   }
-  finish(){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(this.p,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(this.n,3));g.setAttribute('color',new THREE.Float32BufferAttribute(this.c,3));g.computeBoundingBox();g.computeBoundingSphere();const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,flatShading:true,roughness:1,metalness:0}));m.name=this.name;m.castShadow=m.receiveShadow=true;m.userData.NDAHouseArt=true;m.userData.triangles=this.p.length/9;return m;}
+  for(const f of[0,1]){const roof=new Batch('techo_galeria_'+f);for(let z=10;z<30;z++)for(let x=15;x<45;x++)if(!(x>=18&&x<42&&z>=13&&z<27))box(roof,x+.5,FH-.045,z+.5,1,.06,1,0x49352f);const m=roof.mesh();m.userData.f=f;floors[f].add(m);ceilMeshes.push(m);}
+  for(const f of[0,1])for(let z=0;z<40;z++)for(let x=0;x<60;x++)if(tileAt(f,x,z)===T.WALL)for(const[dx,dz]of[[1,0],[-1,0],[0,1],[0,-1]])if(walkableT(tileAt(f,x+dx,z+dz))){const b=get(f,'molduras'),xx=x+.5+dx*.53,zz=z+.5+dz*.53;box(b,xx,.22,zz,dx?.06:1,.44,dz?.06:1,P.shade);box(b,xx,3.48,zz,dx?.08:1,.12,dz?.08:1,P.stone);}
+  for(const y of[.25,3.8,7.45])box(get(0,'fachada'),30,y,40.065,60,.14,.13,P.stone);
+  for(const d of NDALayout.doors)portal(get(d.floor,'portales'),d);
+  for(const w of NDALayout.windows){const b=get(0,'ventanas');windowModel(b,w);}
+  for(const o of LAYOUT_FURN)furnishing(get(o.floor,'muebles'),o);
+  for(const s of NDALayout.stairs)stairGeometry(get(0,'escaleras'),s);
+  for(const f of[0,1]){const b=get(f,'arqueria'),span=(x,z,length,ry=0)=>{const w=length-.9;poly(b,[[0,2.65],[w*.2,2.9],[w*.5,3.45],[w*.8,2.9],[w,2.65],[w,3.8],[0,3.8]],.30,P.stone,x,0,z,ry);};for(const z of[13.5,26.5]){const xs=[18.5,23.5,27.5,33.5,37.5,41.5];for(let i=1;i<xs.length;i++)span(xs[i-1]+.45,z-.15,xs[i]-xs[i-1]);}for(const x of[18.5,41.5]){const zs=[13.5,17.5,22.5,26.5];for(let i=1;i<zs.length;i++)span(x+.15,zs[i-1]+.45,zs[i]-zs[i-1],-Math.PI/2);}if(f)for(const o of LAYOUT_FURN.filter(o=>o.type===T.PILLAR))furnishing(b,o);}
+  // Upper gallery balustrade follows the void; neither a door nor a prop can replace it.
+  const rail=get(1,'barandales');for(const z of[13,27]){box(rail,30,1.05,z,24,.06,.06,P.iron);for(let x=18;x<42;x+=.4)box(rail,x,.52,z,.035,1.04,.035,P.iron);}for(const x of[18,42]){box(rail,x,1.05,20,.06,.06,14,P.iron);for(let z=13;z<27;z+=.4)box(rail,x,.52,z,.035,1.04,.035,P.iron);}box(rail,30,1.05,6,12,.07,.07,P.dark);for(let x=24;x<36;x+=.4)box(rail,x,.52,6,.045,1.04,.045,P.dark);
+  // Only one retablo and one architectural cross, registered to the rebuilt chapel.
+  const chapel=get(0,'capilla_arte');box(chapel,30,1.8,1.20,7,3.6,.35,P.dark);for(const x of[27,33]){box(chapel,x,2,1.48,.28,3.8,.30,P.gold);box(chapel,x,.35,1.5,.45,.7,.40,P.stone);}poly(chapel,[[-3.3,0],[3.3,0],[2.6,.8],[0,1.3],[-2.6,.8]],.28,P.gold,30,3.1,1.1);box(chapel,30,2.7,1.5,.13,1.65,.10,P.bone);box(chapel,30,2.98,1.51,.92,.13,.12,P.bone);
+  for(let j=0;j<8;j++){const x=26.5+j;cylinder(chapel,x,1.04,1.75,.10,.075,.16,P.terra,6);cylinder(chapel,x,1.2,1.75,.12,.04,.18,0xd69a44,5);}
+  // Chapel roof spans the actual double-height void only, adjoining the coro roof.
+  {const m=new THREE.Mesh(new THREE.PlaneGeometry(12,5),new THREE.MeshStandardMaterial({color:0x49352f,roughness:1,side:THREE.DoubleSide}));m.rotation.x=Math.PI/2;m.position.set(30,7.57,3.5);m.userData.f=1;floors[0].add(m);ceilMeshes.push(m);}
+  const outdoor=get(0,'exterior');for(let z=40;z<58;z++)for(let x=0;x<60;x++){if(tileAt(0,x,z)===T.BUSH)cylinder(outdoor,x+.5,.65+(x%3)*.07,z+.5,.42,.45,1.3+(x%3)*.14,P.green,6);if(tileAt(0,x,z)===T.GATE){for(let j=0;j<4;j++)box(outdoor,x+.14+j*.24,1.5,z+.5,.035,3,.035,P.iron);box(outdoor,x+.5,2.7,z+.5,1,.055,.06,P.iron);}}
+  const detail=NDAVisualQuality.current().detail;papelPicado(get(0,'papel_picado'),detail);for(const f of[0,1])for(const r of ROOMS[f])if(r.home)memories(get(f,'recuerdos'),f,r);if(detail){for(const[x,z]of[[17.2,11.8],[42.8,28.2],[17.2,28.2],[42.8,11.8],[50,7.5]])plant(get(0,'plantas'),x,z);for(const f of[0,1])for(const [t,a,z,c,d]of FURN[f])if(t===T.TABLE&&z<39&&!world.loose.concat(world.items,world.devices||[],world.propPositions||[]).some(p=>p.f===f&&Math.hypot(p.x-a-.25,p.y-z-.25)<.65)){const b=get(f,'recuerdos'),x=a+.25,zz=z+.25;box(b,x,.81,zz,.28,.05,.21,P.teal);box(b,x+.05,.85,zz,.25,.03,.19,P.wine);cylinder(b,x+.45,.88,zz,.055,.055,.16,P.terra,6);}}
+  const meshes=[];for(const[key,b]of batches){if(!b.p.length)continue;const m=b.mesh();floors[+key[0]].add(m);meshes.push(m);}
+  const moon=new THREE.DirectionalLight(0xb2c1e3,NDAVisualQuality.current().shadow>0?.70:0);moon.position.set(65,55,65);moon.target.position.set(30,0,20);moon.castShadow=true;moon.shadow.camera.left=-42;moon.shadow.camera.right=42;moon.shadow.camera.top=42;moon.shadow.camera.bottom=-42;moon.shadow.camera.far=140;moon.shadow.mapSize.set(NDAVisualQuality.current().shadow||512,NDAVisualQuality.current().shadow||512);moon.shadow.bias=-.0005;moon.shadow.normalBias=.035;moon.visible=NDAVisualQuality.current().shadow>0;scene.add(moon,moon.target);
+  return{version:NDALayout.version,zones:NDALayout.rooms.map(r=>r.key),meshes,triangles:meshes.reduce((n,m)=>n+m.geometry.attributes.position.count/3,0),quality:NDAVisualQuality.preference,moon};
  }
- function box(b,x,y,z,w,h,d,c,ry=0){b.add(new THREE.BoxGeometry(w,h,d),c,x,y,z,0,ry);}
- function profile(b,x,z,rows,c,n=8){const raw=loftGeo(rows,n,{capB:true,capT:true,a0:0}),g=NDACharacterMeshQC.repair(raw);raw.dispose();b.add(g,c,x,0,z);}
- function poly(b,points,depth,color,x=0,y=0,z=0,ry=0,holes=[]){const s=new THREE.Shape();s.moveTo(...points[0]);for(const p of points.slice(1))s.lineTo(...p);s.closePath();for(const pts of holes){const h=new THREE.Path();h.moveTo(...pts[0]);for(const p of pts.slice(1))h.lineTo(...p);h.closePath();s.holes.push(h);}b.add(new THREE.ExtrudeGeometry(s,{depth,bevelEnabled:false,curveSegments:1,steps:1}),color,x,y,z,0,ry);}
- function floor(b,r,c1,c2,tile){const[x0,z0,x1,z1]=r;for(let z=z0;z<z1+1-.01;z+=tile)for(let x=x0;x<x1+1-.01;x+=tile){const w=Math.min(tile,x1+1-x),d=Math.min(tile,z1+1-z),index=Math.round((x-x0)/tile)+Math.round((z-z0)/tile);b.add(new THREE.PlaneGeometry(w-.014,d-.014),index%2?c1:c2,x+w/2,.029,z+d/2,-Math.PI/2);}
-  const w=x1-x0+1,d=z1-z0+1,cx=(x0+x1+1)/2,cz=(z0+z1+1)/2;
-  for(const sd of[-1,1]){box(b,cx,.035,cz+sd*(d/2-.16),w,.012,.12,P.wine);box(b,cx+sd*(w/2-.16),.035,cz,.12,.012,d,P.wine);}
+ function buildDoors(){doorMeshes=[];const wood=STATIC_MATERIAL;exitMesh={material:wood.clone(),leaves:[]};for(const d of w.doors){if(d.arch)continue;const root=new THREE.Group(),vertical=d.o==='V',first=d.tiles[0],ext=!!d.ext,spring=ext?2.5:2.1,apex=ext?3.25:2.6;root.position.set(first[0]+(vertical?.5:0),0,first[1]+(vertical?0:.5));root.rotation.y=vertical?-Math.PI/2:0;floorGroups[d.f].add(root);const leaves=[];
+   for(const sd of[-1,1]){const pivot=new THREE.Group();pivot.position.x=sd<0?.035:1.965;root.add(pivot);const left=sd<0,pts=left?[[0,.02],[.96,.02],[.96,apex-.04],[.325,spring+.16],[0,spring-.025]]:[[0,.02],[-.96,.02],[-.96,apex-.04],[-.325,spring+.16],[0,spring-.025]],shape=new THREE.Shape(pts.map(p=>new THREE.Vector2(...p))),g=new THREE.ExtrudeGeometry(shape,{depth:.075,bevelEnabled:false,curveSegments:1});const batch=new Batch('hoja_'+d.id+'_'+sd);batch.add(g,P.wood,0,0,-.038);box(batch,left?.46:-.46,1.35,0,.77,.075,.10,P.dark);const leaf=batch.mesh();if(ext)leaf.material=exitMesh.material;pivot.add(leaf);leaves.push(pivot);}
+   const glow=new THREE.Mesh(new THREE.PlaneGeometry(.55,.55),new THREE.MeshBasicMaterial({map:handT,transparent:true,depthWrite:false,side:THREE.DoubleSide}));glow.position.set(.5,1.3,.055);leaves[0].add(glow);glow.visible=false;
+   const ruda=new THREE.Mesh(new THREE.ConeGeometry(.12,.35,5),new THREE.MeshStandardMaterial({color:P.green,roughness:1}));ruda.position.set(.6,1.9,.08);leaves[0].add(ruda);ruda.visible=false;const ros=new THREE.Mesh(new THREE.TorusGeometry(.12,.02,4,6),new THREE.MeshStandardMaterial({color:P.bone,roughness:1}));ros.position.set(.6,1.7,.08);leaves[0].add(ros);ros.visible=false;doorMeshes.push({d,piv:leaves[0],leaves,glow,ruda,ros,base:-1.48});}
  }
- function arch(b,x,z,span,spring,apex,ry=0,depth=.16){const r=span/2,R=r+.18,outline=[];
-  for(let i=0;i<=6;i++){const a=Math.PI-i*Math.PI/6;outline.push([Math.cos(a)*R,spring+Math.sin(a)*(apex-spring+.16)]);}
-  for(let i=6;i>=0;i--){const a=Math.PI-i*Math.PI/6;outline.push([Math.cos(a)*r,spring+Math.sin(a)*(apex-spring)]);}
-  poly(b,outline,depth,P.stoneLight,x,0,z-depth/2,ry);
-  for(const sd of[-1,1]){const px=Math.cos(ry)*sd*(r+.09),pz=-Math.sin(ry)*sd*(r+.09);box(b,x+px,spring/2,z+pz,.18,spring,.20,P.stone,ry);box(b,x+px,.13,z+pz,.28,.26,.26,P.stoneShade,ry);}
- }
- function plant(b,x,z,scale=1){profile(b,x,z,[[0,.12*scale,.12*scale],[.05*scale,.14*scale,.14*scale],[.30*scale,.18*scale,.18*scale],[.35*scale,.185*scale,.185*scale]],P.terra);profile(b,x,z,[[.29*scale,.187*scale,.187*scale],[.33*scale,.187*scale,.187*scale]],P.bone);
-  for(let j=0;j<7;j++){const a=j*Math.PI*2/7,lean=j%2?.28:.52,c=j%2?P.green:0x627857,pts=[[-.035*scale,0],[.02*scale,.23*scale],[0,.48*scale],[-.065*scale,.22*scale]];const shape=new THREE.Shape();shape.moveTo(...pts[0]);pts.slice(1).forEach(p=>shape.lineTo(...p));shape.closePath();b.add(new THREE.ExtrudeGeometry(shape,{depth:.009,bevelEnabled:false,curveSegments:1}),c,x,.32*scale,z,lean,a,0);}
- }
- function table(b,x,z,w,d,chapel=false){box(b,x,.74,z,w-.04,.08,d-.04,P.woodLight);box(b,x,.665,z,w-.09,.07,d-.09,P.wood);
-  for(const sx of[-1,1])for(const sz of[-1,1]){const xx=x+sx*(w/2-.16),zz=z+sz*(d/2-.15);box(b,xx,.34,zz,.12,.68,.12,P.woodDark);box(b,xx,.12,zz,.18,.12,.18,P.wood);}
-  box(b,x,.24,z,w-.28,.07,.08,P.woodDark);if(chapel){box(b,x,.788,z,w-.24,.012,d-.34,P.wine);for(const sd of[-1,1])box(b,x+sd*(w/2-.22),.796,z,.035,.008,d-.38,P.gold);}
- }
- function frame(b,x,y,z,w,h,ry=0){box(b,x,y,z,w+.12,h+.12,.065,P.woodDark,ry);const offset=new THREE.Vector3(0,0,.04).applyAxisAngle(new THREE.Vector3(0,1,0),ry);box(b,x+offset.x,y,z+offset.z,w,h,.018,P.gold,ry);const o2=new THREE.Vector3(0,0,.055).applyAxisAngle(new THREE.Vector3(0,1,0),ry);box(b,x+o2.x,y,z+o2.z,w-.09,h-.09,.014,P.bone,ry);const o3=new THREE.Vector3(0,0,.069).applyAxisAngle(new THREE.Vector3(0,1,0),ry);poly(b,[[-w*.22,-h*.28],[w*.22,-h*.28],[w*.14,h*.03],[0,h*.22],[-w*.14,h*.03]],.006,P.wine,x+o3.x,y,z+o3.z,ry);}
- function fountain(b){const x=30,z=20,outer=[[-2.9,-1.5],[-2.5,-1.9],[2.5,-1.9],[2.9,-1.5],[2.9,1.5],[2.5,1.9],[-2.5,1.9],[-2.9,1.5]],inner=outer.map(([a,c])=>[a*.90,c*.86]);
-  // Horizontal hollow coping and water inside the exact existing blocked water footprint.
-  const s=new THREE.Shape();s.moveTo(...outer[0]);outer.slice(1).forEach(p=>s.lineTo(...p));s.closePath();const hole=new THREE.Path();hole.moveTo(...inner[0]);inner.slice(1).forEach(p=>hole.lineTo(...p));hole.closePath();s.holes.push(hole);
-  b.add(new THREE.ExtrudeGeometry(s,{depth:.40,bevelEnabled:false,curveSegments:1}),P.stone,x,.05,z,-Math.PI/2);b.add(new THREE.ShapeGeometry(new THREE.Shape(inner.map(p=>new THREE.Vector2(...p)))),P.water,x,.29,z,-Math.PI/2);
-  profile(b,x,z,[[.18,.46,.46],[.36,.42,.42],[.39,.30,.30],[1.02,.17,.17],[1.15,.31,.31]],P.stoneShade);
-  profile(b,x,z,[[1.05,.29,.29],[1.21,.81,.81],[1.30,.84,.84],[1.34,.68,.68]],P.stoneLight);
-  profile(b,x,z,[[1.33,.14,.14],[1.74,.12,.12],[1.78,.23,.23],[1.88,.48,.48],[1.95,.50,.50]],P.stone);
-  b.add(new THREE.CircleGeometry(.43,8),P.water,x,1.953,z,-Math.PI/2);profile(b,x,z,[[1.96,.07,.07],[2.15,.065,.065],[2.23,.015,.015]],P.water,6);
- }
- function build({floors,world,candles=[]}){
-  const batches=new Map(),get=id=>{if(!batches.has(id))batches.set(id,new Batch('arte_piloto_'+id));return batches.get(id);},detail=NDAVisualQuality.current().detail;
-  for(const id of pilot){const r=ROOMS[0][RID[0][id]].r;if(id!=='corredor')floor(get(id),r,id==='patio'?0x837b6d:id==='capilla'?0x8d7771:0xa28a6b,id==='patio'?0x716c61:id==='capilla'?0x826d69:0x957d61,id==='patio'?1.2:.8);}
-  for(let z=0;z<H;z++)for(let x=0;x<W;x++){
-   if(tileAt(0,x,z)===T.WALL)for(const[dx,dz]of[[1,0],[-1,0],[0,1],[0,-1]]){const ri=roomAt(0,x+dx,z+dz),id=ROOMS[0][ri]?.id;if(!pilot.has(id)||!walkableT(tileAt(0,x+dx,z+dz)))continue;const b=get(id),xx=x+.5+dx*.515,zz=z+.5+dz*.515;box(b,xx,.25,zz,dx?.045:1,.50,dz?.045:1,P.stoneShade);box(b,xx,.52,zz,dx?.065:1,.065,dz?.065:1,P.stoneLight);box(b,xx,3.41,zz,dx?.075:1,.12,dz?.075:1,P.stone);}
-   if(tileAt(0,x,z)===T.PILLAR&&ownsPoint(0,x,z)){const b=get('corredor');box(b,x+.5,.14,z+.5,.83,.28,.83,P.stoneShade);box(b,x+.5,.31,z+.5,.73,.08,.73,P.stoneLight);box(b,x+.5,3.35,z+.5,.80,.18,.80,P.stone);box(b,x+.5,3.51,z+.5,.9,.12,.9,P.stoneLight);}
+ function buildHides(){spotMeshes=[];const wood=new THREE.MeshStandardMaterial({color:P.wood,roughness:1,flatShading:true}),dark=new THREE.MeshStandardMaterial({color:P.dark,roughness:1}),bone=new THREE.MeshStandardMaterial({color:P.bone,roughness:1});
+  for(const[s,k]of SPOTS.map((s,k)=>[s,k])){const chest=/arcon|baul/.test(s.type),H=chest?1.05:2.0,eye=chest?.78:1.5;s.eyeHeight=eye;const g=new THREE.Group(),front=new THREE.Group(),shell=new Batch('refugio_'+s.id);g.name='refugio_'+s.id;g.position.set(s.x+.5,0,s.y+.5);floorGroups[s.f].add(g);front.rotation.y=-Math.atan2(s.hy-s.y-.5,s.hx-s.x-.5)+Math.PI/2;g.add(front);
+   box(shell,-.45,H/2,0,.055,H,.95,P.wood);box(shell,.45,H/2,0,.055,H,.95,P.wood);box(shell,0,H/2,-.45,.85,H,.055,P.wood);box(shell,0,.03,0,.95,.06,.95,P.wood);box(shell,0,H-.035,0,.97,.07,.97,P.dark);box(shell,.30,H*.62,.53,.035,.12,.06,P.dark);
+   if(s.type==='confesionario')shell.add(new THREE.ConeGeometry(.65,.34,4),P.dark,0,H+.13,0,0,Math.PI/4);front.add(shell.mesh());
+   const shape=new THREE.Shape([[-.425,.06],[.425,.06],[.425,H-.07],[-.425,H-.07]].map(p=>new THREE.Vector2(...p))),hw=chest?.22:.035,hh=chest?.035:.28;shape.holes.push(new THREE.Path([[-hw,eye-hh],[-hw,eye+hh],[hw,eye+hh],[hw,eye-hh]].map(p=>new THREE.Vector2(...p))));const door=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:.045,bevelEnabled:false,curveSegments:1}),wood);door.position.z=.455;door.castShadow=true;front.add(door);
+   const slit=new THREE.Mesh(new THREE.BoxGeometry(hw*2,hh*2,.012),dark);slit.position.set(0,eye,.467);front.add(slit);const lock=new THREE.Mesh(new THREE.BoxGeometry(.11,.11,.055),bone);lock.position.set(.26,H*.47,.526);front.add(lock);
+   const eyes=new THREE.Group();for(const dx of[-.08,.08]){const e=new THREE.Mesh(new THREE.OctahedronGeometry(.025),new THREE.MeshBasicMaterial({color:0xffd47b}));e.position.set(dx,eye,.54);eyes.add(e);}front.add(eyes);eyes.visible=false;spotMeshes.push({k,g,door,slit,lock,eyes});
   }
-  for(const d of world.doors){if(d.f!==0)continue;const rooms=d.o==='V'?[roomAt(0,d.x-.9,d.y),roomAt(0,d.x+.9,d.y)]:[roomAt(0,d.x,d.y-.9),roomAt(0,d.x,d.y+.9)];if(!rooms.some(i=>pilot.has(ROOMS[0][i]?.id)))continue;const b=get('corredor');for(const sd of[-1,1]){const off=d.o==='V'?[sd*.57,0]:[0,sd*.57];arch(b,d.x+off[0],d.y+off[1],1.93,1.99,2.29,d.o==='V'?Math.PI/2:0,.12);}}
-  const pillars=[];for(let z=9;z<31;z++)for(let x=14;x<46;x++)if(tileAt(0,x,z)===T.PILLAR)pillars.push({x:x+.5,z:z+.5});
-  for(const p of pillars)for(const dir of[[1,0],[0,1]]){const next=pillars.filter(q=>dir[0]?q.z===p.z&&q.x>p.x:q.x===p.x&&q.z>p.z).sort((a,b)=>Math.hypot(a.x-p.x,a.z-p.z)-Math.hypot(b.x-p.x,b.z-p.z))[0];if(!next)continue;const span=Math.hypot(next.x-p.x,next.z-p.z);if(span>8)continue;arch(get('corredor'),(p.x+next.x)/2,(p.z+next.z)/2,span-.70,2.47,3.36,dir[0]?0:Math.PI/2,.32);}
-  for(const[t,x0,z0,x1,z1]of FURN[0]){const id=ROOMS[0][roomAt(0,x0,z0)]?.id;if(t===T.TABLE&&['capilla','zaguan'].includes(id))table(get(id),(x0+x1+1)/2,(z0+z1+1)/2,x1-x0+1,z1-z0+1,id==='capilla');}
-  const chapel=get('capilla');box(chapel,7,.44,1.5,3.95,.88,.94,P.woodDark);box(chapel,7,.922,1.5,4,.056,.98,P.bone);box(chapel,7,1.60,.97,4.35,1.28,.12,P.wood);
-  for(const sd of[-1,1]){profile(chapel,7+sd*1.98,1.18,[[.93,.16,.16],[1.13,.16,.16],[2.37,.10,.10],[2.49,.18,.18]],P.gold);box(chapel,7+sd*1.04,1.70,1.08,1.40,1.25,.10,P.wine);}
-  arch(chapel,7,1.25,1.45,2.02,2.92,0,.14);box(chapel,7,1.93,1.37,.075,.78,.06,P.woodDark);box(chapel,7,2.10,1.37,.45,.075,.075,P.woodDark);
-  for(const sd of[-1,1])frame(chapel,7+sd*2.3,2.11,1.16,.43,.58);
-  const entry=get('zaguan');for(const sd of[-1,1]){box(entry,23+sd*1.32,1.45,39.0,.18,2.9,.18,P.woodLight);box(entry,23+sd*1.30,.14,39.0,.31,.28,.31,P.stoneLight);}box(entry,23,2.92,39.0,2.94,.18,.18,P.stone);
-  frame(entry,20.0,1.83,30.99,.63,.87);frame(entry,26.5,1.83,30.99,.63,.87);
-  for(const[x,z]of[[16.2,37.8],[28.4,31.7],[19.0,14.1],[40.6,25.6],[19.1,25.6],[40.5,14.2]]){if(world.doors.some(d=>d.f===0&&Math.hypot(d.x-x,d.y-z)<1.25))continue;plant(get(roomAt(0,x,z)===RID[0].zaguan?'zaguan':'patio'),x,z,.9);}
-  fountain(get('patio'));
-  if(detail){for(const b of[chapel,entry]){const x=b===chapel?4.25:16.30,z=b===chapel?4.5:37.45;box(b,x,.797,z,.30,.034,.22,P.teal,.15);box(b,x+.4,.80,z+.07,.16,.04,.23,P.wine,-.2);profile(b,x+.75,z,[[.78,.07,.07],[.90,.085,.085],[.92,.075,.075]],P.terra,6);}
-   for(let i=0;i<7;i++){const x=5.5+i*.5;profile(chapel,x,1.42,[[.95,.07,.07],[1.03,.12,.12],[1.1,.045,.045]],P.terra,6);for(let j=0;j<4;j++)profile(chapel,x+Math.cos(j*Math.PI/2)*.045,1.42+Math.sin(j*Math.PI/2)*.045,[[1.08,.035,.035],[1.15,.064,.064],[1.21,.018,.018]],j%2?0xcb8a35:0xd69a44,5);}
-  }
-  for(const c of candles){if(c.f!==0)continue;const id=ROOMS[0][c.r]?.id,g=c.flame.parent;if(id==='capilla')g.position.set(4.5,.78,4.5);else if(id==='zaguan')g.position.set(18.55,.78,37.25);else if(id==='patio'||id==='corredor')g.visible=false;}
-  const meshes=[];for(const[id,b]of batches){if(!b.p.length)continue;const m=b.finish();m.userData.zone=id;floors[0].add(m);meshes.push(m);}return{zones:[...pilot],meshes,triangles:meshes.reduce((n,m)=>n+m.userData.triangles,0),quality:NDAVisualQuality.preference};
  }
- return{build,ownsPoint,replacesTile};
+ let drawerMeshes=[];
+ function buildDrawers(world){drawerMeshes=[];for(const c of world.containers||[]){const root=new THREE.Group();root.name='cajon_'+c.id;root.position.set(c.x,0,c.y);root.rotation.y=Math.atan2(c.dx,c.dy);floorGroups[c.f].add(root);const slide=new THREE.Group();slide.position.y=c.h-.50+c.level*.15;root.add(slide);const batch=new Batch(root.name);box(batch,0,0,.49,.70,.135,.035,P.wood);box(batch,0,-.06,.30,.66,.025,.34,P.dark);box(batch,0,0,.53,.16,.025,.045,P.dark);slide.add(batch.mesh());drawerMeshes.push({id:c.id,slide});}}
+ function updateDrawers(world,dt){for(const d of drawerMeshes){const c=world.containers?.[d.id];if(c)d.slide.position.z+=((c.open?.10:0)-d.slide.position.z)*Math.min(1,dt*9);}}
+ return{build,buildDoors,buildHides,buildDrawers,updateDrawers,ownsPoint:()=>true,replacesTile:()=>true};
 })();
 
 // ===================== NOCHE DE ÁNIMAS v0.2 · 3D (Three.js), AUDIO E INTERFAZ =====================
@@ -4118,87 +4201,21 @@ function buildHouse() {
   const lam = (c, extra) => LambertFlat(Object.assign({ color: c, map: paper }, extra || {}));
   floorGroups = [new THREE.Group(), new THREE.Group()]; floorGroups[1].position.y = FH; floorGroups.forEach(g => scene.add(g));
   wallRuns = []; ceilMeshes = []; doorMeshes = []; candleMeshes = []; lampMeshes = []; spotMeshes = [];
-  const wallMat = lam(COL.wine), capMat = lam(COL.wine2);
-  for (let f = 0; f < 2; f++) {
-    const G = floorGroups[f], grid = grids[f];
-    // pisos por cuarto
-    ROOMS[f].forEach((r, i) => {
-      if (r.id === 'vacio' || r.id === 'afuera1') return; const parts = r.id === 'galeria' ? [[15, 10, 44, 12], [15, 27, 44, 29], [15, 13, 17, 26], [42, 13, 44, 26]] : [r.r];
-      (f === 1 ? holeRects(parts) : parts).forEach(([x0, y0, x1, y1]) => { const w_ = x1 - x0 + 1, h_ = y1 - y0 + 1;
-      const m = new THREE.Mesh(new THREE.PlaneGeometry(w_, h_), LambertFlat({ color: FLOOR_COL[r.id] || 0x504040 }));
-      m.rotation.x = -Math.PI / 2; m.position.set(x0 + w_ / 2, 0.001 * (i + 1), y0 + h_ / 2); m.receiveShadow = true; G.add(m); });
-    });
-    // puertas (umbral)
-    DOOR_DEFS.forEach(([o, x, y]) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(o === 'V' ? 1 : 2, o === 'V' ? 2 : 1), lam(0x82503a)); m.rotation.x = -Math.PI / 2; m.position.set(o === 'V' ? x + 0.5 : x + 1, 0.02, o === 'V' ? y + 1 : y + 0.5); m.receiveShadow = true; G.add(m); });
-    // muros: tramos horizontales de casillas de muro que tocan algo caminable
-    const touches = (x, y) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]].some(([dx, dy]) => { const t = tileAt(f, x + dx, y + dy); return t !== T.WALL; });
-    for (let y = 0; y < H; y++) { let x = 0; while (x < W) {
-      const gap = (xx) => f === 0 && y === 39 && xx >= 22 && xx <= 23;
-      if (grid[y * W + x] === T.WALL && touches(x, y) && !gap(x)) { let x2 = x; while (x2 + 1 < W && grid[y * W + x2 + 1] === T.WALL && touches(x2 + 1, y) && !gap(x2 + 1)) x2++;
-        const len = x2 - x + 1; const g = new THREE.Group(); g.position.set(x + len / 2, 0, y + 0.5);
-        const b1 = new BoxBatch(); b1.add(0, WALL_H / 2, 0, len, WALL_H, 1); const m = b1.mesh(wallMat);
-        g.add(m); G.add(g); wallRuns.push({ f, y, x0: x, x1: x2, g }); x = x2 + 1; }
-      else x++; } }
-    { const lt = new BoxBatch(); DOOR_DEFS.forEach(([o, x, y]) => { const hh = WALL_H - 2.3; if (o === 'V') lt.add(x + 0.5, 2.3 + hh / 2, y + 1, 1, hh, 2); else lt.add(x + 1, 2.3 + hh / 2, y + 0.5, 2, hh, 1); }); const lm = lt.mesh(wallMat); G.add(lm);
-      const fr = new BoxBatch(); DOOR_DEFS.forEach(([o, x, y]) => { if (o === 'V') { fr.add(x + 0.5, 1.15, y + 0.04, 1.04, 2.3, 0.08); fr.add(x + 0.5, 1.15, y + 1.96, 1.04, 2.3, 0.08); fr.add(x + 0.5, 2.32, y + 1, 1.04, 0.1, 2); } else { fr.add(x + 0.04, 1.15, y + 0.5, 0.08, 2.3, 1.04); fr.add(x + 1.96, 1.15, y + 0.5, 0.08, 2.3, 1.04); fr.add(x + 1, 2.32, y + 0.5, 2, 0.1, 1.04); } }); G.add(fr.mesh(lam(0x3a2414))); }
-    // muebles combinados por material
-    const batches = {}; const B = k => (batches[k] = batches[k] || new BoxBatch());
-    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-      const t = grid[y * W + x], cx = x + 0.5, cz = y + 0.5;
-      if (t === T.TABLE && !NDAHouseArt.replacesTile(f,t,x,y)) { B('wood').add(cx, 0.78, cz, 1, 0.08, 1); B('wood2').add(cx, 0.37, cz, 0.12, 0.74, 0.12); }
-      if (t === T.SHELF) { B('wood2').add(cx, 0.95, cz, 1, 1.9, 0.8); const cs = ['bookR', 'bookB', 'bookG', 'bookY']; for (let k = 0; k < 3; k++) B(cs[(x + k + y) % 4]).add(cx, 0.45 + k * 0.6, cz, 0.85, 0.32, 0.84); }
-      if (t === T.BED) { B('wood2').add(cx, 0.25, cz, 1, 0.5, 1); B('sheet').add(cx, 0.55, cz, 0.98, 0.12, 0.98); }
-      if (t === T.WATER && !NDAHouseArt.replacesTile(f,t,x,y)) B('water').add(cx, 0.35, cz, 1, 0.7, 1);
-      if (t === T.ALTAR && !NDAHouseArt.replacesTile(f,t,x,y)) { B('altar').add(cx, 0.55, cz, 1, 1.1, 1); B('flower').add(cx, 1.18, cz, 0.6, 0.18, 0.4); }
-      if (t === T.PILLAR) B('bone').add(cx, WALL_H / 2, cz, 0.6, WALL_H, 0.6);
-      if (t === T.VOID) { for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (walkableT(tileAt(f, x + dx, y + dy))) B('rail').add(cx + dx * 0.46, 0.5, cz + dy * 0.46, dx ? 0.08 : 1, 1, dy ? 0.08 : 1); }
-    }
-    const mats = { stepE: lam(0xb8902a), wood: lam(0x7a4a28), wood2: lam(0x4a2c18), bookR: lam(0xa23b3b), bookB: lam(0x3b6aa2), bookG: lam(0x5f8a4a), bookY: lam(0xc9a24a), sheet: lam(0xe8d7b8),
-      water: LambertFlat({ color: 0x1f3a6c, emissive: 0x0a1a3a }), altar: lam(COL.wine2), flower: lam(COL.gold, { emissive: 0x3a2000 }), bone: lam(COL.bone), rail: lam(0x3a2414) };
-    Object.entries(batches).forEach(([k, b]) => G.add(b.mesh(mats[k])));
-    // escaleras: 16 escalones de verdad y barandal inclinado; arriba, barandal alrededor del hueco
-    STAIRS.forEach(([x0, y0, x1, y1], k) => { const dir = STAIR_DIR[k], L = x1 + 1 - x0, N = 16, run = L / N, rise = FH / N, zc = (y0 + y1 + 1) / 2, wd = y1 + 1 - y0;
-      if (f === 0) { const sb = new BoxBatch(), nb = new BoxBatch();
-        for (let s2 = 0; s2 < N; s2++) { const d = (s2 + 0.5) * run, x = dir > 0 ? x0 + d : x1 + 1 - d, hh = (s2 + 1) * rise; sb.add(x, hh - 0.06, zc, run, 0.12, wd); nb.add(x, hh / 2 - 0.06, zc, run, hh - 0.12, wd - 0.2); }
-        G.add(sb.mesh(mats.stepE)); G.add(nb.mesh(mats.wood2));
-        const len = Math.hypot(L, FH), ang = Math.atan2(FH, L) * dir; const rail = new THREE.Mesh(new THREE.BoxGeometry(len, 0.07, 0.07), mats.rail); rail.position.set((x0 + x1 + 1) / 2, FH / 2 + 0.95, y0 + 0.08); rail.rotation.z = ang; G.add(rail);
-        const pb = new BoxBatch(); for (let s2 = 0; s2 <= N; s2 += 2) { const d = s2 * run, x = dir > 0 ? x0 + d : x1 + 1 - d; pb.add(x, s2 * rise + 0.48, y0 + 0.08, 0.05, 0.95, 0.05); } G.add(pb.mesh(mats.rail)); }
-      else { const rb = new BoxBatch(); const lowEnd = dir > 0 ? x0 : x1 + 1; rb.add(lowEnd, 0.5, zc, 0.08, 1, wd); for (let s2 = 0; s2 < 2; s2++) { const xx = dir > 0 ? x0 + s2 + 0.5 : x1 - s2 + 0.5; rb.add(xx, 0.5, y0 + 0.04, 1, 1, 0.08); rb.add(xx, 0.98, y0 + 0.04, 1, 0.06, 0.12); } G.add(rb.mesh(mats.rail)); } });
-    // techos y vigas (el patio y el vacío quedan abiertos al cielo)
-    const ceilMat = LambertFlat({ color: f ? 0x2e2238 : 0x3a2a2a, map: paper, side: THREE.DoubleSide });
-    const ceil = (...rr) => (f === 0 ? holeRects([rr]) : [rr]).forEach(([x0, y0, x1, y1]) => { const cw = x1 - x0 + 1, ch = y1 - y0 + 1; const m = new THREE.Mesh(new THREE.PlaneGeometry(cw, ch), ceilMat); m.rotation.x = Math.PI / 2; m.position.set(x0 + cw / 2, FH - 0.01, y0 + ch / 2); m.userData.f = f; ceilMeshes.push(m); G.add(m); });
-    ROOMS[f].forEach(r => { if (['patio', 'vacio', 'corredor', 'galeria', 'afuera', 'afuera1'].includes(r.id)) return; ceil(...r.r); });
-    ceil(15, 10, 44, 12); ceil(15, 27, 44, 29); ceil(15, 13, 17, 26); ceil(42, 13, 44, 26);
-    DOOR_DEFS.forEach(([o, x, y]) => o === 'V' ? ceil(x, y, x, y + 1) : ceil(x, y, x + 1, y));
-    const beams = new BoxBatch();
-    ROOMS[f].forEach(r => { if (['patio', 'vacio', 'afuera', 'afuera1'].includes(r.id)) return; const [x0, y0, x1, y1] = r.r;
-      if (r.id === 'corredor' || r.id === 'galeria') { for (let x = 15; x <= 44; x += 3) { beams.add(x + 0.5, FH - 0.15, 11.5, 0.22, 0.22, 3); beams.add(x + 0.5, FH - 0.15, 28, 0.22, 0.22, 3); } return; }
-      if (STAIRS.some(([a, b, c, d]) => a >= x0 && c <= x1 && b >= y0 && d <= y1)) return;
-      for (let x = x0 + 1; x < x1; x += 2) beams.add(x + 0.5, FH - 0.15, (y0 + y1 + 1) / 2, 0.22, 0.22, y1 - y0 + 1); });
-    const bm = beams.mesh(lam(0x2a160c)); bm.castShadow = false; G.add(bm);
+  houseArtState=NDAHouseArt.build({floors:floorGroups,world:w});
+  for(let f=0;f<2;f++){const G=floorGroups[f];
     // velas de cada cuarto y focos
-    ROOMS[f].forEach((r, i) => { const c = ROOM_CENTER[f][i]; if (!c || r.id === 'afuera' || r.id === 'afuera1') return;
-      const cg = new THREE.Group(); cg.position.set(c.x, 0, c.y);
+    ROOMS[f].forEach((r, i) => { const c = ROOM_CENTER[f][i]; if(!c||['afuera','afuera1','patio','traspatio'].includes(r.id))return;
+      const cg=new THREE.Group(),surface=SURFACES[f][i][0];cg.position.set(surface?surface[0]+.25:c.x,surface?surface[2]:0,surface?surface[1]+.25:c.y);cg.visible=!!surface&&r.home&&!((w.devices||[]).some(d=>d.f===f&&d.r===i)&&SURFACES[f][i].length<2)&&!(w.altarRoom.f===f&&w.altarRoom.r===i);
       const base = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.3, 8), lam(COL.bone)); base.position.y = 0.15; cg.add(base);
       const fl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.06, 1), new THREE.MeshBasicMaterial({ color: COL.gold })); fl.position.y = 0.36; fl.scale.y = 1.8; cg.add(fl);
       G.add(cg); candleMeshes.push({ f, r: i, flame: fl });
-      const lamp = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 1), new THREE.MeshBasicMaterial({ color: 0x3a3020 })); lamp.position.set(c.x, FH - 0.35, c.y); G.add(lamp); { const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.3, 4), lam(0x161414)); cord.position.set(c.x, FH - 0.12, c.y); G.add(cord); const shade = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.18, 8, 1, true), lam(0x7a4a28, { side: THREE.DoubleSide })); shade.position.set(c.x, FH - 0.24, c.y); G.add(shade); } lampMeshes.push({ f, r: i, m: lamp });
+      const lampY=r.id==='capilla'?5.65:FH-.35;const lamp = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 1), new THREE.MeshBasicMaterial({ color: 0x3a3020 })); lamp.position.set(c.x,lampY,c.y); G.add(lamp); { const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.012,r.id==='capilla'?1.6:.3,4), lam(0x161414)); cord.position.set(c.x,r.id==='capilla'?6.67:FH-.12,c.y); G.add(cord); const shade = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.18, 8, 1, true), lam(0x7a4a28, { side: THREE.DoubleSide })); shade.position.set(c.x,lampY+.11,c.y); G.add(shade); } lampMeshes.push({ f, r: i, m: lamp });
     });
   }
   // escondites (posibles): activos con puerta entreabierta, inactivos con candado
-  SPOTS.forEach((s, k) => {
-    const g = new THREE.Group(); g.position.set(s.x + 0.5, 0, s.y + 0.5); floorGroups[s.f].add(g);
-    const body = new THREE.Mesh(new THREE.BoxGeometry(0.95, 2.0, 0.95), lam(0x3a2010)); body.position.y = 1.0; body.castShadow = true; body.receiveShadow = true; g.add(body);
-    const ang = Math.atan2(s.hy - (s.y + 0.5), s.hx - (s.x + 0.5));
-    const front = new THREE.Group(); front.rotation.y = -ang + Math.PI / 2; g.add(front);
-    const door = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.85, 0.05), lam(0x5b3a20)); door.position.set(0, 0.98, 0.5); front.add(door);
-    const lock = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.14, 0.06), lam(COL.gold, { emissive: 0x201000 })); lock.position.set(0, 1.0, 0.54); front.add(lock);
-    const slit = new THREE.Mesh(new THREE.BoxGeometry(0.04, 1.6, 0.02), new THREE.MeshBasicMaterial({ color: 0xffd48a })); slit.position.set(0.42, 0.98, 0.53); front.add(slit);
-    const eyes = new THREE.Group(); [-0.08, 0.08].forEach(dx => { const e = new THREE.Mesh(new THREE.IcosahedronGeometry(0.035, 1), new THREE.MeshBasicMaterial({ color: 0xffe066 })); e.position.set(dx + 0.38, 1.5, 0.56); eyes.add(e); }); eyes.visible = false; front.add(eyes);
-    spotMeshes.push({ k, g, door, lock, slit, eyes });
-  });
+  NDAHouseArt.buildHides(lam);
   // puertas con bisagra
-  doorMeshesBuild();
+  doorMeshesBuild();NDAHouseArt.buildDrawers(w);
   // apagadores junto a las puertas y caja de fusibles del Zaguán
   switchMeshes = [];
   SWITCHES.forEach(list => list.forEach(sw => { if (!sw) return; const g = new THREE.Group(); g.position.set(sw.x, 1.25, sw.y); if (sw.o === 'V') g.rotation.y = sw.side < 0 ? -Math.PI / 2 : Math.PI / 2; else g.rotation.y = sw.side < 0 ? Math.PI : 0;
@@ -4210,33 +4227,26 @@ function buildHouse() {
   looseMeshes = w.loose.map(o => { const m = makeLooseMesh(o.kind, lam); floorGroups[o.f].add(m); return m; });
   // maletín, altar, salida
   
-  { const pg = new THREE.Group(); pg.position.set(23, 0, 39.5); floorGroups[0].add(pg);
-    const wood = LambertFlat({ color: 0x4a2c18, map: paper, emissive: 0x000000 }), stone = lam(COL.bone);
-    [-1.15, 1.15].forEach(x => { const post = new THREE.Mesh(new THREE.BoxGeometry(0.3, FH, 1), stone); post.position.set(x, FH / 2, 0); post.castShadow = true; pg.add(post); });
-    const lintel = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.5, 1), stone); lintel.position.set(0, FH - 0.25, 0); pg.add(lintel);
-    const leaves = [-1, 1].map(sd => { const piv = new THREE.Group(); piv.position.set(sd * 1.0, 0, -0.1); const leaf = new THREE.Mesh(new THREE.BoxGeometry(0.98, 2.65, 0.12), wood); leaf.position.set(-sd * 0.49, 1.33, 0); leaf.castShadow = true; piv.add(leaf);
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.02, 6, 12), lam(COL.gold)); ring.position.set(-sd * 0.8, 1.3, -0.08); piv.add(ring); pg.add(piv); return piv; });
-    exitMesh = { material: wood, leaves }; }
   altarGlow = new THREE.Mesh(new THREE.IcosahedronGeometry(0.4, 1), new THREE.MeshBasicMaterial({ color: COL.gold, transparent: true, opacity: 0.35 })); altarGlow.position.set(ALTAR_POS.x, 1.5, ALTAR_POS.y); floorGroups[ALTAR_POS.f].add(altarGlow);
   { // altar de muertos (cuarto al azar)
-    const g = new THREE.Group(); g.position.set(ALTAR_POS.x, 0, ALTAR_POS.y); floorGroups[ALTAR_POS.f].add(g); const add = (geo, c, x, y, z, e) => { const m = new THREE.Mesh(geo, lam(c, e ? { emissive: e } : undefined)); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m; };
-    add(new THREE.BoxGeometry(1.5, 0.7, 0.8), 0x5a0f1e, 0, 0.35, 0); add(new THREE.BoxGeometry(1.1, 0.35, 0.55), 0x7a1f2e, 0, 0.87, -0.08); add(new THREE.BoxGeometry(0.7, 0.3, 0.35), 0x8c1e3c, 0, 1.2, -0.15);
-    add(new THREE.BoxGeometry(1.55, 0.02, 0.85), 0xf3e6cf, 0, 0.71, 0); for (let k = 0; k < 7; k++) add(new THREE.OctahedronGeometry(0.07), 0xf08a1a, -0.6 + k * 0.2, 0.78, 0.3, 0x3a1800);
-    for (let k = 0; k < 4; k++) { add(new THREE.CylinderGeometry(0.035, 0.035, 0.22, 6), 0xf3e6cf, -0.45 + k * 0.3, 1.16, 0.12); add(new THREE.OctahedronGeometry(0.03), 0xffc860, -0.45 + k * 0.3, 1.31, 0.12, 0xffa020); }
-    add(new THREE.BoxGeometry(0.06, 0.5, 0.04), 0x3a2414, 0, 1.6, -0.2); add(new THREE.BoxGeometry(0.3, 0.06, 0.04), 0x3a2414, 0, 1.7, -0.2); }
+    const g = new THREE.Group(); const surface=w.altarSurface;g.position.set(surface.x,surface.h,surface.y);floorGroups[surface.f].add(g); const add = (geo, c, x, y, z, e) => { const m = new THREE.Mesh(geo, lam(c, e ? { emissive: e } : undefined)); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m; };
+    add(new THREE.BoxGeometry(.75,.10,.65),0x5a0f1e,0,.05,0);
+    add(new THREE.BoxGeometry(0.78, 0.02, 0.68), 0xf3e6cf, 0, 0.11, 0); for (let k = 0; k < 7; k++) add(new THREE.OctahedronGeometry(0.07), 0xf08a1a, -0.30 + k * 0.10, 0.18, 0.3, 0x3a1800);
+    for (let k = 0; k < 4; k++) { add(new THREE.CylinderGeometry(0.035, 0.035, 0.22, 6), 0xf3e6cf, -0.27 + k * 0.18, 0.24, 0.12); add(new THREE.OctahedronGeometry(0.03), 0xffc860, -0.27 + k * 0.18, 0.39, 0.12, 0xffa020); }
+ }
   // luces
   ambient = new THREE.AmbientLight(0x3a3060, 0.9); scene.add(ambient);
   hemi = new THREE.HemisphereLight(0x6070a0, 0x100810, 0.45); scene.add(hemi);
-  flash = new THREE.SpotLight(0xffe6b8, 18, 18, 0.5, 0.45, 1); flash.castShadow = true; flash.shadow.mapSize.set(1024, 1024); flash.shadow.bias = -0.002; scene.add(flash); scene.add(flash.target);
-  botFlashes = [0, 1].map(() => { const s = new THREE.SpotLight(0xffe6b8, 10, 12, 0.5, 0.5, 1); scene.add(s); scene.add(s.target); return s; });
-  roomLights = [0, 1, 2, 3].map(() => { const p = new THREE.PointLight(0xffd59a, 10, 13, 1); scene.add(p); return p; });
-  velaLights = [0, 1].map(() => { const p = new THREE.PointLight(0xffa850, 5, 5, 1); scene.add(p); return p; });
-  blueLight = new THREE.PointLight(0x7ec8ff, 4, 5, 1); scene.add(blueLight);
-  buildProps(lam); buildDecor(lam);
+  flash = new THREE.SpotLight(0xffe6b8, 18, 18, 0.5, 0.45, 1); flash.castShadow = true; flash.shadow.mapSize.set(1024, 1024); flash.shadow.bias = -0.002;flash.shadow.normalBias=.03; scene.add(flash); scene.add(flash.target);
+  botFlashes = (NDAVisualQuality.current().detail?[0,1]:[]).map(() => { const s = new THREE.SpotLight(0xffe6b8, 10, 12, 0.5, 0.5, 1); scene.add(s); scene.add(s.target); return s; });
+  roomLights = (NDAVisualQuality.current().detail?[0,1,2,3]:[0,1]).map(() => { const p = new THREE.PointLight(0xffd59a, 10, 13, 1); scene.add(p); return p; });
+  velaLights = (NDAVisualQuality.current().detail?[0,1]:[0]).map(() => { const p = new THREE.PointLight(0xffa850, 5, 5, 1); scene.add(p); return p; });
+  blueLight = new THREE.PointLight(0x7ec8ff, 4, 5, 1);
+  if(w.propPositions)w.propPositions.forEach(p=>Object.assign(PROPS[p.id],p));buildProps(lam);
   // personajes
   halluMesh = null; invMeshes = []; itemMeshes = new Map(); fxMeshes = new Map(); heardMarks = [];
   ghostMesh = makeGhostRig(w.g.look, w.g.def.n); scene.add(ghostMesh.g);
-  houseArtState=NDAHouseArt.build({floors:floorGroups,world:w,candles:candleMeshes});NDAVisualQuality.apply(renderer,flash);
+  NDAVisualQuality.apply(renderer,flash);
 }
 let halluMesh = null, ceilMeshes = [], propMeshes = [], switchMeshes = [], fuseMesh = null, looseMeshes = [];
 const LOOSE_COL = { jarron: 0xe0782a, plato: 0xf3e6cf, vela: 0xf3e6cf, libro: 0x5a0f1e, taza: 0x23565c, figura: 0xb85a2a, cuadro: 0xb8902a };
@@ -4267,22 +4277,24 @@ function updateLoose(t) {
 function buildProps(lam) {
   propMeshes = [];
   for (const p of PROPS) {
-    const g = new THREE.Group(); g.position.set(p.x, 0, p.y); floorGroups[p.f].add(g); const part = new THREE.Group(); g.add(part);
+    const g = new THREE.Group(); g.position.set(p.x,p.h||0,p.y); floorGroups[p.f].add(g); const part = new THREE.Group(); g.add(part);
     const box = (sx, sy, sz, x, y, z, c) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), lam(c)); m.position.set(x, y, z); m.castShadow = true; part.add(m); return m; };
     const cyl = (r, h, x, y, z, c) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 8), lam(c)); m.position.set(x, y, z); m.castShadow = true; part.add(m); return m; };
+    if(p.kind==='fuente'){propMeshes.push({p,g,part});continue;}
     switch (p.kind) {
-      case 'mecedora': case 'caballito': case 'cuna': box(0.6, 0.06, 0.6, 0, 0.45, 0, 0x6a3a20); box(0.6, 0.6, 0.06, 0, 0.8, -0.28, 0x6a3a20); box(0.8, 0.05, 0.08, 0, 0.05, 0.25, 0x4a2a14); box(0.8, 0.05, 0.08, 0, 0.05, -0.25, 0x4a2a14); if (p.kind === 'caballito') { box(0.2, 0.3, 0.5, 0, 0.75, 0, 0xc95f3a); } break;
-      case 'grifo': cyl(0.05, 0.3, 0, 1.0, 0, 0xb0b0b0); box(0.5, 0.25, 0.4, 0, 0.75, 0, 0xe8e8e0); break;
+      case 'mecedora': case 'caballito': box(0.6, 0.06, 0.6, 0, 0.45, 0, 0x6a3a20); box(0.6, 0.6, 0.06, 0, 0.8, -0.28, 0x6a3a20); box(0.8, 0.05, 0.08, 0, 0.05, 0.25, 0x4a2a14); box(0.8, 0.05, 0.08, 0, 0.05, -0.25, 0x4a2a14); if (p.kind === 'caballito') { box(0.2, 0.3, 0.5, 0, 0.75, 0, 0xc95f3a); } break;
+      case 'cuna':{box(1.65,.08,.75,0,.48,0,0x66412b);box(1.5,.07,.65,0,.56,0,0xe4d4b7);for(const z of[-.36,.36]){box(1.7,.06,.06,0,1.0,z,0x66412b);for(let x=-.78;x<.8;x+=.22)box(.035,.52,.035,x,.74,z,0x66412b);}break;}
+      case 'grifo':cyl(.085,.65,0,.325,0,0xe8e8e0);cyl(0.05, 0.3, 0, 1.0, 0, 0xb0b0b0); box(0.5, 0.25, 0.4, 0, 0.75, 0, 0xe8e8e0); break;
       case 'fuente': cyl(0.08, 0.6, 0, 1.0, 0, COL.bone); break;
       case 'cuadro': box(0.7, 0.55, 0.05, 0, 1.6, -0.45, 0xb8902a); box(0.6, 0.45, 0.06, 0, 1.6, -0.43, 0x4a5a6a); break;
-      case 'campanita': cyl(0.06, 0.12, 0, 1.2, 0, COL.gold); break;
+      case 'campanita': cyl(0.06,0.12,0,.06,0, COL.gold); break;
       case 'libros': for (let k = 0; k < 3; k++) box(0.25, 0.08, 0.18, 0, 0.04 + k * 0.08, 0, [0xa23b3b, 0x3b6aa2, 0x5f8a4a][k]); break;
       case 'reloj': box(0.4, 1.9, 0.3, 0, 0.95, 0, 0x4a2a14); cyl(0.14, 0.04, 0, 1.6, 0.16, COL.bone).rotation.x = Math.PI / 2; break;
       case 'muneca': box(0.14, 0.25, 0.1, 0, 0.62, 0, 0xe8d0c0); cyl(0.07, 0.12, 0, 0.82, 0, 0xf0dccc); box(0.4, 0.5, 0.4, 0, 0.25, 0, 0x6a3a20); break;
       case 'ventana': box(1.2, 1.1, 0.05, 0, 1.5, -0.45, 0x1a2a50); box(1.3, 0.06, 0.08, 0, 1.5, -0.42, 0x6a3a20); break;
-      case 'radio': box(0.5, 0.35, 0.25, 0, 0.92, 0, 0x6a3a20); box(0.6, 0.75, 0.4, 0, 0.37, 0, 0x4a2a14); break;
-      case 'piano': box(1.4, 0.9, 0.5, 0, 0.45, -0.2, 0x1a1012); box(1.3, 0.04, 0.2, 0, 0.92, 0.1, 0xf0f0f0); break;
-      case 'maquina': box(0.5, 0.25, 0.25, 0, 1.0, 0, 0x202020); box(0.7, 0.85, 0.45, 0, 0.42, 0, 0x6a3a20); break;
+      case 'radio':box(.5,.30,.25,0,.15,0,0x6a3a20); break;
+      case 'piano':box(2.6,1.05,1.5,0,.525,-.05,0x1a1012);box(2.4,.05,.25,0,.85,.77,0xf0f0f0);for(let k=0;k<15;k++)box(.035,.04,.14,-1.05+k*.15,.89,.74,0x202020); break;
+      case 'maquina':box(.5,.25,.25,0,.17,0,0x202020);box(.6,.045,.35,0,.025,0,0x6a3a20); break;
       case 'cajita': box(0.2, 0.12, 0.15, 0, 0.06, 0, 0xb83a5a); break;
       case 'baul': box(0.9, 0.5, 0.5, 0, 0.25, 0, 0x5b3a20); break;
       case 'papeles': for (let k = 0; k < 5; k++) box(0.2, 0.005, 0.28, Math.sin(k) * 0.3, 0.01 + k * 0.004, Math.cos(k) * 0.3, 0xf0e6cf); break;
@@ -4293,93 +4305,14 @@ function buildProps(lam) {
 function updateProps(t, vf) {
   const pa = w.propAnim || {};
   for (const pm of propMeshes) { pm.g.visible = pm.p.f === vf || vf === 1 || (vf === 0 && pm.p.f === 0); const a = pa[pm.p.id] !== undefined ? w.t - pa[pm.p.id] : 99; const k = Math.max(0, 1 - a / 6);
-    switch (pm.p.kind) { case 'mecedora': case 'caballito': case 'cuna': case 'muneca': pm.part.rotation.x = Math.sin(t * 4) * 0.18 * k; pm.part.rotation.y = pm.p.kind === 'muneca' ? k * 2.5 : 0; break;
+    switch (pm.p.kind) { case 'mecedora': case 'caballito': case 'muneca': pm.part.rotation.x = Math.sin(t * 4) * 0.18 * k; pm.part.rotation.y = pm.p.kind === 'muneca' ? k * 2.5 : 0; break;
       case 'cuadro': pm.part.position.y = a < 99 ? -1.4 * Math.min(1, a * 2) : 0; pm.part.rotation.z = a < 99 ? 0.6 : 0; break;
       case 'baul': case 'piano': case 'maquina': case 'radio': case 'ventana': case 'reloj': pm.part.position.x = Math.sin(t * 40) * 0.02 * k; break;
       default: pm.part.position.y = Math.abs(Math.sin(t * 6)) * 0.15 * k; } }
 }
 
 // ---------- Decoración de la casona (sin colisión) ----------
-function buildDecor(lam) {
-  const lists = [[], []], glow = [[], []]; const _gp = glow.map(a => a.push.bind(a)); glow.forEach((a, f) => { a.push = (...it) => { for (const g0 of it) if (!(g0[0] === 'win' && w.doors.some(d => d.f === f && Math.hypot(d.x - g0[1], d.y - g0[2]) < 1.9))) _gp[f](g0); return a.length; }; });
-  const put = (f, geo, color, x, y, z, rx, ry, rz, sx, sy, sz) => lists[f].push({ geo, color, x, y, z, rx: rx || 0, ry: ry || 0, rz: rz || 0, sx: sx || 1, sy: sy || 1, sz: sz || 1 });
-  const B = (w, h, d) => new THREE.BoxGeometry(w, h, d), C = (rt, rb, h, n) => new THREE.CylinderGeometry(rt, rb, h, n || 10), S = (r, a, b) => new THREE.SphereGeometry(r, a || 8, b || 6);
-  const PAL = { capilla: 0x7a1f2e, biblioteca: 0x3a4a6a, sala: 0x8a3a20, recp: 0x5a2a4a, comedor: 0x6a3a1a, cocina: 0x8a6a3a, recn: 0x3a6a5a, bano: 0x4a6a7a, despensa: 0x5a4a2a, estudio: 0x2a4a3a, servicio: 0x5a3a3a, juegos: 0x8a4a2a, costura: 0x7a2a5a, musica: 0x2a3a5a, huespedes: 0x4a3a6a, abuelo: 0x5a4a3a, banoalto: 0x3a5a6a, oratorio: 0x6a1a2a, nana: 0x6a4a5a, desvan: 0x4a3a2a, archivo: 0x3a3a2a, zaguan: 0x6a4a2a };
-  const nearDoorXY = (f, x, z) => w.doors.some(d => d.f === f && Math.hypot(d.x - x, d.y - z) < 1.9);
-  const frame = (f, x, z, ry, w_, h, art) => { if (nearDoorXY(f, x, z)) return; put(f, B(w_ + 0.1, h + 0.1, 0.04), 0x8a6a2a, x, 1.75, z, 0, ry); put(f, B(w_, h, 0.05), art, x, 1.75, z, 0, ry); };
-  const candles = (f, x, z, n, y0) => { for (let k = 0; k < n; k++) { const a = k / n * 6.28, r = 0.08 + (k % 3) * 0.05; put(f, C(0.025, 0.025, 0.12 + (k % 3) * 0.06, 6), 0xf0e6cf, x + Math.cos(a) * r, (y0 || 0) + 0.08, z + Math.sin(a) * r); glow[f].push([x + Math.cos(a) * r, (y0 || 0) + 0.2 + (k % 3) * 0.03, z + Math.sin(a) * r]); } };
-  const plant = (f, x, z) => { if(NDAHouseArt.ownsPoint(f,x,z))return;put(f, C(0.16, 0.12, 0.3, 10), 0xa0522d, x, 0.15, z); for (let k = 0; k < 5; k++) { const a = k * 1.3; put(f, S(0.14, 8, 6), 0x2a5a2a + (k % 2) * 0x061006, x + Math.cos(a) * 0.1, 0.42 + (k % 3) * 0.1, z + Math.sin(a) * 0.1); } };
-  const papel = (f, x0, z0, x1, z1, y) => { const n = Math.max(4, Math.round(Math.hypot(x1 - x0, z1 - z0) / 0.45)); const cols = [0xe0405a, 0xf2b04e, 0x4ab0a0, 0xc95fb5, 0x7ac04a, 0xe0782a]; const ry = -Math.atan2(z1 - z0, x1 - x0);
-    put(f, B(Math.hypot(x1 - x0, z1 - z0), 0.01, 0.01), 0xd8d0c0, (x0 + x1) / 2, y + 0.02, (z0 + z1) / 2, 0, ry); for (let k = 0; k < n; k++) { const t = (k + 0.5) / n; put(f, B(0.3, 0.26, 0.004), cols[k % cols.length], x0 + (x1 - x0) * t, y - 0.12 - Math.sin(t * Math.PI) * 0.15, z0 + (z1 - z0) * t, 0, ry); } };
-  const wallScan = (f, cx, cy, dx, dy) => { let x = cx | 0, y = cy | 0; for (let k = 0; k < 20; k++) { const t = tileAt(f, x + dx, y + dy); if (t === T.WALL || t === undefined) return { x: x + 0.5 + dx * 0.5, y: y + 0.5 + dy * 0.5 }; x += dx; y += dy; } return null; };
-  ROOMS.forEach((rs, f) => rs.forEach((room, ri) => {
-    const id = room.id, [x0, y0, x1, y1] = room.r, c = ROOM_CENTER[f][ri]; if (!c || ['vacio', 'corredor', 'galeria'].includes(id)) return;
-    const cx = (x0 + x1 + 1) / 2, cy = (y0 + y1 + 1) / 2;
-    if (id === 'patio') { if(!NDAHouseArt.ownsPoint(f,29.8,19.8)){put(f, C(1.4, 1.5, 0.5, 18), 0xb0a090, 29.8, 0.25, 19.8); put(f, C(0.2, 0.25, 1.2, 10), 0xb0a090, 29.8, 0.8, 19.8); put(f, C(0.6, 0.5, 0.14, 14), 0xb0a090, 29.8, 1.4, 19.8);}
-      papel(f, x0 + 0.5, y0 + 0.5, x1 + 0.5, y1 + 0.5, 3.3); papel(f, x0 + 0.5, y1 + 0.5, x1 + 0.5, y0 + 0.5, 3.2); papel(f, x0 + 0.5, cy, x1 + 0.5, cy, 3.4);
-      [[x0 + 1, y0 + 1], [x1, y0 + 1], [x0 + 1, y1], [x1, y1], [cx - 5, y0 + 1], [cx + 5, y1]].forEach(([x, y]) => plant(f, x, y)); return; }
-    // alfombra
-    const rw = Math.min(x1 - x0 - 3, 6), rh = Math.min(y1 - y0 - 3, 4); if (rw > 1.5 && rh > 1.5 && !['cocina', 'bano', 'banoalto', 'despensa', 'zaguan', 'azotehuela', 'rellano'].includes(id)) { put(f, B(rw, 0.012, rh), PAL[id] || 0x5a3a3a, cx, 0.012, cy); put(f, B(rw - 0.4, 0.014, rh - 0.4), 0xb8902a, cx, 0.013, cy); put(f, B(rw - 0.6, 0.016, rh - 0.6), PAL[id] || 0x5a3a3a, cx, 0.014, cy); }
-    // candil del techo
-    put(f, C(0.012, 0.012, 0.7, 4), 0x2a2420, cx, FH - 0.35, cy); put(f, new THREE.TorusGeometry(0.28, 0.025, 6, 16), 0x2a2420, cx, FH - 0.72, cy, Math.PI / 2); for (let k = 0; k < 5; k++) { const a = k / 5 * 6.28; put(f, C(0.02, 0.02, 0.1, 6), 0xf0e6cf, cx + Math.cos(a) * 0.28, FH - 0.66, cy + Math.sin(a) * 0.28); }
-    // cuadros en la pared norte y sur
-    const wn = wallScan(f, cx, cy, 0, -1), ws = wallScan(f, cx, cy, 0, 1);
-    const ext = { n: y0 === 1, s: y1 === 38 };
-    if (wn) { if (ext.n && !['capilla'].includes(id)) { glow[f].push(['win', wn.x - 2.5, wn.y + 0.04, 0]); glow[f].push(['win', wn.x + 2.5, wn.y + 0.04, 0]); } frame(f, wn.x, wn.y + 0.04, 0, 0.7, 0.9, [0x3a4a5a, 0x5a3a2a, 0x2a3a2a, 0x4a2a3a][ri % 4]); }
-    if (ws) { if (ext.s && !['zaguan', 'rellano'].includes(id)) glow[f].push(['win', ws.x - 2.5, ws.y - 0.04, Math.PI]); frame(f, ws.x + 2, ws.y - 0.04, Math.PI, 0.5, 0.6, [0x6a5a3a, 0x3a3a5a, 0x5a2a2a][ri % 3]); }
-    // macetas en esquinas
-    if (!['bano', 'banoalto', 'despensa', 'rellano', 'azotehuela'].includes(id)) { plant(f, x1 + 0.55, y1 + 0.45); }
-    // por cuarto
-    switch (id) {
-      case 'capilla': case 'oratorio': { const ax = f ? 48.5 : 6.5, az = f ? 18.6 : 1.6; candles(f, ax - 1.2, az + 0.6, 7); candles(f, ax + 1.2, az + 0.6, 7); for (let k = 0; k < 14; k++) put(f, S(0.08, 7, 5), 0xf08a1a, ax - 1.6 + (k % 7) * 0.5, 0.08, az + 1.1 + ((k / 7) | 0) * 0.3); papel(f, x0 + 1, y0 + 3, x1, y0 + 3, 3.0);
-        put(f, B(0.12, 1.2, 0.06), 0x5a3a1a, ax, 2.4, (wn ? wn.y : az) + 0.06); put(f, B(0.6, 0.12, 0.06), 0x5a3a1a, ax, 2.7, (wn ? wn.y : az) + 0.06); break; }
-      case 'cocina': for (let k = 0; k < 5; k++) { put(f, S(0.18, 10, 8), 0xa0522d, x0 + 1 + k * 0.6, 0.2, y1 + 0.4); put(f, C(0.06, 0.09, 0.12, 8), 0xa0522d, x0 + 1 + k * 0.6, 0.42, y1 + 0.4); }
-        for (let k = 0; k < 9; k++) put(f, S(0.045, 6, 4), 0xb01a1a, x0 + 0.6, 2.4 - k * 0.12, y0 + 2, 0, 0, 0, 0.7, 1.6, 0.7); break;
-      case 'musica': put(f, S(0.22, 10, 8), 0x8a4a1a, x1 + 0.45, 1.3, cy, 0, 0, 0, 0.35, 1.2, 1); put(f, B(0.05, 0.6, 0.06), 0x3a2010, x1 + 0.45, 1.85, cy); break;
-      case 'juegos': case 'recn': [[x0 + 1, y1 - 0.5, 0xe0405a], [x0 + 2, y1, 0x4a8ad9], [x1 - 1, y0 + 1, 0xf2b04e]].forEach(([x, z, col]) => { put(f, S(0.12, 10, 8), col, x, 0.12, z); put(f, B(0.18, 0.18, 0.18), col ^ 0x303030, x + 0.4, 0.09, z + 0.2, 0, 0.5); }); break;
-      case 'bano': case 'banoalto': if (wn) { put(f, B(0.6, 0.8, 0.03), 0xc8d0dc, wn.x - 2, 1.6, wn.y + 0.03); put(f, B(0.7, 0.9, 0.025), 0x8a6a2a, wn.x - 2, 1.6, wn.y + 0.02); } break;
-      case 'biblioteca': case 'estudio': case 'archivo': put(f, C(0.03, 0.12, 0.8, 8), 0x4a2a14, x1 - 0.5, 0.4, y1 - 0.5); put(f, S(0.22, 14, 10), 0x3a6a8a, x1 - 0.5, 1.0, y1 - 0.5); break;
-      case 'recp': case 'huespedes': case 'abuelo': case 'nana': case 'servicio': if (wn) { put(f, B(0.05, 0.3, 0.03), 0x5a3a1a, wn.x + 3, 2.1, wn.y + 0.04); put(f, B(0.18, 0.05, 0.03), 0x5a3a1a, wn.x + 3, 2.15, wn.y + 0.04); } break;
-      case 'zaguan': papel(f, x0 + 1, y0 + 1, x1, y0 + 1, 3.1); plant(f, x0 + 1, y1); plant(f, x1, y0 + 1); break;
-      case 'desvan': for (let k = 0; k < 4; k++) put(f, B(0.6, 0.5, 0.5), 0x6a4a2a, x0 + 1 + k * 1.2, 0.25 + (k % 2) * 0.5, y1 - 0.2, 0, k * 0.3); break;
-      case 'comedor': candles(f, cx, cy, 5, 0.78); break;
-    }
-  }));
-  // juntar todo en una malla por piso (con colores por vértice)
-  for (let f = 0; f < 2; f++) {
-    const L = lists[f]; if (!L.length) continue;
-    const canMerge = L[0].geo.toNonIndexed && THREE.BufferAttribute && THREE.Matrix4 && THREE.Euler && THREE.Quaternion;
-    if (canMerge) {
-      const pos = [], nor = [], col = [], m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), cc = new THREE.Color();
-      for (const it of L) { const g2 = it.geo.index ? it.geo.toNonIndexed() : it.geo; q.setFromEuler(e.set(it.rx, it.ry, it.rz)); m4.compose(new THREE.Vector3(it.x, it.y, it.z), q, new THREE.Vector3(it.sx, it.sy, it.sz)); g2.applyMatrix4(m4); if (!g2.attributes.normal) g2.computeVertexNormals();
-        const pa = g2.attributes.position.array, na = g2.attributes.normal.array; cc.setHex(it.color); for (let k = 0; k < pa.length; k++) { pos.push(pa[k]); nor.push(na[k]); } for (let k = 0; k < pa.length / 3; k++) col.push(cc.r, cc.g, cc.b); }
-      const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3)); geo.setAttribute('normal', new THREE.BufferAttribute(new Float32Array(nor), 3)); geo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(col), 3));
-      const mesh = new THREE.Mesh(geo, LambertFlat({ vertexColors: true })); mesh.receiveShadow = true; floorGroups[f].add(mesh);
-    } else for (const it of L) { const m = new THREE.Mesh(it.geo, lam(it.color)); m.position.set(it.x, it.y, it.z); m.rotation.set(it.rx, it.ry, it.rz); m.scale.set(it.sx, it.sy, it.sz); floorGroups[f].add(m); }
-    // ventanas con luz de luna y llamas de velas
-    const moon = new THREE.MeshBasicMaterial({ color: 0x2a3a6a }), flame = new THREE.MeshBasicMaterial({ color: 0xffc860 }), curtain = lam(0x5a0f1e);
-    for (const gl of glow[f]) { if (gl[0] === 'win') { const [, x, z, ry] = gl; const wg = new THREE.Group(); wg.position.set(x, 0, z); wg.rotation.y = ry; floorGroups[f].add(wg);
-        const pane = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 1.4), moon); pane.position.set(0, 1.75, 0.01); wg.add(pane); const fr = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.06, 0.06), lam(0x4a2a14)); fr.position.set(0, 1.75, 0.03); wg.add(fr); const fr2 = new THREE.Mesh(new THREE.BoxGeometry(0.06, 1.5, 0.06), lam(0x4a2a14)); fr2.position.set(0, 1.75, 0.03); wg.add(fr2);
-        [-1, 1].forEach(sd => { const cu = new THREE.Mesh(new THREE.BoxGeometry(0.35, 2.0, 0.05), curtain); cu.position.set(sd * 0.7, 1.6, 0.06); wg.add(cu); }); }
-      else { const fl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.02, 1), flame); fl.position.set(gl[0], gl[1], gl[2]); fl.scale.y = 1.8; floorGroups[f].add(fl); } }
-  }
-}
-function doorMeshesBuild() {
-  doorMeshes = [];
-  w.doors.forEach(d => { if (d.ext) return;
-    const piv = new THREE.Group(); const [t0] = d.tiles;
-    if (d.o === 'V') piv.position.set(t0[0] + 0.5, 0, t0[1]); else piv.position.set(t0[0], 0, t0[1] + 0.5);
-    const panel = new THREE.Mesh(new THREE.BoxGeometry(d.o === 'V' ? 0.08 : 1.9, 2.2, d.o === 'V' ? 1.9 : 0.08), LambertFlat({ color: 0x5b3a20, map: paper }));
-    if (d.o === 'V') panel.position.set(0, 1.1, 0.95); else panel.position.set(0.95, 1.1, 0);
-    panel.castShadow = true; piv.add(panel);
-    const glow = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.2), new THREE.MeshBasicMaterial({ map: handT, transparent: true, depthWrite: false, side: THREE.DoubleSide }));
-    if (d.o === 'V') { glow.position.set(0.06, 1.2, 0.95); glow.rotation.y = Math.PI / 2; } else glow.position.set(0.95, 1.2, 0.06);
-    glow.visible = false; piv.add(glow);
-    const ruda = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.45, 6), LambertFlat({ color: 0x4f8a3a, emissive: 0x0a2008 })); ruda.position.set(d.o === 'V' ? 0 : 0.95, 2.35, d.o === 'V' ? 0.95 : 0); ruda.rotation.x = Math.PI; ruda.visible = false; piv.add(ruda);
-    const ros = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.025, 6, 16), LambertFlat({ color: COL.bone, emissive: 0x302820 })); ros.position.set(d.o === 'V' ? 0.08 : 0.95, 1.9, d.o === 'V' ? 0.95 : 0.08); ros.visible = false; piv.add(ros);
-    floorGroups[d.f].add(piv); doorMeshes.push({ d, piv, glow, ruda, ros, base: d.o === 'V' ? -1.35 : 1.35 });
-  });
-}
+function doorMeshesBuild(){NDAHouseArt.buildDoors();}
 const ITEM_COLOR = { foco: 0xf3e6cf, ceniza: 0x8a8580, cruz: 0xc8b070, pan: 0xc9853a, limpia: 0xf3efe6, tarot: 0x3a1f5a, tablilla: 0xe0a040, espejoplata: 0xd8dce4, mano: 0x8a6a40, muneca: 0xe8c0c8, pentagrama: 0x2a2030, radio: 0x202020, termo: 0xcfd6dd, grab: 0x222428, espejo: 0xd8e0ea, uv: 0x7a3cff, cam: 0x30343a, emf: 0x2d4a2d, gases: 0xd8b030, te: COL.orange, rosario: COL.bone, ruda: 0x4f8a3a, copal: 0x9a8f80, vela: 0xf3e6cf };
 function makeItemMesh(it) {
   const g = new THREE.Group(); const c = ITEM_COLOR[it.kind]; let m;
@@ -4462,7 +4395,7 @@ function ghostOpacity(t, V, vk) {
   const d = Math.hypot(V.x - g.x, V.y - g.y);
   if (t < g.blindUntil) return Math.sin(t * 30) > 0 ? 0.9 : 0.1;
   if (g.exposed) return 0.8;
-  if (g.hunt) return def.visibleHunt(w, g, V) && sees(V, g, 20) ? (Math.sin(t * 23) + Math.sin(t * 7.3) > -0.5 ? 0.9 : 0.1) : 0;
+  if (g.hunt) return def.visibleHunt(w, g, V) && sees(V,g,20,w) ? (Math.sin(t * 23) + Math.sin(t * 7.3) > -0.5 ? 0.9 : 0.1) : 0;
   if (t < g.revealUntil && d < 10) return 0.6;
   if (d < 2.6 && V.flash && t >= V.flashOffUntil) return 0.22 + Math.sin(t * 5) * 0.06;
   return 0;
@@ -4472,14 +4405,14 @@ function ghostOpacity(t, V, vk) {
 function updateScene(t, dt) {
   const V = viewer(), vk = viewKind(), g = w.g;
   const vf = V ? V.f : 0;
-  floorGroups[1].visible = vf === 1 || (V && V.f === 0 && (roomId(V) === 'patio' || V.y >= 39));
+  floorGroups[1].visible = true;
   floorGroups[0].visible = true;
   // muros recortados entre la cámara y el personaje
   for (const r of wallRuns) { const cut = vk === 'all' && r.f === vf && V && r.y > V.y - 0.5 && r.y - V.y < 9 && r.x1 >= V.x - 9 && r.x0 <= V.x + 9; const s = cut ? 0.22 : 1; r.g.scale.y += (s - r.g.scale.y) * Math.min(1, dt * 8); }
   // puertas
-  for (const dm of doorMeshes) { const d = dm.d; const target = d.closed ? 0 : dm.base * (1 - d.anim * 0.9); dm.piv.rotation.y += (target - dm.piv.rotation.y) * Math.min(1, dt * 10); dm.glow.visible = t < d.glowUntil; dm.ruda.visible = t < d.rudaUntil; dm.ros.visible = !!d.rosario; }
+  for (const dm of doorMeshes) { const d=dm.d;dm.leaves.forEach((leaf,k)=>{const target=d.closed?0:(k?-dm.base:dm.base)*(1-d.anim*.9);leaf.rotation.y+=(target-leaf.rotation.y)*Math.min(1,dt*10);}); dm.glow.visible = t < d.glowUntil; dm.ruda.visible = t < d.rudaUntil; dm.ros.visible = !!d.rosario; }
   // escondites
-  for (const sm of spotMeshes) { const act = w.spotsActive.has(sm.k); sm.lock.visible = !act; sm.slit.visible = act; const occ = w.invs.some(i => i.alive && i.hidden === sm.k); sm.door.rotation.y = act && !occ ? 0.12 : 0; sm.eyes.visible = w.fx.some(f => f.kind === 'sello_ropero' && Math.hypot(f.x - SPOTS[sm.k].hx, f.y - SPOTS[sm.k].hy) < 0.6 && t - f.t < 6); }
+  for (const sm of spotMeshes) { const act = w.spotsActive.has(sm.k); sm.lock.visible = !act; sm.slit.visible = !act; const occ = w.invs.some(i => i.alive && i.hidden === sm.k); sm.door.rotation.y = act && !occ ? 0.12 : 0; sm.eyes.visible = w.fx.some(f => f.kind === 'sello_ropero' && Math.hypot(f.x - SPOTS[sm.k].hx, f.y - SPOTS[sm.k].hy) < 0.6 && t - f.t < 6); }
   // velas y focos
   const huntFlick = g.hunt && Math.random() < 0.35;
   for (const c of candleMeshes) { c.flame.material.color.setHex(COL.gold); c.flame.scale.x = c.flame.scale.z = 1 + Math.sin(t * 13 + c.r) * 0.15; }
@@ -4499,7 +4432,7 @@ function updateScene(t, dt) {
   const amb = vk === 'ghost' ? 2.6 : vk === 'spirit' || vk === 'all' ? 2.0 : 1.02;
   ambient.intensity = amb; hemi.intensity=vk==='inv'?.58:.45; ambient.color.setHex(vk === 'ghost' ? 0x5070a0 : 0x3a3060); scene.fog.near = vk === 'inv' ? 14 : 30; scene.fog.far = vk === 'inv' ? 34 : 80;
   // linterna del jugador
-  if (V && V.kind === 'inv' && V.alive) { const on = V.flash && t >= V.flashOffUntil && V.hidden < 0; flash.intensity = !on ? 0 : g.hunt && sees(V, g, 12) && Math.random() < 0.25 ? 4 : 18; flash.position.set(V.x + Math.cos(V.face + 0.6) * 0.3, elv(V) + 1.3, V.y + Math.sin(V.face + 0.6) * 0.3); if (V === me0() && viewKind() === 'inv') { const dir = camLook.clone().sub(camera.position).normalize(); if (menuOpt.cam === 'fp') flash.position.copy(camera.position).addScaledVector(dir, 0.25).add(new THREE.Vector3(Math.cos(V.face + 1.4) * 0.18, -0.25, Math.sin(V.face + 1.4) * 0.18)); flash.target.position.copy(flash.position).addScaledVector(dir, 8); } else flash.target.position.set(V.x + Math.cos(V.face) * 7, elv(V) + 1.0, V.y + Math.sin(V.face) * 7); }
+  if (V && V.kind === 'inv' && V.alive) { const on = V.flash && t >= V.flashOffUntil; flash.intensity = !on ? 0 : g.hunt && sees(V, g, 12) && Math.random() < 0.25 ? 4 : 18; flash.position.set(V.x + Math.cos(V.face + 0.6) * 0.3, elv(V) + 1.3, V.y + Math.sin(V.face + 0.6) * 0.3); if (V === me0() && viewKind() === 'inv') { const dir = camLook.clone().sub(camera.position).normalize(); if (menuOpt.cam === 'fp') flash.position.copy(camera.position).addScaledVector(dir, 0.25).add(new THREE.Vector3(Math.cos(V.face + 1.4) * 0.18, -0.25, Math.sin(V.face + 1.4) * 0.18)); flash.target.position.copy(flash.position).addScaledVector(dir, 8); } else flash.target.position.set(V.x + Math.cos(V.face) * 7, elv(V) + 1.0, V.y + Math.sin(V.face) * 7); }
   else flash.intensity = 0;
   const others = w.invs.filter(i => i !== V && i.alive && !i.escaped && i.flash && t >= i.flashOffUntil && i.hidden < 0 && (i.f === vf || vf === 1));
   botFlashes.forEach((s, k) => { const i = others[k]; s.intensity = i ? 10 : 0; if (i) { s.position.set(i.x, elv(i) + 1.1, i.y); s.target.position.set(i.x + Math.cos(i.face) * 6, i.f * FH, i.y + Math.sin(i.face) * 6); } });
@@ -4547,7 +4480,7 @@ function updateScene(t, dt) {
   // objetos
   const seenIds = new Set();
   for (const it of w.items) { if (it.holder) continue; seenIds.add(it.id); let im = itemMeshes.get(it.id); if (!im) { im = makeItemMesh(it); itemMeshes.set(it.id, im); }
-    im.g.visible = it.f === vf || vf === 1; im.g.position.set(it.x, it.f * FH + (it.h || 0), it.y); im.g.rotation.y = -it.dir;
+    im.g.visible = layoutItemVisible(w,it)&&(it.f === vf || vf === 1); im.g.position.set(it.x, it.f * FH + (it.h || 0), it.y); im.g.rotation.y = -it.dir;
     im.halo.material.opacity = 0.2 + Math.sin(t * 3 + it.id) * 0.12;
     if (it.kind === 'emf') { const on = t < it.emfUntil; im.ind.visible = on; im.ind.material.color.setHex(it.emfLvl >= 5 ? 0xff2020 : it.emfLvl >= 4 ? 0xff9020 : 0x40ff60); }
     if (it.kind === 'gases') { im.ind.visible = t < it.redUntil || t < (it.yellowUntil || 0); im.ind.material.color.setHex(t < it.redUntil ? 0xff2020 : 0xffb020); }
@@ -4559,7 +4492,7 @@ function updateScene(t, dt) {
   }
   for (const [id, im] of itemMeshes) if (!seenIds.has(id)) { scene.remove(im.g); itemMeshes.delete(id); }
   // efectos
-  updateFx(t, vf); updateProps(t, vf); updateLoose(t);
+  updateFx(t, vf); updateProps(t, vf); updateLoose(t);NDAHouseArt.updateDrawers(w,dt);
   for (const m of ceilMeshes) m.visible = camera.position.y < m.userData.f * FH + FH - 0.05;
   // salida y altar
   const xd = w.doors.find(d => d.ext); exitMesh.material.emissive.setHex(xd && xd.locked ? 0x400000 : 0x000000);
@@ -4576,7 +4509,7 @@ function updateFx(t, vf) {
   w.fx.forEach((f, k) => { const key = f.kind + ':' + f.t + ':' + f.x.toFixed(2); alive_.add(key); let m = fxMeshes.get(key);
     if (!m) { m = new THREE.Group(); const col = FX_COLORS[f.kind] || 0xffffff;
       if (f.kind === 'ceniza') { const d = new THREE.Mesh(new THREE.CircleGeometry(0.7, 14), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.75, depthWrite: false })); d.rotation.x = -Math.PI / 2; d.position.y = 0.025; m.add(d); m.userData.disc = d;
-        const pr = new THREE.Group(); for (let k = 0; k < 6; k++) { const fp = new THREE.Mesh(new THREE.CircleGeometry(0.08, 8), new THREE.MeshBasicMaterial({ color: 0xc080ff, transparent: true, opacity: 0.95 })); fp.rotation.x = -Math.PI / 2; fp.scale.set(0.7, 1.4, 1); fp.position.set(-0.6 + k * 0.24, 0.03, (k % 2) * 0.16 - 0.08); pr.add(fp); } pr.visible = false; m.add(pr); m.userData.prints = pr; }
+        const pr = new THREE.Group(); for (let k = 0; k < 6; k++) { const fp = new THREE.Mesh(new THREE.CircleGeometry(0.08, 8), new THREE.MeshBasicMaterial({ color: 0xc080ff, transparent: true, opacity: 0.95 })); fp.rotation.x = -Math.PI / 2; fp.scale.set(0.7, 1.4, 1); fp.position.set(-0.30 + k * 0.104, 0.03, (k % 2) * 0.16 - 0.08); pr.add(fp); } pr.visible = false; m.add(pr); m.userData.prints = pr; }
       else if (f.kind === 'copal') { for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(0.9 + Math.random() * 0.6, 10, 8), LambertFlat({ color: col, transparent: true, opacity: 0.28, depthWrite: false })); s.position.set(Math.random() * 3 - 1.5, 0.7 + Math.random(), Math.random() * 3 - 1.5); m.add(s); } }
       else if (f.kind === 'sello_charcos') { for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.CircleGeometry(0.22 + Math.random() * 0.1, 12), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.7 })); s.rotation.x = -Math.PI / 2; s.position.set(i * 0.5, 0.03, Math.sin(i) * 0.3); m.add(s); } }
       else if (f.kind === 'sello_escarcha') { for (let i = 0; i < 10; i++) { const s = new THREE.Mesh(new THREE.CircleGeometry(0.15, 6), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.8 })); s.rotation.x = -Math.PI / 2; s.position.set(Math.random() * 2 - 1, 0.03, Math.random() * 2 - 1); m.add(s); } }
@@ -4601,6 +4534,7 @@ let yaw = -Math.PI / 2, pitch = -0.12;
 // Cámara de hombro: detrás y a la derecha del personaje; se acerca si un muro estorba
 function updateCamera(dt) {
   const V = viewer(); if (!V) return; const vk = viewKind();
+  if(V.hidden<0||!V.alive)camera.userData.hideSpot=-1;
   if (vk === 'all') { const target = new THREE.Vector3(V.x, elv(V) + 0.8, V.y), want = new THREE.Vector3(V.x, elv(V) + 16, V.y + 9);
     camPos.lerp(want, Math.min(1, dt * 5)); camLook.lerp(target, Math.min(1, dt * 6)); if (camPos.distanceTo(want) > 20) { camPos.copy(want); camLook.copy(target); }
     camera.position.copy(camPos); camera.lookAt(camLook); return; }
@@ -4613,8 +4547,8 @@ function updateCamera(dt) {
     if (sightBlockT(tileAt(V.f, px, py)) || (tileAt(V.f, px, py) === T.WALL)) { ok = Math.max(0.15, (k - 1.5) / n); break; } }
   wx = head.x + (wx - head.x) * ok; wy = head.y + (wy - head.y) * ok;
   const rig = V.kind === 'inv' && V.alive ? invMeshes[V.id] : null, bob = rig && vk === 'inv' ? Math.abs(Math.cos(rig.ph)) * 0.05 * Math.min(1, rig.speed / 2.6) : 0;
-  if (vk === 'inv' && V.alive && V.hidden >= 0) { const sp = SPOTS[V.hidden], ox = sp.hx - (sp.x + 0.5), oy = sp.hy - (sp.y + 0.5), a0 = Math.atan2(oy, ox), a = a0 + clamp(Math.atan2(Math.sin(yaw - a0), Math.cos(yaw - a0)), -0.5, 0.5);
-    camera.position.set(sp.x + 0.5 + ox * 0.42, base + 1.5, sp.y + 0.5 + oy * 0.42); camPos.copy(camera.position); camLook.set(camera.position.x + Math.cos(a) * 4, base + 1.4 + Math.sin(pitch) * 2, camera.position.z + Math.sin(a) * 4); camera.lookAt(camLook);
+  if (vk === 'inv' && V.alive && V.hidden >= 0) { const sp = SPOTS[V.hidden], ox = sp.hx - (sp.x + 0.5), oy = sp.hy - (sp.y + 0.5), a0 = Math.atan2(oy, ox);if(camera.userData.hideSpot!==V.hidden){yaw=a0;pitch=0;camera.userData.hideSpot=V.hidden;}const a=a0+clamp(Math.atan2(Math.sin(yaw-a0),Math.cos(yaw-a0)),-.5,.5);
+    camera.position.set(sp.x + 0.5 + ox * 0.28, base + (sp.eyeHeight||1.5), sp.y + 0.5 + oy * 0.28); camPos.copy(camera.position); camLook.set(camera.position.x + Math.cos(a) * 4, base + (sp.eyeHeight||1.5)-.1 + Math.sin(pitch) * 2, camera.position.z + Math.sin(a) * 4); camera.lookAt(camLook);
     if (Math.abs(camera.fov - 62) > 0.05) { camera.fov = 62; camera.updateProjectionMatrix(); } return; }
   if (menuOpt.cam === 'fp' && vk === 'inv' && V.alive) { const ey = base + (V.hidden >= 0 ? 0.9 : 1.58) + bob * 0.6; camera.position.set(V.x + fx * 0.12, ey, V.y + fy * 0.12); camPos.copy(camera.position); camLook.set(V.x + fx * 4 * Math.cos(pitch), ey + Math.sin(pitch) * 4, V.y + fy * 4 * Math.cos(pitch)); camera.lookAt(camLook);
     const fovF = rig && rig.speed > 3.0 ? 74 : 68; if (Math.abs(camera.fov - fovF) > 0.05) { camera.fov += (fovF - camera.fov) * Math.min(1, dt * 4); camera.updateProjectionMatrix(); } return; }
@@ -4722,7 +4656,7 @@ function playEvents() {
       case 'mover': SFX.scrape(p); break;
       case 'susurro': SFX.whisper(p); break;
       case 'sello': SFX[SELLO_SFX[e.kind] || 'whisper'](p); break;
-      case 'noise': if (e.kind === 'juguete') SFX.toy(p); if (e.kind === 'stairs' || e.kind === 'ghoststairs') SFX.stairs(p); if (e.kind === 'throw') tone(300, 0.08, 'triangle', 0.2, p); break;
+      case 'noise': if(e.kind==='drawer')tone(160,.2,'sawtooth',.04,p,-35);if (e.kind === 'juguete') SFX.toy(p); if (e.kind === 'stairs' || e.kind === 'ghoststairs') SFX.stairs(p); if (e.kind === 'throw') tone(300, 0.08, 'triangle', 0.2, p); break;
       case 'manifest': { const k = e.snd; if (k === 'risa') { SFX.laugh(p); SFX.giggle(p); } else if (k === 'canto') [392, 370, 349, 330].forEach((fq, j) => tone(fq, 0.6, 'sine', 0.22, p, -8, j * 0.45)); else if (k === 'llanto') { for (let j = 0; j < 3; j++) tone(700 - j * 60, 0.7, 'sawtooth', 0.12, p, -300, j * 0.6); } else if (k === 'grito') { noise(0.9, 'bandpass', 1800, 0.6, 0.6, p); tone(900, 0.9, 'sawtooth', 0.3, p, -500); } else { tone(180, 1.6, 'sawtooth', 0.18, p, -40); noise(1.4, 'lowpass', 500, 1, 0.2, p, 0, 0.4); } shake(0.35); break; }
       case 'eco': duck(1.2); setTimeout(() => speak(e.text, { pitch: 0.2, rate: 0.75 }), 1200); break;
       case 'loteria': duck(1.2); setTimeout(() => speak(pick(['¡Corre y se va! ¡La muerte!', '¡La calavera!', '¡El catrín… detrás de ti!', '¡La muerte… y lotería!']), { pitch: 0.6, rate: 1.05 }), 1200); break;
@@ -4767,6 +4701,7 @@ function ghostCard(G) {
   const sp = G.speed || 2.2; const rule = huntRuleTxt(G);
   return `<div class="gcard"><p><b>Evidencias:</b> ${G.ev.map(k => EV[k].n).join(', ')}</p><p><b>Caza cuando:</b> ${rule}</p>${G.special ? `<p><b>Habilidad:</b> ${G.special.n}. ${G.special.d}</p>` : ''}${G.passive ? `<p><b>Pasiva:</b> ${G.passive.n}${G.passive.d ? '. ' + G.passive.d : ''}</p>` : ''}<p><b>Sello:</b> ${G.sello.n}${G.sello.parecido ? ` <small>(se confunde con: ${G.sello.parecido})</small>` : ''}</p><p class="small">Velocidad ${sp} m/s · escucha a ${G.hear || 12} m</p></div>`;
 }
+function casonaJournalMap(){let out='<details><summary>Plano de la casona</summary>';for(const f of[0,1]){out+='<h3>'+(f?'Planta alta':'Planta baja')+'</h3><div style="overflow:auto"><svg width="600" height="400" viewBox="0 0 60 40" role="img" aria-label="Plano de '+(f?'planta alta':'planta baja')+'"><rect width="60" height="40" fill="#302a30"/><rect x="15" y="10" width="30" height="20" fill="#9e8a74"/><rect x="18" y="13" width="24" height="14" fill="#242434"/>';for(const r of NDALayout.rooms.filter(r=>r.floor===f)){const[a,b,c,d]=r.rect;out+='<rect x="'+a+'" y="'+b+'" width="'+(c-a)+'" height="'+(d-b)+'" fill="#e4d4b7"><title>'+r.name+'</title></rect><text x="'+(a+c)/2+'" y="'+((b+d)/2+.5)+'" text-anchor="middle" font-size="1.45" fill="#302a30">'+r.id+'</text>';}for(const d of NDALayout.doors.filter(d=>d.floor===f)){const[a,b,c,e]=d.rect;out+='<rect x="'+a+'" y="'+b+'" width="'+(c-a)+'" height="'+(e-b)+'" fill="#c2aa85"/>';}const me=w.invs[ME];if(me?.f===f&&me.y<39)out+='<circle cx="'+me.x+'" cy="'+me.y+'" r=".55" fill="#df8b34"/>';out+='</svg></div><p class="small">'+NDALayout.rooms.filter(r=>r.floor===f).map(r=>r.id+' '+r.name).join(' · ')+'</p>';}return out+'<p class="small">Norte arriba. La calle y el portón quedan al sur. El punto naranja eres tú.</p></details>';}
 function journalHTML(canName) {
   const c = candidates(w, true), p = pruebas(w);
   let h = `<h3>Evidencias <small>clic: marcar ✓ → tachar ✗ → borrar</small></h3>`;
@@ -4777,7 +4712,8 @@ function journalHTML(canName) {
   GHOSTS.forEach(G => { const ok = c.includes(G) && !(w.discardG && w.discardG[G.id]); h += `<div class="cand ${ok ? '' : 'out'}" data-g="${G.id}"><span>${canName ? `<img class="idc" src="${idCard(G)}" alt="">` : ''}${G.n}<button class="gx" title="Tachar o destachar">${w.discardG && w.discardG[G.id] ? '↺' : '✗'}</button><small>${G.ev.map(k => EV[k].n).join(' · ')}</small></span>${canName ? `<button data-name="${G.id}">Nombrar</button>` : ''}</div>`; });
   if (jSel && !canName) { const G = GT[jSel]; h = h.replace(`data-g="${jSel}">`, `data-g="${jSel}" class="sel">`); h += `<h3>${G.n}</h3>${ghostCard(G)}`; }
   if (w.team.home) h += `<p class="hint">Vive en: <b>${ROOMS[w.team.home.f][w.team.home.r].n}</b></p>`;
-  h += `<h3>Dónde buscar objetos</h3><p class="small">Té: Cocina, Comedor, Despensa · Rosario: Capilla, Oratorio, recámaras · Ruda: Cocina, Despensa, Patio, Azotehuela · Copal: Capilla, Oratorio, Desván · Veladora: Capilla, Oratorio, Comedor · Ceniza: Cocina, Cuarto de servicio, Azotehuela · Cruz de palma: Capilla, Oratorio, Recámara principal · Pan de muerto: Comedor, Cocina · Limpia: Cocina, Capilla</p>${w.cursed ? `<p class="small">${cardImg(w.cursed, 'mci')} <b>Objeto maldito de esta noche:</b> ${ITEMS[w.cursed].n}, en ${ROOMS[CURSED_PLACES[w.cursed][0]][RID[CURSED_PLACES[w.cursed][0]][CURSED_PLACES[w.cursed][1]]].n}. ${ITEMS[w.cursed].hint}</p>` : ''}`;
+  h += `<h3>Dónde buscar objetos</h3><p class="small">Té y pan: Cocina, Comedor, Despensa y Repostería · Rosario y cruz: Capilla y recámaras · Ruda, copal y limpia: Botica, Cocina y Capilla · Veladoras: Capilla y Salón · Ceniza: Cocina y Capilla · Focos: Portería, Despacho y Cochera</p>${w.cursed ? `<p class="small">${cardImg(w.cursed, 'mci')} <b>Objeto maldito de esta noche:</b> ${ITEMS[w.cursed].n}, en ${ROOMS[CURSED_PLACES[w.cursed][0]][RID[CURSED_PLACES[w.cursed][0]][CURSED_PLACES[w.cursed][1]]].n}. ${ITEMS[w.cursed].hint}</p>` : ''}`;
+  h+=casonaJournalMap();
   return h;
 }
 function primaryAction(i) {
@@ -4788,7 +4724,8 @@ function primaryAction(i) {
   if (i.f === FUSE.f && Math.hypot(i.x - FUSE.x, i.y - FUSE.y) < 1.6 && !w.fuse.every(Boolean)) return { k: 'E', txt: 'Subir los fusibles', btn: 'Fusibles' };
   const s = nearSpot(w, i); if (s >= 0) return { k: 'E', txt: 'Esconderte' + (elecOnW(w, i) ? ' (¡apaga la linterna!)' : ''), btn: 'Esconder' };
   const sn = spotNear(w, i); if (sn && sn.why) return { k: '', txt: sn.why === 'candado' ? '🔒 Este ropero tiene candado esta noche: busca otro escondite' : `Ocupado: ${sn.who.name} está escondido aquí`, btn: '—' };
-  let best = null, bd = 1.3; for (const x of w.items) if (!x.holder && x.f === i.f) { const d = Math.hypot(x.x - i.x, x.y - i.y); if (d < bd) { bd = d; best = x; } }
+  const storage=nearLayoutContainer(w,i);if(storage&&!w.items.some(it=>!it.holder&&it.f===i.f&&layoutItemVisible(w,it)&&Math.hypot(it.x-i.x,it.y-i.y)<1.3))return{k:'E',txt:storage.until?'Revisando el cajón…':'Revisar cajón (1 s)',btn:storage.until?'Revisando':'Cajón'};
+  let best = null, bd = 1.3; for (const x of w.items) if (!x.holder && x.f === i.f && layoutItemVisible(w,x)) { const d = Math.hypot(x.x - i.x, x.y - i.y); if (d < bd) { bd = d; best = x; } }
   if (best) return { k: 'E', txt: (i.slots.includes(null) || !i.slots[i.hand] ? 'Tomar ' : 'Ranuras llenas: ') + ITEMS[best.kind].n, btn: 'Tomar', item: best };
   const dr = nearDoor(w, i); if (dr) return { k: 'E', txt: dr.closed ? 'Abrir la puerta' : 'Cerrar la puerta', btn: dr.closed ? 'Abrir' : 'Cerrar' };
   return null;
@@ -5093,7 +5030,7 @@ function start(netStart) {
     ME = Math.max(0, opt.humans.findIndex(h => h.peer === NET.id));
     netApply(w, netStart, ME); w.events.length = 0;
   } else w = newWorld(Object.assign({}, menuOpt));
-  if (scene) { scene.traverse(o => { if (o.geometry) o.geometry.dispose && o.geometry.dispose();if(o.userData.NDAHouseArt)o.material.dispose(); }); }
+  if(scene){const geos=new Set(),mats=new Set(),textures=new Set();for(const tv of baseTVs||[])tv.rt?.dispose();casa3d?.tvRT?.dispose();scene.traverse(o=>{if(o.geometry)geos.add(o.geometry);for(const m of(o.material?(Array.isArray(o.material)?o.material:[o.material]):[])){mats.add(m);for(const value of Object.values(m))if(value?.isTexture)textures.add(value);}o.shadow?.map?.dispose();});geos.forEach(g=>g.dispose());mats.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());}
   buildHouse(); camPos.set(0, 0, 0); yaw = -Math.PI / 2; pitch = -0.12; if (w.opt.role !== 'bots') setTimeout(nightRoulette, 300);
   follow = 0; speedMult = menuOpt.role === 'bots' && NET.mode === 'off' ? 2 : 1; keys.clear(); pressed.clear(); journalOpen = false; $('#journal').hidden = true;
   $('#menu').hidden = true; $('#modal').hidden = true; $('#game').hidden = false; setupTouch();
@@ -5473,40 +5410,10 @@ buildHouse = function () {
   // suelo y calle más allá del mapa
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(220, 220), LambertFlat({ color: 0x12170f })); ground.rotation.x = -Math.PI / 2; ground.position.set(30, -0.03, 40); out.add(ground);
   const street = new THREE.Mesh(new THREE.PlaneGeometry(220, 5), LambertFlat({ color: 0x2b2826, map: paper })); street.rotation.x = -Math.PI / 2; street.position.set(30, -0.01, 60.5); out.add(street);
-  // arbustos, reja y piedras del camino
-  for (let y = 39; y < H; y++) for (let x = 0; x < W; x++) {
-    const t = grid[y * W + x], cx = x + 0.5, cz = y + 0.5, j = ((x * 7 + y * 13) % 5) / 5;
-    if (t === T.BUSH) { bb(j > 0.5 ? 'bush' : 'bush2').add(cx, 0.6 + j * 0.15, cz, 1.08, 1.2 + j * 0.3, 1.08); bb('bush2').add(cx + (j - 0.5) * 0.4, 1.35 + j * 0.3, cz + (0.5 - j) * 0.3, 0.7, 0.5, 0.7); }
-    if (t === T.GATE) { for (let k = 0; k < 4; k++) bb('iron').add(x + 0.125 + k * 0.25, 1.75, cz, 0.05, 3.5, 0.05); bb('iron').add(cx, 3.35, cz, 1.0, 0.08, 0.08); bb('iron').add(cx, 0.35, cz, 1.0, 0.08, 0.08); bb('iron').add(cx, 2.6, cz, 1.0, 0.05, 0.05);
-      for (let k = 0; k < 4; k++) bb('iron').add(x + 0.125 + k * 0.25, 3.6, cz, 0.04, 0.4 + (k % 2) * 0.2, 0.04);
-      if (x === 12 || x === 34 || x === 23) bb('stone').add(cx, 2.0, cz, x === 23 ? 0.3 : 0.9, 4.0, x === 23 ? 0.3 : 0.9); }
-    if (t === T.FLOOR && y >= 40 && y <= 50 && x >= 21 && x <= 24) for (let k = 0; k < 2; k++) { const r = seeded(x * 100 + y * 7 + k)(); bb('flag').add(x + 0.28 + k * 0.45, 0.02, cz + (r - 0.5) * 0.3, 0.4 + r * 0.1, 0.05, 0.42); }
-  }
-  // la fachada: ventanas con reja, cornisa, techo de teja y pretil
-  const front = 40.02;
-  for (let f = 0; f < 2; f++) { const y0 = f * FH;
-    [3, 8, 13, 18, 28, 33, 38, 43, 48, 53].forEach((x, k) => { if (f === 0 && x > 19 && x < 26) return;
-      bb('frame').add(x + 1, y0 + 1.75, front + 0.05, 1.5, 1.9, 0.12); bb('glass' + ((k + f) % 3 === 0 ? 'L' : '')).add(x + 1, y0 + 1.75, front + 0.12, 1.2, 1.6, 0.02);
-      for (let b = 0; b < 5; b++) bb('iron').add(x + 0.5 + b * 0.25, y0 + 1.75, front + 0.22, 0.04, 1.7, 0.04); bb('iron').add(x + 1, y0 + 2.55, front + 0.22, 1.3, 0.05, 0.05);
-      if (f === 1) { bb('stone').add(x + 1, y0 + 0.75, front + 0.35, 1.8, 0.1, 0.6); for (let b = 0; b < 7; b++) bb('iron').add(x + 0.2 + b * 0.27, y0 + 1.25, front + 0.62, 0.03, 0.9, 0.03); bb('iron').add(x + 1, y0 + 1.7, front + 0.62, 1.8, 0.05, 0.05); } }); }
-  bb('stone').add(30, FH, front + 0.1, 60.4, 0.22, 0.3); bb('stone').add(30, FH * 2 + 0.1, front + 0.15, 60.6, 0.3, 0.45);
-  // balcón sobre el zaguán
-  bb('stone').add(23, FH + 0.05, front + 0.55, 3.6, 0.14, 1.1); for (let b = 0; b < 13; b++) bb('iron').add(21.4 + b * 0.27, FH + 0.55, front + 1.05, 0.03, 1.0, 0.03); bb('iron').add(23, FH + 1.05, front + 1.05, 3.6, 0.05, 0.05);
-  bb('frame').add(23, FH + 1.3, front + 0.05, 1.6, 2.4, 0.12); bb('glassL').add(23, FH + 1.3, front + 0.12, 1.3, 2.1, 0.02);
-  // faroles junto al zaguán y la luz de trabajo de la base
-  [20.3, 25.7].forEach(x => { bb('iron').add(x, 2.6, front + 0.2, 0.06, 0.06, 0.4); bb('lamp').add(x, 2.45, front + 0.42, 0.22, 0.34, 0.22); });
-  bb('iron').add(13.2, 1.6, 53.3, 0.08, 3.2, 0.08); bb('lamp').add(13.2, 3.25, 53.3, 0.5, 0.18, 0.3);
-  const farol = new THREE.PointLight(0xffb860, 6, 11, 1); farol.position.set(23, 2.6, 41.3); scene.add(farol);
-  const work = new THREE.PointLight(0xdfe6ff, 9, 13, 1); work.position.set(13.4, 3.1, 53.2); scene.add(work);
-  irLight = new THREE.PointLight(0xffffff, 0, 9, 1); scene.add(irLight);
-  const mats = { bush: lamB(0x1f3a1c), bush2: lamB(0x2c4a22), iron: lamB(0x161414), stone: lamB(0x8c8070), flag: lamB(0x6f6a62), frame: lamB(0x3a2414), glass: LambertFlat({ color: 0x0a0c14, emissive: 0x05060c }),
-    glassL: LambertFlat({ color: 0x40280a, emissive: 0x3a2008 }), lamp: LambertFlat({ color: 0xffd08a, emissive: 0xffb050 }) };
-  Object.entries(B).forEach(([k, b]) => { const m = b.mesh(mats[k]); m.castShadow = k === 'bush' || k === 'iron'; out.add(m); });
-  // techo: pretil y teja (se esconde en la vista desde arriba, como los techos)
-  const roof = new THREE.Group(); roof.userData.f = 1; scene.add(roof); ceilMeshes.push(roof);
-  { const r = new BoxBatch(); r.add(30, FH * 2 + 0.05, 20, 60, 0.1, 40); r.add(30, FH * 2 + 0.55, 0.15, 60, 1.0, 0.3); r.add(0.15, FH * 2 + 0.55, 20, 0.3, 1.0, 40); r.add(59.85, FH * 2 + 0.55, 20, 0.3, 1.0, 40); roof.add(r.mesh(lamB(0x4a3a34)));
-    const teja = new THREE.Mesh(new THREE.BoxGeometry(60.8, 0.12, 1.9), lamB(0x8a3a22)); teja.position.set(30, FH * 2 + 0.45, 40.3); teja.rotation.x = 0.42; roof.add(teja);
-    for (let x = 1; x < 60; x += 6) { const g = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.9), lamB(0x8c8070)); g.position.set(x, FH * 2 - 0.15, 40.5); roof.add(g); } }
+  // The v11 registry owns the facade, openings, shrubs, fence and roof.
+  const farol=new THREE.PointLight(0xffb860,6,11,1);farol.position.set(30,2.6,41.3);scene.add(farol);
+  const work=new THREE.PointLight(0xdfe6ff,9,13,1);work.position.set(13.4,3.1,53.2);scene.add(work);
+  irLight=new THREE.PointLight(0xffffff,0,9,1);scene.add(irLight);
   // la camioneta de los investigadores
   { const g = new THREE.Group(); g.position.set(30.4, 0, 52.9); out.add(g); const add = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; g.add(o); return o; };
     const cream = lamB(0xd9cfb4), wine = lamB(COL.wine), dark = LambertFlat({ color: 0x0b0d14, emissive: 0x04050a }), tire = lamB(0x141212);
@@ -5690,7 +5597,7 @@ const SND_FILES = ['door_open1', 'door_open2', 'door_close1', 'door_close2', 'sl
   'wood1', 'wood2', 'wood3', 'wood4', 'stone1', 'stone2', 'bell_heavy', 'bell1', 'bell2', 'bell_small', 'thunder', 'rain', 'static1', 'static2', 'hiss', 'howl', 'bark', 'breath1', 'breath2',
   'weird1', 'weird2', 'weird3', 'weird4', 'growl1', 'growl2', 'glass_break1', 'glass_break2', 'fall1', 'fall2', 'wood_break', 'crack1', 'crack2', 'keys', 'cineboom', 'haunted_hum', 'dark_woosh',
   'choir', 'glass_rub', 'crow', 'guitar', 'glitch1', 'glitch2', 'beep', 'buzz',
-  'r_growly', 'r_echo', 'r_breath', 'r_riser', 'r_zombies', 'static3', 'llorona', 'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
+  'r_growly', 'r_echo', 'r_breath', 'r_riser', 'r_zombies', 'static3', 'wings', 'puff', 'laugh1', 'laugh2', 'laugh3', 'laugh4', 'laugh5', 'heart1', 'heart2', 'snap', 'pickup', 'click_btn', 'ding', 'latch', 'toy'];
 const SND = { buf: {}, loading: false, loops: {} };
 function sndLoad() {
   if (SND.loading || !audio || !audio.ctx) return; SND.loading = true;
@@ -5949,7 +5856,7 @@ function portraitsTick() {
   const P = w.portraits || []; while (casa3d.portraits.length < P.length) { const p = P[casa3d.portraits.length], g = portraitMesh(p.char, 0.55, 0.75);
     g.position.set(p.x, p.f * FH + 1.75, p.y); g.rotation.y = p.nx ? (p.nx > 0 ? Math.PI / 2 : -Math.PI / 2) : (p.ny > 0 ? 0 : Math.PI); scene.add(g); casa3d.portraits.push(g); }
   const o = w.ofrenda; if (o && (!casa3d.ofrenda || casa3d.ofrenda.char !== o.char)) { if (casa3d.ofrenda) scene.remove(casa3d.ofrenda.g); const g = portraitMesh(o.char, 0.26, 0.34);
-    g.position.set(ALTAR_POS.x, ALTAR_POS.f * FH + 1.28, ALTAR_POS.y - 0.12); g.rotation.x = -0.15; scene.add(g); casa3d.ofrenda = { g, char: o.char }; }
+    g.position.set(w.altarSurface.x,w.altarSurface.f*FH+w.altarSurface.h+.29,w.altarSurface.y-.12); g.rotation.x = -0.15; scene.add(g); casa3d.ofrenda = { g, char: o.char }; }
 }
 
 // ---------- 20. el señuelo metido en la pared tiembla ----------

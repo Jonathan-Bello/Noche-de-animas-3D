@@ -39,7 +39,7 @@ function portraitsTick() {
   const P = w.portraits || []; while (casa3d.portraits.length < P.length) { const p = P[casa3d.portraits.length], g = portraitMesh(p.char, 0.55, 0.75);
     g.position.set(p.x, p.f * FH + 1.75, p.y); g.rotation.y = p.nx ? (p.nx > 0 ? Math.PI / 2 : -Math.PI / 2) : (p.ny > 0 ? 0 : Math.PI); scene.add(g); casa3d.portraits.push(g); }
   const o = w.ofrenda; if (o && (!casa3d.ofrenda || casa3d.ofrenda.char !== o.char)) { if (casa3d.ofrenda) scene.remove(casa3d.ofrenda.g); const g = portraitMesh(o.char, 0.26, 0.34);
-    g.position.set(ALTAR_POS.x, ALTAR_POS.f * FH + 1.28, ALTAR_POS.y - 0.12); g.rotation.x = -0.15; scene.add(g); casa3d.ofrenda = { g, char: o.char }; }
+    g.position.set(w.altarSurface.x,w.altarSurface.f*FH+w.altarSurface.h+.29,w.altarSurface.y-.12); g.rotation.x = -0.15; scene.add(g); casa3d.ofrenda = { g, char: o.char }; }
 }
 
 // ---------- 20. el señuelo metido en la pared tiembla ----------

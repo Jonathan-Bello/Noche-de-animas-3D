@@ -31,10 +31,10 @@ newWorld = function (opt) {
   tools.filter(it => it.kind !== 'cam').forEach((it, k) => Object.assign(it, { f: 0, x: 14.4 + (k % 6) * 0.95, y: 55.2 + Math.floor(k / 6) * 0.35, h: 0.78 }));
   w.invs.forEach((i, k) => { i.f = 0; i.x = 20.5 + k * 1.1; i.y = 53; i.face = -Math.PI / 2; });
   w.lights[0][OUT_R] = 1;
-  w.doors.push({ f: 0, o: 'H', tiles: [[22, 39], [23, 39]], x: 23, y: 39.5, angle: 0, touchedAt: -99, glowUntil: 0, rudaUntil: 0, rosario: false, anim: 0, ext: true });
+
   // aparatos repartidos al azar: puede que haya o no en cada cuarto
   const rooms = shuffle(ROOM_LIST.filter(r => !isHall(r.f, r.r) && SURFACES[r.f][r.r] && SURFACES[r.f][r.r].length));
-  w.devices = []; const put = (kind, n) => { for (let k = 0; k < n && rooms.length; k++) { const r = rooms.pop(), p = onFurniture(r.f, r.r); w.devices.push({ kind, f: r.f, x: p.x, y: p.y, h: p.h, r: r.r }); } };
+  w.devices = []; const put = (kind, n) => { for (let k = 0; k < n && rooms.length; k++) { const index=rooms.findIndex(r=>!(w.altarRoom.f===r.f&&w.altarRoom.r===r.r&&SURFACES[r.f][r.r].length<=2)&&(kind!=='tv'||SURFACES[r.f][r.r].length>=2));if(index<0)break;const r=rooms.splice(index,1)[0],p=onFurniture(r.f,r.r); w.devices.push({ kind, f: r.f, x: p.x, y: p.y, h: p.h, r: r.r }); } };
   put('tv', 1 + Math.floor(Math.random() * 3)); put('radio', 1 + Math.floor(Math.random() * 2)); put('telefono', 1 + Math.floor(Math.random() * 2));
   w.emfSrc = []; w.cas.pend = null; w.cas.lastTalk = {};
   return w;

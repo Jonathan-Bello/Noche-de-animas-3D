@@ -13,40 +13,10 @@ buildHouse = function () {
   // suelo y calle más allá del mapa
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(220, 220), LambertFlat({ color: 0x12170f })); ground.rotation.x = -Math.PI / 2; ground.position.set(30, -0.03, 40); out.add(ground);
   const street = new THREE.Mesh(new THREE.PlaneGeometry(220, 5), LambertFlat({ color: 0x2b2826, map: paper })); street.rotation.x = -Math.PI / 2; street.position.set(30, -0.01, 60.5); out.add(street);
-  // arbustos, reja y piedras del camino
-  for (let y = 39; y < H; y++) for (let x = 0; x < W; x++) {
-    const t = grid[y * W + x], cx = x + 0.5, cz = y + 0.5, j = ((x * 7 + y * 13) % 5) / 5;
-    if (t === T.BUSH) { bb(j > 0.5 ? 'bush' : 'bush2').add(cx, 0.6 + j * 0.15, cz, 1.08, 1.2 + j * 0.3, 1.08); bb('bush2').add(cx + (j - 0.5) * 0.4, 1.35 + j * 0.3, cz + (0.5 - j) * 0.3, 0.7, 0.5, 0.7); }
-    if (t === T.GATE) { for (let k = 0; k < 4; k++) bb('iron').add(x + 0.125 + k * 0.25, 1.75, cz, 0.05, 3.5, 0.05); bb('iron').add(cx, 3.35, cz, 1.0, 0.08, 0.08); bb('iron').add(cx, 0.35, cz, 1.0, 0.08, 0.08); bb('iron').add(cx, 2.6, cz, 1.0, 0.05, 0.05);
-      for (let k = 0; k < 4; k++) bb('iron').add(x + 0.125 + k * 0.25, 3.6, cz, 0.04, 0.4 + (k % 2) * 0.2, 0.04);
-      if (x === 12 || x === 34 || x === 23) bb('stone').add(cx, 2.0, cz, x === 23 ? 0.3 : 0.9, 4.0, x === 23 ? 0.3 : 0.9); }
-    if (t === T.FLOOR && y >= 40 && y <= 50 && x >= 21 && x <= 24) for (let k = 0; k < 2; k++) { const r = seeded(x * 100 + y * 7 + k)(); bb('flag').add(x + 0.28 + k * 0.45, 0.02, cz + (r - 0.5) * 0.3, 0.4 + r * 0.1, 0.05, 0.42); }
-  }
-  // la fachada: ventanas con reja, cornisa, techo de teja y pretil
-  const front = 40.02;
-  for (let f = 0; f < 2; f++) { const y0 = f * FH;
-    [3, 8, 13, 18, 28, 33, 38, 43, 48, 53].forEach((x, k) => { if (f === 0 && x > 19 && x < 26) return;
-      bb('frame').add(x + 1, y0 + 1.75, front + 0.05, 1.5, 1.9, 0.12); bb('glass' + ((k + f) % 3 === 0 ? 'L' : '')).add(x + 1, y0 + 1.75, front + 0.12, 1.2, 1.6, 0.02);
-      for (let b = 0; b < 5; b++) bb('iron').add(x + 0.5 + b * 0.25, y0 + 1.75, front + 0.22, 0.04, 1.7, 0.04); bb('iron').add(x + 1, y0 + 2.55, front + 0.22, 1.3, 0.05, 0.05);
-      if (f === 1) { bb('stone').add(x + 1, y0 + 0.75, front + 0.35, 1.8, 0.1, 0.6); for (let b = 0; b < 7; b++) bb('iron').add(x + 0.2 + b * 0.27, y0 + 1.25, front + 0.62, 0.03, 0.9, 0.03); bb('iron').add(x + 1, y0 + 1.7, front + 0.62, 1.8, 0.05, 0.05); } }); }
-  bb('stone').add(30, FH, front + 0.1, 60.4, 0.22, 0.3); bb('stone').add(30, FH * 2 + 0.1, front + 0.15, 60.6, 0.3, 0.45);
-  // balcón sobre el zaguán
-  bb('stone').add(23, FH + 0.05, front + 0.55, 3.6, 0.14, 1.1); for (let b = 0; b < 13; b++) bb('iron').add(21.4 + b * 0.27, FH + 0.55, front + 1.05, 0.03, 1.0, 0.03); bb('iron').add(23, FH + 1.05, front + 1.05, 3.6, 0.05, 0.05);
-  bb('frame').add(23, FH + 1.3, front + 0.05, 1.6, 2.4, 0.12); bb('glassL').add(23, FH + 1.3, front + 0.12, 1.3, 2.1, 0.02);
-  // faroles junto al zaguán y la luz de trabajo de la base
-  [20.3, 25.7].forEach(x => { bb('iron').add(x, 2.6, front + 0.2, 0.06, 0.06, 0.4); bb('lamp').add(x, 2.45, front + 0.42, 0.22, 0.34, 0.22); });
-  bb('iron').add(13.2, 1.6, 53.3, 0.08, 3.2, 0.08); bb('lamp').add(13.2, 3.25, 53.3, 0.5, 0.18, 0.3);
-  const farol = new THREE.PointLight(0xffb860, 6, 11, 1); farol.position.set(23, 2.6, 41.3); scene.add(farol);
-  const work = new THREE.PointLight(0xdfe6ff, 9, 13, 1); work.position.set(13.4, 3.1, 53.2); scene.add(work);
-  irLight = new THREE.PointLight(0xffffff, 0, 9, 1); scene.add(irLight);
-  const mats = { bush: lamB(0x1f3a1c), bush2: lamB(0x2c4a22), iron: lamB(0x161414), stone: lamB(0x8c8070), flag: lamB(0x6f6a62), frame: lamB(0x3a2414), glass: LambertFlat({ color: 0x0a0c14, emissive: 0x05060c }),
-    glassL: LambertFlat({ color: 0x40280a, emissive: 0x3a2008 }), lamp: LambertFlat({ color: 0xffd08a, emissive: 0xffb050 }) };
-  Object.entries(B).forEach(([k, b]) => { const m = b.mesh(mats[k]); m.castShadow = k === 'bush' || k === 'iron'; out.add(m); });
-  // techo: pretil y teja (se esconde en la vista desde arriba, como los techos)
-  const roof = new THREE.Group(); roof.userData.f = 1; scene.add(roof); ceilMeshes.push(roof);
-  { const r = new BoxBatch(); r.add(30, FH * 2 + 0.05, 20, 60, 0.1, 40); r.add(30, FH * 2 + 0.55, 0.15, 60, 1.0, 0.3); r.add(0.15, FH * 2 + 0.55, 20, 0.3, 1.0, 40); r.add(59.85, FH * 2 + 0.55, 20, 0.3, 1.0, 40); roof.add(r.mesh(lamB(0x4a3a34)));
-    const teja = new THREE.Mesh(new THREE.BoxGeometry(60.8, 0.12, 1.9), lamB(0x8a3a22)); teja.position.set(30, FH * 2 + 0.45, 40.3); teja.rotation.x = 0.42; roof.add(teja);
-    for (let x = 1; x < 60; x += 6) { const g = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.9), lamB(0x8c8070)); g.position.set(x, FH * 2 - 0.15, 40.5); roof.add(g); } }
+  // The v11 registry owns the facade, openings, shrubs, fence and roof.
+  const farol=new THREE.PointLight(0xffb860,6,11,1);farol.position.set(30,2.6,41.3);scene.add(farol);
+  const work=new THREE.PointLight(0xdfe6ff,9,13,1);work.position.set(13.4,3.1,53.2);scene.add(work);
+  irLight=new THREE.PointLight(0xffffff,0,9,1);scene.add(irLight);
   // la camioneta de los investigadores
   { const g = new THREE.Group(); g.position.set(30.4, 0, 52.9); out.add(g); const add = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; g.add(o); return o; };
     const cream = lamB(0xd9cfb4), wine = lamB(COL.wine), dark = LambertFlat({ color: 0x0b0d14, emissive: 0x04050a }), tire = lamB(0x141212);

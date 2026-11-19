@@ -63,127 +63,7 @@ const CFG = {
   cam: { p: 0.25, min: 50 }, esp: { p: 0.25, min: 40 }, gasP: 0.5, interf: { r: 6, cd: 20, dur: 8, cost: 4 }, bulb: { flips: 6, win: 30 }, mustHunt: 60, possess: { cd: 100, cost: 8, dur: 16, drain: 1.2 }, anomaly: { cd: 22, cost: 3, max: 14 }, analog: { gap: [150, 230] }, manifest: { cd: 30, cost: 4, dmg: 5, show: 1.6 }, hallu: { cd: 35, cost: 5, dur: 3.2 }, tablillaCost: 15, mirrorDrain: 7.5, mirrorMin: 20, pinCost: 5, candleCost: 12, radio: { cost: 5, r: 10, cd: 8 },
 };
 
-// ---------- La casona ----------
-const W = 60, H = 60, FL = W * H; // y 40–58: afuera (la base de los investigadores)
-const T = { FLOOR: 0, WALL: 1, TABLE: 2, CLOSET: 3, WATER: 4, PILLAR: 5, ALTAR: 6, BED: 7, SHELF: 8, VOID: 9, STAIR: 10, BUSH: 11, GATE: 12, VAN: 13 };
-const walkableT = t => t === T.FLOOR || t === T.STAIR;
-const sightBlockT = t => t === T.WALL || t === T.CLOSET || t === T.SHELF;
-const RECTS = [[1, 1, 13, 8], [15, 1, 29, 8], [31, 1, 44, 8], [46, 1, 58, 8], [1, 10, 13, 19], [1, 21, 13, 29], [46, 10, 58, 19], [46, 21, 58, 29], [1, 31, 13, 38], [15, 31, 29, 38], [31, 31, 44, 38], [46, 31, 58, 38], [18, 13, 41, 26], [15, 10, 44, 29], [1, 40, 58, 58]];
-const ROOMS = [
-  ['capilla', 'Capilla', 'biblioteca', 'Biblioteca', 'sala', 'Sala', 'recp', 'Recámara principal', 'comedor', 'Comedor', 'cocina', 'Cocina', 'recn', 'Recámara de niños', 'bano', 'Baño', 'despensa', 'Despensa', 'zaguan', 'Zaguán', 'estudio', 'Estudio', 'servicio', 'Cuarto de servicio', 'patio', 'Patio', 'corredor', 'Corredor', 'afuera', 'Afuera (la base)'],
-  ['juegos', 'Cuarto de juegos', 'costura', 'Cuarto de costura', 'musica', 'Sala de música', 'huespedes', 'Recámara de huéspedes', 'abuelo', 'Recámara del abuelo', 'banoalto', 'Baño alto', 'oratorio', 'Oratorio', 'nana', 'Cuarto de la nana', 'desvan', 'Desván', 'rellano', 'Rellano', 'archivo', 'Archivo', 'azotehuela', 'Azotehuela', 'vacio', 'Vacío del patio', 'galeria', 'Galería', 'afuera1', '(afuera)'],
-].map(l => RECTS.map((r, i) => ({ id: l[i * 2], n: l[i * 2 + 1], r })));
-const RID = [{}, {}]; ROOMS.forEach((rs, f) => rs.forEach((r, i) => (RID[f][r.id] = i)));
-const NO_HOME = [['zaguan', 'patio', 'corredor', 'afuera'], ['rellano', 'azotehuela', 'vacio', 'galeria', 'afuera1']];
-const HALLS = [['corredor', 'patio'], ['galeria']];
-const WATER_ROOMS = [['cocina', 'bano', 'patio'], ['banoalto']];
-const BEDROOMS = [['recp', 'recn', 'servicio'], ['huespedes', 'abuelo', 'nana']];
-const DOOR_DEFS = [['V', 14, 4], ['V', 30, 4], ['V', 45, 4], ['H', 22, 9], ['H', 37, 9], ['H', 6, 9], ['H', 52, 9], ['V', 14, 14], ['H', 6, 20], ['V', 14, 25], ['H', 6, 30], ['V', 45, 14], ['H', 52, 20], ['V', 45, 25], ['H', 52, 30], ['H', 22, 30], ['H', 37, 30], ['V', 14, 34], ['V', 30, 34], ['V', 45, 34]];
-const FURN = [
-  [[T.ALTAR, 5, 1, 8, 1], [T.TABLE, 3, 4, 5, 4], [T.TABLE, 8, 4, 10, 4], [T.TABLE, 3, 6, 5, 6], [T.TABLE, 8, 6, 10, 6], [T.SHELF, 16, 1, 26, 1], [T.SHELF, 19, 4, 26, 4],
-    [T.TABLE, 34, 4, 39, 4], [T.TABLE, 35, 6, 38, 6], [T.BED, 51, 2, 53, 4], [T.TABLE, 5, 14, 9, 15], [T.TABLE, 5, 24, 8, 25], [T.TABLE, 1, 22, 1, 26],
-    [T.BED, 48, 16, 49, 18], [T.BED, 52, 16, 53, 17], [T.WATER, 55, 22, 57, 23], [T.SHELF, 1, 31, 1, 35], [T.SHELF, 4, 33, 10, 33], [T.TABLE, 16, 37, 18, 37],
-    [T.TABLE, 35, 34, 38, 35], [T.BED, 54, 33, 55, 34], [T.WATER, 28, 18, 31, 21], [T.TABLE, 20, 32, 23, 32]],
-  [[T.TABLE, 5, 3, 7, 4], [T.TABLE, 9, 6, 10, 6], [T.TABLE, 18, 4, 21, 5], [T.TABLE, 34, 2, 37, 3], [T.TABLE, 38, 6, 41, 6], [T.BED, 51, 2, 53, 4],
-    [T.BED, 9, 16, 11, 18], [T.WATER, 2, 23, 4, 24], [T.ALTAR, 47, 18, 49, 18], [T.TABLE, 50, 13, 54, 13], [T.TABLE, 50, 15, 54, 15], [T.BED, 51, 24, 53, 26],
-    [T.TABLE, 4, 34, 6, 34], [T.TABLE, 8, 36, 10, 36], [T.SHELF, 33, 33, 40, 33], [T.SHELF, 33, 35, 40, 35], [T.TABLE, 55, 32, 57, 32]],
-];
-const SPOT_DEFS = [
-  [[2, 1], [10, 1], [28, 1], [43, 1], [48, 1], [56, 1], [1, 11], [12, 28], [57, 11], [52, 18], [57, 28], [2, 37], [43, 31], [57, 37]],
-  [[2, 1], [12, 7], [28, 1], [43, 1], [48, 1], [56, 7], [1, 11], [12, 18], [57, 11], [57, 28], [2, 37], [12, 32], [43, 31], [32, 37]],
-];
-const STAIRS = [[26, 36, 28, 38], [46, 36, 48, 38]];
-// escaleras de verdad: una rampa de 3 casillas. La primera escalera sube hacia el este y la segunda hacia el oeste.
-// En la casilla de en medio se cambia de piso; la planta baja no pisa el tramo de arriba y la alta no pisa el de abajo.
-const STAIR_DIR = [1, -1];
-const stairAt = (x, y) => { for (let k = 0; k < STAIRS.length; k++) { const [x0, y0, x1, y1] = STAIRS[k]; if (x >= x0 && x < x1 + 1 && y >= y0 && y < y1 + 1) return k; } return -1; };
-const stairP = (k, x) => { const [x0, , x1] = STAIRS[k], p = (x - x0) / (x1 + 1 - x0); return Math.max(0, Math.min(1, STAIR_DIR[k] > 0 ? p : 1 - p)); };
-const elevOf = e => { const k = stairAt(e.x, e.y); return k >= 0 ? stairP(k, e.x) : e.f; };
-const ALTAR_POS = { f: 0, x: 6.5, y: 2.6 };
-const EXIT = { f: 0, x: 22.5, y: 38.4 };
-const ZAG = { f: 0, x: 23, y: 38.4 };
-const MALETIN = { f: 0, x: 21.5, y: 33.6 };
-// Objetos de la casa con los que interactúa el ánima (no estorban el paso)
-const PROPS = [
-  [0, 'mecedora', 32.5, 7.5], [0, 'grifo', 1.5, 28.5], [0, 'cuadro', 7.5, 10.5], [0, 'campanita', 4.5, 2.5], [0, 'libros', 25.5, 5.5], [0, 'reloj', 31.5, 31.5],
-  [0, 'muneca', 50.5, 12.5], [0, 'grifo', 49.5, 28.5], [0, 'fuente', 27.5, 19.5], [0, 'ventana', 16.5, 31.5], [0, 'radio', 12.5, 33.5],
-  [1, 'piano', 35.5, 4.5], [1, 'maquina', 20.5, 6.5], [1, 'caballito', 3.5, 7.5], [1, 'cajita', 11.5, 3.5], [1, 'mecedora', 5.5, 12.5], [1, 'campanita', 50.5, 18.5],
-  [1, 'cuna', 48.5, 23.5], [1, 'baul', 6.5, 31.5], [1, 'papeles', 41.5, 37.5], [1, 'grifo', 6.5, 27.5], [1, 'ventana', 31.5, 1.5]].map(([f, kind, x, y], id) => ({ id, f, kind, x, y }));
-const PROP_INFO = {
-  mecedora: ['La mecedora se mece sola', 'creak'], grifo: ['Un grifo se abre: corre el agua', 'water'], cuadro: ['¡Un cuadro cae de la pared!', 'crash'], campanita: ['Suena la campanita del altar', 'ding'],
-  libros: ['Caen libros de la repisa', 'books'], reloj: ['El reloj da campanadas fuera de hora', 'chime'], muneca: ['La muñeca gira la cabeza', 'creak'], fuente: ['El agua de la fuente salpica', 'water'],
-  ventana: ['Una ventana golpetea', 'rattle'], radio: ['El radio se enciende entre estática', 'static'], piano: ['Una nota desafinada en el piano', 'piano'], maquina: ['La máquina de coser traquetea', 'rattle'],
-  caballito: ['El caballito de madera se balancea', 'creak'], cajita: ['Una cajita de música empieza a sonar', 'toy'], cuna: ['La cuna se mece', 'creak'], baul: ['La tapa de un baúl se azota', 'crash'],
-  papeles: ['Papeles vuelan del archivero', 'books'],
-};
-
-const grids = [new Uint8Array(FL).fill(T.WALL), new Uint8Array(FL).fill(T.WALL)];
-const roomGrid = [new Int8Array(FL).fill(-1), new Int8Array(FL).fill(-1)];
-const isStair = new Uint8Array(FL);
-STAIRS.forEach(([x0, y0, x1, y1]) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) isStair[y * W + x] = 1; });
-const isStairMid = new Uint8Array(W * H), STAIR_BLOCK = new Uint8Array(2 * W * H);
-STAIRS.forEach(([x0, y0, x1, y1], k) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) { const third = STAIR_DIR[k] > 0 ? x - x0 : x1 - x; if (third === 1) isStairMid[y * W + x] = 1; if (third === 2) STAIR_BLOCK[y * W + x] = 1; if (third === 0) STAIR_BLOCK[W * H + y * W + x] = 1; } });
-const stairSideBlock = (a, b) => a !== b && ((isStairMid[a] && !isStair[b]) || (isStairMid[b] && !isStair[a]));
-function stairFlip(w, e, quiet) { if (!e || (e.kind === 'ghost' && ethereal(e))) return; const k = stairAt(e.x, e.y); if (k < 0) return; const p = stairP(k, e.x);
-  if (e.f === 0 && p > 0.52) quiet ? (e.f = 1) : changeFloor(w, e, 1); else if (e.f === 1 && p < 0.48) quiet ? (e.f = 0) : changeFloor(w, e, 0); }
-for (let f = 0; f < 2; f++) {
-  const g = grids[f], fill = (x0, y0, x1, y1, v) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) g[y * W + x] = v; };
-  ROOMS[f].forEach(r => fill(r.r[0], r.r[1], r.r[2], r.r[3], T.FLOOR));
-  ROOMS[f].forEach((r, i) => { for (let y = r.r[1]; y <= r.r[3]; y++) for (let x = r.r[0]; x <= r.r[2]; x++) if (roomGrid[f][y * W + x] < 0) roomGrid[f][y * W + x] = i; });
-  DOOR_DEFS.forEach(([o, x, y]) => { g[y * W + x] = T.FLOOR; if (o === 'V') g[(y + 1) * W + x] = T.FLOOR; else g[y * W + x + 1] = T.FLOOR; });
-  FURN[f].forEach(([v, x0, y0, x1, y1]) => fill(x0, y0, x1, y1, v));
-  if (f === 0) [[18, 13], [22, 13], [26, 13], [30, 13], [34, 13], [38, 13], [41, 13], [18, 26], [22, 26], [26, 26], [30, 26], [34, 26], [38, 26], [41, 26], [18, 17], [18, 22], [41, 17], [41, 22]].forEach(([x, y]) => (g[y * W + x] = T.PILLAR));
-  if (f === 1) { fill(18, 13, 41, 26, T.VOID); fill(0, 40, 59, 59, T.VOID); }
-  if (f === 0) { // afuera: camino de piedra, arbustos, la base con la camioneta y la reja
-    fill(0, 40, 59, 59, T.VOID); fill(21, 39, 24, 49, T.FLOOR); g[39 * W + 21] = T.WALL; g[39 * W + 24] = T.WALL; fill(12, 50, 34, 56, T.FLOOR);
-    for (let y = 40; y <= 57; y++) for (let x = 0; x < W; x++) if (g[y * W + x] === T.VOID && [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, 1]].some(([dx, dy]) => g[(y + dy) * W + x + dx] === T.FLOOR)) g[y * W + x] = T.BUSH;
-    fill(12, 57, 34, 57, T.GATE); fill(28, 51, 32, 54, T.VAN); fill(14, 51, 19, 51, T.TABLE); fill(14, 55, 19, 55, T.TABLE); }
-  for (let i = 0; i < FL; i++) if (isStair[i]) g[i] = T.STAIR;
-  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (walkableT(g[y * W + x]) && roomGrid[f][y * W + x] < 0)
-    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const r = roomGrid[f][(y + dy) * W + x + dx]; if (r >= 0) { roomGrid[f][y * W + x] = r; break; } }
-}
-// Escondites (posibles)
-const SPOTS = [];
-SPOT_DEFS.forEach((list, f) => list.forEach(([x, y]) => {
-  grids[f][y * W + x] = T.CLOSET;
-  let hx = x, hy = y;
-  for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1]]) if (walkableT(grids[f][(y + dy) * W + x + dx])) { hx = x + dx; hy = y + dy; break; }
-  SPOTS.push({ f, x, y, hx: hx + 0.5, hy: hy + 0.5, room: roomGrid[f][hy * W + hx] });
-}));
-const tileAt = (f, x, y) => (x < 0 || y < 0 || x >= W || y >= H) ? T.WALL : grids[f][(y | 0) * W + (x | 0)];
-const roomAt = (f, x, y) => (x < 0 || y < 0 || x >= W || y >= H) ? -1 : roomGrid[f][(y | 0) * W + (x | 0)];
-const roomOf = e => roomAt(e.f, e.x, e.y);
-const roomId = e => { const r = roomOf(e); return r < 0 ? '' : ROOMS[e.f][r].id; };
-const isHall = (f, r) => r >= 0 && HALLS[f].includes(ROOMS[f][r].id);
-const ROOM_CENTER = ROOMS.map((rs, f) => rs.map((r, i) => {
-  const cx = (r.r[0] + r.r[2] + 1) / 2, cy = (r.r[1] + r.r[3] + 1) / 2; let best = null, bd = 1e9;
-  for (let y = r.r[1]; y <= r.r[3]; y++) for (let x = r.r[0]; x <= r.r[2]; x++) if (grids[f][y * W + x] === T.FLOOR && roomGrid[f][y * W + x] === i) {
-    const d = (x + 0.5 - cx) ** 2 + (y + 0.5 - cy) ** 2; if (d < bd) { bd = d; best = { f, x: x + 0.5, y: y + 0.5 }; } }
-  return best;
-}));
-ROOM_CENTER[0][RID[0].patio] = { f: 0, x: 27.5, y: 17.5 };
-ROOM_CENTER[0][RID[0].corredor] = { f: 0, x: 22.5, y: 11.5 };
-ROOM_CENTER[1][RID[1].galeria] = { f: 1, x: 22.5, y: 11.5 };
-ROOM_CENTER[1][RID[1].vacio] = null;
-const ROOM_TILES = ROOMS.map((rs, f) => rs.map((r, i) => { const out = []; for (let y = r.r[1]; y <= r.r[3]; y++) for (let x = r.r[0]; x <= r.r[2]; x++) if (grids[f][y * W + x] === T.FLOOR && roomGrid[f][y * W + x] === i) out.push([x, y]); return out; }));
-const randomIn = (f, r) => { const t = pick(ROOM_TILES[f][r]); return { f, x: t[0] + 0.5, y: t[1] + 0.5 }; };
-// superficies de muebles donde se apoyan las cosas (núcleo v2: nada tirado en el piso)
-const SURF_H = { [T.TABLE]: 0.78, [T.SHELF]: 1.05, [T.ALTAR]: 0.95, [T.BED]: 0.55 };
-const SURFACES = ROOMS.map((rs, f) => rs.map((r, i) => { const out = []; for (let y = r.r[1]; y <= r.r[3]; y++) for (let x = r.r[0]; x <= r.r[2]; x++) { const t = grids[f][y * W + x]; if (SURF_H[t] && roomGrid[f][y * W + x] === i && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => walkableT(grids[f][(y + dy) * W + x + dx]))) out.push([x, y, SURF_H[t]]); } return out; }));
-const onFurniture = (f, r) => { const s = SURFACES[f][r]; if (!s || !s.length) return Object.assign(randomIn(f, r), { h: 0 }); const t = pick(s); return { f, x: t[0] + 0.3 + Math.random() * 0.4, y: t[1] + 0.3 + Math.random() * 0.4, h: t[2] }; };
-// apagadores: uno por cuarto, en el muro junto a una de sus puertas
-const SWITCHES = [[], []];
-for (let f = 0; f < 2; f++) ROOMS[f].forEach((rm, r) => {
-  if (['patio', 'vacio'].includes(rm.id)) return; let best = null;
-  DOOR_DEFS.forEach(([o, x, y]) => { for (const s of [-1, 1]) { const px = o === 'V' ? x + 0.5 + s * 0.9 : x + 1, py = o === 'V' ? y + 1 : y + 0.5 + s * 0.9; if (roomAt(f, px, py) !== r) continue;
-    const sx = o === 'V' ? (s < 0 ? x - 0.04 : x + 1.04) : x + 2.45, sy = o === 'V' ? y + 2.45 : (s < 0 ? y - 0.04 : y + 1.04);
-    if (roomAt(f, o === 'V' ? sx + s * 0.4 : sx, o === 'V' ? sy : sy + s * 0.4) !== r) continue; if (!best) best = { f, r, x: sx, y: sy, o, side: s }; } });
-  if (best) SWITCHES[f][r] = best;
-});
-const FUSE = { f: 0, x: 0, y: 0 };
-const HOME_CHOICES = []; ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!NO_HOME[f].includes(r.id)) HOME_CHOICES.push({ f, r: i }); }));
-{ const zc = ROOM_CENTER[0][RID[0].zaguan]; FUSE.x = zc.x + 2.5; FUSE.y = zc.y - 0.5; }
-const ROOM_LIST = []; ROOMS.forEach((rs, f) => rs.forEach((r, i) => { if (!['vacio', 'afuera', 'afuera1'].includes(r.id)) ROOM_LIST.push({ f, r: i }); }));
+/*LAYOUT_RUNTIME*/
 
 // ---------- Navegación (campos de distancia bajo demanda) ----------
 const NN = 2 * FL;
@@ -215,7 +95,7 @@ function solidFor(w, e, f, tx, ty) {
   if (!walkableT(t)) return true;
   const n = f * FL + ty * W + tx;
   if (!(e.kind === 'ghost' && e.def.fly) && (STAIR_BLOCK[n] || stairSideBlock((e.y | 0) * W + (e.x | 0), ty * W + tx))) return true;
-  if (e.kind === 'inv' && !e.bot && w.doorTile) { const dd = w.doorTile.get(n); if (dd && dd.closed) return true; }
+  if (w.doorTile) { const dd = w.doorTile.get(n); if (dd && dd.closed) return true; }
   if (e.kind === 'ghost' && w.ghostMask[n] && !w.ghostMask[nodeOf(e)]) return true;
   if (e.kind === 'inv' && w.invMask[n]) return true;
   return false;
@@ -251,16 +131,18 @@ function navTo(w, e, tg, speed, dt) {
   const tn = nodeOf(tg), cn = nodeOf(e);
   if (tn === cn) return steer(w, e, tg.x, tg.y, speed, dt);
   const fld = getField(tn, mode, mask, ver);
+  if(e.bot||e.kind==='ghost'){const door=w.doors.find(d=>d.f===e.f&&d.closed&&!d.locked&&!(e.kind==='ghost'&&d.ext)&&d2(d,e)<1.8&&fld[nodeOf(d)]<fld[cn]);if(door){door.closed=false;door.anim=0;w.noise(door,6,'door');}}
   if (fld[cn] === 65535) { if (tg.f === e.f) steer(w, e, tg.x, tg.y, speed, dt); return false; }
   const cx = e.x | 0, cy = e.y | 0, f = e.f; let best = -1, bd = fld[cn], bx = 0, by = 0;
   for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
     if (!dx && !dy) continue; const nx = cx + dx, ny = cy + dy; if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
     const n = f * FL + ny * W + nx; if (fld[n] === 65535) continue;
+    if(mode!=='fly'&&(stairSideBlock(cy*W+cx,ny*W+nx)||(dx&&dy&&(isStair[cy*W+cx]||isStair[ny*W+nx]))))continue;
     if (dx && dy && (fld[f * FL + cy * W + nx] === 65535 || fld[f * FL + ny * W + cx] === 65535)) continue;
     const d = fld[n] + (dx && dy ? 0.4 : 0); if (d < bd) { bd = d; best = n; bx = nx; by = ny; }
   }
   const other = (1 - f) * FL + cy * W + cx;
-  if (fld[other] < bd && fld[other] < fld[cn]) { const k = stairAt(e.x, e.y); if (k >= 0 && mode === 'walk') { const [x0, , x1] = STAIRS[k], up = f === 0; steer(w, e, (STAIR_DIR[k] > 0) === up ? x1 + 0.5 : x0 + 0.5, cy + 0.5, speed, dt); return false; } changeFloor(w, e, 1 - f); return false; }
+  if ((mode === 'fly' || isStairMid[cy * W + cx]) && fld[other] < bd && fld[other] < fld[cn]) { const k = stairAt(e.x, e.y); if (k >= 0 && mode === 'walk') { const p=stairNext(k,f===0); steer(w,e,p.x,p.y,speed,dt); return false; } changeFloor(w, e, 1 - f); return false; }
   if (best < 0) return steer(w, e, tg.x, tg.y, speed, dt);
   steer(w, e, bx + 0.5, by + 0.5, speed, dt); return false;
 }
@@ -271,7 +153,7 @@ function los(f, ax, ay, bx, by) {
   for (let i = 1; i < n; i++) { const t = i / n; if (sightBlockT(tileAt(f, ax + dx * t, ay + dy * t))) return false; }
   return true;
 }
-const sees = (a, b, R) => a.f === b.f && d2(a, b) <= R && los(a.f, a.x, a.y, b.x, b.y);
+const sees = (a,b,R,world) => a.f===b.f&&d2(a,b)<=R&&los(a.f,a.x,a.y,b.x,b.y,1.55+(elevOf(a)-a.f)*3.8,1.55+(elevOf(b)-b.f)*3.8,world);
 
 // ---------- Las ánimas ----------
 const BASE = {
@@ -405,23 +287,10 @@ function rebuildMasks(w) {
   if (w.t < w.lockDoorsUntil) w.doors.filter(d => d.f === w.lockDoorsFloor).forEach(d => d.tiles.forEach(([x, y]) => (w.invMask[d.f * FL + y * W + x] = 1)));
   w.ghostMaskVer++; w.invMaskVer++;
 }
-function chooseSpots() {
-  const act = new Set();
-  for (let f = 0; f < 2; f++) {
-    const idx = SPOTS.map((s, i) => i).filter(i => SPOTS[i].f === f);
-    const wing = i => { const s = SPOTS[i]; return s.y <= 9 ? 'N' : s.y >= 30 ? 'S' : s.x <= 14 ? 'O' : 'E'; };
-    const usedRooms = new Set();
-    ['N', 'S', 'E', 'O'].forEach(wg => { const c = shuffle(idx.filter(i => wing(i) === wg && !usedRooms.has(SPOTS[i].room))); if (c.length) { act.add(c[0]); usedRooms.add(SPOTS[c[0]].room); } });
-    const target = 6 + (Math.random() < 0.5 ? 1 : 0);
-    for (const i of shuffle(idx.slice())) { if ([...act].filter(k => SPOTS[k].f === f).length >= target) break; if (!act.has(i) && !usedRooms.has(SPOTS[i].room)) { act.add(i); usedRooms.add(SPOTS[i].room); } }
-  }
-  return act;
-}
-const ITEM_PLACES = { te: [[0, 'cocina'], [0, 'comedor'], [0, 'despensa']], rosario: [[0, 'capilla'], [1, 'oratorio'], [0, 'recp'], [1, 'huespedes'], [1, 'abuelo'], [1, 'nana']],
-  ruda: [[0, 'cocina'], [0, 'despensa'], [0, 'patio'], [1, 'azotehuela']], copal: [[0, 'capilla'], [1, 'oratorio'], [1, 'desvan']], vela: [[0, 'capilla'], [1, 'oratorio'], [0, 'comedor']],
-  ceniza: [[0, 'cocina'], [0, 'servicio'], [1, 'azotehuela']], cruz: [[0, 'capilla'], [1, 'oratorio'], [0, 'recp']], pan: [[0, 'comedor'], [0, 'cocina']], limpia: [[0, 'cocina'], [0, 'capilla']], foco: [[0, 'despensa'], [0, 'servicio'], [1, 'archivo']] };
+function chooseSpots(){return chooseLayoutSpots();}
+const ITEM_PLACES={te:[[0,'cocina'],[0,'comedor'],[0,'despensa'],[0,'reposteria']],rosario:[[0,'capilla'],[1,'abuelo'],[1,'recp'],[1,'nana']],ruda:[[0,'botica'],[0,'cocina'],[1,'abuelo']],copal:[[0,'capilla'],[0,'botica'],[1,'desvan']],vela:[[0,'capilla'],[1,'salon'],[0,'comedor']],ceniza:[[0,'cocina'],[0,'capilla']],cruz:[[0,'capilla'],[1,'abuelo']],pan:[[0,'comedor'],[0,'cocina']],limpia:[[0,'botica'],[0,'cocina']],foco:[[0,'porteria'],[0,'despacho'],[0,'cochera']]};
 // Un objeto maldito por noche, siempre en su lugar (como en las cartas: cada uno tiene su historia en la casa)
-const CURSED_PLACES = { tarot: [0, 'sala'], tablilla: [1, 'juegos'], espejoplata: [1, 'costura'], mano: [1, 'archivo'], muneca: [0, 'recn'], pentagrama: [1, 'desvan'], radio: [0, 'estudio'] };
+const CURSED_PLACES = { tarot:[0,'botica'],tablilla:[1,'desvan'],espejoplata:[1,'hija'],mano:[0,'despacho'],muneca:[1,'recn'],pentagrama:[0,'capilla'],radio:[0,'despacho'] };
 const TAROT = [['sol', 1], ['luna', 1], ['ermitano', 1], ['muerte', 1], ['rueda', 2], ['diablo', 2], ['torre', 2]];
 const TAROT_N = { sol: 'El Sol', luna: 'La Luna', ermitano: 'El Ermitaño', muerte: 'La Muerte', rueda: 'La Rueda de la Fortuna', diablo: 'El Diablo', torre: 'La Torre' };
 let ITEM_ID = 1;
@@ -445,14 +314,13 @@ function newWorld(opt) {
   w.lights[0][RID[0].zaguan] = 1; w.lights[0][RID[0].patio] = 1;
   { // ruleta de la noche: altar y caja de fusibles en cuartos al azar
     const pool = HOME_CHOICES.filter(h => !(h.f === 0 && ['zaguan'].includes(ROOMS[0][h.r].id)));
-    const ar = pick(pool), ac = ROOM_CENTER[ar.f][ar.r]; ALTAR_POS.f = ar.f; ALTAR_POS.x = ac.x; ALTAR_POS.y = ac.y; w.altarRoom = ar;
-    const fr = pick(pool.filter(h => !(h.f === ar.f && h.r === ar.r))); const nearDoorT = (x, y) => DOOR_DEFS.some(([o, dx, dy]) => Math.abs(x - (o === 'V' ? dx : dx + 0.5)) <= (o === 'V' ? 1 : 1.5) && Math.abs(y - (o === 'V' ? dy + 0.5 : dy)) <= (o === 'V' ? 1.5 : 1));
+    const ar=pick(pool),surface=SURFACES[ar.f][ar.r][0];w.altarSurface={f:ar.f,x:surface[0]+.5,y:surface[1]+.5,h:surface[2]};const around=[[1,0],[-1,0],[0,1],[0,-1]].find(([dx,dy])=>walkableT(tileAt(ar.f,surface[0]+dx,surface[1]+dy)));Object.assign(ALTAR_POS,{f:ar.f,x:surface[0]+.5+around[0],y:surface[1]+.5+around[1]});w.altarRoom=ar;
+    const fr = pick(pool.filter(h => !(h.f === ar.f && h.r === ar.r))); const nearDoorT = (x, y) => DOOR_DEFS_BY_FLOOR[fr.f].some(([o, dx, dy]) => Math.abs(x - (o === 'V' ? dx : dx + 0.5)) <= (o === 'V' ? 1 : 1.5) && Math.abs(y - (o === 'V' ? dy + 0.5 : dy)) <= (o === 'V' ? 1.5 : 1));
     const ft = shuffle(ROOM_TILES[fr.f][fr.r].slice()).find(([x, y]) => !nearDoorT(x, y) && !isStair[y * W + x] && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => grids[fr.f][(y + dy) * W + x + dx] === T.WALL)) || ROOM_TILES[fr.f][fr.r][0];
     const wd = [[1, 0], [-1, 0], [0, 1], [0, -1]].find(([dx, dy]) => grids[fr.f][(ft[1] + dy) * W + ft[0] + dx] === T.WALL) || [0, -1];
     FUSE.f = fr.f; FUSE.x = ft[0] + 0.5 + wd[0] * 0.38; FUSE.y = ft[1] + 0.5 + wd[1] * 0.38; FUSE.face = Math.atan2(-wd[1], -wd[0]); w.fuseRoom = fr;
   }
-  DOOR_DEFS.forEach(([o, x, y]) => [0, 1].forEach(f => { const tiles = o === 'V' ? [[x, y], [x, y + 1]] : [[x, y], [x + 1, y]];
-    w.doors.push({ f, o, tiles, x: o === 'V' ? x + 0.5 : x + 1, y: o === 'V' ? y + 1 : y + 0.5, angle: 0, touchedAt: -99, glowUntil: 0, rudaUntil: 0, rosario: false, anim: 0 }); }));
+  NDALayout.doors.forEach(def=>{if(def.kind==='arco abierto')return;const[a,b,c,e]=def.rect,o=c-a===1?'V':'H',tiles=[];for(let y=b;y<e;y++)for(let x=a;x<c;x++)tiles.push([x,y]);w.doors.push({f:def.floor,o,tiles,x:(a+c)/2,y:(b+e)/2,angle:0,touchedAt:-99,glowUntil:0,rudaUntil:0,rosario:false,anim:0,id:def.id,arch:def.kind==='arco abierto',ext:def.kind==='portón'});});
   w.doorTile = new Map(); w.doors.forEach(d => d.tiles.forEach(([x, y]) => w.doorTile.set(d.f * FL + y * W + x, d)));
   // Helpers del mundo
   w.say = (msg, vis = 'a') => { if (vis === 'a' && /: «/.test(msg) && w.lines) { w.lines.push(msg); if (w.lines.length > 20) w.lines.shift(); } w.log.push({ t: w.t, msg, vis, who: vis === 'i' && w.actor ? w.actor.id : undefined }); if (w.log.length > 120) w.log.shift(); };
@@ -588,7 +456,7 @@ function roomTemp(w, f, r) { const c = w.cold[f][r] || ROOM_CENTER[f][r]; return
 const handItem = i => i.slots[i.hand];
 function pickUp(w, i) {
   let best = null, bd = 1.3;
-  for (const it of w.items) if (!it.holder && it.f === i.f && d2(it, i) < bd) { bd = d2(it, i); best = it; }
+  for (const it of w.items) if (!it.holder && layoutItemVisible(w,it) && it.f === i.f && d2(it, i) < bd) { bd = d2(it, i); best = it; }
   if (!best) return false;
   let slot = i.slots[i.hand] ? i.slots.indexOf(null) : i.hand; if (slot < 0) { if (!i.bot) w.say('No tienes ranuras libres.', 'i'); return false; }
   i.slots[slot] = best; best.holder = i; best.lit = false;
@@ -894,7 +762,7 @@ function possessTick(w, dt, human) {
 function gAnomaly(w, g) {
   if (w.t < (g.ready.y || 0) || g.state !== 'libre' || g.hunt || g.pres < CFG.anomaly.cost) return false;
   const watched = p => alive(w).some(i => i.f === p.f && i.hidden < 0 && sees(i, p, 14));
-  const r = roomOf(g); if (r < 0) return false; let p = null;
+  const r = roomOf(g); if(r<0||!ROOMS[g.f][r].home)return false;let p=null;
   for (let k = 0; k < 10 && !p; k++) { const q = Math.random() < 0.6 && SURFACES[g.f][r].length ? onFurniture(g.f, r) : Object.assign(randomIn(g.f, r), { h: 0 }); if (d2(q, g) < 4.5 && !watched(q)) p = q; }
   if (!p) { if (!g.bot) w.say('Anomalía: alguien está mirando. Hazlo donde no te vean.', 'g'); return false; }
   g.ready.y = w.t + CFG.anomaly.cd; g.pres -= CFG.anomaly.cost;
@@ -953,8 +821,8 @@ function perceives(w, g, i) {
   if (i.hidden >= 0) return elecOnW(w, i) && d <= 6;
   if (g.xray) return true;
   const v = g.def.vision(w, g, i);
-  if (d <= v.near && los(g.f, g.x, g.y, i.x, i.y)) return true;
-  if (d <= v.far && d >= v.farMin && angDiff(Math.atan2(i.y - g.y, i.x - g.x), g.face) <= Math.PI / 3 && los(g.f, g.x, g.y, i.x, i.y)) return true;
+  if (d <= v.near && los(g.f,g.x,g.y,i.x,i.y,1.55+(elevOf(g)-g.f)*3.8,1.55+(elevOf(i)-i.f)*3.8,w)) return true;
+  if (d <= v.far && d >= v.farMin && angDiff(Math.atan2(i.y - g.y, i.x - g.x), g.face) <= Math.PI / 3 && los(g.f,g.x,g.y,i.x,i.y,1.55+(elevOf(g)-g.f)*3.8,1.55+(elevOf(i)-i.f)*3.8,w)) return true;
   if (i.san <= 25) return true;
   return false;
 }
@@ -978,7 +846,7 @@ function botInv(w, b, dt) {
       const rk = b.slots.findIndex(s => s && s.kind === 'rosario'); if (rk >= 0 && d2(g, b) < 2) { b.hand = rk; if (useItem(w, b)) return; }
       const ck = b.slots.findIndex(s => s && s.kind === 'copal'); if (ck >= 0 && d2(g, b) < 4) { b.hand = ck; b.face = Math.atan2(g.y - b.y, g.x - b.x); throwItem(w, b, d2(g, b)); return; }
       // escondite cercano
-      let best = -1, bd = 14; w.spotsActive.forEach(k => { const s = SPOTS[k]; if (s.f !== b.f || w.invs.some(o => o.alive && o.hidden === k)) return; const pl = pathLen(w, b, { f: s.f, x: s.hx, y: s.hy }); if (pl < bd && d2({ x: s.hx, y: s.hy }, g) > 2.5) { bd = pl; best = k; } });
+      let best = -1, bd = 19; w.spotsActive.forEach(k => { const s = SPOTS[k]; if (s.f !== b.f || w.invs.some(o => o.alive && o.hidden === k)) return; const pl = pathLen(w, b, { f: s.f, x: s.hx, y: s.hy }); if (pl < bd && d2({ x: s.hx, y: s.hy }, g) > 2.5) { bd = pl; best = k; } });
       if (best >= 0) { const s = SPOTS[best]; const tg = { f: s.f, x: s.hx, y: s.hy }; if (Math.hypot(s.hx - b.x, s.hy - b.y) < 0.6) { b.hidden = best; b.flash = false; const e = b.slots.findIndex(x => !x || !ITEMS[x.kind].elec); b.hand = e >= 0 ? e : b.hand; ai.unhideAt = w.t + rnd(2, 4); return; }
         const run = !b.tired && b.stam > 5; moveBot(w, b, tg, (run ? CFG.sprint : CFG.walk) * sp, dt, run); return; }
       if (!ai.flee || w.t > ai.fleeUntil) { let bp = null, bdist = -1; ROOM_LIST.filter(r => r.f === b.f).forEach(r => { const c = ROOM_CENTER[r.f][r.r]; if (!c) return; const dd = pathLen(w, c, g); if (dd < 999 && dd > bdist) { bdist = dd; bp = c; } }); ai.flee = bp; ai.fleeUntil = w.t + 3; }
