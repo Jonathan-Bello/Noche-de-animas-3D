@@ -1,1 +1,6 @@
-{"id":null,"state":"ready","message":"Editor público listo para recibir planos."}
+{
+  "id": "verificacion-059eab98-cd9f-44c3-ab75-b2968913d36c",
+  "runId": "44685736702",
+  "state": "validated",
+  "message": "Plano validado: guardado en el repositorio y preparando despliegue."
+}
