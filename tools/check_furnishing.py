@@ -19,6 +19,12 @@ def validate(d):
    if o['floor']==b['floor'] and overlaps(o['rect'],b['rect']) and {o['id'],b['id']}!={'fuente','figura_central_fuente'}:errors.append(o['id']+' se encima con '+b['id'])
   for stair in d['stairs']:
    if overlaps(o['rect'],stair.get('clearance',stair['hole'])):errors.append(o['id']+' invade escalera '+stair['id'])
+ for h in d['hidingSockets']:
+  room=rooms.get(h['room']);x,z=h['preferredSolid']
+  if not room or not(room['rect'][0]<=x<x+1<=room['rect'][2]and room['rect'][1]<=z<z+1<=room['rect'][3]and room['rect'][0]<=h['x']<room['rect'][2]and room['rect'][1]<=h['z']<room['rect'][3]):errors.append(h['id']+' sale de su cuarto')
+  entry=[h['x']+.12,h['z']+.12,h['x']+.88,h['z']+.88]
+  for o in objects:
+   if o['floor']==h['floor']and overlaps(entry,o['rect']):errors.append(h['id']+' tiene el acceso bloqueado por '+o['id'])
  for o in d['obstacles']:
   if o.get('model')!='bed' and not o['id'].startswith('cama_'):continue
   room=next(r for r in d['rooms'] if r['floor']==o['floor'] and r['rect'][0]<=o['rect'][0]<r['rect'][2] and r['rect'][1]<=o['rect'][1]<r['rect'][3]);wall=o.get('backWall');axis={'west':(0,0),'east':(2,2),'north':(1,1),'south':(3,3)}.get(wall)
@@ -28,13 +34,14 @@ def validate(d):
  for rug in d.get('decorations',[]):
   for door,f,r in zones:
    if rug['floor']==f and overlaps(rug['rect'],r):errors.append(rug['id']+' invade acceso '+door)
- ids=set();throwables=0
+ ids=set();throwables=0;decor_boxes=[]
  for i in d.get('decorInstances',[]):
   if i['id'] in ids:errors.append('ID duplicado '+i['id'])
   ids.add(i['id']);a=d['decorAssets'].get(i['asset']);o=next((o for o in d['obstacles']+d.get('decorSupports',[]) if o['id']==i['support']),None)
   if not a or not o:errors.append('Componente sin modelo o soporte '+i['id']);continue
   x=o['rect'][0]+i['offset'][0];z=o['rect'][1]+i['offset'][2];h=o['height']+i['offset'][1];r=a['radius'];angle=i.get('rotation',0);co=abs(math.cos(angle));si=abs(math.sin(angle));w=a.get('width',2*r);dep=a.get('depth',2*r);rx=(w*co+dep*si)/2;rz=(w*si+dep*co)/2;foot=[x-rx,z-rz,x+rx,z+rz];throwables+=bool(a['throwable'])
   if h<-.001 or h+a['height']>3.70 or foot[0]<o['rect'][0]-.001 or foot[2]>o['rect'][2]+.001 or foot[1]<o['rect'][1]-.001 or foot[3]>o['rect'][3]+.001:errors.append(i['id']+' fuera del soporte')
+  if a['height']>.06:decor_boxes.append((i['id'],o['floor'],h,h+a['height'],[foot[0]+.01,foot[1]+.01,foot[2]-.01,foot[3]-.01]))
   room=rooms.get(i['room'])
   if not room or room['floor']!=o['floor'] or not(room['rect'][0]<=x<=room['rect'][2] and room['rect'][1]<=z<=room['rect'][3]):errors.append(i['id']+' fuera de su cuarto')
   if o.get('wallOnly') and a.get('mount')!='wall':errors.append(i['id']+' requiere un soporte físico')
@@ -54,6 +61,9 @@ def validate(d):
    if f==o['floor'] and overlaps(foot,rect):errors.append(i['id']+' invade acceso '+door)
   for stair in d['obstacles']:
    if stair['id'].startswith('reserva_') and stair['floor']==o['floor'] and overlaps(foot,stair['rect']):errors.append(i['id']+' invade escalera')
+ for n,(id,f,lo,hi,foot)in enumerate(decor_boxes):
+  for bid,bf,blo,bhi,bfoot in decor_boxes[n+1:]:
+   if f==bf and min(hi,bhi)-max(lo,blo)>.035 and overlaps(foot,bfoot):errors.append(id+' se encima con '+bid)
  if throwables>48:errors.append('Más de 48 decoraciones arrojables nuevas')
  if errors:raise ValueError('\n'.join(errors))
  return {'doors':len(zones),'furnitureAndHides':len(objects),'bedsAgainstWalls':sum(o.get('model')=='bed' or o['id'].startswith('cama_')for o in d['obstacles']),'internalWindowsOpen':sum(w.get('internal',False)for w in d['windows']),'rugs':len(d.get('decorations',[])),'decorComponents':len(ids),'throwableComponents':throwables,'errors':errors}

@@ -2,7 +2,7 @@
 import asyncio,sys,json,threading,functools,os
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Objetos_v18';OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Muebles_v19';OUT.mkdir(exist_ok=True)
 os.environ.setdefault('PLAYWRIGHT_BROWSERS_PATH',str(ROOT.parent/'QA_Arte_Alex/browsers'))
 sys.path.insert(0,str(ROOT.parent/'QA_Arte_Alex/python_lib'))
 from playwright.async_api import async_playwright

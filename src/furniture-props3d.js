@@ -7,6 +7,7 @@ const NDAFurnitureProps=(()=>{
   const cyl=(rt,rb,h,x,y,z,c=C.wood,rx=0,rz=0)=>add(new THREE.CylinderGeometry(rt,rb,h,8),c,x,y,z,rx,0,rz);
   const poly=(pts,depth,x,y,z,c=C.wood,ry=0)=>add(new THREE.ExtrudeGeometry(new THREE.Shape(pts.map(v=>new THREE.Vector2(...v))),{depth,bevelEnabled:false,curveSegments:1}),c,x,y,z,0,ry);
   const rockers=()=>{for(const xx of[-.26,.26])poly([[-.44,.13],[-.26,.04],[.26,.04],[.44,.13],[.44,.19],[.25,.10],[-.25,.10],[-.44,.19]],.065,xx-.032,0,0,C.dark,Math.PI/2);};
+  if(p.kind==='cuna'){const model=NDAFurnitureArt.create('prop_cuna');for(const child of model.children.slice())part.add(child);return true;}
   switch(p.kind){
    case 'mecedora':
     rockers();box(.58,.07,.58,0,.47,0,C.light);for(const xx of[-.23,.23])for(const zz of[-.22,.22])box(.055,.37,.055,xx,.28,zz,C.dark);

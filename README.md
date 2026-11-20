@@ -63,3 +63,9 @@ Para mover decoración visualmente y guardar en la copia local del juego: doble 
 ## Consumibles y malditos V18
 
 [Taller de objetos](arte/objetos-v18/index.html) · [Referencias](arte/objetos-v18/referencias.html) · [Uso y componentes](docs/objetos-v18.md). Se renuevan diez consumibles, la cámara instantánea y siete malditos, con 399 piezas editables. Sus estados siguen los usos, cartas, deseos, alfileres, velas y rollo reales; se mantienen los efectos y costos del juego.
+
+## Muebles y decoración V19
+
+[Decorar la casona en 3D](editor/index.html) · [Cómo usar el editor](docs/editor-v19.md) · [Editar los modelos de muebles](arte/muebles-v19/index.html) · [Referencias](arte/muebles-v19/referencias.html).
+
+Se renuevan libreros, mesas, camas y roperos conservando apoyos, escondites, libros arrojables y cajones. El editor incorpora catálogo visual, arrastre, giros, cuadrícula y colocación validada. Para aplicar cambios a la partida local, abre `Abrir editor.cmd`; en la página pública puedes decorar y descargar el plano.

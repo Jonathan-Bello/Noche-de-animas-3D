@@ -32,8 +32,8 @@ newWorld=function(opt){fieldCache.clear();const w=_newWorldLayout(opt);w.layout=
  const fr=w.fuseRoom,candidates=shuffle(ROOM_TILES[fr.f][fr.r].slice());for(const[x,y]of candidates){const side=[[1,0],[-1,0],[0,1],[0,-1]].find(([a,b])=>tileAt(fr.f,x+a,y+b)===T.WALL);if(!side||decorWallOccupied(fr.f,x+.5+side[0]*.38,y+.5+side[1]*.38)||layoutWindowNear(fr.f,x+.5+side[0]*.5,y+.5+side[1]*.5)||w.doors.some(d=>d.f===fr.f&&Math.hypot(d.x-x-.5,d.y-y-.5)<2)||SPOTS.some(s=>s.f===fr.f&&Math.hypot(s.hx-x-.5,s.hy-y-.5)<1.5))continue;Object.assign(FUSE,{f:fr.f,x:x+.5+side[0]*.38,y:y+.5+side[1]*.38,face:Math.atan2(-side[1],-side[0])});break;}
  layoutSurfacePacking(w);
  for(const shelf of LAYOUT_FURN.filter(o=>o.model==='bookcase'))for(const h of[.18,.65,1.12,1.59])for(let k=0;k<6;k++){
-  const x=shelf.rect[0]+.3+k*.27,y=shelf.rect[3]-.38;
-  w.loose.push({id:w.loose.length,kind:'libro',f:shelf.floor,x,y,h,rot:0,flyT:-99,from:null,shelfId:shelf.id,releaseX:x,releaseY:shelf.rect[3]+.12});
+  const angle=shelf.rotation||0,co=Math.cos(angle),si=Math.sin(angle),turn=Math.round(angle/(Math.PI/2))%2,W0=turn?shelf.rect[3]-shelf.rect[1]:shelf.rect[2]-shelf.rect[0],D0=turn?shelf.rect[2]-shelf.rect[0]:shelf.rect[3]-shelf.rect[1],lx=-W0/2+.3+k*.27,lz=D0/2-.38,x=(shelf.rect[0]+shelf.rect[2])/2+co*lx+si*lz,y=(shelf.rect[1]+shelf.rect[3])/2-si*lx+co*lz;
+  w.loose.push({id:w.loose.length,kind:'libro',f:shelf.floor,x,y,h,rot:angle,flyT:-99,from:null,shelfId:shelf.id,releaseX:x+si*.5,releaseY:y+co*.5});
  }
  w.propPositions=PROPS.map(p=>({id:p.id,f:p.f,x:p.x,y:p.y,h:p.h||0,rotationY:p.rotationY||0}));
  w.containers=[];for(const h of HOME_CHOICES){const s=SURFACES[h.f][h.r].find(([x,y])=>tileAt(h.f,x,y)===T.TABLE)||SURFACES[h.f][h.r][0];if(!s)continue;const side=[[0,1],[0,-1],[-1,0],[1,0]].find(([dx,dy])=>walkableT(tileAt(h.f,s[0]+dx,s[1]+dy)));if(!side)continue;for(let level=0;level<3;level++)w.containers.push({id:w.containers.length,f:h.f,room:h.r,x:s[0]+.5,y:s[1]+.5,h:s[2],ax:s[0]+.5+side[0],ay:s[1]+.5+side[1],dx:side[0],dy:side[1],level,open:false,until:0,by:-1,items:[]});}

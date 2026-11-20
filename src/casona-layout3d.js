@@ -1,5 +1,5 @@
 // Geometry built exclusively from layout-runtime's collision and interaction registry.
-const NDAHouseArt=(()=>{
+const NDAHouseArt=globalThis.NDAHouseArt=(()=>{
  const P={stone:0xbca480,light:0xd5c3a4,shade:0x927d62,wine:0x6b2030,wood:0x66412b,woodLight:0x8e603a,dark:0x412a20,bone:0xe4d4b7,teal:0x315c5b,terra:0xa15c3a,green:0x3f5941,gold:0xba8d49,water:0x274c58,iron:0x302c31};
  const STATIC_MATERIAL=new THREE.MeshStandardMaterial({vertexColors:true,flatShading:true,roughness:1,metalness:0});
  const WALL_COLORS={capilla:P.wine,biblioteca:0x52616a,cocina:0xb2a286,comedor:0x9a735a,reposteria:0x899a8e,botica:0x426568,despacho:0x716a59,despensa:0x96826c,planchaduria:0xb1a395,aperos:0x807369,escalera:0x8f6f64,zaguan:0x996e58,porteria:0x7a7665,desvan:0x7e6e64,costura:0x9a777b,nana:0x818b7a,recn:0x71838c,huespedes:0x938581,abuelo:0x8b7a63,recp:0x99798b,salon:0x86677a,hija:0x8a6f80,coro:P.wine};
@@ -33,7 +33,7 @@ const NDAHouseArt=(()=>{
   for(let k=0;k<Math.floor(w*2);k++){const xx=a+.3+k*.42;cabCyl(b,xx,.8,zz,.15,.15,.045,P.bone,8);cabCyl(b,xx,1.36,zz,.11,.1,.18,P.teal,6);}
  }
  function mergeProp(part){const b=new Batch('objeto_amueblado');for(const child of part.children.slice()){if(!child.isMesh)continue;b.add(child.geometry,child.geometry.attributes.color?null:child.material.color.getHex(),child.position.x,child.position.y,child.position.z,child.rotation.x,child.rotation.y,child.rotation.z);child.material.dispose();part.remove(child);}if(b.p.length)part.add(b.mesh());}
- function bookMesh(o){const b=new Batch('libro_independiente_'+o.id),c=[P.wine,P.teal,P.terra,P.gold][o.id%4];box(b,0,.17,0,.105,.32,.22,P.bone);for(const x of[-.061,.061])box(b,x,.17,0,.017,.35,.25,c);box(b,0,.17,.12,.105,.35,.015,c);return b.mesh();}
+ function bookMesh(o){const b=new Batch('libro_independiente_'+o.id),definition=structuredClone(NDAFurnitureComponents.tools.book_standard),colors=['#6b2030','#315c5b','#a15c3a','#ba8d49'];for(const p of definition.parts)if(p.color==='#6b2030'&&p.id!=='paginas')p.color=colors[o.id%4];const g=NDAFurnitureArt.create('book_standard',{definition});g.updateMatrixWorld(true);g.traverse(n=>{if(n.isMesh)b.add(n.geometry.clone().applyMatrix4(n.matrixWorld),n.geometry.attributes.color?null:n.material.color.getHex());});NDAFurnitureArt.dispose(g);return b.mesh();}
  function chair(b,o){const[a,z,c,d]=o.rect,x=(a+c)/2,zz=(z+d)/2,ry=o.facing||0;box(b,x,.46,zz,.6,.08,.6,P.woodLight,ry);box(b,x-Math.sin(ry)*.25,.80,zz-Math.cos(ry)*.25,.6,.62,.065,P.wood,ry);for(const dx of[-.23,.23])for(const dz of[-.23,.23])box(b,x+dx,.21,zz+dz,.065,.42,.065,P.dark);}
  function fountain(b){for(const[x,z,w,d]of[[30,18.15,4,.3],[30,21.85,4,.3],[28.15,20,.3,3.4],[31.85,20,.3,3.4]])box(b,x,.3,z,w,.6,d,P.stone);box(b,30,.12,20,3.4,.08,3.4,P.water);cylinder(b,30,1.1,20,.32,.32,2.2,P.shade);cylinder(b,30,1.0,20,1.2,.70,.25,P.light);cylinder(b,30,1.94,20,.72,.40,.20,P.light);cylinder(b,30,2.31,20,.06,.16,.22,P.water,6);}
  function plant(b,x,z){cylinder(b,x,.23,z,.24,.16,.46,P.terra,6);for(let j=0;j<4;j++){const a=j*Math.PI/2;poly(b,[[0,0],[.38,.40],[.16,.60],[-.05,.18]],.04,P.green,x,.42,z,a);}}
@@ -44,6 +44,7 @@ const NDAHouseArt=(()=>{
  }
  function papelPicado(b,detail){for(const z of[17.5,22.5]){const count=detail?16:8,ys=t=>3.5-.4*(1-Math.abs(2*t-1));for(let k=0;k<8;k++){const a=k/8,c=(k+1)/8,dx=(c-a)*23,dy=ys(c)-ys(a);b.add(new THREE.BoxGeometry(Math.hypot(dx,dy),.012,.012),P.dark,18.5+(a+c)*11.5,(ys(a)+ys(c))/2,z,0,0,Math.atan2(dy,dx));}for(let k=0;k<count;k++){const t=(k+.5)/count,x=18.5+t*23,holes=detail?[[[-.07,-.08],[0,-.02],[.07,-.08],[0,-.15]]]:[];poly(b,[[-.36,0],[.36,0],[.36,-.27],[.24,-.34],[.12,-.27],[0,-.34],[-.12,-.27],[-.24,-.34],[-.36,-.27]],.008,[P.wine,0xc18d40,P.teal,0x8f657d][k%4],x,ys(t)-.025,z,0,holes);}}}
  function furnishing(b,o){const[a,z,c,d]=o.rect,x=(a+c)/2,zz=(z+d)/2,w=c-a,dep=d-z;
+  if(o.kind!=='prop'&&NDAFurnitureArt.append(b,o))return;
   if(o.kind==='chair'){chair(b,o);return;}if(o.kind==='prop')return;
   if(o.kind==='bench'){box(b,x,.46,zz,w,.08,dep,P.woodLight);box(b,x,.76,z+.06,w,.55,.10,P.dark);for(const xx of[a+.15,c-.15])box(b,xx,.21,zz,.10,.42,.70,P.dark);return;}
   if(o.kind==='bath'){for(const[xx,zrow,ww,dd]of[[x,z+.12,w,.24],[x,d-.12,w,.24],[a+.12,zz,.24,dep-.48],[c-.12,zz,.24,dep-.48]])box(b,xx,.45,zrow,ww,.65,dd,P.bone);box(b,x,.24,zz,w-.48,.06,dep-.48,P.water);return;}
@@ -124,21 +125,11 @@ const NDAHouseArt=(()=>{
    const ruda=new THREE.Mesh(new THREE.ConeGeometry(.12,.35,5),new THREE.MeshStandardMaterial({color:P.green,roughness:1}));ruda.position.set(.6,1.9,.08);leaves[0].add(ruda);ruda.visible=false;const ros=new THREE.Mesh(new THREE.TorusGeometry(.12,.02,4,6),new THREE.MeshStandardMaterial({color:P.bone,roughness:1}));ros.position.set(.6,1.7,.08);leaves[0].add(ros);ros.visible=false;doorMeshes.push({d,piv:leaves[0],leaves,glow,ruda,ros,base:-1.48});}
  }
  function buildHides(){spotMeshes=[];const wood=new THREE.MeshStandardMaterial({color:P.wood,roughness:1,flatShading:true}),dark=new THREE.MeshStandardMaterial({color:P.dark,roughness:1}),bone=new THREE.MeshStandardMaterial({color:P.bone,roughness:1});
-  for(const[s,k]of SPOTS.map((s,k)=>[s,k])){const chest=/arcon|baul/.test(s.type),H=chest?1.05:2.0,eye=chest?.78:1.5;s.eyeHeight=eye;const g=new THREE.Group(),front=new THREE.Group(),shell=new Batch('refugio_'+s.id);g.name='refugio_'+s.id;g.position.set(s.x+.5,0,s.y+.5);floorGroups[s.f].add(g);front.rotation.y=-Math.atan2(s.hy-s.y-.5,s.hx-s.x-.5)+Math.PI/2;g.add(front);
-   box(shell,-.45,H/2,0,.055,H,.95,P.wood);box(shell,.45,H/2,0,.055,H,.95,P.wood);box(shell,0,H/2,-.45,.85,H,.055,P.wood);box(shell,0,.03,0,.95,.06,.95,P.wood);box(shell,0,H-.035,0,.97,.07,.97,P.dark);box(shell,.30,H*.62,.53,.035,.12,.06,P.dark);
-   if(s.type==='confesionario')shell.add(new THREE.ConeGeometry(.65,.34,4),P.dark,0,H+.13,0,0,Math.PI/4);front.add(shell.mesh());
-   const shape=new THREE.Shape([[-.425,.06],[.425,.06],[.425,H-.07],[-.425,H-.07]].map(p=>new THREE.Vector2(...p))),hw=chest?.22:.035,hh=chest?.035:.28;shape.holes.push(new THREE.Path([[-hw,eye-hh],[-hw,eye+hh],[hw,eye+hh],[hw,eye-hh]].map(p=>new THREE.Vector2(...p))));const door=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:.045,bevelEnabled:false,curveSegments:1}),wood);door.position.z=.455;door.castShadow=true;front.add(door);
-   const trim=new Batch('detalle_refugio_'+s.id);
-   if(chest){for(const xx of[-.29,.29])box(trim,xx,H/2,.055,.045,H-.14,.018,P.iron);}
-   else if(s.type==='confesionario'){poly(trim,[[-.15,0],[0,.16],[.15,0],[0,-.16]],.018,P.gold,0,.72,.055);}
-   else{for(const xx of[-.23,.23]){box(trim,xx,.45,.055,.31,.60,.018,P.dark);box(trim,xx,.45,.069,.26,.54,.012,P.woodLight);}box(trim,0,H-.19,.055,.72,.06,.018,P.dark);}
-   door.add(trim.mesh());
-   const slit=new THREE.Mesh(new THREE.BoxGeometry(hw*2,hh*2,.012),dark);slit.position.set(0,eye,.467);front.add(slit);const lock=new THREE.Mesh(new THREE.BoxGeometry(.11,.11,.055),bone);lock.position.set(.26,H*.47,.526);front.add(lock);
-   const eyes=new THREE.Group();for(const dx of[-.08,.08]){const e=new THREE.Mesh(new THREE.OctahedronGeometry(.025),new THREE.MeshBasicMaterial({color:0xffd47b}));e.position.set(dx,eye,.54);eyes.add(e);}front.add(eyes);eyes.visible=false;spotMeshes.push({k,g,door,slit,lock,eyes});
+  for(const[s,k]of SPOTS.map((s,k)=>[s,k])){const chest=/arcon|baul/.test(s.type),eye=chest?.78:1.5;s.eyeHeight=eye;const g=new THREE.Group();g.name='refugio_'+s.id;g.position.set(s.x+.5,0,s.y+.5);floorGroups[s.f].add(g);const model=NDAFurnitureArt.create('hide_'+s.id);model.rotation.y=-Math.atan2(s.hy-s.y-.5,s.hx-s.x-.5)+Math.PI/2;g.add(model);const{door,slit,lock,eyes}=model.userData.hide;spotMeshes.push({k,g,door,slit,lock,eyes});
   }
  }
  let drawerMeshes=[];
- function buildDrawers(world){drawerMeshes=[];for(const c of world.containers||[]){const root=new THREE.Group();root.name='cajon_'+c.id;root.position.set(c.x,0,c.y);root.rotation.y=Math.atan2(c.dx,c.dy);floorGroups[c.f].add(root);const slide=new THREE.Group();slide.position.y=c.h-.50+c.level*.15;root.add(slide);const batch=new Batch(root.name);box(batch,0,0,.49,.70,.135,.035,P.wood);box(batch,0,-.06,.30,.66,.025,.34,P.dark);box(batch,0,0,.53,.16,.025,.045,P.dark);slide.add(batch.mesh());drawerMeshes.push({id:c.id,slide});}}
+ function buildDrawers(world){drawerMeshes=[];for(const c of world.containers||[]){const root=new THREE.Group();root.name='cajon_'+c.id;root.position.set(c.x,0,c.y);root.rotation.y=Math.atan2(c.dx,c.dy);floorGroups[c.f].add(root);const slide=new THREE.Group();slide.position.y=c.h-.50+c.level*.15;root.add(slide);const model=NDAFurnitureArt.create('drawer_standard');model.position.z=.30;slide.add(model);drawerMeshes.push({id:c.id,slide});}}
  function updateDrawers(world,dt){for(const d of drawerMeshes){const c=world.containers?.[d.id];if(c)d.slide.position.z+=((c.open?.10:0)-d.slide.position.z)*Math.min(1,dt*9);}}
  return{build,buildDoors,buildHides,buildDrawers,updateDrawers,bookMesh,mergeProp,ownsPoint:()=>true,replacesTile:()=>true};
 })();
