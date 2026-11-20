@@ -2,7 +2,7 @@
 import sys,asyncio,json,re,threading,functools
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Decoracion_Casona_v16';OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Objetos_v18';OUT.mkdir(exist_ok=True)
 sys.path.insert(0,str(ROOT.parent/'QA_Arte_Alex/python_lib'))
 from playwright.async_api import async_playwright
 class Quiet(SimpleHTTPRequestHandler):
@@ -14,6 +14,7 @@ async def main():
    b=await p.chromium.launch(executable_path='C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',args=['--no-sandbox','--disable-gpu-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-background-timer-throttling','--disable-renderer-backgrounding','--disable-backgrounding-occluded-windows'])
    context=await b.new_context(viewport={'width':1000,'height':700});errors=[]
    source=re.sub(r'renderer\.render\([^;]+\);','/* Network QA: rendering verified in browser-layout-v11.py */',(ROOT/'juego/index.html').read_text(encoding='utf-8'))
+   source=source.replace('window.__game =','window.__itemsQA={newItem};window.__game =')
    async def make():
     page=await context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
     await page.route('**/three@*/build/three.module.js',lambda r:r.fulfill(path=str(ROOT/'test/three.module.js'),headers={'access-control-allow-origin':'*'},content_type='application/javascript'))
@@ -29,7 +30,7 @@ async def main():
    await host.click('#onStart');await host.locator('#slotGo').click();await guest.wait_for_function('__game.w&&__game.ME===1');await host.wait_for_timeout(700)
    assert await host.evaluate('__game.w.layout')=='casona-v16';assert await guest.evaluate('__game.w.layout')=='casona-v16'
    before=await host.evaluate('__game.w.invs[1].y');await guest.keyboard.down('w');await guest.wait_for_timeout(1400);await guest.keyboard.up('w');await guest.wait_for_timeout(300);after=await host.evaluate('__game.w.invs[1].y');assert before-after>.5,(before,after)
-   old=await host.evaluate('__game.w.invs[1].flash');await guest.keyboard.press('f');await guest.wait_for_timeout(300);assert await host.evaluate('__game.w.invs[1].flash')!=old
+   old=await host.evaluate('__game.w.invs[1].flash');await guest.keyboard.press('f');await host.wait_for_function('(old)=>__game.w.invs[1].flash!==old',arg=old,timeout=5000)
    state="()=>{const w=__game.w;return{layout:w.layout,hides:[...w.spotsActive].sort(),altar:w.altarSurface,fuseRoom:w.fuseRoom,doors:w.doors.length,drawers:w.containers.length}}"
    hs=await host.evaluate(state);gs=await guest.evaluate(state);assert hs==gs,(hs,gs)
    cid=await host.evaluate("()=>{"+(ROOT/'test/fixture-drawer.js').read_text(encoding='utf-8')+";return prepareDrawerFixture(__game.w,__game.w.invs[0]).id;}")
@@ -44,8 +45,12 @@ async def main():
    await guest.wait_for_timeout(400)
    received=await guest.evaluate('(id)=>{const o=__game.w.loose.find(o=>o.id===id);return{id:o.id,componentId:o.componentId,assetId:o.assetId,x:o.x,y:o.y,h:o.h};}',component['id'])
    assert component['componentId']==received['componentId'] and component['assetId']==received['assetId'] and received['h']==0 and abs(component['x']-received['x'])<.002
+   inventory=await host.evaluate("()=>{const w=__game.w,out=[];for(const kind of NDAItemArt.kinds){const it=__itemsQA.newItem(kind,{f:0,x:30,y:25});Object.assign(it,{uses:1,charges:1,cards:6,q:2,on:true,wishes:1,pins:7,candles:3,film:4,lit:true,litUntil:w.t+100,cd:w.t+100});w.items.push(it);out.push({id:it.id,kind,state:NDAItemArt.read(kind,it,w.t)});}netBroadcast(w);return out;}")
+   await guest.wait_for_function('(n)=>__game.w.items.filter(i=>i.id>=n).length>=18',arg=inventory[0]['id'],timeout=5000)
+   received=await guest.evaluate('(ids)=>ids.map(id=>{const it=__game.w.items.find(i=>i.id===id);return{id,kind:it.kind,state:NDAItemArt.read(it.kind,it,__game.w.t)};})',[x['id']for x in inventory])
+   assert received==inventory,(received,inventory)
    sizes=await host.evaluate('[JSON.stringify(netEnc(__game.w,true)).length,JSON.stringify(netEnc(__game.w,false)).length]')
    await guest.close();await host.wait_for_timeout(400);assert await host.evaluate('__game.w.invs[1].left')
-   assert not errors,errors;result={'passed':True,'movementOnHost':before-after,'flashSynced':True,'layoutAndRandomStateSynced':True,'drawerOpenSynced':True,'independentBookThrowSynced':True,'authoredJarThrowSynced':True,'disconnectHandled':True,'snapshotBytes':sizes,'errors':errors,'note':'PeerJS transport shim; drawing tested independently, no WAN latency benchmark.'};(OUT/'online_validation.json').write_text(json.dumps(result,indent=2),encoding='utf-8');print(json.dumps(result));await b.close()
+   assert not errors,errors;result={'passed':True,'movementOnHost':before-after,'flashSynced':True,'layoutAndRandomStateSynced':True,'drawerOpenSynced':True,'independentBookThrowSynced':True,'authoredJarThrowSynced':True,'inventoryStateSynced':True,'disconnectHandled':True,'snapshotBytes':sizes,'errors':errors,'note':'PeerJS transport shim; drawing tested independently, no WAN latency benchmark.'};(OUT/'online_validation.json').write_text(json.dumps(result,indent=2),encoding='utf-8');print(json.dumps(result));await b.close()
  finally:server.shutdown()
 asyncio.run(main())

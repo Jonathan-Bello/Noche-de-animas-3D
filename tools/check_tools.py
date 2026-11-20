@@ -2,9 +2,9 @@
 import math,re,json
 from pathlib import Path
 KINDS={'termo','emf','grab','gases','uv','espejo','cam'}
-def validate(data,current=None):
- if set(data['tools'])!=KINDS:raise ValueError('Deben conservarse las siete herramientas')
- if data.get('version')!='instrumentos-v17' or data.get('units')!='meters':raise ValueError('Versión o unidades inválidas')
+def validate(data,current=None,kinds=KINDS,version="instrumentos-v17"):
+ if set(data['tools'])!=kinds:raise ValueError('Debe conservarse el inventario del catálogo')
+ if data.get('version')!=version or data.get('units')!='meters':raise ValueError('Versión o unidades inválidas')
  count=0
  for kind,tool in data['tools'].items():
   ids=set()
@@ -32,5 +32,5 @@ def validate(data,current=None):
      for k in ('position','rotation','size','color'):p.pop(k)
    return c
   if fixed(data)!=fixed(current):raise ValueError('El taller conserva IDs, piezas, funciones y grupos; edita transformaciones, medidas, colores y agarre')
- return {'passed':True,'tools':7,'parts':count}
+ return {'passed':True,'tools':len(kinds),'parts':count}
 if __name__=='__main__':print(json.dumps(validate(json.loads((Path(__file__).resolve().parents[1]/'src/tools-components.json').read_text(encoding='utf8')))))

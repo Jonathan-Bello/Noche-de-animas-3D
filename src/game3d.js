@@ -223,7 +223,7 @@ const ITEM_COLOR = { foco: 0xf3e6cf, ceniza: 0x8a8580, cruz: 0xc8b070, pan: 0xc9
 function makeItemMesh(it) {
   const g = new THREE.Group(); const c = ITEM_COLOR[it.kind]; let m;
   const lam = (col, e) => LambertFlat({ color: col, emissive: e || 0x000000 });
-  const toolModel=NDAToolArt.create(it.kind);
+  const toolModel=NDAToolArt.create(it.kind)||NDAItemArt.create(it.kind);
   if(toolModel){m=toolModel;if(it.kind==='uv')m.rotation.y=Math.PI/2;}else switch (it.kind) {
     case 'espejo': m = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.04, 16), lam(c, 0x202830)); m.rotation.x = Math.PI / 2; m.position.y = 0.25; break;
     case 'uv': case 'gases': case 'termo': m = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.32, 8), lam(c)); m.rotation.z = Math.PI / 2; m.position.y = 0.1; break;
@@ -250,7 +250,7 @@ function makeItemMesh(it) {
   const halo = new THREE.Mesh(new THREE.RingGeometry(0.22, 0.3, 20), new THREE.MeshBasicMaterial({ color: ITEMS[it.kind] && ITEMS[it.kind].cursed ? 0xb050ff : COL.gold, transparent: true, opacity: 0.35, side: THREE.DoubleSide, depthWrite: false })); halo.rotation.x = -Math.PI / 2; halo.position.y = 0.02; g.add(halo);
   const ind = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshBasicMaterial({ color: 0xff2020 })); ind.position.y = 0.32; ind.visible = false; g.add(ind);
   let beam = null; if (it.kind === 'uv' || it.kind === 'cam') { beam = new THREE.Mesh(new THREE.ConeGeometry(it.kind === 'uv' ? 1.6 : 2.4, 6, 16, 1, true), new THREE.MeshBasicMaterial({ color: it.kind === 'uv' ? 0x9a5cff : 0xaaaaaa, transparent: true, opacity: it.kind === 'uv' ? 0.08 : 0.04, depthWrite: false, side: THREE.DoubleSide })); beam.rotation.z = Math.PI / 2; beam.position.set(3, 0.3, 0); const piv = new THREE.Group(); piv.add(beam); g.add(piv); beam = piv; }
-  let flame = null; if (it.kind === 'vela') { flame = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshBasicMaterial({ color: COL.gold })); flame.position.y = 0.33; flame.scale.y = 1.8; g.add(flame); }
+  let flame = null; if (it.kind === 'vela'&&!toolModel) { flame = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshBasicMaterial({ color: COL.gold })); flame.position.y = 0.33; flame.scale.y = 1.8; g.add(flame); }
   let mark = null; if (it.kind === 'espejo'&&!toolModel) { mark = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.42), new THREE.MeshBasicMaterial({ map: handT, transparent: true, depthWrite: false, side: THREE.DoubleSide })); mark.position.set(0, 0.25, 0.03); mark.visible = false; g.add(mark); }
   scene.add(g); return { g, m, halo, ind, beam, flame, mark };
 }
@@ -318,7 +318,7 @@ function updateScene(t, dt) {
   // muros recortados entre la cámara y el personaje
   for (const r of wallRuns) { const cut = vk === 'all' && r.f === vf && V && r.y > V.y - 0.5 && r.y - V.y < 9 && r.x1 >= V.x - 9 && r.x0 <= V.x + 9; const s = cut ? 0.22 : 1; r.g.scale.y += (s - r.g.scale.y) * Math.min(1, dt * 8); }
   // puertas
-  for (const dm of doorMeshes) { const d=dm.d;dm.leaves.forEach((leaf,k)=>{const target=d.closed?0:(k?-dm.base:dm.base)*(1-d.anim*.9);leaf.rotation.y+=(target-leaf.rotation.y)*Math.min(1,dt*10);}); dm.glow.visible = t < d.glowUntil; dm.ruda.visible = t < d.rudaUntil; dm.ros.visible = !!d.rosario; }
+  for (const dm of doorMeshes) { const d=dm.d;dm.leaves.forEach((leaf,k)=>{const target=d.closed?0:(k?-dm.base:dm.base)*(1-d.anim*.9);leaf.rotation.y+=(target-leaf.rotation.y)*Math.min(1,dt*10);}); dm.glow.visible = t < d.glowUntil; dm.ruda.visible = false; dm.ros.visible = !!d.rosario&&!d.rosarioItem; }
   // escondites
   for (const sm of spotMeshes) { const act = w.spotsActive.has(sm.k); sm.lock.visible = !act; sm.slit.visible = !act; const occ = w.invs.some(i => i.alive && i.hidden === sm.k); sm.door.rotation.y = act && !occ ? 0.12 : 0; sm.eyes.visible = w.fx.some(f => f.kind === 'sello_ropero' && Math.hypot(f.x - SPOTS[sm.k].hx, f.y - SPOTS[sm.k].hy) < 0.6 && t - f.t < 6); }
   // velas y focos
@@ -358,7 +358,7 @@ function updateScene(t, dt) {
     if (!!i.possessed !== !!m.noShadow) { m.noShadow = !!i.possessed; m.g.traverse(o => { if (o.isMesh) o.castShadow = !m.noShadow; }); }
     animateCharacter(m, { x: i.x + i.f * 100, y: i.y, t, dt, hidden: i.hidden >= 0, dead: isDead, manifest: isDead && i.spirit.until > w.t, lamp: !isDead && i.flash && w.t >= i.flashOffUntil, holding: !!hk0, aim: AIM_KINDS.includes(hk0), tremble: isDead ? 0 : clamp01((35 - i.san) / 35) });
     if (i.alive && !i.escaped && i.hidden < 0 && Math.floor(m.ph / Math.PI) !== Math.floor(ph0 / Math.PI) && m.speed > 0.4) footstep(i, m.speed, i === V);
-    const hk = i.slots[i.hand] ? i.slots[i.hand].kind : null; if (hk !== m.handKind) { m.handKind = hk;if(m.handItem?.m?.userData.tool)NDAToolArt.dispose(m.handItem.m,m.handItem.g); m.hand.clear(); if (hk) { const im = makeItemMesh({ kind: hk }); scene.remove(im.g); im.halo.visible = false; im.g.scale.setScalar(0.8); im.g.rotation.y = -Math.PI / 2; im.g.position.y = -0.06;if(im.m.userData.tool){const grip=NDAToolComponents.tools[hk].grip;im.g.position.fromArray(grip.position);im.g.rotation.fromArray([...grip.rotation,'XYZ']);im.g.scale.setScalar(grip.scale);} m.hand.add(im.g); m.handItem = im; } else m.handItem = null; }
+    const hk = i.slots[i.hand] ? i.slots[i.hand].kind : null; if (hk !== m.handKind) { m.handKind = hk;if(m.handItem?.m?.userData.tool)NDAToolArt.dispose(m.handItem.m,m.handItem.g); m.hand.clear(); if (hk) { const im = makeItemMesh({ kind: hk }); scene.remove(im.g); im.halo.visible = false; im.g.scale.setScalar(0.8); im.g.rotation.y = -Math.PI / 2; im.g.position.y = -0.06;if(im.m.userData.tool){const grip=(im.m.userData.item?NDAItemComponents:NDAToolComponents).tools[hk].grip;im.g.position.fromArray(grip.position);im.g.rotation.fromArray([...grip.rotation,'XYZ']);im.g.scale.setScalar(grip.scale);} m.hand.add(im.g); m.handItem = im; } else m.handItem = null; }
     if(m.handItem&&i.slots[i.hand]){NDAToolArt.update(m.handItem.m,i.slots[i.hand],t,true);if(m.handItem.m.userData.tool&&hk==='cam'&&m.handItem.beam)m.handItem.beam.position.y=m.handItem.m.userData.tool.groups.body.position.y-.3;}
     if (m.handItem && m.handItem.beam) { m.handItem.beam.visible = i.alive && i.hidden < 0; }
   });
@@ -390,10 +390,10 @@ function updateScene(t, dt) {
   // objetos
   const seenIds = new Set();
   for (const it of w.items) { if (it.holder) continue; seenIds.add(it.id); let im = itemMeshes.get(it.id); if (!im) { im = makeItemMesh(it); itemMeshes.set(it.id, im); }
-    im.g.visible = layoutItemVisible(w,it)&&(it.f === vf || vf === 1); im.g.position.set(it.x, it.f * FH + (it.h || 0), it.y); im.g.rotation.y = -(it.dir||0);
-    im.halo.material.opacity = 0.2 + Math.sin(t * 3 + it.id) * 0.12;
+    im.g.visible = layoutItemVisible(w,it)&&(it.f === vf || vf === 1); im.g.position.set(it.x, it.f * FH + (it.h || 0), it.y); im.g.rotation.y = -(it.dir||0);if(it.kind==='rosario'){const d=w.doors.find(d=>d.rosarioItem===it);if(d){im.g.position.set(d.x+(d.o==='V'?.60:d.tiles.length/2+.10),it.f*FH+1.12,d.y+(d.o==='V'?d.tiles.length/2+.10:.60));im.g.rotation.y=d.o==='V'?Math.PI/2:0;}}
+    im.halo.visible=!(it.kind==='rosario'&&w.doors.some(d=>d.rosarioItem===it));im.halo.material.opacity = 0.2 + Math.sin(t * 3 + it.id) * 0.12;
     if (it.kind === 'emf') { const on = t < it.emfUntil; im.ind.visible = on; im.ind.material.color.setHex(it.emfLvl >= 5 ? 0xff2020 : it.emfLvl >= 4 ? 0xff9020 : 0x40ff60); }
-    NDAToolArt.update(im.m,it,t);
+    NDAToolArt.update(im.m,it,t,false,{hung:it.kind==='rosario'&&w.doors.some(d=>d.rosarioItem===it)});
     if (it.kind === 'gases') { im.ind.visible = t < it.redUntil || t < (it.yellowUntil || 0); im.ind.material.color.setHex(t < it.redUntil ? 0xff2020 : 0xffb020); }
     if (it.kind === 'cam') { im.ind.visible = Math.sin(t * 2) > 0.6; im.ind.material.color.setHex(0xff2020); }
     if (it.kind === 'grab') im.ind.visible = false;
@@ -419,9 +419,10 @@ function updateFx(t, vf) {
   const alive_ = new Set();
   w.fx.forEach((f, k) => { const key = f.kind + ':' + f.t + ':' + f.x.toFixed(2); alive_.add(key); let m = fxMeshes.get(key);
     if (!m) { m = new THREE.Group(); const col = FX_COLORS[f.kind] || 0xffffff;
-      if (f.kind === 'ceniza') { const d = new THREE.Mesh(new THREE.CircleGeometry(0.7, 14), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.75, depthWrite: false })); d.rotation.x = -Math.PI / 2; d.position.y = 0.025; m.add(d); m.userData.disc = d;
+      if (f.kind === 'ceniza') { const d = new THREE.Mesh(new THREE.CircleGeometry(0.7, 8), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.75, depthWrite: false })); d.rotation.x = -Math.PI / 2; d.position.y = 0.025; m.add(d); m.userData.disc = d;
         const pr = new THREE.Group(); for (let k = 0; k < 6; k++) { const fp = new THREE.Mesh(new THREE.CircleGeometry(0.08, 8), new THREE.MeshBasicMaterial({ color: 0xc080ff, transparent: true, opacity: 0.95 })); fp.rotation.x = -Math.PI / 2; fp.scale.set(0.7, 1.4, 1); fp.position.set(-0.30 + k * 0.104, 0.03, (k % 2) * 0.16 - 0.08); pr.add(fp); } pr.visible = false; m.add(pr); m.userData.prints = pr; }
-      else if (f.kind === 'copal') { for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(0.9 + Math.random() * 0.6, 10, 8), LambertFlat({ color: col, transparent: true, opacity: 0.28, depthWrite: false })); s.position.set(Math.random() * 3 - 1.5, 0.7 + Math.random(), Math.random() * 3 - 1.5); m.add(s); } }
+      else if(f.kind==='ruda'){const ramo=NDAItemArt.create('ruda');NDAItemArt.update(ramo,{},t,false,{hung:true});ramo.position.y=1.2;m.add(ramo);m.userData.inventory=ramo;}
+      else if (f.kind === 'copal') { for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.IcosahedronGeometry(0.9 + Math.random() * 0.6, 0), LambertFlat({ color: col, transparent: true, opacity: 0.28, depthWrite: false })); s.position.set(Math.random() * 3 - 1.5, 0.7 + Math.random(), Math.random() * 3 - 1.5); m.add(s); } }
       else if (f.kind === 'sello_charcos') { for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.CircleGeometry(0.22 + Math.random() * 0.1, 12), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.7 })); s.rotation.x = -Math.PI / 2; s.position.set(i * 0.5, 0.03, Math.sin(i) * 0.3); m.add(s); } }
       else if (f.kind === 'sello_escarcha') { for (let i = 0; i < 10; i++) { const s = new THREE.Mesh(new THREE.CircleGeometry(0.15, 6), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.8 })); s.rotation.x = -Math.PI / 2; s.position.set(Math.random() * 2 - 1, 0.03, Math.random() * 2 - 1); m.add(s); } }
       else if (f.kind === 'sello_aleteo') { for (let i = 0; i < 8; i++) { const s = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 0.22), new THREE.MeshBasicMaterial({ color: col, side: THREE.DoubleSide })); s.position.set(Math.random() * 2 - 1, 2.2, Math.random() * 2 - 1); s.userData.v = 0.3 + Math.random() * 0.4; m.add(s); } }
@@ -432,11 +433,11 @@ function updateFx(t, vf) {
       else if (f.kind === 'sello_cama') { const s = new THREE.Mesh(new THREE.BoxGeometry(1, 0.05, 1.6), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.6 })); s.position.y = 0.65; m.add(s); }
       else { const s = new THREE.Mesh(new THREE.IcosahedronGeometry(0.12, 1), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.8 })); s.position.y = 1.2; m.add(s); }
       scene.add(m); fxMeshes.set(key, m); }
-    const age = t - f.t; m.visible = f.f === vf || vf === 1; m.position.set(f.x, f.f * FH, f.y);
+    const age = t - f.t; m.visible = f.f === vf || vf === 1; m.position.set(f.x, f.f * FH, f.y);if(f.kind==='ruda'){const d=w.doors.find(d=>d.f===f.f&&Math.hypot(d.x-f.x,d.y-f.y)<.2);if(d){m.position.x=d.x+(d.o==='V'?.60:-d.tiles.length/2-.10);m.position.z=d.y+(d.o==='V'?-d.tiles.length/2-.10:.60);m.rotation.y=d.o==='V'?Math.PI/2:0;}}
     if (f.ash && m.userData.disc) { if (f.ash.stepped) m.userData.disc.scale.set(1.5, 0.7, 1); m.userData.prints.visible = !!f.ash.prints && (w.t < (f.ash.glowUntil || 0) || viewKind() !== 'inv'); }
     m.children.forEach(c => { if (c.userData.v) { c.position.y = Math.max(0.05, 2.2 - age * c.userData.v); c.rotation.z += 0.05; } if (c.userData.a !== undefined) { c.position.set(Math.cos(age * 4 + c.userData.a) * 0.8, 0.8 + Math.sin(age * 3 + c.userData.a) * 0.3, Math.sin(age * 4 + c.userData.a) * 0.8); c.rotation.x += 0.1; } if (f.kind === 'llanto') { c.scale.setScalar(1 + age * 6); c.material.opacity = Math.max(0, 0.8 - age * 0.5); } });
   });
-  for (const [k, m] of fxMeshes) if (!alive_.has(k)) { scene.remove(m); fxMeshes.delete(k); }
+  for (const [k, m] of fxMeshes) if (!alive_.has(k)) { scene.remove(m);if(m.userData.inventory)NDAItemArt.dispose(m.userData.inventory,m);fxMeshes.delete(k); }
 }
 
 // ---------- Cámara ----------
@@ -730,7 +731,11 @@ function toolReadout(me) {
     const notes={termo:state.label,emf:state.level===5?'Nivel 5':state.level>1?'Actividad · 4 puede ser interferencia':'Acércalo a un suceso',grab:state.label,cam:'G: colocar · imagen en la base',espejo:'G: dejar · vaho solo no cuenta',gases:'G: dejar · observar la aguja',uv:'Apunta a puertas y ceniza'};
     return `<div class="dev tool-v17 ${k}"><div class="device-meta"><b>${def.name}</b><small>${notes[k]}</small></div><div class="instrument-panel">${NDAToolArt.panel(k,it,now,{termo:me.termo,held:true})}</div></div>`;
   }
-  if (k === 'espejoplata') return it.on && w.mirrorView ? `🪞 En la plata: <b>${w.mirrorView.r >= 0 ? ROOMS[w.mirrorView.f][w.mirrorView.r].n : 'pasillo'}</b> · −7,5 cordura/s` : '🪞 Clic para mirar';
+  if(NDAItemArt.kinds.includes(k)){
+    const state=NDAItemArt.read(k,it,now,{held:true}),name=NDAItemComponents.tools[k].name;
+    const note=k==='espejoplata'&&it.on&&w.mirrorView?`En la plata: ${w.mirrorView.r>=0?ROOMS[w.mirrorView.f][w.mirrorView.r].n:'pasillo'} · −7,5 cordura/s`:state.label==='Preparado'?(USE_VERB[k]||'Usar'):state.label;
+    return `<div class="dev tool-v17 inventory-v18"><div class="device-meta"><b>${name}</b><small>${note}</small></div></div>`;
+  }
   if (ITEMS[k].cursed || ['cruz', 'ceniza', 'pan', 'limpia', 'foco'].includes(k)) return `${cardImg(k, 'mci')}${ITEMS[k].n}${itemCount(it)}`;
   return '';
 }
@@ -741,7 +746,7 @@ function updateOverlay() {
   if (!me) { $('#prompt').innerHTML = ''; $('#tool').innerHTML = ''; $('#compass').hidden = true; $('#seen').hidden = true; $('#itemlabel').hidden = true; return; }
   const pa = primaryAction(me);
   $('#prompt').innerHTML = pa ? (touch ? `<kbd>${pa.btn}</kbd> ${pa.item ? ITEMS[pa.item.kind].n : ''}` : `<kbd>${pa.k}</kbd> ${pa.txt}`) : '';
-  const tr = toolReadout(me); $('#tool').innerHTML = tr; $('#tool').hidden = !tr;$('#tool').classList.toggle('device-v17',!!(me.alive&&handItem(me)&&NDAToolArt.kinds.includes(handItem(me).kind)));
+  const tr = toolReadout(me); $('#tool').innerHTML = tr; $('#tool').hidden = !tr;$('#tool').classList.toggle('device-v17',!!(me.alive&&handItem(me)&&(NDAToolArt.kinds.includes(handItem(me).kind)||NDAItemArt.kinds.includes(handItem(me).kind))));
   $('#seen').hidden = !(me.alive && g.hunt && !g.hunt.huida && g.perceived.has(me));
   if (w.ritual && w.ritual.by === me) $('#prompt').innerHTML = `Nombrando… <i class="pbar"><i style="width:${(w.t - w.ritual.t0) / CFG.ritualDur * 100}%"></i></i> no te muevas`;
   $('#noise').hidden = performance.now() > fb.noiseUntil; analogTick2();

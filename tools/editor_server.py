@@ -6,6 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 LOCK=threading.Lock()
 validate=runpy.run_path(str(ROOT/'tools/check_furnishing.py'))['validate']
 validate_tools=runpy.run_path(str(ROOT/'tools/check_tools.py'))['validate']
+validate_items=runpy.run_path(str(ROOT/'tools/check_items.py'))['validate']
 def validate_edit(next,current):
  allowed={'obstacles','decorInstances','roomModules','audit'}
  for key,value in current.items():
@@ -29,6 +30,7 @@ class Editor(SimpleHTTPRequestHandler):
  def __init__(self,*a,**kw):super().__init__(*a,directory=str(ROOT),**kw)
  def do_POST(self):
   if self.path=='/api/tools':return self.save_tools()
+  if self.path=='/api/items':return self.save_tools('items')
   if self.path!='/api/layout':self.send_error(404);return
   if self.headers.get('Origin')not in [None,'http://127.0.0.1:8790','http://localhost:8790']or self.headers.get_content_type()!='application/json':self.send_error(403);return
   n=int(self.headers.get('Content-Length','0'))
@@ -47,16 +49,16 @@ class Editor(SimpleHTTPRequestHandler):
    except Exception as e:
     path.write_bytes(original);compiled.write_bytes(old_game);self.send_response(422);self.end_headers();self.wfile.write(str(e).encode('utf8'));return
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(b'{"saved":true}')
- def save_tools(self):
+ def save_tools(self,catalog="tools"):
   if self.headers.get('Origin')not in [None,'http://127.0.0.1:8790','http://localhost:8790']or self.headers.get_content_type()!='application/json':self.send_error(403);return
   n=int(self.headers.get('Content-Length','0'))
   if n<1 or n>2000000:self.send_error(413);return
-  path=ROOT/'src/tools-components.json';compiled=ROOT/'juego/index.html'
+  path=ROOT/('src/'+catalog+'-components.json');compiled=ROOT/'juego/index.html'
   with LOCK:
    original=path.read_bytes();old_game=compiled.read_bytes()
    try:
-    data=json.loads(self.rfile.read(n));validate_tools(data,json.loads(original))
-    (ROOT/'test-results').mkdir(exist_ok=True);(ROOT/'test-results/tools-backup.json').write_bytes(original)
+    data=json.loads(self.rfile.read(n));(validate_items if catalog=="items"else validate_tools)(data,json.loads(original))
+    (ROOT/'test-results').mkdir(exist_ok=True);(ROOT/('test-results/'+catalog+'-backup.json')).write_bytes(original)
     path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
     build=subprocess.run([sys.executable,'src/build.py','prod'],cwd=ROOT,capture_output=True,text=True)
     if build.returncode:raise ValueError(build.stderr)

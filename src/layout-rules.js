@@ -4,6 +4,7 @@ function layoutWindowNear(f,x,y,r=.7){return NDALayout.windows.some(win=>{const 
 function nearLayoutContainer(w,i){if(i.hidden>=0)return null;return(w.containers||[]).filter(c=>!c.open&&c.f===i.f&&Math.hypot(c.ax-i.x,c.ay-i.y)<1.45).sort((a,b)=>a.id-b.id)[0]||null;}
 function layoutItemVisible(w,it){if(it.containerId===undefined)return true;const c=w.containers?.[it.containerId];return!c||c.open||it.f!==c.f||Math.hypot(it.x-it.stowX,it.y-it.stowY)>.35;}
 function layoutBeginSearch(w,i,c){if(!c||c.open)return false;if(!c.until){c.until=w.t+1;c.by=i.id;w.noise({f:c.f,x:c.x,y:c.y},6,'drawer');}return true;}
+function layoutItemRadius(kind){return{rosario:.18,ruda:.14,cruz:.18,pan:.15,tablilla:.37,pentagrama:.35,fotocam:.17,radio:.16,espejoplata:.16}[kind]||.13;}
 function layoutSurfacePacking(w){
  const taken=[],reserve=(f,x,y,r)=>taken.push({f,x,y,r});w.layoutPackingMisses=[];
  for(const i of NDALayout.decorInstances||[]){const p=decorPosition(i),a=NDALayout.decorAssets[i.asset];const owner=NDALayout.obstacles.find(o=>o.id===i.support);if(!a.mount&&p.h>.7&&a.height>.03&&p.h<owner.height+.3&&p.h+a.height>owner.height-.05)reserve(p.f,p.x,p.y,a.radius+.06);}
@@ -18,9 +19,10 @@ function layoutSurfacePacking(w){
 
  // Large devices claim their surface first; loose clutter and consumables fill remaining slots.
  for(const d of (w.devices||[]).slice().sort((a,b)=>(b.kind==='tv')-(a.kind==='tv')))place(d,d.kind==='tv'?.47:.28);
+ for(const it of w.items)if(!it.holder&&!(it.f===0&&it.y>=40)&&layoutItemRadius(it.kind)>.25)place(it,layoutItemRadius(it.kind));
  for(const p of PROPS)if(['campanita','libros','radio','maquina','muneca'].includes(p.kind)){const a=LAYOUT_ROOMS.get(NDALayout.rooms.find(r=>r.floor===p.f&&r.key===roomId(p))?.id);if(a&&SURFACES[p.f][a.r]?.length){const s=SURFACES[p.f][a.r][0];p.x=s[0]+.65;p.y=s[1]+.65;p.h=s[2];place(p,.18);}}
  for(const o of w.loose)place(o,['plato','cuadro','jarron','libro'].includes(o.kind)?.16:.10);
- for(const it of w.items)if(!it.holder&&!(it.f===0&&it.y>=40))place(it,.13);
+ for(const it of w.items)if(!it.holder&&!(it.f===0&&it.y>=40)&&layoutItemRadius(it.kind)<=.25)place(it,layoutItemRadius(it.kind));
 }
 const _newWorldLayout=newWorld;
 newWorld=function(opt){fieldCache.clear();const w=_newWorldLayout(opt);w.layout=NDALayout.version;

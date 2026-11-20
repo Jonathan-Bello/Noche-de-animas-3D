@@ -14,9 +14,9 @@ const NDAToolArt=globalThis.NDAToolArt=(()=>{
   return s;
  }
  function geometry(p){return p.shape==='box'?new THREE.BoxGeometry(...p.size):new THREE.CylinderGeometry(...p.size.slice(0,3),p.size[3],1,false);}
- function create(kind,{editable=false,definition=globalThis.NDAToolComponents?.tools[kind]}={}){
-  if(!kinds.includes(kind)||!definition)return null;
-  const g=new THREE.Group(),s={kind,leds:[],parts:new Map(),groups:{},definition,editable,geometries:new Set(),materials:new Map(),glyphs:new Map()};g.name='tool_'+kind;g.userData.tool=s;
+ function create(kind,{editable=false,definition=globalThis.NDAToolComponents?.tools[kind],stateAdapter=null,applyState=null}={}){
+  if(!definition)return null;
+  const g=new THREE.Group(),s={kind,leds:[],parts:new Map(),groups:{},definition,editable,stateAdapter,applyState,geometries:new Set(),materials:new Map(),glyphs:new Map()};g.name='tool_'+kind;g.userData.tool=s;
   const material=c=>{if(!s.materials.has(c))s.materials.set(c,new THREE.MeshStandardMaterial({color:c,flatShading:true,roughness:1,metalness:0}));return s.materials.get(c);};
   const mesh=(geo,col,parent)=>{s.geometries.add(geo);const mat=parent.userData.part?.role?material(col).clone():material(col);if(parent.userData.part?.role)s.materials.set('dynamic_'+s.materials.size,mat);const m=new THREE.Mesh(geo,mat);m.castShadow=m.receiveShadow=true;parent.add(m);return m;};
   for(const name of ['body','stand','folded']){const q=new THREE.Group();q.name=name;s.groups[name]=q;g.add(q);}
@@ -26,13 +26,13 @@ const NDAToolArt=globalThis.NDAToolArt=(()=>{
     for(let k=0;k<4;k++){const f=mesh(new THREE.BoxGeometry(p.size[0]*.12,p.size[1]*(.38-Math.abs(1.5-k)*.05),p.size[2]),p.color,node);f.position.set((k-1.5)*p.size[0]*.17,p.size[1]*.23,0);}
     const thumb=mesh(new THREE.BoxGeometry(p.size[0]*.13,p.size[1]*.29,p.size[2]),p.color,node);thumb.position.set(-p.size[0]*.35,-.004,0);thumb.rotation.z=-.65;s.handprint=node;
    }else if(p.role==='digits'){
-    mesh(geometry(p),p.color,node);s.digitPanel={node,p,digits:[]};const count=kind==='termo'?4:1,w=p.size[0]/(count+1),h=p.size[1]*.68;
+    mesh(geometry(p),p.color,node);s.digitPanel={node,p,digits:[]};const count=definition.digitCount||(kind==='termo'?4:1),w=p.size[0]/(count+1),h=p.size[1]*.68;
     for(let k=0;k<count;k++){const m=mesh(new THREE.BufferGeometry(),'#233d35',node);m.position.set((k-(count-1)/2)*w,0,p.size[2]/2+.001);m.userData.w=w*.68;m.userData.h=h;s.digitPanel.digits.push(m);}
     if(kind==='termo'){const dot=mesh(new THREE.BoxGeometry(w*.20,w*.20,.002),'#233d35',node);dot.position.set(w*1.0,-h*.50,p.size[2]/2+.0015);}
    }else if(p.role==='wave'){
     mesh(geometry(p),p.color,node);s.wave=[];for(let k=0;k<12;k++){const m=mesh(new THREE.BoxGeometry(p.size[0]/18,.008,.001),'#a9c3ad',node);m.position.set((k-5.5)*p.size[0]/14,0,p.size[2]/2+.001);s.wave.push(m);}
    }else if(p.role==='needle'){const m=mesh(geometry(p),p.color,node);m.position.y=p.size[1]/2;s.needle=node;
-   }else{const m=mesh(geometry(p),p.color,node);if(p.role?.startsWith('emf'))s.leds[Number(p.role.slice(3))]=m;else if(p.role==='settle')s.settle=m;else if(p.role==='record')s.rec=m;else if(p.role==='mirror')s.glass=m;}
+   }else{const m=mesh(geometry(p),p.color,node);if(p.role?.startsWith('finger'))m.position.y=p.size[1]/2;if(p.role?.startsWith('emf'))s.leds[Number(p.role.slice(3))]=m;else if(p.role==='settle')s.settle=m;else if(p.role==='record')s.rec=m;else if(p.role==='mirror')s.glass=m;}
   }
   // Fixed parts become one vertex-colored draw per placement group in play.
   if(!editable)for(const q of Object.values(s.groups)){
@@ -44,7 +44,7 @@ const NDAToolArt=globalThis.NDAToolArt=(()=>{
  }
  const segments={0:'abcdef',1:'bc',2:'abged',3:'abgcd',4:'fgbc',5:'afgcd',6:'afgecd',7:'abc',8:'abcdefg',9:'abfgcd','-':'g',' ':''};
  function digitGeometry(s,ch,w,h){const key=ch+':'+w+':'+h;if(s.glyphs.has(key))return s.glyphs.get(key);const pos=[],th=w*.18;for(const a of segments[ch]??'g'){const horizontal='agd'.includes(a),x=horizontal?0:'fe'.includes(a)?-w/2:w/2,y=a==='a'?h/2:a==='d'?-h/2:a==='g'?0:'fb'.includes(a)?h/4:-h/4;const geo=new THREE.BoxGeometry(horizontal?w:th,horizontal?th:h/2-th,.001).toNonIndexed();geo.translate(x,y,0);pos.push(...geo.attributes.position.array);geo.dispose();}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.computeVertexNormals();g.computeBoundingSphere();s.geometries.add(g);s.glyphs.set(key,g);return g;}
- function update(g,it,t,held=false,ctx={}){const s=g?.userData.tool;if(!s)return;const state=read(s.kind,it,t,{...ctx,held});s.state=state;
+ function update(g,it,t,held=false,ctx={}){const s=g?.userData.tool;if(!s)return;const state=(s.stateAdapter||read)(s.kind,it,t,{...ctx,held});s.state=state;
   const deployed=state.deployed;s.groups.stand.visible=!held&&(s.kind!=='cam'||deployed);s.groups.folded.visible=s.kind==='cam'&&held;s.groups.folded.position.y=.23;s.groups.body.position.y=s.kind==='cam'?(deployed?1.32:.23):0;
   s.leds.forEach((m,k)=>m.material.color.set(k<(state.level||0)?m.parent.userData.part.color:'#202520'));
   if(s.needle)s.needle.rotation.z=s.needle.userData.part.rotation[2]+state.angle;
@@ -54,6 +54,7 @@ const NDAToolArt=globalThis.NDAToolArt=(()=>{
   if(s.rec)s.rec.material.color.set(Math.sin(t*3)>.2?'#b5423e':'#402020');
   s.wave?.forEach((m,k)=>m.scale.y=state.wave==='voz'?1+Math.abs(Math.sin(k*1.3+t*9))*4:state.wave==='estatica'?1+Math.abs(Math.sin(k*7.1+t*27))*1.8:.25);
   if(s.digitPanel){const chars=state.message?'----':state.digits.replace('.','').padStart(s.digitPanel.digits.length,' ');s.digitPanel.digits.forEach((m,k)=>{const ch=chars[k]||' ';if(m.userData.char!==ch){m.geometry=digitGeometry(s,ch,m.userData.w,m.userData.h);m.userData.char=ch;}});}
+  if(s.applyState)s.applyState(g,it,t,held,ctx);
  }
  function dispose(g,root=g){const s=g?.userData.tool;if(!s)return;const geos=new Set(s.geometries),mats=new Set(s.materials.values());root.traverse(o=>{if(o.geometry)geos.add(o.geometry);if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])mats.add(m);});geos.forEach(x=>x.dispose());mats.forEach(x=>x.dispose());}
  const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

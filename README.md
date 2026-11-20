@@ -59,3 +59,7 @@ Para mover decoración visualmente y guardar en la copia local del juego: doble 
 ## Herramientas V17
 
 [Taller editable de las siete herramientas](arte/instrumentos-v17/index.html) · [Referencias visuales](arte/instrumentos-v17/referencias.html) · [Especificación y uso](docs/instrumentos-v17.md). Se renuevan modelos, indicadores y paneles con 88 piezas identificables. El taller modifica medidas, transformaciones, colores y agarres; guarda en el proyecto local o exporta JSON y PNG 2048. La UV conserva sus pruebas en superficies y la cámara muestra la silueta solo en la tele de la base.
+
+## Consumibles y malditos V18
+
+[Taller de objetos](arte/objetos-v18/index.html) · [Referencias](arte/objetos-v18/referencias.html) · [Uso y componentes](docs/objetos-v18.md). Se renuevan diez consumibles, la cámara instantánea y siete malditos, con 399 piezas editables. Sus estados siguen los usos, cartas, deseos, alfileres, velas y rollo reales; se mantienen los efectos y costos del juego.

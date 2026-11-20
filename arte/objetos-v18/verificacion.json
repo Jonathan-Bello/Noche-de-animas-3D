@@ -1,0 +1,7800 @@
+{
+  "passed": true,
+  "workshop": [
+    {
+      "kind": "te",
+      "state": {
+        "kind": "te",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 16,
+      "vertices": 468,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "te",
+      "state": {
+        "kind": "te",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 16,
+      "vertices": 468,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "te",
+      "state": {
+        "kind": "te",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 16,
+      "vertices": 468,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "rosario",
+      "state": {
+        "kind": "rosario",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "2 usos",
+        "held": false,
+        "hung": false,
+        "remaining": 2
+      },
+      "parts": 35,
+      "vertices": 1096,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "rosario",
+      "state": {
+        "kind": "rosario",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 uso",
+        "held": false,
+        "hung": false,
+        "remaining": 1
+      },
+      "parts": 35,
+      "vertices": 1096,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "rosario",
+      "state": {
+        "kind": "rosario",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 uso",
+        "held": false,
+        "hung": false,
+        "remaining": 1
+      },
+      "parts": 35,
+      "vertices": 1096,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "ruda",
+      "state": {
+        "kind": "ruda",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 13,
+      "vertices": 312,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "ruda",
+      "state": {
+        "kind": "ruda",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 13,
+      "vertices": 312,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "ruda",
+      "state": {
+        "kind": "ruda",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 13,
+      "vertices": 312,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "copal",
+      "state": {
+        "kind": "copal",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 14,
+      "vertices": 450,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "copal",
+      "state": {
+        "kind": "copal",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 14,
+      "vertices": 450,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "copal",
+      "state": {
+        "kind": "copal",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 14,
+      "vertices": 450,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "vela",
+      "state": {
+        "kind": "vela",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Apagada",
+        "held": false,
+        "hung": false,
+        "lit": false
+      },
+      "parts": 8,
+      "vertices": 284,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "vela",
+      "state": {
+        "kind": "vela",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Encendida",
+        "held": false,
+        "hung": false,
+        "lit": true
+      },
+      "parts": 8,
+      "vertices": 284,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "vela",
+      "state": {
+        "kind": "vela",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Encendida",
+        "held": false,
+        "hung": false,
+        "lit": true
+      },
+      "parts": 8,
+      "vertices": 284,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "ceniza",
+      "state": {
+        "kind": "ceniza",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 4,
+      "vertices": 144,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "ceniza",
+      "state": {
+        "kind": "ceniza",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 4,
+      "vertices": 144,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "ceniza",
+      "state": {
+        "kind": "ceniza",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 4,
+      "vertices": 144,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "cruz",
+      "state": {
+        "kind": "cruz",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "2 cargas",
+        "held": false,
+        "hung": false,
+        "remaining": 2
+      },
+      "parts": 8,
+      "vertices": 192,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "cruz",
+      "state": {
+        "kind": "cruz",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 carga",
+        "held": false,
+        "hung": false,
+        "remaining": 1
+      },
+      "parts": 8,
+      "vertices": 192,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "cruz",
+      "state": {
+        "kind": "cruz",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 carga",
+        "held": false,
+        "hung": false,
+        "remaining": 1
+      },
+      "parts": 8,
+      "vertices": 192,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "pan",
+      "state": {
+        "kind": "pan",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 13,
+      "vertices": 448,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "pan",
+      "state": {
+        "kind": "pan",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 13,
+      "vertices": 448,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "pan",
+      "state": {
+        "kind": "pan",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 13,
+      "vertices": 448,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "foco",
+      "state": {
+        "kind": "foco",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 9,
+      "vertices": 408,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "foco",
+      "state": {
+        "kind": "foco",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 9,
+      "vertices": 408,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "foco",
+      "state": {
+        "kind": "foco",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 9,
+      "vertices": 408,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "limpia",
+      "state": {
+        "kind": "limpia",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 4,
+      "vertices": 180,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "limpia",
+      "state": {
+        "kind": "limpia",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 4,
+      "vertices": 180,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "limpia",
+      "state": {
+        "kind": "limpia",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      },
+      "parts": 4,
+      "vertices": 180,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "fotocam",
+      "state": {
+        "kind": "fotocam",
+        "digits": "06",
+        "progress": 0,
+        "tone": "normal",
+        "label": "6 fotos restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 6
+      },
+      "parts": 9,
+      "vertices": 704,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "fotocam",
+      "state": {
+        "kind": "fotocam",
+        "digits": "03",
+        "progress": 0,
+        "tone": "normal",
+        "label": "3 fotos restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 3
+      },
+      "parts": 9,
+      "vertices": 668,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "fotocam",
+      "state": {
+        "kind": "fotocam",
+        "digits": "00",
+        "progress": 0,
+        "tone": "normal",
+        "label": "0 fotos restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 0
+      },
+      "parts": 9,
+      "vertices": 704,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "tarot",
+      "state": {
+        "kind": "tarot",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "10 cartas restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 10
+      },
+      "parts": 14,
+      "vertices": 352,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "tarot",
+      "state": {
+        "kind": "tarot",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "7 cartas restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 7
+      },
+      "parts": 14,
+      "vertices": 352,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "tarot",
+      "state": {
+        "kind": "tarot",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "2 cartas restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 2
+      },
+      "parts": 14,
+      "vertices": 352,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "tablilla",
+      "state": {
+        "kind": "tablilla",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "0 / 3 preguntas",
+        "held": false,
+        "hung": false,
+        "questions": 0
+      },
+      "parts": 165,
+      "vertices": 4012,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "tablilla",
+      "state": {
+        "kind": "tablilla",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 / 3 preguntas",
+        "held": false,
+        "hung": false,
+        "questions": 1
+      },
+      "parts": 165,
+      "vertices": 4012,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "tablilla",
+      "state": {
+        "kind": "tablilla",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "2 / 3 preguntas",
+        "held": false,
+        "hung": false,
+        "questions": 2
+      },
+      "parts": 165,
+      "vertices": 4012,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "espejoplata",
+      "state": {
+        "kind": "espejoplata",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Usar: mirar",
+        "held": false,
+        "hung": false,
+        "on": false
+      },
+      "parts": 10,
+      "vertices": 312,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "espejoplata",
+      "state": {
+        "kind": "espejoplata",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Mirando en la plata",
+        "held": false,
+        "hung": false,
+        "on": true
+      },
+      "parts": 10,
+      "vertices": 312,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "espejoplata",
+      "state": {
+        "kind": "espejoplata",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Mirando en la plata",
+        "held": false,
+        "hung": false,
+        "on": true
+      },
+      "parts": 10,
+      "vertices": 312,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "mano",
+      "state": {
+        "kind": "mano",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "2 deseos restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 2,
+        "used": 0
+      },
+      "parts": 9,
+      "vertices": 232,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "mano",
+      "state": {
+        "kind": "mano",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 deseo restante",
+        "held": false,
+        "hung": false,
+        "remaining": 1,
+        "used": 1
+      },
+      "parts": 9,
+      "vertices": 232,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "mano",
+      "state": {
+        "kind": "mano",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 deseo restante",
+        "held": false,
+        "hung": false,
+        "remaining": 1,
+        "used": 1
+      },
+      "parts": 9,
+      "vertices": 232,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "muneca",
+      "state": {
+        "kind": "muneca",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "10 alfileres restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 10,
+        "used": 0
+      },
+      "parts": 31,
+      "vertices": 832,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "muneca",
+      "state": {
+        "kind": "muneca",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "7 alfileres restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 7,
+        "used": 3
+      },
+      "parts": 31,
+      "vertices": 832,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "muneca",
+      "state": {
+        "kind": "muneca",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "3 alfileres restantes",
+        "held": false,
+        "hung": false,
+        "remaining": 3,
+        "used": 7
+      },
+      "parts": 31,
+      "vertices": 832,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "pentagrama",
+      "state": {
+        "kind": "pentagrama",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "0 / 5 velas",
+        "held": false,
+        "hung": false,
+        "candles": 0
+      },
+      "parts": 21,
+      "vertices": 652,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "pentagrama",
+      "state": {
+        "kind": "pentagrama",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "2 / 5 velas",
+        "held": false,
+        "hung": false,
+        "candles": 2
+      },
+      "parts": 21,
+      "vertices": 652,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "pentagrama",
+      "state": {
+        "kind": "pentagrama",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "4 / 5 velas",
+        "held": false,
+        "hung": false,
+        "candles": 4
+      },
+      "parts": 21,
+      "vertices": 652,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "radio",
+      "state": {
+        "kind": "radio",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Usar: preguntar",
+        "held": false,
+        "hung": false,
+        "wait": false
+      },
+      "parts": 16,
+      "vertices": 404,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "radio",
+      "state": {
+        "kind": "radio",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Esperando para preguntar",
+        "held": false,
+        "hung": false,
+        "wait": true
+      },
+      "parts": 16,
+      "vertices": 404,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "radio",
+      "state": {
+        "kind": "radio",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Esperando para preguntar",
+        "held": false,
+        "hung": false,
+        "wait": true
+      },
+      "parts": 16,
+      "vertices": 404,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    }
+  ],
+  "world": [
+    {
+      "kind": "te",
+      "actualFactory": "te",
+      "state": {
+        "kind": "te",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Té de tila</b><small>Tomar el té</small></div></div>",
+      "draw": {
+        "frame": 1,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "rosario",
+      "actualFactory": "rosario",
+      "state": {
+        "kind": "rosario",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 uso",
+        "held": true,
+        "hung": false,
+        "remaining": 1
+      },
+      "front": 0.40496472115515214,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Rosario</b><small>1 uso</small></div></div>",
+      "draw": {
+        "frame": 2,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "ruda",
+      "actualFactory": "ruda",
+      "state": {
+        "kind": "ruda",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Ruda</b><small>Colgar la ruda en la puerta</small></div></div>",
+      "draw": {
+        "frame": 3,
+        "calls": 426,
+        "triangles": 58354,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "copal",
+      "actualFactory": "copal",
+      "state": {
+        "kind": "copal",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Copal</b><small>Encender copal</small></div></div>",
+      "draw": {
+        "frame": 4,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "vela",
+      "actualFactory": "vela",
+      "state": {
+        "kind": "vela",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Encendida",
+        "held": true,
+        "hung": false,
+        "lit": true
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Veladora</b><small>Encendida</small></div></div>",
+      "draw": {
+        "frame": 5,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "ceniza",
+      "actualFactory": "ceniza",
+      "state": {
+        "kind": "ceniza",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Puño de ceniza</b><small>Regar la ceniza</small></div></div>",
+      "draw": {
+        "frame": 6,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "cruz",
+      "actualFactory": "cruz",
+      "state": {
+        "kind": "cruz",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 carga",
+        "held": true,
+        "hung": false,
+        "remaining": 1
+      },
+      "front": 0.525889284804471,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Cruz de palma</b><small>1 carga</small></div></div>",
+      "draw": {
+        "frame": 7,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "pan",
+      "actualFactory": "pan",
+      "state": {
+        "kind": "pan",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Pan de muerto</b><small>Dejar el pan</small></div></div>",
+      "draw": {
+        "frame": 8,
+        "calls": 426,
+        "triangles": 58254,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "foco",
+      "actualFactory": "foco",
+      "state": {
+        "kind": "foco",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Foco de repuesto</b><small>Cambiar el foco (Q en el apagador)</small></div></div>",
+      "draw": {
+        "frame": 9,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "limpia",
+      "actualFactory": "limpia",
+      "state": {
+        "kind": "limpia",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Limpia con huevo</b><small>Hacer la limpia</small></div></div>",
+      "draw": {
+        "frame": 10,
+        "calls": 426,
+        "triangles": 58402,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "fotocam",
+      "actualFactory": "fotocam",
+      "state": {
+        "kind": "fotocam",
+        "digits": "03",
+        "progress": 0,
+        "tone": "normal",
+        "label": "3 fotos restantes",
+        "held": true,
+        "hung": false,
+        "remaining": 3
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Cámara instantánea</b><small>3 fotos restantes</small></div></div>",
+      "draw": {
+        "frame": 11,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "tarot",
+      "actualFactory": "tarot",
+      "state": {
+        "kind": "tarot",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "6 cartas restantes",
+        "held": true,
+        "hung": false,
+        "remaining": 6
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Tarot</b><small>6 cartas restantes</small></div></div>",
+      "draw": {
+        "frame": 12,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "tablilla",
+      "actualFactory": "tablilla",
+      "state": {
+        "kind": "tablilla",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 / 3 preguntas",
+        "held": true,
+        "hung": false,
+        "questions": 1
+      },
+      "front": 0.8312478871638254,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Tablilla espiritista</b><small>1 / 3 preguntas</small></div></div>",
+      "draw": {
+        "frame": 13,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "espejoplata",
+      "actualFactory": "espejoplata",
+      "state": {
+        "kind": "espejoplata",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Mirando en la plata",
+        "held": true,
+        "hung": false,
+        "on": true
+      },
+      "front": 0.78421959133937,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Espejo de plata</b><small>Mirando en la plata</small></div></div>",
+      "draw": {
+        "frame": 14,
+        "calls": 435,
+        "triangles": 58878,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "mano",
+      "actualFactory": "mano",
+      "state": {
+        "kind": "mano",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 deseo restante",
+        "held": true,
+        "hung": false,
+        "remaining": 1,
+        "used": 1
+      },
+      "front": 0.5638060744509258,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Mano del mono</b><small>1 deseo restante</small></div></div>",
+      "draw": {
+        "frame": 15,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "muneca",
+      "actualFactory": "muneca",
+      "state": {
+        "kind": "muneca",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "7 alfileres restantes",
+        "held": true,
+        "hung": false,
+        "remaining": 7,
+        "used": 3
+      },
+      "front": 0.49192748925590657,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Muñeca de la isla</b><small>7 alfileres restantes</small></div></div>",
+      "draw": {
+        "frame": 16,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "pentagrama",
+      "actualFactory": "pentagrama",
+      "state": {
+        "kind": "pentagrama",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "3 / 5 velas",
+        "held": true,
+        "hung": false,
+        "candles": 3
+      },
+      "front": 0.362471293150763,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Pentagrama</b><small>3 / 5 velas</small></div></div>",
+      "draw": {
+        "frame": 17,
+        "calls": 429,
+        "triangles": 58590,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "radio",
+      "actualFactory": "radio",
+      "state": {
+        "kind": "radio",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Usar: preguntar",
+        "held": true,
+        "hung": false,
+        "wait": false
+      },
+      "front": 0.78421959133937,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 inventory-v18\"><div class=\"device-meta\"><b>Radio maldita</b><small>Usar: preguntar</small></div></div>",
+      "draw": {
+        "frame": 18,
+        "calls": 435,
+        "triangles": 58938,
+        "points": 0,
+        "lines": 0
+      }
+    }
+  ],
+  "checks": {
+    "noHeartLeak": true,
+    "noRadioLeak": true,
+    "flameExpired": false,
+    "film": "03",
+    "cards": 4,
+    "wishes": 1,
+    "pins": 3,
+    "candles": 3
+  },
+  "saveUndoAndRoleGuard": true,
+  "png2048": true,
+  "mobileReadouts": [
+    {
+      "x": 30,
+      "y": 575.5,
+      "width": 330,
+      "height": 50.5
+    },
+    {
+      "x": 380.515625,
+      "y": 293.15625,
+      "width": 82.96875,
+      "height": 52.84375
+    }
+  ],
+  "pickupMemory": [],
+  "doorAttachments": {
+    "separation": 2.1999999999999993,
+    "rosaryY": 1.12,
+    "rosaryFactory": "rosario",
+    "rueFactory": "ruda",
+    "offset": 1.2529964086141665
+  },
+  "errors": [],
+  "browser": {
+    "passed": true,
+    "profiles": [
+      {
+        "version": "casona-v16",
+        "quality": "low",
+        "shadows": false,
+        "dpr": 1,
+        "active": 21,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 339,
+          "triangles": 47764,
+          "points": 0,
+          "lines": 0
+        }
+      },
+      {
+        "version": "casona-v16",
+        "quality": "balanced",
+        "shadows": true,
+        "dpr": 1.35,
+        "active": 22,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 359,
+          "triangles": 50288,
+          "points": 0,
+          "lines": 0
+        },
+        "geometryAudit": {
+          "portals": 44,
+          "windows": 20,
+          "nonFinite": 0,
+          "mixedFaceColors": 0,
+          "coplanarOverlaps": []
+        },
+        "floorComponentPoses": [
+          {
+            "asset": "open_book",
+            "minAboveStorey": 0.017999999999999794
+          },
+          {
+            "asset": "comb",
+            "minAboveStorey": 0.018000000000000238
+          },
+          {
+            "asset": "top",
+            "minAboveStorey": 0.017999999999999794
+          },
+          {
+            "asset": "perfume",
+            "minAboveStorey": 0.018000000000000238
+          },
+          {
+            "asset": "jewelbox",
+            "minAboveStorey": 0.017999999999999794
+          }
+        ]
+      },
+      {
+        "version": "casona-v16",
+        "quality": "high",
+        "shadows": true,
+        "dpr": 2,
+        "active": 20,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 361,
+          "triangles": 49604,
+          "points": 0,
+          "lines": 0
+        }
+      },
+      {
+        "version": "casona-v16",
+        "quality": "auto",
+        "shadows": false,
+        "dpr": 1,
+        "active": 21,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 180,
+          "triangles": 32020,
+          "points": 0,
+          "lines": 0
+        }
+      }
+    ],
+    "errors": [],
+    "note": "Emulated screen/input and software rendering; no physical-device FPS claim."
+  },
+  "iphone12Emulated": {
+    "passed": true,
+    "profiles": [
+      {
+        "layout": "casona-v16",
+        "viewport": {
+          "width": 390,
+          "height": 664
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1,
+        "shadows": false,
+        "draw": {
+          "frame": 1,
+          "calls": 222,
+          "triangles": 34130,
+          "points": 0,
+          "lines": 0
+        },
+        "renderer": "Apple GPU",
+        "tools": [
+          {
+            "kind": "termo",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "uv",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "grab",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "cam",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "emf",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "espejo",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "gases",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "te",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "rosario",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "ruda",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "copal",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "vela",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "ceniza",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "cruz",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "pan",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "foco",
+            "x": 30,
+            "y": 382,
+            "width": 330,
+            "height": 64,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "limpia",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "fotocam",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "tarot",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "tablilla",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "espejoplata",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "mano",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "muneca",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "pentagrama",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "radio",
+            "x": 30,
+            "y": 395.5,
+            "width": 330,
+            "height": 50.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          }
+        ],
+        "device": "iPhone 12",
+        "errors": []
+      },
+      {
+        "layout": "casona-v16",
+        "viewport": {
+          "width": 750,
+          "height": 340
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1,
+        "shadows": false,
+        "draw": {
+          "frame": 1,
+          "calls": 414,
+          "triangles": 57446,
+          "points": 0,
+          "lines": 0
+        },
+        "renderer": "Apple GPU",
+        "tools": [
+          {
+            "kind": "termo",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "uv",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "grab",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "cam",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "emf",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "espejo",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "gases",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "inventory": false,
+            "clearButtons": true
+          },
+          {
+            "kind": "te",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "rosario",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "ruda",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "copal",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "vela",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "ceniza",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "cruz",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "pan",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "foco",
+            "x": 213,
+            "y": 266,
+            "width": 300,
+            "height": 60,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "limpia",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "fotocam",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "tarot",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "tablilla",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "espejoplata",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "mano",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "muneca",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "pentagrama",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "radio",
+            "x": 213,
+            "y": 279.5,
+            "width": 300,
+            "height": 46.5,
+            "svg": false,
+            "inventory": true,
+            "clearButtons": true
+          }
+        ],
+        "device": "iPhone 12 landscape",
+        "errors": []
+      }
+    ],
+    "note": "WebKit on Windows with emulated iPhone dimensions/input, not an iPhone GPU or physical FPS measurement."
+  },
+  "online": {
+    "passed": true,
+    "movementOnHost": 3.61030152000005,
+    "flashSynced": true,
+    "layoutAndRandomStateSynced": true,
+    "drawerOpenSynced": true,
+    "independentBookThrowSynced": true,
+    "authoredJarThrowSynced": true,
+    "inventoryStateSynced": true,
+    "disconnectHandled": true,
+    "snapshotBytes": [
+      49915,
+      5331
+    ],
+    "errors": [],
+    "note": "PeerJS transport shim; drawing tested independently, no WAN latency benchmark."
+  },
+  "realUsage": [
+    {
+      "kind": "te",
+      "consumed": true,
+      "state": {
+        "kind": "te",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      }
+    },
+    {
+      "kind": "copal",
+      "consumed": true,
+      "state": {
+        "kind": "copal",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      }
+    },
+    {
+      "kind": "limpia",
+      "consumed": true,
+      "state": {
+        "kind": "limpia",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": true,
+        "hung": false
+      }
+    },
+    {
+      "kind": "ceniza",
+      "consumed": true,
+      "state": {
+        "kind": "ceniza",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      }
+    },
+    {
+      "kind": "vela",
+      "consumed": false,
+      "state": {
+        "kind": "vela",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Encendida",
+        "held": false,
+        "hung": false,
+        "lit": true
+      }
+    },
+    {
+      "kind": "cruz",
+      "consumed": false,
+      "state": {
+        "kind": "cruz",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "2 cargas",
+        "held": false,
+        "hung": false,
+        "remaining": 2
+      }
+    },
+    {
+      "kind": "pan",
+      "consumed": false,
+      "state": {
+        "kind": "pan",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Preparado",
+        "held": false,
+        "hung": false
+      }
+    },
+    {
+      "kind": "tarot",
+      "consumed": false,
+      "state": {
+        "kind": "tarot",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "9 cartas restantes",
+        "held": true,
+        "hung": false,
+        "remaining": 9
+      }
+    },
+    {
+      "kind": "tablilla",
+      "consumed": false,
+      "state": {
+        "kind": "tablilla",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 / 3 preguntas",
+        "held": true,
+        "hung": false,
+        "questions": 1
+      }
+    },
+    {
+      "kind": "espejoplata",
+      "consumed": false,
+      "state": {
+        "kind": "espejoplata",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Mirando en la plata",
+        "held": true,
+        "hung": false,
+        "on": true
+      }
+    },
+    {
+      "kind": "mano",
+      "consumed": false,
+      "state": {
+        "kind": "mano",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 deseo restante",
+        "held": true,
+        "hung": false,
+        "remaining": 1,
+        "used": 1
+      }
+    },
+    {
+      "kind": "muneca",
+      "consumed": false,
+      "state": {
+        "kind": "muneca",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "9 alfileres restantes",
+        "held": true,
+        "hung": false,
+        "remaining": 9,
+        "used": 1
+      }
+    },
+    {
+      "kind": "pentagrama",
+      "consumed": false,
+      "state": {
+        "kind": "pentagrama",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "1 / 5 velas",
+        "held": true,
+        "hung": false,
+        "candles": 1
+      }
+    },
+    {
+      "kind": "radio",
+      "consumed": false,
+      "state": {
+        "kind": "radio",
+        "digits": "",
+        "progress": 0,
+        "tone": "normal",
+        "label": "Esperando para preguntar",
+        "held": true,
+        "hung": false,
+        "wait": true
+      }
+    },
+    {
+      "kind": "fotocam",
+      "consumed": false,
+      "state": {
+        "kind": "fotocam",
+        "digits": "05",
+        "progress": 0,
+        "tone": "normal",
+        "label": "5 fotos restantes",
+        "held": true,
+        "hung": false,
+        "remaining": 5
+      }
+    },
+    {
+      "kind": "ruda",
+      "doorAttachment": true
+    },
+    {
+      "kind": "rosario",
+      "doorAttachment": true
+    },
+    {
+      "kind": "foco",
+      "replaced": true
+    }
+  ],
+  "sessions": [
+    {
+      "ghost": "pena",
+      "time": 559.9000000000588,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 83,
+          "1": 83,
+          "2": 83,
+          "3": 83
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Fermín, Ángel, Alex, Amalia salió con la apuesta correcta"
+      },
+      "roomsVisited": 26,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.214618383937534,
+          "y": 52.31741739964364,
+          "hidden": -1,
+          "ai": {
+            "state": "setup",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 4.5
+            },
+            "think": -9.091052826866457,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 157.84900171682239,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 30.000000000000156,
+              "0:1": 53.40000000000049,
+              "0:2": 71.10000000000024
+            },
+            "sweep": null,
+            "pickupDetourId": 16,
+            "talkAt": 542.1000000000515,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 45.5,
+              "y": 4.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 42.5,
+              "y": 4.5
+            }
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.256285472170994,
+          "y": 52.428868105401904,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 44.5,
+              "y": 5.5
+            },
+            "think": 4.673472685739419,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 543.7026263462458,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 349.9000000000079,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "placeK": 1,
+            "place": {
+              "f": 1,
+              "x": 40.5,
+              "y": 6.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "study": null
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.2246624244961,
+          "y": 52.332091340558605,
+          "hidden": -1,
+          "ai": {
+            "state": "resupply",
+            "goal": {
+              "f": 1,
+              "x": 53.5,
+              "y": 25.5
+            },
+            "think": 12.699999999999815,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 190.08100488223135,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 304.7999999999976,
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 41.5,
+              "y": 5.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 12
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.256285472170994,
+          "y": 52.428868105401904,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 1,
+              "x": 53.5,
+              "y": 14.5
+            },
+            "think": 8.495164190884694,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 562.2407396275753,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 512.0000000000448,
+            "react": 0,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "placeK": 0,
+            "place": {
+              "f": 1,
+              "x": 38.5,
+              "y": 6.5
+            },
+            "aim": {
+              "f": 1,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "study": {
+              "kind": "grab",
+              "until": 537.5083754978618,
+              "p": {
+                "f": 1,
+                "x": 47.5,
+                "y": 7.5
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "nachito",
+      "time": 122.09999999999734,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 40,
+          "1": 40,
+          "2": 40,
+          "3": 40
+        },
+        "evid": 2,
+        "objDone": 1,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 10,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.223747150425474,
+          "y": 52.33057866220603,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 24.5,
+              "y": 31.5
+            },
+            "think": 6.568456404563047,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 168.9720984036103,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 29.900000000000155
+            },
+            "sweep": null,
+            "study": {
+              "kind": "termo",
+              "until": 127.43392489980788,
+              "p": {
+                "f": 0,
+                "x": 18.5,
+                "y": 35.5
+              }
+            },
+            "talkAt": 125.19999999999796
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.32722956341412,
+          "y": 53.49999999708605,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "think": 6.248860380332927,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 196.2593477871269,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 77.00000000000063,
+            "study": {
+              "kind": "grab",
+              "until": 108.54287558169976,
+              "p": {
+                "f": 0,
+                "x": 19.5,
+                "y": 38.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.1988206350079,
+          "y": 52.28886572419078,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 19.5,
+              "y": 31.5
+            },
+            "think": 8.8272318753414,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 205.03944577183574,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 23.5,
+              "y": 32.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 20.5,
+              "y": 34.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 118.13381512984576,
+              "p": {
+                "f": 0,
+                "x": 16.5,
+                "y": 36.5
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.199943696963885,
+          "y": 52.290766926476984,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "think": 3.7906847871840204,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 157.6374432630837,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 47.3000000000002,
+            "react": 0,
+            "lure": null,
+            "study": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "llorona",
+      "time": 594.5000000000666,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": false,
+            "pay": 30,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": false,
+            "pay": 30,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": false,
+            "pay": 30,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "tlahuel",
+            "ok": false,
+            "pay": 30,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 30,
+          "1": 30,
+          "2": 30,
+          "3": 30
+        },
+        "evid": 1,
+        "objDone": 1,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 25,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.228779673155316,
+          "y": 52.338880101159546,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 39.5,
+              "y": 35.5
+            },
+            "think": 7.599999999999833,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 673.8284257132941,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 492.80000000004355,
+              "0:5": 51.700000000000465,
+              "1:4": 79.29999999999977,
+              "1:0": 98.49999999999868,
+              "1:1": 122.99999999999729,
+              "1:2": 141.29999999999626,
+              "1:3": 154.99999999999548,
+              "1:6": 171.89999999999452,
+              "1:8": 188.0999999999936,
+              "0:12": 263.99999999999153,
+              "0:13": 281.0999999999954,
+              "0:8": 298.79999999999944,
+              "0:9": 509.3000000000473
+            },
+            "sweep": {
+              "key": "0:12",
+              "p": {
+                "f": 0,
+                "x": 35.10380830010399,
+                "y": 32.98286654334515
+              },
+              "t": 2.3000000000000007
+            },
+            "talkAt": 589.4000000000623,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.25432705936998,
+          "y": 52.42592820698603,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 58.5,
+              "y": 24.5
+            },
+            "think": 23.299999999999905,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 633.6212939879299,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 238.59999999999152,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 46.5,
+              "y": 13.5
+            },
+            "think": 17.899999999999828,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 604.0569090675806,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 518.5000000000462,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "unhideAt": 476.8588510431742
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20886951342901,
+          "y": 52.3058036167532,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 47.5,
+              "y": 24.5
+            },
+            "think": 20.299999999999862,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 203.5247914865613,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 85.30000000000022,
+            "react": 0,
+            "pickupDetourId": 107
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "chaneque",
+      "time": 695.2000000000895,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Ángel",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 10,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 18,
+          "1": 18,
+          "2": 10,
+          "3": 18
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 30,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 34.5,
+              "y": 38.5
+            },
+            "think": 6.2057842414826325,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 151.3068023091182,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 29.60000000000015,
+              "0:1": 54.3000000000005,
+              "0:2": 71.8000000000002
+            },
+            "sweep": null,
+            "pickupDetourId": 146,
+            "talkAt": 589.4000000000623
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.332225536099486,
+          "y": 53.49923269114116,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 4.5,
+              "y": 16.5
+            },
+            "think": 10.799999999999821,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 424.1984396457592,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 490.3000000000398,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 2,
+          "alive": false,
+          "escaped": false,
+          "f": 1,
+          "x": 21.796990836047257,
+          "y": 29.54165695013406,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 46.5,
+              "y": 11.5
+            },
+            "think": 7.375676504429446,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 411.1112554989664,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 10
+            },
+            "react": 623.8755292168386,
+            "talkAt": 435.60000000002736,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.22299390081802,
+          "y": 52.3293387117312,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 58.5,
+              "y": 12.5
+            },
+            "think": 3.0803622883744906,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 375.58986816256686,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 588.5000000000621,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "matla",
+      "time": 595.2000000000668,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jorge",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 0,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 8,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 8,
+          "1": 0,
+          "2": 8,
+          "3": 8
+        },
+        "evid": 0,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 29,
+      "hunts": 3,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.26046806961993,
+          "y": 52.43512668782109,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "think": 4.342846811749075,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 548.0519183363924,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 322.60000000000485,
+              "0:1": 52.00000000000047,
+              "1:9": 85.8999999999994,
+              "1:10": 102.89999999999843,
+              "1:11": 123.99999999999723,
+              "1:12": 142.5999999999962,
+              "1:8": 156.09999999999542,
+              "1:6": 174.79999999999436,
+              "1:7": 192.39999999999336,
+              "1:3": 211.99999999999224,
+              "1:2": 231.59999999999113,
+              "1:1": 246.2999999999903,
+              "1:4": 262.9999999999913,
+              "1:0": 276.5999999999944,
+              "0:9": 306.2000000000011
+            },
+            "sweep": {
+              "key": "0:12",
+              "p": {
+                "f": 0,
+                "x": 34.053104345686734,
+                "y": 37.98314015613869
+              },
+              "t": 8.599999999999985
+            },
+            "talkAt": 589.4000000000623,
+            "placeK": 1,
+            "place": {
+              "f": 0,
+              "x": 55.5,
+              "y": 17.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": null,
+            "pickupDetourId": 193
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 51.75119084065181,
+          "y": 21.019359357154894,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "think": 10.631606775801638,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 158.9059764984995,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 8
+            },
+            "talkAt": 431.50000000002643,
+            "react": 439.27799965949583,
+            "study": {
+              "kind": "emf",
+              "until": 446.3109009662907,
+              "p": {
+                "f": 0,
+                "x": 53.5,
+                "y": 16.5
+              }
+            },
+            "pickupDetourId": 193
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.26046806961993,
+          "y": 52.43512668782109,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 53.5,
+              "y": 4.5
+            },
+            "think": 12.566766797099262,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 635.2615249609939,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 475.4000000000364,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 56.5,
+              "y": 15.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": {
+              "kind": "uv",
+              "until": 514.8489607221859,
+              "p": {
+                "f": 0,
+                "x": 49.5,
+                "y": 16.5
+              }
+            },
+            "pickupDetourId": 193
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.26046806961993,
+          "y": 52.43512668782109,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 49.5,
+              "y": 13.5
+            },
+            "think": 3.8639275145717287,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 650.3187532857462,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 492.1000000000402,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 193,
+            "lure": {
+              "f": 0,
+              "x": 50.111839160522074,
+              "y": 25.33827332228368,
+              "until": 319.5000000000014
+            },
+            "study": {
+              "kind": "termo",
+              "until": 506.2744135542244,
+              "p": {
+                "f": 0,
+                "x": 47.5,
+                "y": 19.5
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "cucuy",
+      "time": 695.2000000000895,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nachito",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nachito",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nachito",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nachito",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 18,
+          "1": 18,
+          "2": 18,
+          "3": 18
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 30,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "think": 25.299999999999933,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 201.820697626099,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 471.20000000003864,
+              "0:9": 259.9999999999906,
+              "0:5": 490.400000000043,
+              "0:0": 300.3999999999998,
+              "0:1": 353.5000000000119,
+              "0:2": 374.2000000000166,
+              "0:3": 330.2000000000066,
+              "0:7": 414.6000000000258,
+              "0:8": 398.60000000002213,
+              "0:13": 438.9000000000313,
+              "0:12": 454.3000000000348,
+              "1:4": 519.7000000000496,
+              "1:0": 536.0000000000533,
+              "1:1": 558.9000000000585
+            },
+            "sweep": {
+              "key": "1:2",
+              "p": {
+                "f": 1,
+                "x": 32.5,
+                "y": 8.5
+              },
+              "t": 0
+            },
+            "talkAt": 589.4000000000623
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.228790402989254,
+          "y": 52.33890230176711,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 12.5,
+              "y": 7.5
+            },
+            "think": 4.265284735057541,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 170.88016079273075,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 516.9000000000458,
+            "react": 0
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.228473713524764,
+          "y": 52.338381316299234,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 8.5,
+              "y": 4.5
+            },
+            "think": 9.966514150146411,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 633.4631781788933,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 396.80000000001854,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21718315482513,
+          "y": 52.31969077407561,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 9.5,
+              "y": 6.5
+            },
+            "think": 28.999999999999986,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 543.4075818306014,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 588.5000000000621,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "guardian",
+      "time": 186.59999999999368,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": true,
+            "pay": 200,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 200,
+          "1": 200,
+          "2": 200,
+          "3": 200
+        },
+        "evid": 3,
+        "objDone": 1,
+        "cause": "Rafael, Jenny, Alex, Amalia salió con la apuesta correcta"
+      },
+      "roomsVisited": 15,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 55.5,
+              "y": 29.5
+            },
+            "think": 1.801519455015682,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 186.23312175739557,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 29.300000000000146,
+              "0:9": 49.30000000000043,
+              "0:12": 69.60000000000032,
+              "0:13": 89.49999999999919
+            },
+            "sweep": {
+              "key": "0:8",
+              "p": {
+                "f": 0,
+                "x": 49.28335770498961,
+                "y": 21.45603377977386
+              },
+              "t": 9.699999999999982
+            },
+            "talkAt": 183.49999999999466,
+            "study": {
+              "kind": "termo",
+              "until": 163.637830400743,
+              "p": {
+                "f": 0,
+                "x": 49.5,
+                "y": 21.5
+              }
+            }
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20934999546819,
+          "y": 52.30660925317857,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "think": 9.049445998109887,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 181.1573072243482,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 194.49999999999403,
+            "study": {
+              "kind": "grab",
+              "until": 187.33396221985544,
+              "p": {
+                "f": 0,
+                "x": 53.5,
+                "y": 26.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24651788511457,
+          "y": 52.41414351777866,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 50.5,
+              "y": 35.5
+            },
+            "think": 7.601117725484089,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 200.97168653737754,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 94.09999999999972,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 54.5,
+              "y": 22.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 25.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 195.68459062315011,
+              "p": {
+                "f": 0,
+                "x": 49.5,
+                "y": 21.5
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.24774678086345,
+          "y": 53.499961807974906,
+          "hidden": -1,
+          "ai": {
+            "state": "resupply",
+            "goal": {
+              "f": 0,
+              "x": 57.5,
+              "y": 24.5
+            },
+            "think": -11.626244904752777,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 150.6977067142725,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 121.19999999999818,
+            "react": 0,
+            "study": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "nahual",
+      "time": 257.7999999999901,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nahual",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nahual",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nahual",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "nahual",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 150,
+          "1": 150,
+          "2": 150,
+          "3": 150
+        },
+        "evid": 3,
+        "objDone": 0,
+        "cause": "Jorge, Jhonnatan, Tomás, Alex salió con la apuesta correcta"
+      },
+      "roomsVisited": 19,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.13020993464281,
+          "y": 53.499999310461945,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 5.5,
+              "y": 25.5
+            },
+            "think": 8.58634794652463,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 183.0267980787903,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 261.59999999999025,
+            "react": 0,
+            "termoDone": {
+              "0:10": 30.600000000000165,
+              "0:9": 44.600000000000364,
+              "0:5": 71.20000000000023,
+              "0:2": 91.0999999999991,
+              "0:3": 113.69999999999781,
+              "1:3": 137.69999999999646
+            },
+            "sweep": null,
+            "study": {
+              "kind": "termo",
+              "until": 279.14523009647576,
+              "p": {
+                "f": 0,
+                "x": 15.5,
+                "y": 33.5
+              }
+            }
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.2610768818738,
+          "y": 52.436035341526406,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 18.5,
+              "y": 32.5
+            },
+            "think": 6.04060172289612,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 175.23617680650204,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 221.69999999999249,
+            "study": {
+              "kind": "grab",
+              "until": 262.3520900375115,
+              "p": {
+                "f": 0,
+                "x": 20.5,
+                "y": 33.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.19276565463666,
+          "y": 52.27857860401458,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 34.5
+            },
+            "think": 6.884559475723675,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 171.3629211857915,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 148.09999999999667,
+            "study": {
+              "kind": "uv",
+              "until": 258.21152315576586,
+              "p": {
+                "f": 0,
+                "x": 23.5,
+                "y": 35.5
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21242370608054,
+          "y": 52.31175417290102,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "think": 1.600591911096144,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 160.55085795465857,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 162.59999999999584,
+            "lure": null,
+            "study": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "demonio",
+      "time": 561.4000000000591,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cadejo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cadejo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cadejo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cadejo",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 28,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 21,
+      "hunts": 3,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.31727159635511,
+          "y": 52.41731931362028,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 53.5,
+              "y": 27.5
+            },
+            "think": 11.335272621456536,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 465.60894861742275,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 96.69999999999878,
+              "0:5": 52.80000000000048,
+              "0:9": 78.6999999999998,
+              "0:1": 119.99999999999746,
+              "0:7": 474.5000000000394
+            },
+            "sweep": null,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 47.5,
+              "y": 15.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "talkAt": 554.2000000000543,
+            "study": {
+              "kind": "termo",
+              "until": 483.7296880804351,
+              "p": {
+                "f": 0,
+                "x": 46.5,
+                "y": 13.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 379
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20886951342901,
+          "y": 52.3058036167532,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 47.5,
+              "y": 12.5
+            },
+            "think": 0.6889458530582675,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 401.14866425152013,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 240.39999999999142,
+            "pickupDetourId": 379,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "study": {
+              "kind": "grab",
+              "until": 472.9282453290518,
+              "p": {
+                "f": 0,
+                "x": 47.5,
+                "y": 18.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.25546884508286,
+          "y": 52.427642948878386,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 41.5,
+              "y": 5.5
+            },
+            "think": 12.887581709306692,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 359.1514580935169,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 213.39999999999296,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 47.5,
+              "y": 15.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 461.69964992136926,
+              "p": {
+                "f": 0,
+                "x": 56.5,
+                "y": 19.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20886951342901,
+          "y": 52.3058036167532,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 28.5,
+              "y": 3.5
+            },
+            "think": 12.41041793562472,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 179.56787598319352,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 146.49999999999676,
+            "react": 0,
+            "study": null,
+            "pickupDetourId": 379
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "planchada",
+      "time": 599.2000000000677,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 18,
+          "1": 18,
+          "2": 18,
+          "3": 18
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 22,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 11.5,
+              "y": 14.5
+            },
+            "think": 6.999999999999835,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 153.77496704924852,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 467.1000000000377,
+              "0:5": 288.79999999999717,
+              "0:0": 302.40000000000026,
+              "0:1": 551.0000000000567,
+              "0:3": 366.7000000000149,
+              "0:7": 382.90000000001857,
+              "0:8": 141.09999999999627,
+              "0:13": 500.1000000000452,
+              "0:12": 486.9000000000422,
+              "1:9": 420.100000000027,
+              "1:10": 438.20000000003114,
+              "0:9": 268.6999999999926,
+              "0:2": 530.7000000000521
+            },
+            "sweep": {
+              "key": "1:4",
+              "p": {
+                "f": 1,
+                "x": 8.583557941387426,
+                "y": 20.524015659185572
+              },
+              "t": 5.999999999999995
+            },
+            "talkAt": 589.4000000000623
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.211424424879404,
+          "y": 52.31008321071336,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 4.5,
+              "y": 1.5
+            },
+            "think": 16.999999999999815,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 191.19172875769436,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 48.900000000000226,
+            "react": 0,
+            "pickupDetourId": 424
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 1.5,
+              "y": 10.5
+            },
+            "think": 0.5999999999998425,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 186.4744795812294,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 518.0000000000462
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.213785422034654,
+          "y": 52.31402859657247,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 5.5
+            },
+            "think": 11.29999999999982,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 167.2890242189169,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 179.0999999999949,
+            "pickupDetourId": 436
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "chocarrero",
+      "time": 287.0999999999968,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chocarrero",
+            "ok": true,
+            "pay": 83,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 83,
+          "1": 83,
+          "2": 83,
+          "3": 83
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Tomás, Alex, Rafael, Fermín salió con la apuesta correcta"
+      },
+      "roomsVisited": 8,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.197555763155925,
+          "y": 52.28672191197001,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 5.5,
+              "y": 25.5
+            },
+            "think": 11.011634226795293,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 191.21995533350855,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {},
+            "sweep": {
+              "key": "0:10",
+              "p": {
+                "f": 0,
+                "x": 23.46448661526665,
+                "y": 36.055412667803466
+              },
+              "t": 8.199999999999987
+            },
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 7.5,
+              "y": 36.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "talkAt": 284.69999999999305,
+            "study": {
+              "kind": "termo",
+              "until": 293.00538154523116,
+              "p": {
+                "f": 0,
+                "x": 3.5,
+                "y": 36.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.119730686676796,
+          "y": 52.2633398307614,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 5.5,
+              "y": 25.5
+            },
+            "think": 7.0181809014640955,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 190.31558669172227,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 267.39999999998986,
+            "react": 0,
+            "study": {
+              "kind": "emf",
+              "until": 287.3450218828311,
+              "p": {
+                "f": 0,
+                "x": 12.5,
+                "y": 34.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.1935611006406,
+          "y": 52.279933592078336,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 5.5,
+              "y": 25.5
+            },
+            "think": 8.443762286659345,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 186.1021173885092,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 11.5,
+              "y": 36.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 275.87837252681095,
+              "p": {
+                "f": 0,
+                "x": 12.5,
+                "y": 38.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.19614230477616,
+          "y": 52.284323061438215,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 20.5,
+              "y": 34.5
+            },
+            "think": 7.850862260255978,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 161.11018666997552,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 30.89999999999997,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 5.5,
+              "y": 33.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "study": null,
+            "unhideAt": 215.67669521662557
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "tlahuel",
+      "time": 695.2000000000895,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 10,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "pena",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 10,
+          "1": 18,
+          "2": 18,
+          "3": 18
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 21,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": false,
+          "escaped": false,
+          "f": 1,
+          "x": 4.146969410589593,
+          "y": 7.4255357579732735,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 1.5,
+              "y": 12.5
+            },
+            "think": 10.28624319536612,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 354.1164493134187,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 1,
+              "r": 0
+            },
+            "react": 321.9489989020209,
+            "termoDone": {
+              "0:10": 28.600000000000136,
+              "0:9": 49.30000000000043,
+              "0:5": 221.19999999999172,
+              "0:12": 285.19999999999635
+            },
+            "sweep": {
+              "key": "1:4",
+              "p": {
+                "f": 1,
+                "x": 5.344004080165178,
+                "y": 13.863672887906432
+              },
+              "t": 7.499999999999989
+            },
+            "talkAt": 301.0999999999968,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 5.5,
+              "y": 12.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 7.5,
+              "y": 15.5
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": {
+              "kind": "termo",
+              "until": 231.93858322938203,
+              "p": {
+                "f": 0,
+                "x": 13.5,
+                "y": 16.5
+              }
+            },
+            "pickupDetourId": 530,
+            "flee": {
+              "f": 1,
+              "x": 55.5,
+              "y": 25.5
+            },
+            "fleeUntil": 325.10000000000474
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.32170090066756,
+          "y": 52.42543184154815,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 55.5,
+              "y": 37.5
+            },
+            "think": 2.1626092446968355,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 413.22602507769193,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 589.4000000000623,
+            "react": 0,
+            "study": {
+              "kind": "emf",
+              "until": 216.57664489121458,
+              "p": {
+                "f": 0,
+                "x": 12.5,
+                "y": 14.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven"
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.25924246415146,
+          "y": 52.43329571602461,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 6.5,
+              "y": 5.5
+            },
+            "think": 29.19999999999999,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 360.41043527684513,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 578.8000000000599,
+            "study": {
+              "kind": "uv",
+              "until": 233.26884208078718,
+              "p": {
+                "f": 0,
+                "x": 2.5,
+                "y": 11.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 5.5,
+              "y": 11.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 7.5,
+              "y": 15.5
+            }
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.22336466439625,
+          "y": 52.32995195988305,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 28.5,
+              "y": 5.5
+            },
+            "think": 13.844645044114445,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 495.3663065474556,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 569.4000000000577,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "malaire",
+      "time": 628.8000000000744,
+      "phase": "hora",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Amalia",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 10,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 18,
+          "1": 18,
+          "2": 10,
+          "3": 18
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 27,
+      "hunts": 1,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.22505409362541,
+          "y": 52.332738268063274,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 31.5,
+              "y": 8.5
+            },
+            "think": 0.45053889332341046,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 427.66829923558146,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 430.40000000002937,
+              "0:5": 352.00000000001154,
+              "0:0": 67.20000000000046,
+              "0:9": 328.9000000000063,
+              "0:12": 550.2000000000565,
+              "1:4": 158.2999999999953,
+              "0:13": 465.4000000000373,
+              "0:3": 571.2000000000613
+            },
+            "sweep": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "talkAt": 589.4000000000623
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.25275097344339,
+          "y": 52.42355776495504,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 22.5,
+              "y": 35.5
+            },
+            "think": 7.925644840579494,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 419.420274501099,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 475.50000000003644,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven"
+          }
+        },
+        {
+          "id": 2,
+          "alive": false,
+          "escaped": false,
+          "f": 1,
+          "x": 16.985807983871428,
+          "y": 7.6078489027133065,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 5.5,
+              "y": 5.5
+            },
+            "think": 9.005948286410435,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 402.7414138000373,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 11
+            },
+            "react": 627.1542327458778,
+            "talkAt": 535.9000000000501,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "lure": null,
+            "unhideAt": 630.6702969381397
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.19983578354544,
+          "y": 52.290584283472484,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 51.5,
+              "y": 17.5
+            },
+            "think": 27.89999999999997,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 606.7460183585374,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 575.8000000000592,
+            "react": 0,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "aparecido",
+      "time": 559.6000000000587,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Rafael",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 20,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "planchada",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 20,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 25,
+      "hunts": 2,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.251443126602375,
+          "y": 52.421587485235676,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "think": 11.19999999999982,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 653.5275008336084,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 26.600000000000108,
+              "0:9": 49.90000000000044,
+              "1:4": 74.60000000000004,
+              "1:0": 90.49999999999913,
+              "1:1": 116.39999999999766,
+              "1:2": 133.29999999999671,
+              "1:3": 153.59999999999556
+            },
+            "sweep": null,
+            "talkAt": 554.2000000000543,
+            "pickupDetourId": 610,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 44.9690821995944,
+          "y": 5.900088898668623,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 39.5,
+              "y": 5.5
+            },
+            "think": 23.399999999999906,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 481.52570136432183,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 3
+            },
+            "react": 476.7191047006217,
+            "talkAt": 468.8000000000349,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "lure": null,
+            "pickupDetourId": 610
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.25331766948744,
+          "y": 52.42441084068524,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 25.5,
+              "y": 6.5
+            },
+            "think": 20.79999999999987,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 621.523780920576,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 461.50000000003325,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 610
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.2246624244961,
+          "y": 52.332091340558605,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 48.5,
+              "y": 19.5
+            },
+            "think": 20.599999999999866,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 615.8638973115362,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 396.00000000001836,
+            "react": 0,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 610,
+            "lure": {
+              "f": 0,
+              "x": 49.85820135940122,
+              "y": 13.281118242101105,
+              "until": 422.3000000000248
+            }
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "bruja",
+      "time": 546.6000000000557,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cucuy",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Mateo",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 33,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Robert",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 33,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cucuy",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 40,
+          "1": 33,
+          "2": 33,
+          "3": 40
+        },
+        "evid": 2,
+        "objDone": 1,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 15,
+      "hunts": 3,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 18.5,
+              "y": 4.5
+            },
+            "think": 9.285379334352925,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 201.10888108145446,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 29.200000000000145,
+              "0:5": 52.500000000000476,
+              "0:0": 69.50000000000033
+            },
+            "sweep": {
+              "key": "0:1",
+              "p": {
+                "f": 0,
+                "x": 20.5,
+                "y": 8.5
+              },
+              "t": 0
+            },
+            "lure": null,
+            "study": {
+              "kind": "termo",
+              "until": 523.9576348007186,
+              "p": {
+                "f": 0,
+                "x": 6.5,
+                "y": 5.5
+              }
+            },
+            "talkAt": 554.2000000000543,
+            "unhideAt": 354.54207696161444
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 7.44507745309521,
+          "y": 9.895115885523754,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 18.5,
+              "y": 4.5
+            },
+            "think": 8.520356543269017,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 154.4461863487959,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 0
+            },
+            "talkAt": 211.49999999999307,
+            "react": 257.3125121229692,
+            "study": {
+              "kind": "grab",
+              "until": 289.3109170179712,
+              "p": {
+                "f": 0,
+                "x": 6.5,
+                "y": 3.5
+              }
+            },
+            "lure": null
+          }
+        },
+        {
+          "id": 2,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 23.256826730677354,
+          "y": 24.076347642230616,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 7.5,
+              "y": 15.5
+            },
+            "think": 12.950654900632802,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 192.49630785081536,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 14
+            },
+            "react": 466.91097432872294,
+            "talkAt": 76.10000000000062,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 11.5,
+              "y": 4.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 6.5,
+              "y": 4.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 476.7528459346267,
+              "p": {
+                "f": 0,
+                "x": 3.5,
+                "y": 5.5
+              }
+            },
+            "lure": null,
+            "unhideAt": 360.04204479336164
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "setup",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 23.5
+            },
+            "think": 6.699999999999836,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 170.98945680074394,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 54.3000000000003,
+            "pickupDetourId": 659,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 4.5,
+              "y": 5.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 6.5,
+              "y": 4.5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "yohual",
+      "time": 185.29999999999376,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Fermín",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "guardian",
+            "ok": false,
+            "pay": 28,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 28,
+          "1": 28,
+          "2": 28,
+          "3": 28
+        },
+        "evid": 2,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 10,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.19778023453954,
+          "y": 52.28710256229797,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "think": 12.294634960405533,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 188.97421860136092,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 187.8999999999944,
+            "react": 0,
+            "termoDone": {
+              "0:10": 33.400000000000205
+            },
+            "sweep": null,
+            "lure": null,
+            "study": {
+              "kind": "termo",
+              "until": 185.2462471130256,
+              "p": {
+                "f": 0,
+                "x": 16.5,
+                "y": 36.5
+              }
+            }
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21771949956364,
+          "y": 52.320582913596674,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "think": 7.983614066988235,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 165.3815086511895,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 186.99999999999446,
+            "study": {
+              "kind": "grab",
+              "until": 175.7771252785764,
+              "p": {
+                "f": 0,
+                "x": 17.5,
+                "y": 34.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.222695720901854,
+          "y": 52.32883933761608,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "think": 2.8340325430035733,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 169.8516995832324,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "study": {
+              "kind": "uv",
+              "until": 180.3294184358744,
+              "p": {
+                "f": 0,
+                "x": 22.5,
+                "y": 37.5
+              }
+            },
+            "talkAt": 182.4999999999947
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.24624509583576,
+          "y": 52.41373006996774,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "think": 3.923709198087472,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 194.41285828594118,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "lure": null,
+            "talkAt": 39.000000000000085,
+            "study": null
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "cihuateteo",
+      "time": 597.3000000000673,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": true,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Fermín",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 13,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": "cihuateteo",
+            "ok": true,
+            "pay": 25,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Jenny",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": true,
+            "pay": 40,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 40,
+          "1": 13,
+          "2": 25,
+          "3": 40
+        },
+        "evid": 0,
+        "objDone": 1,
+        "cause": "Tomás, Jenny salió con la apuesta correcta"
+      },
+      "roomsVisited": 27,
+      "hunts": 5,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.294911132112404,
+          "y": 53.49925127031051,
+          "hidden": -1,
+          "ai": {
+            "state": "resupply",
+            "goal": {
+              "f": 0,
+              "x": 53.5,
+              "y": 17.5
+            },
+            "think": 2.0161409893073508,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 177.39890495315194,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 589.4000000000623,
+            "react": 0,
+            "termoDone": {
+              "0:10": 319.2000000000041,
+              "0:5": 53.200000000000486,
+              "1:4": 81.49999999999964,
+              "1:0": 99.7999999999986,
+              "1:1": 121.29999999999738,
+              "1:2": 135.79999999999657,
+              "1:3": 153.59999999999556,
+              "1:6": 170.4999999999946,
+              "1:7": 181.99999999999395,
+              "1:8": 198.599999999993,
+              "0:9": 336.9000000000081,
+              "0:12": 406.60000000002395,
+              "0:13": 424.9000000000281,
+              "0:8": 439.4000000000314,
+              "0:3": 463.5000000000369
+            },
+            "sweep": {
+              "key": "0:7",
+              "p": {
+                "f": 0,
+                "x": 47.5,
+                "y": 18.5
+              },
+              "t": 0.4
+            },
+            "pickupDetourId": 745,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 50.65804977508315,
+          "y": 18.995526830924096,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 55.5,
+              "y": 18.5
+            },
+            "think": 28.399999999999977,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 383.4940224625082,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 7
+            },
+            "react": 320.15687858728165,
+            "talkAt": 329.8000000000033,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 749
+          }
+        },
+        {
+          "id": 2,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 44.506656413825105,
+          "y": 6.420692902711218,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 53.5,
+              "y": 18.5
+            },
+            "think": 5.3999999999998405,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 206.63645510561764,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 3
+            },
+            "react": 572.2103589045265,
+            "talkAt": 304.5999999999976,
+            "pickupDetourId": 745,
+            "unhideAt": 446.29048702561744
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20051863596114,
+          "y": 52.29173935706252,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 54.5,
+              "y": 10.5
+            },
+            "think": 20.79999999999987,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 613.2233473761366,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 572.2679159489609,
+            "talkAt": 473.00000000003587,
+            "pickupDetourId": 745,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "xtabay",
+      "time": 549.4000000000564,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Amalia",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 45,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Mateo",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 45,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chaneque",
+            "ok": false,
+            "pay": 53,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "chaneque",
+            "ok": false,
+            "pay": 53,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 45,
+          "1": 45,
+          "2": 53,
+          "3": 53
+        },
+        "evid": 2,
+        "objDone": 2,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 17,
+      "hunts": 4,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 53.39000000000001,
+          "y": 16.5,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "think": 2.2238123073242884,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 363.4203116090906,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 7
+            },
+            "react": 518.0443220229145,
+            "termoDone": {
+              "0:10": 30.500000000000163,
+              "0:9": 45.50000000000038,
+              "0:5": 70.80000000000025,
+              "0:1": 85.39999999999942
+            },
+            "sweep": null,
+            "placeK": 1,
+            "place": {
+              "f": 0,
+              "x": 57.5,
+              "y": 10.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "talkAt": 513.000000000045,
+            "study": null,
+            "lure": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "pickupDetourId": 795
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 53.39000000000001,
+          "y": 16.5,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "think": 10.619067232217647,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 412.5694872751756,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 7
+            },
+            "react": 422.98444385021406,
+            "talkAt": 222.89999999999242,
+            "study": {
+              "kind": "termo",
+              "until": 255.97163321365656,
+              "p": {
+                "f": 0,
+                "x": 49.5,
+                "y": 12.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 46.5,
+              "y": 17.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "pickupDetourId": 795
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 47.5,
+              "y": 17.5
+            },
+            "think": 11.09999999999982,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 455.0051359713007,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 554.2000000000543,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 47.5,
+              "y": 17.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "study": {
+              "kind": "emf",
+              "until": 503.82046160404064,
+              "p": {
+                "f": 0,
+                "x": 47.5,
+                "y": 21.5
+              }
+            },
+            "pickupDetourId": 795,
+            "lure": {
+              "f": 0,
+              "x": 47.68716297480313,
+              "y": 18.982088677740993,
+              "until": 202.69999999999345
+            },
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "unhideAt": 324.2475574655503
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.260135384176465,
+          "y": 52.43462991194515,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 55.5,
+              "y": 24.5
+            },
+            "think": 9.992647018283611,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 205.55896709673107,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 93.49999999999976,
+            "react": 0,
+            "study": null,
+            "pickupDetourId": 795
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "cadejo",
+      "time": 715.7000000000942,
+      "phase": "amanecer",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Mateo",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "aparecido",
+            "ok": false,
+            "pay": 18,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 18,
+          "1": 18,
+          "2": 18,
+          "3": 18
+        },
+        "evid": 1,
+        "objDone": 0,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 30,
+      "hunts": 2,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 22.5,
+              "y": 34.5
+            },
+            "think": 8.7994221204892,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 382.3589382860722,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 11
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 613.1000000000708,
+              "0:5": 636.6000000000762,
+              "1:4": 77.19999999999989,
+              "1:9": 681.3000000000864,
+              "1:10": 118.89999999999752,
+              "1:11": 131.9999999999968,
+              "1:12": 155.19999999999547,
+              "1:8": 169.99999999999463,
+              "1:6": 185.59999999999374,
+              "0:9": 266.4999999999921,
+              "0:1": 504.0000000000461,
+              "0:0": 651.1000000000795,
+              "0:2": 525.4000000000509,
+              "0:7": 560.2000000000588,
+              "0:8": 381.50000000001825,
+              "0:13": 399.50000000002234,
+              "0:12": 414.6000000000258,
+              "0:3": 545.3000000000554
+            },
+            "sweep": {
+              "key": "1:10",
+              "p": {
+                "f": 1,
+                "x": 17.5,
+                "y": 34.5
+              },
+              "t": 2.2000000000000006
+            },
+            "lure": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "talkAt": 589.4000000000623
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.32297676288084,
+          "y": 52.42776615025025,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 38.5,
+              "y": 6.5
+            },
+            "think": 0.2729341919534214,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 652.9226407358831,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 494.40000000004073,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven"
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21340746125979,
+          "y": 52.313397630078185,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 1,
+              "x": 52.5,
+              "y": 28.5
+            },
+            "think": 16.799999999999812,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 718.41211341438,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 575.3000000000591,
+            "lure": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.111047312483024,
+          "y": 53.49990165065119,
+          "hidden": -1,
+          "ai": {
+            "state": "explore",
+            "goal": {
+              "f": 0,
+              "x": 6.5,
+              "y": 33.5
+            },
+            "think": 26.699999999999953,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 764.9306307038908,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 586.1000000000615,
+            "react": 0,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "mulata",
+      "time": 210.59999999999232,
+      "phase": "night",
+      "over": {
+        "win": "inv",
+        "res": [
+          {
+            "id": 0,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "mulata",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jorge",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "mulata",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "mulata",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Rafael",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "mulata",
+            "ok": true,
+            "pay": 150,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 150,
+          "1": 150,
+          "2": 150,
+          "3": 150
+        },
+        "evid": 3,
+        "objDone": 0,
+        "cause": "Jhonnatan, Jorge, Tomás, Rafael salió con la apuesta correcta"
+      },
+      "roomsVisited": 15,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.200579563571644,
+          "y": 52.29184237026959,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 34.5
+            },
+            "think": 0.7525985686108639,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 351.4900297244951,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 30.20000000000016,
+              "0:9": 53.50000000000049,
+              "0:5": 71.10000000000024
+            },
+            "sweep": {
+              "key": "1:4",
+              "p": {
+                "f": 1,
+                "x": 13.40466803777963,
+                "y": 15.53772108303383
+              },
+              "t": 2.700000000000001
+            },
+            "talkAt": 215.39999999999284,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 35.5,
+              "y": 31.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 37.5,
+              "y": 34.5
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "study": {
+              "kind": "termo",
+              "until": 213.06971553935935,
+              "p": {
+                "f": 0,
+                "x": 38.5,
+                "y": 35.5
+              }
+            }
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.20165450260766,
+          "y": 53.49999999981771,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 20.5,
+              "y": 34.5
+            },
+            "think": 9.151483042351915,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 207.74742920883,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 181.99999999999474,
+            "study": {
+              "kind": "grab",
+              "until": 193.70949636194317,
+              "p": {
+                "f": 0,
+                "x": 37.5,
+                "y": 35.5
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.208525308185614,
+          "y": 52.305226217353024,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 36.5,
+              "y": 37.5
+            },
+            "think": 5.725463651400075,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 370.74579685367075,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 189.9999999999943,
+            "study": {
+              "kind": "uv",
+              "until": 213.79111554724452,
+              "p": {
+                "f": 0,
+                "x": 36.5,
+                "y": 32.5
+              }
+            },
+            "lure": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.289844480284046,
+          "y": 53.50000002995531,
+          "hidden": -1,
+          "ai": {
+            "state": "resupply",
+            "goal": {
+              "f": 0,
+              "x": 50.5,
+              "y": 35.5
+            },
+            "think": -11.332060387544292,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 188.10630060732365,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "talkAt": 79.20000000000057,
+            "react": 0,
+            "study": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "uaychivo",
+      "time": 304.50000000000074,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Alex",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "llorona",
+            "ok": false,
+            "pay": 53,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Amalia",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "llorona",
+            "ok": false,
+            "pay": 53,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "llorona",
+            "ok": false,
+            "pay": 53,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Ángel",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "llorona",
+            "ok": false,
+            "pay": 53,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 53,
+          "1": 53,
+          "2": 53,
+          "3": 53
+        },
+        "evid": 2,
+        "objDone": 2,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 15,
+      "hunts": 0,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.25923402512747,
+          "y": 52.433283100458574,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 6.5,
+              "y": 13.5
+            },
+            "think": 6.314109334629043,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 426.88956762812114,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 28.000000000000128,
+              "0:1": 54.2000000000005
+            },
+            "sweep": {
+              "key": "0:5",
+              "p": {
+                "f": 0,
+                "x": 3.5,
+                "y": 10.5
+              },
+              "t": 0
+            },
+            "study": null,
+            "talkAt": 297.89999999999606,
+            "lure": null,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven"
+          }
+        },
+        {
+          "id": 1,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20420169611135,
+          "y": 52.297955979636114,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 18.5,
+              "y": 4.5
+            },
+            "think": 7.479004703927799,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 381.5669153135192,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 227.19999999999217,
+            "study": null,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven",
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 12.5,
+              "y": 17.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 7.5,
+              "y": 15.5
+            }
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 33.281149066368684,
+          "y": 53.49999999960754,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 7.5,
+              "y": 16.5
+            },
+            "think": 8.43487284928562,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 401.45104234590247,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 243.79999999999123,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 3.5,
+              "y": 19.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 7.5,
+              "y": 15.5
+            },
+            "study": {
+              "kind": "uv",
+              "until": 288.7063041089005,
+              "p": {
+                "f": 0,
+                "x": 8.5,
+                "y": 10.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        },
+        {
+          "id": 3,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20944831471046,
+          "y": 52.306774114960334,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 18.5,
+              "y": 4.5
+            },
+            "think": 1.0168970692902954,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 399.8712443016385,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "talkAt": 237.3999999999916,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 4.5,
+              "y": 13.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 7.5,
+              "y": 15.5
+            },
+            "study": {
+              "kind": "emf",
+              "until": 285.67494291969496,
+              "p": {
+                "f": 0,
+                "x": 1.5,
+                "y": 14.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado"
+          }
+        }
+      ]
+    },
+    {
+      "ghost": "charro",
+      "time": 556.800000000058,
+      "phase": "night",
+      "over": {
+        "win": "ghost",
+        "res": [
+          {
+            "id": 0,
+            "name": "Tomás",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 1,
+            "name": "Jhonnatan",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 33,
+            "fotos": 0
+          },
+          {
+            "id": 2,
+            "name": "Robert",
+            "bot": true,
+            "out": true,
+            "alive": true,
+            "guess": "cihuateteo",
+            "ok": false,
+            "pay": 40,
+            "fotos": 0
+          },
+          {
+            "id": 3,
+            "name": "Fermín",
+            "bot": true,
+            "out": false,
+            "alive": false,
+            "guess": null,
+            "ok": false,
+            "pay": 33,
+            "fotos": 0
+          }
+        ],
+        "pay": {
+          "0": 40,
+          "1": 33,
+          "2": 40,
+          "3": 33
+        },
+        "evid": 2,
+        "objDone": 1,
+        "cause": "Nadie que salió acertó"
+      },
+      "roomsVisited": 18,
+      "hunts": 4,
+      "stalls": [],
+      "actors": [
+        {
+          "id": 0,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.21979125021126,
+          "y": 52.324024633871126,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 12.5
+            },
+            "think": 3.3172544318251522,
+            "wantTools": [
+              "termo",
+              "espejo"
+            ],
+            "nextResupply": 382.1070546079361,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 0,
+            "termoDone": {
+              "0:10": 28.10000000000013,
+              "0:5": 49.10000000000043,
+              "0:1": 68.3000000000004,
+              "0:2": 90.19999999999915
+            },
+            "sweep": null,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 44.5,
+              "y": 6.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "talkAt": 554.2000000000543,
+            "lure": null,
+            "study": null,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven"
+          }
+        },
+        {
+          "id": 1,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 40.700694134105,
+          "y": 18.16534801007928,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 52.5,
+              "y": 13.5
+            },
+            "think": 2.7222359851934317,
+            "wantTools": [
+              "emf",
+              "grab"
+            ],
+            "nextResupply": 389.9276666857219,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 14
+            },
+            "react": 397.7636683456119,
+            "talkAt": 315.7000000000001,
+            "study": {
+              "kind": "grab",
+              "until": 410.4048010335477,
+              "p": {
+                "f": 0,
+                "x": 46.5,
+                "y": 4.5
+              }
+            },
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "lure": null,
+            "unhideAt": 306.33107127426257
+          }
+        },
+        {
+          "id": 2,
+          "alive": true,
+          "escaped": true,
+          "f": 0,
+          "x": 34.20070680262407,
+          "y": 52.29205751151108,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 43.5,
+              "y": 6.5
+            },
+            "think": 2.843676296342178,
+            "wantTools": [
+              "cam",
+              "uv"
+            ],
+            "nextResupply": 402.6000479776335,
+            "errDone": true,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 16
+            },
+            "react": 540.0327836582511,
+            "talkAt": 80.90000000000047,
+            "placeK": 0,
+            "place": {
+              "f": 0,
+              "x": 44.5,
+              "y": 7.5
+            },
+            "aim": {
+              "f": 0,
+              "x": 42.5,
+              "y": 4.5
+            },
+            "study": null,
+            "lure": null,
+            "prevState": "resupply",
+            "why": "a cambiar herramientas que ya no sirven"
+          }
+        },
+        {
+          "id": 3,
+          "alive": false,
+          "escaped": false,
+          "f": 0,
+          "x": 45.546087747996026,
+          "y": 5.437550400587678,
+          "hidden": -1,
+          "ai": {
+            "state": "watch",
+            "goal": {
+              "f": 0,
+              "x": 29.5,
+              "y": 12.5
+            },
+            "think": 7.5085174834355755,
+            "wantTools": [
+              "gases"
+            ],
+            "nextResupply": 335.36004802286004,
+            "errDone": false,
+            "stillT": 0,
+            "lastRoom": {
+              "f": 0,
+              "r": 3
+            },
+            "talkAt": 106.19999999999904,
+            "react": 303.86865914815615,
+            "study": null,
+            "lure": null,
+            "prevState": "resupply",
+            "why": "por herramientas que nadie ha usado",
+            "flee": {
+              "f": 0,
+              "x": 7.5,
+              "y": 34.5
+            },
+            "fleeUntil": 307.10000000000065
+          }
+        }
+      ]
+    }
+  ]
+}
