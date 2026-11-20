@@ -91,7 +91,7 @@
       "support": "am_banca_estrado",
       "offset": [
         0.6,
-        0,
+        0.0,
         0.5
       ],
       "rotation": 0
@@ -103,7 +103,7 @@
       "support": "am_banca_estrado",
       "offset": [
         2,
-        0,
+        0.0,
         0.5
       ],
       "rotation": 0
@@ -115,7 +115,7 @@
       "support": "am_banca_estrado",
       "offset": [
         3.4,
-        0,
+        0.0,
         0.5
       ],
       "rotation": 0
