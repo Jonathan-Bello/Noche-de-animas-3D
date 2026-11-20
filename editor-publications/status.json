@@ -1,6 +1,6 @@
 {
-  "id": "6431c528-845e-4473-8015-6d71d9408e0b",
-  "runId": "44688091107",
-  "state": "validated",
-  "message": "Plano validado: guardado en el repositorio y preparando despliegue."
+  "id": "b3691814-6f88-49e4-abbd-d8ea5dedee1b",
+  "runId": "44689898242",
+  "state": "rejected",
+  "message": "La nueva distribución deja zonas sin un escondite alcanzable. Acerca un escondite o devuelve la escalera a una posición con acceso libre."
 }
