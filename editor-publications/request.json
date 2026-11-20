@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "id": "verificacion-059eab98-cd9f-44c3-ab75-b2968913d36c",
+  "id": "6431c528-845e-4473-8015-6d71d9408e0b",
   "baseSHA": "380fbeeb3b2f52e5f8f771fd358522d286de4360",
   "layout": {
     "version": "casona-v16",
@@ -2059,9 +2059,9 @@
         "room": "B04",
         "rect": [
           37,
-          4,
+          5,
           38,
-          8
+          9
         ],
         "height": 0.78,
         "blocksSight": false,
@@ -2599,12 +2599,12 @@
         "room": "B04",
         "floor": 0,
         "x": 46,
-        "z": 2,
+        "z": 3,
         "type": "alacena de servicio",
         "mandatory": false,
         "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
         "preferredSolid": [
-          47,
+          46,
           2
         ],
         "contents": "Vajilla y ollas en compartimentos laterales; hueco central libre."
@@ -5058,7 +5058,7 @@
         "asset": "jar",
         "support": "am_B09",
         "offset": [
-          3.0,
+          3,
           0,
           0.35
         ],
@@ -6134,7 +6134,7 @@
         "support": "banca_oeste_1",
         "offset": [
           1,
-          0.0,
+          0,
           0.5
         ],
         "rotation": 0
@@ -6146,7 +6146,7 @@
         "support": "banca_este_1",
         "offset": [
           1,
-          0.0,
+          0,
           0.5
         ],
         "rotation": 0
@@ -6158,7 +6158,7 @@
         "support": "banca_oeste_2",
         "offset": [
           1,
-          0.0,
+          0,
           0.5
         ],
         "rotation": 0
@@ -6170,7 +6170,7 @@
         "support": "banca_este_2",
         "offset": [
           1,
-          0.0,
+          0,
           0.5
         ],
         "rotation": 0
@@ -6838,7 +6838,7 @@
         "support": "am_banca_estrado",
         "offset": [
           0.6,
-          0.0,
+          0,
           0.5
         ],
         "rotation": 0
@@ -6850,7 +6850,7 @@
         "support": "am_banca_estrado",
         "offset": [
           2,
-          0.0,
+          0,
           0.5
         ],
         "rotation": 0
@@ -6862,7 +6862,7 @@
         "support": "am_banca_estrado",
         "offset": [
           3.4,
-          0.0,
+          0,
           0.5
         ],
         "rotation": 0
