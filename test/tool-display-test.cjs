@@ -1,0 +1,23 @@
+const fs=require('node:fs'),assert=require('node:assert/strict'),path=require('node:path');
+const root=path.join(__dirname,'..');globalThis.NDAToolComponents=JSON.parse(fs.readFileSync(path.join(root,'src/tools-components.json'),'utf8'));
+const art=new Function(fs.readFileSync(path.join(root,'src/tools-art3d.js'),'utf8')+';return NDAToolArt;')();
+assert.equal(art.read('termo',{},10).digits,'----');
+assert.equal(art.read('termo',{},10,{termo:{v:-3,show:-2.8,settle:4}}).tone,'doubtful');
+assert.equal(art.read('termo',{},10,{termo:{v:-3,show:-2.8,settle:8}}).tone,'positive');
+assert.equal(art.read('termo',{temp:-20},10).digits,'----'); // Old art-only property must never fabricate a reading.
+assert.equal(art.read('emf',{emfLvl:5,emfUntil:9},10).level,1);
+assert.equal(art.read('grab',{screen:{kind:'voz',until:9}},10).wave,'nada');
+assert.equal(art.read('grab',{screen:{kind:'estatica',until:11}},10).tone,'doubtful');
+assert.equal(art.read('espejo',{markUntil:9,fogUntil:11},10).tone,'doubtful');
+assert.equal(art.read('espejo',{markUntil:Infinity},10).tone,'positive');
+assert.equal(art.read('gases',{redUntil:9,yellowUntil:11},10).tone,'doubtful');
+assert.equal(art.read('gases',{redUntil:11},10).tone,'positive');
+assert.equal(art.panel('cam',{dir:0,ghostOn:true,lastGhost:10},10),art.panel('cam',{dir:0,ghostOn:false},10));
+assert.equal(art.read('uv',{prints:true},10).tone,'normal');
+assert.match(art.panel('grab',{msg:{text:'<b>NO VOLTEES</b>',until:11}},10),/&lt;b&gt;/);
+assert.doesNotMatch(art.panel('grab',{msg:{text:'<b>NO VOLTEES</b>',until:11}},10),/<b>/);
+const pilot=NDAToolComponents.tools.emf.parts.find(p=>p.id==='piloto_5');pilot.color='#9159ab';
+assert.match(art.panel('emf',{emfUntil:11,emfLvl:5},10),/#9159ab/);
+const zone=NDAToolComponents.tools.gases.parts.find(p=>p.id==='zona_2');zone.color='#9159ab';
+assert.match(art.panel('gases',{redUntil:11},10),/#9159ab/);
+console.log('Tool readouts: truthful state, expiry, uncertainty, private camera feed, escaped messages and editable display colors passed.');

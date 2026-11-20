@@ -224,7 +224,7 @@ function makeItemMesh(it) {
   const g = new THREE.Group(); const c = ITEM_COLOR[it.kind]; let m;
   const lam = (col, e) => LambertFlat({ color: col, emissive: e || 0x000000 });
   const toolModel=NDAToolArt.create(it.kind);
-  if(toolModel)m=toolModel;else switch (it.kind) {
+  if(toolModel){m=toolModel;if(it.kind==='uv')m.rotation.y=Math.PI/2;}else switch (it.kind) {
     case 'espejo': m = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.04, 16), lam(c, 0x202830)); m.rotation.x = Math.PI / 2; m.position.y = 0.25; break;
     case 'uv': case 'gases': case 'termo': m = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.32, 8), lam(c)); m.rotation.z = Math.PI / 2; m.position.y = 0.1; break;
     case 'rosario': m = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.03, 6, 14), lam(c, 0x302820)); m.rotation.x = Math.PI / 2; m.position.y = 0.05; break;
@@ -251,7 +251,7 @@ function makeItemMesh(it) {
   const ind = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshBasicMaterial({ color: 0xff2020 })); ind.position.y = 0.32; ind.visible = false; g.add(ind);
   let beam = null; if (it.kind === 'uv' || it.kind === 'cam') { beam = new THREE.Mesh(new THREE.ConeGeometry(it.kind === 'uv' ? 1.6 : 2.4, 6, 16, 1, true), new THREE.MeshBasicMaterial({ color: it.kind === 'uv' ? 0x9a5cff : 0xaaaaaa, transparent: true, opacity: it.kind === 'uv' ? 0.08 : 0.04, depthWrite: false, side: THREE.DoubleSide })); beam.rotation.z = Math.PI / 2; beam.position.set(3, 0.3, 0); const piv = new THREE.Group(); piv.add(beam); g.add(piv); beam = piv; }
   let flame = null; if (it.kind === 'vela') { flame = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshBasicMaterial({ color: COL.gold })); flame.position.y = 0.33; flame.scale.y = 1.8; g.add(flame); }
-  let mark = null; if (it.kind === 'espejo') { mark = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.42), new THREE.MeshBasicMaterial({ map: handT, transparent: true, depthWrite: false, side: THREE.DoubleSide })); mark.position.set(0, 0.25, 0.03); mark.visible = false; g.add(mark); }
+  let mark = null; if (it.kind === 'espejo'&&!toolModel) { mark = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.42), new THREE.MeshBasicMaterial({ map: handT, transparent: true, depthWrite: false, side: THREE.DoubleSide })); mark.position.set(0, 0.25, 0.03); mark.visible = false; g.add(mark); }
   scene.add(g); return { g, m, halo, ind, beam, flame, mark };
 }
 
@@ -358,8 +358,8 @@ function updateScene(t, dt) {
     if (!!i.possessed !== !!m.noShadow) { m.noShadow = !!i.possessed; m.g.traverse(o => { if (o.isMesh) o.castShadow = !m.noShadow; }); }
     animateCharacter(m, { x: i.x + i.f * 100, y: i.y, t, dt, hidden: i.hidden >= 0, dead: isDead, manifest: isDead && i.spirit.until > w.t, lamp: !isDead && i.flash && w.t >= i.flashOffUntil, holding: !!hk0, aim: AIM_KINDS.includes(hk0), tremble: isDead ? 0 : clamp01((35 - i.san) / 35) });
     if (i.alive && !i.escaped && i.hidden < 0 && Math.floor(m.ph / Math.PI) !== Math.floor(ph0 / Math.PI) && m.speed > 0.4) footstep(i, m.speed, i === V);
-    const hk = i.slots[i.hand] ? i.slots[i.hand].kind : null; if (hk !== m.handKind) { m.handKind = hk; m.hand.clear(); if (hk) { const im = makeItemMesh({ kind: hk }); scene.remove(im.g); im.halo.visible = false; im.g.scale.setScalar(0.8); im.g.rotation.y = -Math.PI / 2; im.g.position.y = -0.06; m.hand.add(im.g); m.handItem = im; } else m.handItem = null; }
-    if(m.handItem&&i.slots[i.hand])NDAToolArt.update(m.handItem.m,i.slots[i.hand],t,true);
+    const hk = i.slots[i.hand] ? i.slots[i.hand].kind : null; if (hk !== m.handKind) { m.handKind = hk;if(m.handItem?.m?.userData.tool)NDAToolArt.dispose(m.handItem.m,m.handItem.g); m.hand.clear(); if (hk) { const im = makeItemMesh({ kind: hk }); scene.remove(im.g); im.halo.visible = false; im.g.scale.setScalar(0.8); im.g.rotation.y = -Math.PI / 2; im.g.position.y = -0.06;if(im.m.userData.tool){const grip=NDAToolComponents.tools[hk].grip;im.g.position.fromArray(grip.position);im.g.rotation.fromArray([...grip.rotation,'XYZ']);im.g.scale.setScalar(grip.scale);} m.hand.add(im.g); m.handItem = im; } else m.handItem = null; }
+    if(m.handItem&&i.slots[i.hand]){NDAToolArt.update(m.handItem.m,i.slots[i.hand],t,true);if(m.handItem.m.userData.tool&&hk==='cam'&&m.handItem.beam)m.handItem.beam.position.y=m.handItem.m.userData.tool.groups.body.position.y-.3;}
     if (m.handItem && m.handItem.beam) { m.handItem.beam.visible = i.alive && i.hidden < 0; }
   });
   // ánima
@@ -390,7 +390,7 @@ function updateScene(t, dt) {
   // objetos
   const seenIds = new Set();
   for (const it of w.items) { if (it.holder) continue; seenIds.add(it.id); let im = itemMeshes.get(it.id); if (!im) { im = makeItemMesh(it); itemMeshes.set(it.id, im); }
-    im.g.visible = layoutItemVisible(w,it)&&(it.f === vf || vf === 1); im.g.position.set(it.x, it.f * FH + (it.h || 0), it.y); im.g.rotation.y = -it.dir;
+    im.g.visible = layoutItemVisible(w,it)&&(it.f === vf || vf === 1); im.g.position.set(it.x, it.f * FH + (it.h || 0), it.y); im.g.rotation.y = -(it.dir||0);
     im.halo.material.opacity = 0.2 + Math.sin(t * 3 + it.id) * 0.12;
     if (it.kind === 'emf') { const on = t < it.emfUntil; im.ind.visible = on; im.ind.material.color.setHex(it.emfLvl >= 5 ? 0xff2020 : it.emfLvl >= 4 ? 0xff9020 : 0x40ff60); }
     NDAToolArt.update(im.m,it,t);
@@ -399,9 +399,9 @@ function updateScene(t, dt) {
     if (it.kind === 'grab') im.ind.visible = false;
     if (it.kind === 'vela' && im.flame) im.flame.visible = it.lit;
     if (it.kind === 'espejo' && im.mark) { const V2 = viewer(); im.mark.visible = t < it.markUntil && !!V2 && V2.f === it.f && Math.hypot(V2.x - it.x, V2.y - it.y) < 9 && los(V2.f, V2.x, V2.y, it.x, it.y); } // la mano se ve desde lejos
-    if (im.beam) im.beam.visible = true;
+    if (im.beam) im.beam.visible = true;if(im.m.userData.tool){im.ind.visible=false;if(it.kind==='cam'&&im.beam)im.beam.position.y=im.m.userData.tool.groups.body.position.y-.3;}
   }
-  for (const [id, im] of itemMeshes) if (!seenIds.has(id)) { scene.remove(im.g); itemMeshes.delete(id); }
+  for (const [id, im] of itemMeshes) if (!seenIds.has(id)) { scene.remove(im.g);if(im.m.userData.tool)NDAToolArt.dispose(im.m,im.g); itemMeshes.delete(id); }
   // efectos
   updateFx(t, vf); updateProps(t, vf); updateLoose(t);NDAHouseArt.updateDrawers(w,dt);
   for (const m of ceilMeshes) m.visible = vk!=='all' && camera.position.y < m.userData.f * FH + FH - 0.05;
@@ -642,7 +642,7 @@ function primaryAction(i) {
   return null;
 }
 const USE_VERB = { termo: 'Quédate quieto para medir', grab: 'Preguntar en voz alta', cam: 'Apuntar (suéltala con G)', foco: 'Cambiar el foco (Q en el apagador)', te: 'Tomar el té', rosario: 'Alzar el rosario', ruda: 'Colgar la ruda en la puerta', copal: 'Encender copal', vela: 'Dejar la veladora', ceniza: 'Regar la ceniza', cruz: 'Dejar la cruz', pan: 'Dejar el pan', limpia: 'Hacer la limpia', tarot: 'Sacar una carta', tablilla: 'Preguntar a la tablilla', espejoplata: 'Mirar en la plata', mano: 'Pedir un deseo', muneca: 'Clavar un alfiler', pentagrama: 'Prender una vela', radio: 'Preguntar por radio' };
-const USE_BTN = { termo: 'Medir', grab: 'Preguntar', cam: 'Ver foto', foco: 'Foco', te: 'Beber', rosario: 'Alzar', ruda: 'Colgar', copal: 'Copal', vela: 'Dejar', ceniza: 'Regar', cruz: 'Dejar', pan: 'Dejar', limpia: 'Limpia', tarot: 'Carta', tablilla: 'Preguntar', espejoplata: 'Mirar', mano: 'Desear', muneca: 'Alfiler', pentagrama: 'Vela', radio: 'Radio' };
+const USE_BTN = { termo: 'Medir', grab: 'Preguntar', cam: 'Colocar' , foco: 'Foco', te: 'Beber', rosario: 'Alzar', ruda: 'Colgar', copal: 'Copal', vela: 'Dejar', ceniza: 'Regar', cruz: 'Dejar', pan: 'Dejar', limpia: 'Limpia', tarot: 'Carta', tablilla: 'Preguntar', espejoplata: 'Mirar', mano: 'Desear', muneca: 'Alfiler', pentagrama: 'Vela', radio: 'Radio' };
 function contextHint(i) {
   if (i.escaped) return 'En la camioneta: <kbd>Espacio</kbd> o toca la pantalla para ver a otro compañero';
   if (!i.alive) return 'Eres espíritu: <kbd>Espacio</kbd> manifestarte para estorbar al ánima · <kbd>Z</kbd> cambiar de piso';
@@ -720,21 +720,16 @@ function feedbackTick(dt) {
   if (fb.tipQ.length && performance.now() > fb.tipUntil) { $('#tip').innerHTML = fb.tipQ.shift() + '<button id="tipok">Entendido</button>'; $('#tip').hidden = false; fb.tipUntil = performance.now() + 9000; $('#tipok').onclick = () => { $('#tip').hidden = true; fb.tipUntil = 0; }; }
   else if (fb.tipUntil && performance.now() > fb.tipUntil) { $('#tip').hidden = true; fb.tipUntil = 0; }
 }
-const TOOL_TIP = { termo: 'sostenlo <b>quieto</b> unos 8 s para que se asiente. Baja más cerca del punto frío; bajo 0 °C es evidencia, de 1 a 3 °C es dudoso.', grab: '<b>pregúntale</b> (Usar) con la luz apagada, a lo más 2 en el cuarto y el ánima cerca. A veces responde; la estática no cuenta.', cam: 'suéltala con <b>G</b> apuntando al cuarto: queda en su tripié. Mira su tele en la base; solo ahí se ve la silueta del ánima.', emf: 'con el ánima a 3 m sube a 2–4; el <b>5</b> es evidencia. El 4 puede ser interferencia.', uv: 'alumbra puertas de un cuarto donde el ánima pasa tiempo. Cada puerta se revisa una vez cada 2 min.', espejo: 'déjalo en su guarida y mira de cerca: vaho solo no cuenta, una mano sí.', gases: 'déjalo donde pasa; la aguja amarilla no cuenta, la roja sí.', foco: 'junto al apagador de un cuarto con el foco fundido, pulsa Q.' };
+const TOOL_TIP = { termo: 'sostenlo <b>quieto</b> unos 8 s para que se asiente. Baja más cerca del punto frío; bajo 0 °C es evidencia, de 1 a 3 °C es dudoso.', grab: '<b>pregúntale</b> (Usar) con la luz apagada, a lo más 2 en el cuarto y el ánima cerca. A veces responde; la estática no cuenta.', cam: 'suéltala con <b>G</b> apuntando al cuarto: queda en su tripié. Mira su tele en la base; solo ahí se ve la silueta del ánima.', emf: 'marca 2–4 cerca de un suceso reciente durante 20 s; el <b>5</b> es evidencia. El 4 también puede ser interferencia.', uv: 'alumbra puertas de un cuarto donde el ánima pasa tiempo. Cada puerta se revisa de nuevo tras el intervalo de lectura.', espejo: 'déjalo en su guarida y mira de cerca: vaho solo no cuenta, una mano sí.', gases: 'déjalo donde pasa; la aguja amarilla no cuenta, la roja sí.', foco: 'junto al apagador de un cuarto con el foco fundido, pulsa Q.' };
 // pantalla de cada herramienta: solo la ve quien la sostiene (sin avisos de «evidencia»)
 function toolReadout(me) {
   const it = handItem(me); if (!it || !me.alive) return '';
-  if (it.msg && w.t < it.msg.until && ITEMS[it.kind].elec) return `<div class="dev">${cardImg(it.kind, 'mci')}<div class="scr"><b class="lcd msg">${it.msg.text}</b></div></div>`;
-  const k = it.kind, now = w.t, scr = (cls, body, foot) => `<div class="dev ${cls}">${cardImg(k, 'mci')}<div class="scr">${body}</div>${foot ? `<small>${foot}</small>` : ''}</div>`;
-  if (k === 'termo') { const st = me.termo; if (!st) return scr('termo', '<b class="lcd">--.-</b>', 'quédate quieto'); const v = st.show !== undefined ? st.show : st.v, set = Math.min(1, st.settle / CFG.termo.settle);
-    return scr('termo', `<b class="lcd">${v < 0 ? '−' : ''}${Math.abs(v).toFixed(1)}</b><i>°C</i>`, set >= 1 ? 'lectura asentada' : st.settle > 0 ? `asentando <i class="pbar"><i style="width:${set * 100}%"></i></i>` : 'muévete menos'); }
-  if (k === 'emf') { const lv = now < it.emfUntil ? it.emfLvl : 1; return scr('emf', `<span class="emf">${[1, 2, 3, 4, 5].map(n => `<i class="${n <= lv ? 'on l' + n : ''}"></i>`).join('')}</span>`); }
-  if (k === 'grab') { const sc = it.screen && now < it.screen.until ? it.screen : null; const bars = n => Array.from({ length: 18 }, (_, j) => `<i style="height:${Math.round(2 + (sc && sc.kind === 'voz' ? Math.abs(Math.sin(j * 1.3 + now * 9)) * 14 : sc && sc.kind === 'estatica' ? Math.random() * 9 : Math.random() * 2))}px"></i>`).join('');
-    const r = roomOf(me), dark = r >= 0 && !w.lights[me.f][r]; return scr('grab', `<span class="wave">${bars()}</span>`, sc ? (sc.kind === 'voz' ? '…una voz…' : sc.kind === 'estatica' ? 'estática' : 'silencio') : w.t < (it.cd || 0) ? 'escuchando…' : `${dark ? 'a oscuras' : 'hay luz'} · Usar: preguntar`); }
-  if (k === 'cam') { const v = it.view && now < it.view.until ? it.view.kind : null; return scr('cam', v === 'flota' ? '<span class="photo float"></span>' : v === 'borrosa' ? '<span class="photo blur"></span>' : v === 'nada' ? '<span class="photo"></span>' : '<b class="lcd sm">REC</b>', v ? '' : 'G: ponla en su tripié · su imagen sale en la tele de la base'); }
-  if (k === 'gases') { const red = now < it.redUntil, yel = now < (it.yellowUntil || 0), ang = red ? 70 : yel ? 20 : -60 + Math.min(1, it.gasAcc / 5) * 50; return scr('gases', `<span class="dial"><i style="transform:rotate(${ang}deg)"></i></span>`); }
-  if (k === 'espejo') return scr('espejo', now < it.markUntil ? '<span class="mirror hand"></span>' : now < (it.fogUntil || 0) ? '<span class="mirror fog"></span>' : '<span class="mirror"></span>', 'mejor déjalo en su guarida');
-  if (k === 'uv') { const glow = w.doors.some(d => d.f === me.f && now < d.glowUntil && Math.hypot(d.x - me.x, d.y - me.y) < 6) || w.ashes.some(a => a.f === me.f && now < (a.glowUntil || 0)); return scr('uv', glow ? '<span class="uvdot on"></span>' : '<span class="uvdot"></span>', 'alumbra puertas y ceniza'); }
+  const k=it.kind,now=w.t;
+  if(NDAToolArt.kinds.includes(k)){
+    const state=NDAToolArt.read(k,it,now,{termo:me.termo,held:true}),def=NDAToolComponents.tools[k];
+    const notes={termo:state.label,emf:state.level===5?'Nivel 5':state.level>1?'Actividad · 4 puede ser interferencia':'Acércalo a un suceso',grab:state.label,cam:'G: colocar · imagen en la base',espejo:'G: dejar · vaho solo no cuenta',gases:'G: dejar · observar la aguja',uv:'Apunta a puertas y ceniza'};
+    return `<div class="dev tool-v17 ${k}"><div class="device-meta"><b>${def.name}</b><small>${notes[k]}</small></div><div class="instrument-panel">${NDAToolArt.panel(k,it,now,{termo:me.termo,held:true})}</div></div>`;
+  }
   if (k === 'espejoplata') return it.on && w.mirrorView ? `🪞 En la plata: <b>${w.mirrorView.r >= 0 ? ROOMS[w.mirrorView.f][w.mirrorView.r].n : 'pasillo'}</b> · −7,5 cordura/s` : '🪞 Clic para mirar';
   if (ITEMS[k].cursed || ['cruz', 'ceniza', 'pan', 'limpia', 'foco'].includes(k)) return `${cardImg(k, 'mci')}${ITEMS[k].n}${itemCount(it)}`;
   return '';
@@ -746,7 +741,7 @@ function updateOverlay() {
   if (!me) { $('#prompt').innerHTML = ''; $('#tool').innerHTML = ''; $('#compass').hidden = true; $('#seen').hidden = true; $('#itemlabel').hidden = true; return; }
   const pa = primaryAction(me);
   $('#prompt').innerHTML = pa ? (touch ? `<kbd>${pa.btn}</kbd> ${pa.item ? ITEMS[pa.item.kind].n : ''}` : `<kbd>${pa.k}</kbd> ${pa.txt}`) : '';
-  const tr = toolReadout(me); $('#tool').innerHTML = tr; $('#tool').hidden = !tr;
+  const tr = toolReadout(me); $('#tool').innerHTML = tr; $('#tool').hidden = !tr;$('#tool').classList.toggle('device-v17',!!(me.alive&&handItem(me)&&NDAToolArt.kinds.includes(handItem(me).kind)));
   $('#seen').hidden = !(me.alive && g.hunt && !g.hunt.huida && g.perceived.has(me));
   if (w.ritual && w.ritual.by === me) $('#prompt').innerHTML = `Nombrando… <i class="pbar"><i style="width:${(w.t - w.ritual.t0) / CFG.ritualDur * 100}%"></i></i> no te muevas`;
   $('#noise').hidden = performance.now() > fb.noiseUntil; analogTick2();
@@ -760,7 +755,7 @@ function updateOverlay() {
   if (tg) { const tf = tg.f === undefined ? 0 : tg.f; const a = Math.atan2(tg.y - me.y, tg.x - me.x) - yaw; const dist = Math.hypot(tg.x - me.x, tg.y - me.y);
     cp.innerHTML = `<span class="arr" style="transform:rotate(${a * 180 / Math.PI + 90}deg)">➤</span> ${lbl} · ${dist.toFixed(0)} m${tf !== me.f ? (tf < me.f ? ' · baja' : ' · sube') : ''}`; }
   // botones táctiles con la acción del momento
-  if (touch) { const be = document.querySelector('#tbtns button[data-k="e"]'); if (be) be.textContent = pa ? pa.btn : 'Acción'; const bu = document.querySelector('#tbtns button[data-k=" "]'); const h = handItem(me); if (bu) bu.textContent = h ? (USE_BTN[h.kind] || 'Usar') : 'Usar'; }
+  if (touch) { $('#tool').style.setProperty('--touch-clearance',(Math.ceil($('#tbtns').getBoundingClientRect().height)+32)+'px');const be = document.querySelector('#tbtns button[data-k="e"]'); if (be) be.textContent = pa ? pa.btn : 'Acción'; const bu = document.querySelector('#tbtns button[data-k=" "]'); const h = handItem(me); if (bu) bu.textContent = h ? (USE_BTN[h.kind] || 'Usar') : 'Usar'; }
 }
 function hudName() { return w && w.g.exposed ? ` · <b class="gname">${w.g.def.n}</b>` : ''; }
 function hud() {

@@ -132,7 +132,7 @@ const _updateScene4 = updateScene; updateScene = function (t, dt) { _updateScene
 // ---------- modelos de herramientas: aristas duras, pocos polígonos ----------
 const _makeItemMesh = makeItemMesh;
 makeItemMesh = function (it) {
-  const im = _makeItemMesh(it), K = it.kind, NEW = ['emf', 'grab', 'termo', 'uv', 'gases', 'espejo', 'cam', 'fotocam']; if (!NEW.includes(K)) return im;
+  const im = _makeItemMesh(it);if(im.m.userData.tool)return im;const K = it.kind, NEW = ['emf', 'grab', 'termo', 'uv', 'gases', 'espejo', 'cam', 'fotocam']; if (!NEW.includes(K)) return im;
   im.g.remove(im.m); const g = new THREE.Group(); const L = (c, e) => LambertFlat({ color: c, emissive: e || 0x000000 });
   const box = (sx, sy, sz, c, x, y, z, e) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), L(c, e)); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m; };
   const cyl = (r, h, c, x, y, z, rx, rz, n) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, n || 8), L(c)); m.position.set(x, y, z); m.rotation.set(rx || 0, 0, rz || 0); g.add(m); return m; };

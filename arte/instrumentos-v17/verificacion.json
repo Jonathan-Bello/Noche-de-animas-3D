@@ -1,0 +1,900 @@
+{
+  "passed": true,
+  "workshop": [
+    {
+      "kind": "termo",
+      "state": {
+        "kind": "termo",
+        "tone": "normal",
+        "label": "Lectura asentada",
+        "digits": "18.0",
+        "progress": 1
+      },
+      "parts": 10,
+      "vertices": 852,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "termo",
+      "state": {
+        "kind": "termo",
+        "tone": "doubtful",
+        "label": "Lectura asentada",
+        "digits": "2.2",
+        "progress": 1
+      },
+      "parts": 10,
+      "vertices": 672,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "termo",
+      "state": {
+        "kind": "termo",
+        "tone": "positive",
+        "label": "Lectura asentada",
+        "digits": "-5.2",
+        "progress": 1
+      },
+      "parts": 10,
+      "vertices": 708,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "uv",
+      "state": {
+        "kind": "uv",
+        "tone": "normal",
+        "label": "Revisar puertas y ceniza",
+        "digits": "",
+        "progress": 0,
+        "uv": false
+      },
+      "parts": 7,
+      "vertices": 284,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "uv",
+      "state": {
+        "kind": "uv",
+        "tone": "normal",
+        "label": "Revisar puertas y ceniza",
+        "digits": "",
+        "progress": 0,
+        "uv": false
+      },
+      "parts": 7,
+      "vertices": 284,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "uv",
+      "state": {
+        "kind": "uv",
+        "tone": "normal",
+        "label": "Revisar puertas y ceniza",
+        "digits": "",
+        "progress": 0,
+        "uv": false
+      },
+      "parts": 7,
+      "vertices": 284,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "grab",
+      "state": {
+        "kind": "grab",
+        "tone": "normal",
+        "label": "Usar: preguntar",
+        "digits": "",
+        "progress": 0,
+        "wave": "nada",
+        "listening": false
+      },
+      "parts": 13,
+      "vertices": 636,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "grab",
+      "state": {
+        "kind": "grab",
+        "tone": "doubtful",
+        "label": "Estática",
+        "digits": "",
+        "progress": 0,
+        "wave": "estatica",
+        "listening": false
+      },
+      "parts": 13,
+      "vertices": 636,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "grab",
+      "state": {
+        "kind": "grab",
+        "tone": "positive",
+        "label": "Una voz",
+        "digits": "",
+        "progress": 0,
+        "wave": "voz",
+        "listening": false
+      },
+      "parts": 13,
+      "vertices": 636,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "cam",
+      "state": {
+        "kind": "cam",
+        "tone": "normal",
+        "label": "Enviando a la base",
+        "digits": "1",
+        "progress": 0,
+        "deployed": true
+      },
+      "parts": 21,
+      "vertices": 648,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 1.32
+    },
+    {
+      "kind": "cam",
+      "state": {
+        "kind": "cam",
+        "tone": "normal",
+        "label": "Enviando a la base",
+        "digits": "1",
+        "progress": 0,
+        "deployed": true
+      },
+      "parts": 21,
+      "vertices": 648,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 1.32
+    },
+    {
+      "kind": "cam",
+      "state": {
+        "kind": "cam",
+        "tone": "normal",
+        "label": "Enviando a la base",
+        "digits": "1",
+        "progress": 0,
+        "deployed": true
+      },
+      "parts": 21,
+      "vertices": 648,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 1.32
+    },
+    {
+      "kind": "emf",
+      "state": {
+        "kind": "emf",
+        "tone": "normal",
+        "label": "Nivel 1",
+        "digits": "1",
+        "progress": 0,
+        "level": 1
+      },
+      "parts": 14,
+      "vertices": 424,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [
+        "557a43",
+        "202520",
+        "202520",
+        "202520",
+        "202520"
+      ],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "emf",
+      "state": {
+        "kind": "emf",
+        "tone": "doubtful",
+        "label": "Nivel 4",
+        "digits": "4",
+        "progress": 0,
+        "level": 4
+      },
+      "parts": 14,
+      "vertices": 496,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [
+        "557a43",
+        "829542",
+        "c49a37",
+        "b76d30",
+        "202520"
+      ],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "emf",
+      "state": {
+        "kind": "emf",
+        "tone": "positive",
+        "label": "Nivel 5",
+        "digits": "5",
+        "progress": 0,
+        "level": 5
+      },
+      "parts": 14,
+      "vertices": 532,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [
+        "557a43",
+        "829542",
+        "c49a37",
+        "b76d30",
+        "ad3b3a"
+      ],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "espejo",
+      "state": {
+        "kind": "espejo",
+        "tone": "normal",
+        "label": "Superficie limpia",
+        "digits": "",
+        "progress": 0,
+        "mark": false,
+        "fog": false
+      },
+      "parts": 7,
+      "vertices": 376,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": false,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "espejo",
+      "state": {
+        "kind": "espejo",
+        "tone": "doubtful",
+        "label": "Vaho",
+        "digits": "",
+        "progress": 0,
+        "mark": false,
+        "fog": true
+      },
+      "parts": 7,
+      "vertices": 376,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": false,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "espejo",
+      "state": {
+        "kind": "espejo",
+        "tone": "positive",
+        "label": "Mano marcada",
+        "digits": "",
+        "progress": 0,
+        "mark": true,
+        "fog": false
+      },
+      "parts": 7,
+      "vertices": 376,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": true,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "gases",
+      "state": {
+        "kind": "gases",
+        "tone": "normal",
+        "label": "Muestreando",
+        "digits": "",
+        "progress": 0,
+        "red": false,
+        "yellow": false,
+        "angle": 0.8
+      },
+      "parts": 16,
+      "vertices": 488,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "gases",
+      "state": {
+        "kind": "gases",
+        "tone": "doubtful",
+        "label": "Aguja en amarillo",
+        "digits": "",
+        "progress": 0,
+        "red": false,
+        "yellow": true,
+        "angle": -0.35
+      },
+      "parts": 16,
+      "vertices": 488,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    },
+    {
+      "kind": "gases",
+      "state": {
+        "kind": "gases",
+        "tone": "positive",
+        "label": "Aguja en rojo",
+        "digits": "",
+        "progress": 0,
+        "red": true,
+        "yellow": false,
+        "angle": -1.1
+      },
+      "parts": 16,
+      "vertices": 488,
+      "invalid": 0,
+      "textures": 0,
+      "leds": [],
+      "hand": null,
+      "stand": true,
+      "bodyY": 0
+    }
+  ],
+  "world": [
+    {
+      "kind": "termo",
+      "actualFactory": "termo",
+      "state": {
+        "kind": "termo",
+        "tone": "positive",
+        "label": "Lectura asentada",
+        "digits": "-5.2",
+        "progress": 1
+      },
+      "front": 0.7497891404056154,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 termo\"><div class=\"device-meta\"><b>Termómetro</b><small>Lectura asentada</small></div><div class=\"instrument-panel\"><svg viewBox=\"0 0 160 68\" role=\"img\" aria-label=\"Lectura asentada\"><rect x=\"1\" y=\"1\" width=\"158\" height=\"66\" fill=\"#1c2a29\" stroke=\"#53665c\"/><text x=\"80\" y=\"36\" text-anchor=\"middle\" fill=\"#d8cdb5\" font-family=\"monospace\" font-size=\"17\">-5.2 °C</text><rect x=\"20\" y=\"48\" width=\"120\" height=\"4\" fill=\"#3e514b\"/><rect x=\"20\" y=\"48\" width=\"120\" height=\"4\" fill=\"#a9c3ad\"/></svg></div></div>",
+      "draw": {
+        "frame": 1,
+        "calls": 412,
+        "triangles": 57874,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "uv",
+      "actualFactory": "uv",
+      "state": {
+        "kind": "uv",
+        "tone": "normal",
+        "label": "Revisar puertas y ceniza",
+        "digits": "",
+        "progress": 0,
+        "uv": false
+      },
+      "front": -0.7513226840457107,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 uv\"><div class=\"device-meta\"><b>Lámpara UV</b><small>Apunta a puertas y ceniza</small></div><div class=\"instrument-panel\"><svg viewBox=\"0 0 160 68\" role=\"img\" aria-label=\"Revisar puertas y ceniza\"><rect x=\"1\" y=\"1\" width=\"158\" height=\"66\" fill=\"#1c2a29\" stroke=\"#53665c\"/><path d=\"M21 29H58V41H21Z\" fill=\"#7751ac\"/><path d=\"M65 33L104 16V54L65 37Z\" fill=\"#493a62\"/><path d=\"M122 13V55M112 13H134\" fill=\"none\" stroke=\"#d8cdb5\" stroke-width=\"3\"/></svg></div></div>",
+      "draw": {
+        "frame": 2,
+        "calls": 410,
+        "triangles": 57818,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "grab",
+      "actualFactory": "grab",
+      "state": {
+        "kind": "grab",
+        "tone": "positive",
+        "label": "Una voz",
+        "digits": "",
+        "progress": 0,
+        "wave": "voz",
+        "listening": false
+      },
+      "front": 0.7497891404056154,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 grab\"><div class=\"device-meta\"><b>Grabadora</b><small>Una voz</small></div><div class=\"instrument-panel\"><svg viewBox=\"0 0 160 68\" role=\"img\" aria-label=\"Una voz\"><rect x=\"1\" y=\"1\" width=\"158\" height=\"66\" fill=\"#1c2a29\" stroke=\"#53665c\"/><rect x=\"12\" y=\"30\" width=\"4\" height=\"4\" fill=\"#a9c3ad\"/><rect x=\"20\" y=\"13.61951084790772\" width=\"4\" height=\"36.76097830418456\" fill=\"#a9c3ad\"/><rect x=\"28\" y=\"21.236476679035107\" width=\"4\" height=\"21.527046641929783\" fill=\"#a9c3ad\"/><rect x=\"36\" y=\"18.30797529387244\" width=\"4\" height=\"27.38404941225512\" fill=\"#a9c3ad\"/><rect x=\"44\" y=\"14.981270852757397\" width=\"4\" height=\"34.037458294485205\" fill=\"#a9c3ad\"/><rect x=\"52\" y=\"26.342960202507136\" width=\"4\" height=\"11.314079594985728\" fill=\"#a9c3ad\"/><rect x=\"60\" y=\"13.024763128631715\" width=\"4\" height=\"37.95047374273657\" fill=\"#a9c3ad\"/><rect x=\"68\" y=\"24.575327840061014\" width=\"4\" height=\"14.849344319877972\" fill=\"#a9c3ad\"/><rect x=\"76\" y=\"15.926950025543889\" width=\"4\" height=\"32.14609994891222\" fill=\"#a9c3ad\"/><rect x=\"84\" y=\"17.046279073376454\" width=\"4\" height=\"29.907441853247093\" fill=\"#a9c3ad\"/><rect x=\"92\" y=\"22.857160373947103\" width=\"4\" height=\"18.28567925210579\" fill=\"#a9c3ad\"/><rect x=\"100\" y=\"13.224876607331574\" width=\"4\" height=\"37.55024678533685\" fill=\"#a9c3ad\"/><rect x=\"108\" y=\"28.16818791090948\" width=\"4\" height=\"7.663624178181038\" fill=\"#a9c3ad\"/><rect x=\"116\" y=\"14.204891783515713\" width=\"4\" height=\"35.590216432968575\" fill=\"#a9c3ad\"/><rect x=\"124\" y=\"19.71784201909317\" width=\"4\" height=\"24.56431596181366\" fill=\"#a9c3ad\"/><rect x=\"132\" y=\"19.705822214766783\" width=\"4\" height=\"24.588355570466437\" fill=\"#a9c3ad\"/><rect x=\"140\" y=\"14.210481020686913\" width=\"4\" height=\"35.579037958626174\" fill=\"#a9c3ad\"/><rect x=\"148\" y=\"28.153177877790643\" width=\"4\" height=\"7.693644244418712\" fill=\"#a9c3ad\"/></svg></div></div>",
+      "draw": {
+        "frame": 3,
+        "calls": 418,
+        "triangles": 57878,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "cam",
+      "actualFactory": "cam",
+      "state": {
+        "kind": "cam",
+        "tone": "normal",
+        "label": "G: colocar el tripié",
+        "digits": "1",
+        "progress": 0,
+        "deployed": false
+      },
+      "front": 0.3090411698507542,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 cam\"><div class=\"device-meta\"><b>Cámara de video</b><small>G: colocar · imagen en la base</small></div><div class=\"instrument-panel\"><svg viewBox=\"0 0 160 68\" role=\"img\" aria-label=\"G: colocar el tripié\"><rect x=\"1\" y=\"1\" width=\"158\" height=\"66\" fill=\"#1c2a29\" stroke=\"#53665c\"/><text x=\"80\" y=\"29\" text-anchor=\"middle\" fill=\"#d8cdb5\" font-family=\"monospace\" font-size=\"16\">● REC · C1</text><text x=\"80\" y=\"49\" text-anchor=\"middle\" fill=\"#d8cdb5\" font-family=\"monospace\" font-size=\"11\">VER EN LA BASE</text></svg></div></div>",
+      "draw": {
+        "frame": 4,
+        "calls": 414,
+        "triangles": 57882,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "emf",
+      "actualFactory": "emf",
+      "state": {
+        "kind": "emf",
+        "tone": "positive",
+        "label": "Nivel 5",
+        "digits": "5",
+        "progress": 0,
+        "level": 5
+      },
+      "front": 0.7497891404056154,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 emf\"><div class=\"device-meta\"><b>Detector EMF</b><small>Nivel 5</small></div><div class=\"instrument-panel\"><svg viewBox=\"0 0 160 68\" role=\"img\" aria-label=\"Nivel 5\"><rect x=\"1\" y=\"1\" width=\"158\" height=\"66\" fill=\"#1c2a29\" stroke=\"#53665c\"/><rect x=\"22\" y=\"17\" width=\"17\" height=\"24\" fill=\"#557a43\"/><text x=\"30\" y=\"56\" text-anchor=\"middle\" fill=\"#d8cdb5\" font-family=\"monospace\" font-size=\"10\">1</text><rect x=\"47\" y=\"17\" width=\"17\" height=\"24\" fill=\"#829542\"/><text x=\"55\" y=\"56\" text-anchor=\"middle\" fill=\"#d8cdb5\" font-family=\"monospace\" font-size=\"10\">2</text><rect x=\"72\" y=\"17\" width=\"17\" height=\"24\" fill=\"#c49a37\"/><text x=\"80\" y=\"56\" text-anchor=\"middle\" fill=\"#d8cdb5\" font-family=\"monospace\" font-size=\"10\">3</text><rect x=\"97\" y=\"17\" width=\"17\" height=\"24\" fill=\"#b76d30\"/><text x=\"105\" y=\"56\" text-anchor=\"middle\" fill=\"#d8cdb5\" font-family=\"monospace\" font-size=\"10\">4</text><rect x=\"122\" y=\"17\" width=\"17\" height=\"24\" fill=\"#ad3b3a\"/><text x=\"130\" y=\"56\" text-anchor=\"middle\" fill=\"#d8cdb5\" font-family=\"monospace\" font-size=\"10\">5</text></svg></div></div>",
+      "draw": {
+        "frame": 5,
+        "calls": 413,
+        "triangles": 57766,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "espejo",
+      "actualFactory": "espejo",
+      "state": {
+        "kind": "espejo",
+        "tone": "positive",
+        "label": "Mano marcada",
+        "digits": "",
+        "progress": 0,
+        "mark": true,
+        "fog": false
+      },
+      "front": 0.7497891404056154,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 espejo\"><div class=\"device-meta\"><b>Espejo de vaho</b><small>G: dejar · vaho solo no cuenta</small></div><div class=\"instrument-panel\"><svg viewBox=\"0 0 160 68\" role=\"img\" aria-label=\"Mano marcada\"><rect x=\"1\" y=\"1\" width=\"158\" height=\"66\" fill=\"#1c2a29\" stroke=\"#53665c\"/><path d=\"M54 9H106L121 24V44L106 59H54L39 44V24Z\" fill=\"#b5c2c1\" stroke=\"#ba8d49\" stroke-width=\"4\"/><path d=\"M73 45L65 35L68 32L73 36V20H77V32H79V16H83V32H85V19H89V33H91V24H95V39L90 47Z\" fill=\"#435052\"/></svg></div></div>",
+      "draw": {
+        "frame": 6,
+        "calls": 415,
+        "triangles": 57782,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "kind": "gases",
+      "actualFactory": "gases",
+      "state": {
+        "kind": "gases",
+        "tone": "positive",
+        "label": "Aguja en rojo",
+        "digits": "",
+        "progress": 0,
+        "red": true,
+        "yellow": false,
+        "angle": -1.1
+      },
+      "front": 0.7497891404056154,
+      "invalid": 0,
+      "readout": "<div class=\"dev tool-v17 gases\"><div class=\"device-meta\"><b>Sensor de gases</b><small>G: dejar · observar la aguja</small></div><div class=\"instrument-panel\"><svg viewBox=\"0 0 160 68\" role=\"img\" aria-label=\"Aguja en rojo\"><rect x=\"1\" y=\"1\" width=\"158\" height=\"66\" fill=\"#1c2a29\" stroke=\"#53665c\"/><path d=\"M31 49L46 24L68 13L93 13L115 24L130 49\" fill=\"none\" stroke=\"#d8cdb5\" stroke-width=\"2\"/><path d=\"M35 46L49 28\" stroke=\"#557a43\" stroke-width=\"8\"/><path d=\"M69 18L91 18\" stroke=\"#c49a37\" stroke-width=\"8\"/><path d=\"M112 28L125 46\" stroke=\"#ad3b3a\" stroke-width=\"8\"/><path d=\"M80 49L80 19\" stroke=\"#d8cdb5\" stroke-width=\"2\" transform=\"rotate(63.02535746439057 80 49)\"/></svg></div></div>",
+      "draw": {
+        "frame": 7,
+        "calls": 409,
+        "triangles": 57866,
+        "points": 0,
+        "lines": 0
+      }
+    }
+  ],
+  "checks": {
+    "bodyY": 1.32,
+    "stand": true,
+    "beamY": 1.02,
+    "indicator": false,
+    "noCameraLeak": true,
+    "expired": 1,
+    "unset": "----",
+    "settling": "doubtful"
+  },
+  "saveUndoAndRoleGuard": true,
+  "png2048": true,
+  "mobileReadouts": [
+    {
+      "x": 30,
+      "y": 560,
+      "width": 330,
+      "height": 66
+    },
+    {
+      "x": 294.3046875,
+      "y": 270,
+      "width": 255.390625,
+      "height": 76
+    }
+  ],
+  "pickupMemory": [
+    955,
+    955,
+    955,
+    955
+  ],
+  "errors": [],
+  "browser": {
+    "passed": true,
+    "profiles": [
+      {
+        "version": "casona-v16",
+        "quality": "low",
+        "shadows": false,
+        "dpr": 1,
+        "active": 21,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 341,
+          "triangles": 46596,
+          "points": 0,
+          "lines": 0
+        }
+      },
+      {
+        "version": "casona-v16",
+        "quality": "balanced",
+        "shadows": true,
+        "dpr": 1.35,
+        "active": 20,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 354,
+          "triangles": 49244,
+          "points": 0,
+          "lines": 0
+        },
+        "geometryAudit": {
+          "portals": 44,
+          "windows": 20,
+          "nonFinite": 0,
+          "mixedFaceColors": 0,
+          "coplanarOverlaps": []
+        },
+        "floorComponentPoses": [
+          {
+            "asset": "open_book",
+            "minAboveStorey": 0.017999999999999794
+          },
+          {
+            "asset": "comb",
+            "minAboveStorey": 0.018000000000000238
+          },
+          {
+            "asset": "top",
+            "minAboveStorey": 0.017999999999999794
+          },
+          {
+            "asset": "perfume",
+            "minAboveStorey": 0.018000000000000238
+          },
+          {
+            "asset": "jewelbox",
+            "minAboveStorey": 0.017999999999999794
+          }
+        ]
+      },
+      {
+        "version": "casona-v16",
+        "quality": "high",
+        "shadows": true,
+        "dpr": 2,
+        "active": 22,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 337,
+          "triangles": 48764,
+          "points": 0,
+          "lines": 0
+        }
+      },
+      {
+        "version": "casona-v16",
+        "quality": "auto",
+        "shadows": false,
+        "dpr": 1,
+        "active": 20,
+        "drawers": 66,
+        "invalid": 0,
+        "draw": {
+          "frame": 1,
+          "calls": 187,
+          "triangles": 31434,
+          "points": 0,
+          "lines": 0
+        }
+      }
+    ],
+    "errors": [],
+    "note": "Emulated screen/input and software rendering; no physical-device FPS claim."
+  },
+  "iphone12Emulated": {
+    "passed": true,
+    "profiles": [
+      {
+        "layout": "casona-v16",
+        "viewport": {
+          "width": 390,
+          "height": 664
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1,
+        "shadows": false,
+        "draw": {
+          "frame": 1,
+          "calls": 227,
+          "triangles": 33104,
+          "points": 0,
+          "lines": 0
+        },
+        "renderer": "Apple GPU",
+        "tools": [
+          {
+            "kind": "termo",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "uv",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "grab",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "cam",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "emf",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "espejo",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "gases",
+            "x": 30,
+            "y": 380,
+            "width": 330,
+            "height": 66,
+            "svg": true,
+            "clearButtons": true
+          }
+        ],
+        "device": "iPhone 12",
+        "errors": []
+      },
+      {
+        "layout": "casona-v16",
+        "viewport": {
+          "width": 750,
+          "height": 340
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1,
+        "shadows": false,
+        "draw": {
+          "frame": 1,
+          "calls": 415,
+          "triangles": 55860,
+          "points": 0,
+          "lines": 0
+        },
+        "renderer": "Apple GPU",
+        "tools": [
+          {
+            "kind": "termo",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "uv",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "grab",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "cam",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "emf",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "espejo",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "clearButtons": true
+          },
+          {
+            "kind": "gases",
+            "x": 213,
+            "y": 268,
+            "width": 300,
+            "height": 58,
+            "svg": true,
+            "clearButtons": true
+          }
+        ],
+        "device": "iPhone 12 landscape",
+        "errors": []
+      }
+    ],
+    "note": "WebKit on Windows with emulated iPhone dimensions/input, not an iPhone GPU or physical FPS measurement."
+  },
+  "displayRulesAndEditableColors": true
+}

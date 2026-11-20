@@ -2,7 +2,7 @@
 import asyncio,sys,json,threading,functools,os
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Decoracion_Casona_v16';OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'Instrumentos_v17';OUT.mkdir(exist_ok=True)
 os.environ.setdefault('PLAYWRIGHT_BROWSERS_PATH',str(ROOT.parent/'QA_Arte_Alex/browsers'))
 sys.path.insert(0,str(ROOT.parent/'QA_Arte_Alex/python_lib'))
 from playwright.async_api import async_playwright
@@ -16,7 +16,7 @@ async def main():
    for device in ['iPhone 12','iPhone 12 landscape']:
     profile={k:v for k,v in p.devices[device].items() if k!='default_browser_type'}
     ctx=await b.new_context(**profile);page=await ctx.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
-    source=(ROOT/'juego/index.html').read_text(encoding='utf8').replace('requestAnimationFrame(frame);','/* Manual compatibility frames */').replace('window.__game =','window.__qa={frame:()=>{updateCamera(1);updateScene(w.t,.1);updateCamera(1);hud();renderer.render(scene,camera);},get renderer(){return renderer;}};window.__game =')
+    source=(ROOT/'juego/index.html').read_text(encoding='utf8').replace('requestAnimationFrame(frame);','/* Manual compatibility frames */').replace('window.__game =','window.__qa={frame:()=>{updateCamera(1);updateScene(w.t,.1);updateCamera(1);hud();updateOverlay();renderer.render(scene,camera);},get renderer(){return renderer;}};window.__game =')
     await page.route('**/three@*/build/three.module.js',lambda r:r.fulfill(path=str(ROOT/'test/three.module.js'),headers={'access-control-allow-origin':'*'},content_type='application/javascript'))
     await page.route('**/peerjs*',lambda r:r.fulfill(body=(ROOT/'test/fakepeer.js').read_text(),content_type='application/javascript'))
     await page.route('**/fonts.googleapis.com/**',lambda r:r.fulfill(body='',content_type='text/css'))
@@ -28,7 +28,9 @@ async def main():
     if await intro.count():await intro.tap()
     data=await page.evaluate("()=>{const w=__game.w;Object.assign(w.invs[0],{f:0,x:35.5,y:25.5});__qa.frame();const r=__qa.renderer,gl=r.getContext(),ext=gl.getExtension('WEBGL_debug_renderer_info');return{layout:w.layout,viewport:{width:innerWidth,height:innerHeight},deviceDpr:devicePixelRatio,renderDpr:r.getPixelRatio(),shadows:r.shadowMap.enabled,draw:{...r.info.render},renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null};}")
     assert data['layout']=='casona-v16';assert data['renderDpr']==1;assert not data['shadows'];assert data['draw']['triangles']>0;assert not errors,errors
-    data['device']=device;data['errors']=errors;reports.append(data);await page.screenshot(path=str(OUT/('iphone12-landscape.png' if 'landscape' in device else 'iphone12.png')));await ctx.close();print('WEBKIT',device,flush=True)
+    tool_checks=await page.evaluate("()=>{const w=__game.w,m=w.invs[__game.ME],out=[];for(const k of ['termo','uv','grab','cam','emf','espejo','gases']){const it=w.items.find(i=>i.kind===k);w.invs.forEach(i=>{i.slots=i.slots.map(s=>s===it?null:s)});m.slots.forEach(i=>{if(i)i.holder=null});m.slots=[it,null,null];m.hand=0;it.holder=m;m.termo={v:-4,show:-4,settle:8};Object.assign(it,{emfUntil:w.t+30,emfLvl:5,redUntil:w.t+30,markUntil:w.t+30,screen:{kind:'voz',until:w.t+30}});__qa.frame();const r=document.querySelector('#tool').getBoundingClientRect(),b=document.querySelector('#tbtns').getBoundingClientRect();out.push({kind:k,x:r.x,y:r.y,width:r.width,height:r.height,svg:!!document.querySelector('#tool svg'),clearButtons:r.right<=b.left||r.left>=b.right||r.bottom<=b.top||r.top>=b.bottom});}return out;}")
+    assert len(tool_checks)==7 and all(t['svg']and t['clearButtons']and t['x']>=0 and t['x']+t['width']<=data['viewport']['width']+1 for t in tool_checks),tool_checks
+    data['tools']=tool_checks;data['device']=device;data['errors']=errors;reports.append(data);await page.screenshot(path=str(OUT/('iphone12-landscape.png' if 'landscape' in device else 'iphone12.png')));await ctx.close();print('WEBKIT',device,flush=True)
    (OUT/'iphone12_validation.json').write_text(json.dumps({'passed':True,'profiles':reports,'note':'WebKit on Windows with emulated iPhone dimensions/input, not an iPhone GPU or physical FPS measurement.'},indent=2),encoding='utf8');await b.close()
  finally:server.shutdown()
 asyncio.run(main())
