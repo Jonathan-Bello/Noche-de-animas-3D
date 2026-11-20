@@ -2786,6 +2786,78 @@ endHunt = function (w, g) { const was = !!g.hunt && !g.hunt.huida; _endHunt5(w, 
 const _casDo5z = casDo;
 casDo = function (w, k, v) { if (k === 'zaguan' && alive(w).some(i => isOutside(i) && !i.escaped)) { w.cas.retry = true; w.cas.retryWhy = 'hay alguien afuera de la casona'; return; } return _casDo5z(w, k, v); };
 
+// ================= Campaña (prueba P1 del GDD v2): cuartos tapiados y guarida sorteada con pesos =================
+// opt.camp = { open:[códigos de módulo abiertos], last: código abierto más reciente, prev: código de la guarida anterior (si el ánima se quedó) }
+const CAMP_INITIAL = ['B08', 'B04', 'B11', 'B13', 'B14', 'B12']; // Comedor, Cocina, Despacho, Portería, Botica (en vez de Despensa seca: solo se entra por la Biblioteca), Zaguán
+const CAMP_MOD = new Map((NDALayout.roomModules || []).map(m => [m.id, m]));
+const campModOf = (f, r) => (ROOMS[f][r] && ROOMS[f][r].code) || null;
+// ¿está abierto este cuarto? la planta alta solo existe si se restauró la escalera principal
+function campRoomOpen(open, f, r) {
+  if (f === 1 && !open.has('B07')) return false;
+  const code = campModOf(f, r); if (!code || !CAMP_MOD.has(code)) return true; // pasillos, patio, galería, afuera
+  return open.has(code) || (code === 'A07' && open.has('B07'));
+}
+const CAMP_FULL_RL = ROOM_LIST.slice(), CAMP_FULL_HC = HOME_CHOICES.slice();
+// sorteo de guarida (GDD v2 §3): favorito ×2, último abierto ×0,5, guarida anterior 0
+function campPickHome(w, camp, def) {
+  const opts = HOME_CHOICES.map(h => { const code = campModOf(h.f, h.r), m = CAMP_MOD.get(code); let wt = 1;
+    if (m && m.favorite === def.id) wt *= 2; if (code && code === camp.last) wt *= 0.5; if (code && code === camp.prev) wt = 0; return { h, wt }; }).filter(o => o.wt > 0);
+  if (!opts.length) return pick(HOME_CHOICES); let s = opts.reduce((a, o) => a + o.wt, 0) * Math.random(); for (const o of opts) { s -= o.wt; if (s <= 0) return o.h; } return opts[opts.length - 1].h;
+}
+const _newWorldCamp = newWorld;
+newWorld = function (opt) {
+  ROOM_LIST.splice(0, ROOM_LIST.length, ...CAMP_FULL_RL); HOME_CHOICES.splice(0, HOME_CHOICES.length, ...CAMP_FULL_HC);
+  const camp = opt && opt.camp; if (!camp) return _newWorldCamp(opt);
+  const open = new Set(camp.open); const keep = r => campRoomOpen(open, r.f, r.r);
+  const rl = CAMP_FULL_RL.filter(keep), hc = CAMP_FULL_HC.filter(keep);
+  ROOM_LIST.splice(0, ROOM_LIST.length, ...rl); HOME_CHOICES.splice(0, HOME_CHOICES.length, ...hc);
+  const w = _newWorldCamp(opt); w.camp = { open, sealedDoors: [] };
+  // puertas tapiadas: cualquier puerta que toque un cuarto cerrado; nadie las cruza (tampoco el ánima)
+  const doorDefs = new Map(NDALayout.doors.map(d => [d.id, d])); const sideOpen = (key, f) => { if (!key || key === 'base') return true; const lr = LAYOUT_ROOMS.get(key); if (lr) return campRoomOpen(open, lr.f, lr.r); const r = RID[f] && RID[f][key]; return r === undefined ? (f === 0 || open.has('B07')) : campRoomOpen(open, f, r); };
+  const gT = [], iT = []; // casillas vedadas: el ánima (que atraviesa muros fuera de cacería) no entra a ningún cuarto tapiado
+  for (const d of w.doors) { const dd = doorDefs.get(d.id); if (!dd || (sideOpen(dd.a, dd.floor) && sideOpen(dd.b, dd.floor))) continue;
+    d.sealed = true; d.closed = true; d.locked = true; w.camp.sealedDoors.push(d); for (const [x, y] of d.tiles) { const n = d.f * FL + y * W + x; gT.push(n); iT.push(n); } }
+  // escaleras: la principal hasta restaurarla; la de servicio hasta abrir el cuarto de la nana
+  STAIR_PATHS.forEach((paths, k) => { const ok = k === 0 ? open.has('B07') : open.has('B07') && open.has('A04'); if (ok) return; w.camp.stairsShut = (w.camp.stairsShut || []).concat(k);
+    for (const [x, y] of paths.flat()) for (const f of [0, 1]) { const n = f * FL + y * W + x; gT.push(n); iT.push(n); } });
+  for (const f of [0, 1]) for (let n = 0; n < FL; n++) { const r = roomGrid[f][n]; if (r >= 0 && !campRoomOpen(open, f, r)) gT.push(f * FL + n); }
+  w.camp.gT = Int32Array.from(gT); w.camp.iT = Int32Array.from(iT); campMasks(w);
+  // escondites solo en cuartos abiertos
+  for (const k of [...w.spotsActive]) { const s = SPOTS[k]; if (s && !campRoomOpen(open, s.f, s.room)) w.spotsActive.delete(k); }
+  // guarida sorteada con los pesos de la campaña
+  const g = w.g, h = campPickHome(w, camp, g.def); g.home = { f: h.f, r: h.r }; const p = randomIn(h.f, h.r); g.f = h.f; g.x = p.x; g.y = p.y; w.camp.homeCode = campModOf(h.f, h.r);
+  return w;
+};
+function campMasks(w) { if (!w.camp) return; for (const n of w.camp.gT) w.ghostMask[n] = 1; for (const n of w.camp.iT) w.invMask[n] = 1; w.ghostMaskVer++; w.invMaskVer++; }
+const _rebuildMasksCamp = rebuildMasks;
+rebuildMasks = function (w) { _rebuildMasksCamp(w); campMasks(w); };
+// que ninguna regla ni anomalía abra una puerta tapiada
+const _rulesTickCamp = rulesTick;
+rulesTick = function (w, dt) { _rulesTickCamp(w, dt); if (w.camp) for (const d of w.camp.sealedDoors) { d.closed = true; d.locked = true; } };
+const _interactCamp = interact;
+interact = function (w, i) {
+  if (w.camp && i && !i.bot) { const d = w.camp.sealedDoors.find(d => d.f === i.f && d2(d, i) < 1.6 && angDiff(Math.atan2(d.y - i.y, d.x - i.x), i.face) < 0.8);
+    if (d) { w.actor = i; w.say('Está tapiada con tablas. Se abre al liberar ánimas.', 'i'); w.actor = null; return 'tapiada'; } }
+  return _interactCamp(w, i);
+};
+// los vecinos de un cuarto no cuentan puertas tapiadas (ronda del ánima, rezo, bucle)
+const _homeNeighborsCamp = homeNeighbors;
+homeNeighbors = function (w, h) { const out = _homeNeighborsCamp(w, h); return w.camp ? out.filter(o => campRoomOpen(w.camp.open, o.f, o.r)) : out; };
+const _roomNeighborsCamp = roomNeighbors;
+roomNeighbors = function (w, f, r) { const out = _roomNeighborsCamp(w, f, r); return w.camp ? out.filter(n => !n.door.sealed && campRoomOpen(w.camp.open, f, n.r)) : out; };
+
+// ---------- ofertas de cuartos: 3 al azar con puerta a lo abierto + la escalera ----------
+function campOffers(openArr, seed) {
+  const open = new Set(openArr); const isOpenKey = (key, f) => { if (CAMP_MOD.has(key)) return open.has(key) || (key === 'A07' && open.has('B07')); return f === 0 || open.has('B07'); };
+  const cands = [...CAMP_MOD.values()].filter(m => m.purchasable && !open.has(m.id) && m.id !== 'B07' && !['A01', 'A03'].includes(m.id) && // Desván y Coro: Noche grande
+    NDALayout.doors.some(d => (d.a === m.id && isOpenKey(d.b, d.floor)) || (d.b === m.id && isOpenKey(d.a, d.floor))));
+  let s = seed || 1; const rnd2 = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+  const sh = cands.slice().sort(() => rnd2() - 0.5).slice(0, 3).map(m => m.id);
+  if (!open.has('B07')) sh.push('B07'); return sh;
+}
+const campRoomName = code => { const lr = LAYOUT_ROOMS.get(code); return lr ? ROOMS[lr.f][lr.r].n : code; };
+const campComplement = code => { const m = CAMP_MOD.get(code); const c = m && m.complement; const TXT = { escapeExit: 'segunda salida', upperFloor: 'abre la planta alta', 'lightLimit+1': '+1 al límite de luces' }; return c && c.length ? c.map(k => (ITEMS[k] && ITEMS[k].n) || TXT[k] || k).join(', ') : ''; };
+
 // ================= Laboratorio: la casona como cuarto de pruebas =================
 // Cada cuarto tiene puestos con un letrero. Te acercas y pulsas E: el suceso ocurre ahí mismo, a tu lado,
 // para oírlo y verlo aislado. Sin cacerías solas, sin muertes y sin que la casa tire dados por su cuenta.
@@ -4811,7 +4883,7 @@ function musicPlay(on) { ambience(on); return; try { if (!music) { music = new A
 const keys = new Set(), pressed = new Set();
 let mouse = { x: 0, y: 0, has: false }, throwHold = 0, throwing = false;
 const joy = { x: 0, y: 0 };
-let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro', libreta: 'manual' };
+let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro', libreta: 'manual', modo: 'libre' };
 
 // Escultura vectorial: todo mate y de caras planas, sin la textura de grano (GDD §9.3)
 function LambertFlat(o) { o = Object.assign({}, o || {}); if (o.map && o.map === paper) delete o.map; return new THREE.MeshStandardMaterial(Object.assign({ flatShading: true, roughness: 0.95, metalness: 0 }, o)); }
@@ -5756,7 +5828,7 @@ function setupTouch() {
 
 function menu() {
   const seg = (name, opts, cur) => `<div class="seg" data-name="${name}">${opts.map(([v, l]) => `<button data-v="${v}" class="${String(cur) === String(v) ? 'on' : ''}">${l}</button>`).join('')}</div>`;
-  $('#opts').innerHTML = `<label>Juegas como</label>${seg('role', [['inv', 'Investigador'], ['ghost', 'Ánima'], ['bots', 'Mirar a los bots']], menuOpt.role)}
+  $('#opts').innerHTML = `<label>Modo</label>${seg('modo', [['libre', 'Noche libre'], ['campana', 'Campaña (prueba)']], menuOpt.modo)}${menuOpt.modo === 'campana' ? `<p class="small">${campStatus(campLoad())} · Empiezas con 5 cuartos; cada ánima liberada da 3 llaves para destapiar más.</p>` : ''}<label>Juegas como</label>${seg('role', [['inv', 'Investigador'], ['ghost', 'Ánima'], ['bots', 'Mirar a los bots']], menuOpt.role)}
     ${menuOpt.role === 'inv' ? `<label>Tu personaje</label><div class="seg chars" data-name="char">${NAMES.map(n => `<button data-v="${n[2]}" class="${menuOpt.char === n[2] ? 'on' : ''}" title="${CHARS[n[2]].rol || 'Investigador'}"><img src="${charImg(n[2])}" alt="">${n[0]}<small>${CHARS[n[2]].rol || 'investigador'}</small></button>`).join('')}</div>` : ''}
     <label class="chk"><input type="checkbox" id="cursedOn" ${menuOpt.cursed !== 'none' ? 'checked' : ''}> Objetos malditos <small>(experimental)</small></label>${menuOpt.cursed !== 'none' ? seg('cursed', [['random', 'Uno al azar'], ...CURSED.map(k => [k, ITEMS[k].n])], menuOpt.cursed) : ''}
     ${menuOpt.role === 'inv' ? `<label>Cámara</label>${seg('cam', [['hombro', 'Sobre el hombro'], ['fp', 'Primera persona']], menuOpt.cam)}` : ''}
@@ -6614,6 +6686,49 @@ updateScene = function (t, dt) {
 window.__onClip = (c, who) => { if (!w || !w.bitacora) return; const P = who === null || who === undefined ? w.invs[ME] : w.invs[who]; blog(w, 'equipo', `🎙 Se guardó una frase de ${P ? P.name : 'ti'} (${c.tag}, ${(c.d.length / (c.sr || 22050)).toFixed(1)} s)`, P, P && P.id); };
 window.__casM = () => casMeshes;
 window.__casa3dpix = () => casa3d.pix;
+
+// ================= Campaña (prueba P1): guardado del anfitrión, siguiente noche y elección de cuartos =================
+const CAMP_KEY = 'nda_campana_p1', CAMP_SIZE = 6, CAMP_KEYS_PER = 3;
+function campLoad() { try { return JSON.parse(localStorage.getItem(CAMP_KEY) || 'null'); } catch (e) { return null; } }
+function campSave(c) { try { localStorage.setItem(CAMP_KEY, JSON.stringify(c)); } catch (e) {} }
+function campNew() {
+  const pool = shuffle(GHOSTS.filter(G => G.id !== 'charro').map(G => G.id)).slice(0, CAMP_SIZE);
+  const c = { v: 1, size: CAMP_SIZE, pool: pool.slice(1), active: pool[0], freed: [], night: 1, keys: 0, open: CAMP_INITIAL.slice(), last: null, prev: null, homes: [], done: false, offers: null };
+  campSave(c); return c;
+}
+function campStatus(c) { if (!c) return 'Sin campaña guardada.'; if (c.done) return `Campaña terminada: ${c.freed.length}/${c.size} liberadas. Falta la Noche grande (prueba P3).`;
+  return `Noche ${c.night} · liberadas ${c.freed.length}/${c.size} · ${c.open.length} cuartos abiertos${c.keys ? ` · ${c.keys} llave${c.keys > 1 ? 's' : ''} sin usar` : ''}`; }
+// arrancar la noche: la campaña fija el ánima y los cuartos abiertos
+const _startCamp = start;
+start = function (netStart) {
+  if (menuOpt.modo !== 'campana' || NET.mode === 'guest' || netStart) return _startCamp(netStart);
+  let c = campLoad(); if (!c || c.done) c = campNew();
+  const g0 = menuOpt.ghost; menuOpt.ghost = c.active; menuOpt.camp = { open: c.open, last: c.last, prev: c.prev };
+  try { _startCamp(netStart); } finally { menuOpt.ghost = g0; delete menuOpt.camp; }
+};
+// al terminar: liberada o se queda; llaves y cuartos
+const _showEndCamp = showEnd;
+showEnd = function () {
+  _showEndCamp(); if (!w || !w.opt.camp) return; const box = document.createElement('div'); box.className = 'campbox';
+  if (NET.mode === 'guest') { box.innerHTML = '<p>Campaña: el anfitrión elige los cuartos.</p>'; $('#modalIn').appendChild(box); return; }
+  let c = campLoad(); if (!c) return;
+  if (!w._campDone) { w._campDone = true; const freed = w.over && w.over.win === 'inv'; const id = w.g.def.id;
+    c.homes.push({ night: c.night, ghost: id, home: w.camp.homeCode, last: c.last, freed: !!freed, t: Math.round(w.t), open: c.open.length });
+    if (freed) { c.freed.push(id); c.keys += CAMP_KEYS_PER; c.prev = null; c.active = c.pool.shift() || null; if (!c.active) c.done = true; }
+    else c.prev = w.camp.homeCode; // se queda y se muda
+    c.night++; c.offers = c.keys ? campOffers(c.open, c.night * 7919 + c.open.length) : null; campSave(c);
+    box.dataset.res = freed ? 'ok' : 'no'; }
+  const render = () => { c = campLoad();
+    const last = c.homes[c.homes.length - 1] || {};
+    let h = `<h3>Campaña</h3><p>${last.freed ? `<b>${GT[last.ghost].n}</b> quedó liberada.` : `<b>${GT[last.ghost] ? GT[last.ghost].n : 'El ánima'}</b> se queda en la casona y mañana estará en otro cuarto.`} ${campStatus(c)}</p>`;
+    if (c.keys && c.offers && c.offers.length) h += `<p>Usa una llave para destapiar un cuarto (${c.keys} disponible${c.keys > 1 ? 's' : ''}):</p><div class="btns">` + c.offers.map(code => `<button data-camp-room="${code}">${campRoomName(code)}${campComplement(code) ? `<small> · ${campComplement(code)}</small>` : ''}</button>`).join('') + '</div>';
+    if (c.done) h += '<p>Las 6 ánimas están libres. La Noche grande con el Charro Negro llega en la prueba P3.</p>';
+    h += `<p class="small"><button class="ghostbtn" data-camp-new>Empezar campaña nueva</button></p>`; box.innerHTML = h;
+    const again = $('#again'); if (again) again.textContent = c.done ? 'Nueva campaña' : 'Siguiente noche'; };
+  box.addEventListener('click', e => { const b = e.target.closest('[data-camp-room]'); if (b) { const cc = campLoad(); if (cc.keys > 0 && !cc.open.includes(b.dataset.campRoom)) { cc.open.push(b.dataset.campRoom); cc.last = b.dataset.campRoom; cc.keys--; cc.offers = cc.keys ? campOffers(cc.open, cc.night * 7919 + cc.open.length) : null; campSave(cc); } render(); return; }
+    if (e.target.closest('[data-camp-new]')) { campNew(); render(); } });
+  $('#modalIn').appendChild(box); render();
+};
 
 document.getElementById('loading').remove();
 </script>

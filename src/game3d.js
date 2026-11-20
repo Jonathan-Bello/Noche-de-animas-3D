@@ -87,7 +87,7 @@ function musicPlay(on) { ambience(on); return; try { if (!music) { music = new A
 const keys = new Set(), pressed = new Set();
 let mouse = { x: 0, y: 0, has: false }, throwHold = 0, throwing = false;
 const joy = { x: 0, y: 0 };
-let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro', libreta: 'manual' };
+let menuOpt = { role: 'inv', nInv: 3, ghost: 'random', night: 600, equip: 'normal', diff: 'normal', cursed: 'none', char: 'ines', tips: 'si', cam: 'hombro', libreta: 'manual', modo: 'libre' };
 
 // Escultura vectorial: todo mate y de caras planas, sin la textura de grano (GDD §9.3)
 function LambertFlat(o) { o = Object.assign({}, o || {}); if (o.map && o.map === paper) delete o.map; return new THREE.MeshStandardMaterial(Object.assign({ flatShading: true, roughness: 0.95, metalness: 0 }, o)); }
@@ -1032,7 +1032,7 @@ function setupTouch() {
 
 function menu() {
   const seg = (name, opts, cur) => `<div class="seg" data-name="${name}">${opts.map(([v, l]) => `<button data-v="${v}" class="${String(cur) === String(v) ? 'on' : ''}">${l}</button>`).join('')}</div>`;
-  $('#opts').innerHTML = `<label>Juegas como</label>${seg('role', [['inv', 'Investigador'], ['ghost', 'Ánima'], ['bots', 'Mirar a los bots']], menuOpt.role)}
+  $('#opts').innerHTML = `<label>Modo</label>${seg('modo', [['libre', 'Noche libre'], ['campana', 'Campaña (prueba)']], menuOpt.modo)}${menuOpt.modo === 'campana' ? `<p class="small">${campStatus(campLoad())} · Empiezas con 5 cuartos; cada ánima liberada da 3 llaves para destapiar más.</p>` : ''}<label>Juegas como</label>${seg('role', [['inv', 'Investigador'], ['ghost', 'Ánima'], ['bots', 'Mirar a los bots']], menuOpt.role)}
     ${menuOpt.role === 'inv' ? `<label>Tu personaje</label><div class="seg chars" data-name="char">${NAMES.map(n => `<button data-v="${n[2]}" class="${menuOpt.char === n[2] ? 'on' : ''}" title="${CHARS[n[2]].rol || 'Investigador'}"><img src="${charImg(n[2])}" alt="">${n[0]}<small>${CHARS[n[2]].rol || 'investigador'}</small></button>`).join('')}</div>` : ''}
     <label class="chk"><input type="checkbox" id="cursedOn" ${menuOpt.cursed !== 'none' ? 'checked' : ''}> Objetos malditos <small>(experimental)</small></label>${menuOpt.cursed !== 'none' ? seg('cursed', [['random', 'Uno al azar'], ...CURSED.map(k => [k, ITEMS[k].n])], menuOpt.cursed) : ''}
     ${menuOpt.role === 'inv' ? `<label>Cámara</label>${seg('cam', [['hombro', 'Sobre el hombro'], ['fp', 'Primera persona']], menuOpt.cam)}` : ''}
