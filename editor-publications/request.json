@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "id": "b3691814-6f88-49e4-abbd-d8ea5dedee1b",
+  "id": "2c1cbd81-cea1-414c-bcbd-2b4707a1e765",
   "baseSHA": "3d58073433e48d902d2c89b5ff0943d299ba23a7",
   "layout": {
     "version": "casona-v16",
@@ -6988,6 +6988,19 @@
           0.5
         ],
         "rotation": 0
+      },
+      {
+        "id": "decor_mwom6bml",
+        "room": "B04",
+        "asset": "family_frame",
+        "support": "prop_grifo_cocina",
+        "offset": [
+          0.6,
+          0.55,
+          0.9399999999999995
+        ],
+        "rotation": 3.141592653589793,
+        "mountWall": "south"
       }
     ],
     "roomModules": [
