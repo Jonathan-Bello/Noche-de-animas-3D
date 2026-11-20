@@ -1,7 +1,7 @@
 const fs=require('node:fs'),path=require('node:path');
 const root=path.join(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
 let seed=+(process.env.SEED||37);Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
-let source='const NDALayout='+read('src/layout-v11.json')+';\n'+read('src/placement-layout.js')+'\n'+read('src/logic2.js').replace('/*LAYOUT_RUNTIME*/',read('src/layout-runtime.js'))+'\n'+['rules3.js','rules4.js','decor-runtime.js','layout-rules.js','decor-rules.js','rules5.js'].map(p=>read('src/'+p)).join('\n');
+let source='const NDALayout='+read('src/layout-v11.json')+';\n'+read('src/stair-layout.js')+'\n'+read('src/placement-layout.js')+'\n'+read('src/logic2.js').replace('/*LAYOUT_RUNTIME*/',read('src/layout-runtime.js'))+'\n'+['rules3.js','rules4.js','decor-runtime.js','layout-rules.js','decor-rules.js','rules5.js'].map(p=>read('src/'+p)).join('\n');
 source=source.replace('function navTo(w, e, tg, speed, dt) {','function navTo(w, e, tg, speed, dt) { e._qaNav={target:tg,at:w.t};');
 source+=';const _qaNavRun=navTo;navTo=function(w,e,tg,speed,dt){if(e._qaCallsAt!==w.t){e._qaCallsAt=w.t;e._qaCalls=[];}const before={x:e.x,y:e.y,f:e.f},r=_qaNavRun(w,e,tg,speed,dt);e._qaCalls.push({before,target:tg,after:{x:e.x,y:e.y,f:e.f},collides:collides(w,e,e.x,e.y)});return r;};';
 const a=new Function('module',source+';return {SWITCHES,newItem,useItem,useItemRaw,dropItem,throwItem,hangRosary,nearSwitch,toggleLight,FUSE,decorWallOccupied,newWorld,step,GHOSTS,SPOTS,ROOMS,STAIR_PATHS,stairAt,navTo,stairFlip,elevOf,collides,snapWalkable,gMover,LAYOUT_FURN,SURFACES,grids,T,roomAt,layoutHideCache};')({exports:{}});

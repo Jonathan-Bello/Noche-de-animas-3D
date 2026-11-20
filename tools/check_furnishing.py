@@ -1,9 +1,10 @@
 """Architectural reservations, support and window checks before building a scene."""
-import json,math
+import json,math,runpy
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def overlaps(a,b):return a[0]<b[2]-.001 and a[2]>b[0]+.001 and a[1]<b[3]-.001 and a[3]>b[1]+.001
 def validate(d):
+ runpy.run_path(str(ROOT/'tools/check_structure.py'))['validate_structure'](d)
  errors=[];zones=[];rooms={r['id']:r for r in d['rooms']}
  for p in d['doors']:
   a,z,c,e=p['rect'];v=c-a==1;zones.append((p['id'],p['floor'],[a-(1.15 if v else .15),z-(.15 if v else 1.15),c+(1.15 if v else .15),e+(.15 if v else 1.15)]))

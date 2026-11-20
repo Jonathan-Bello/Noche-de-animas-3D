@@ -69,3 +69,7 @@ Para mover decoración visualmente y guardar en la copia local del juego: doble 
 [Decorar la casona en 3D](editor/index.html) · [Cómo usar el editor](docs/editor-v19.md) · [Editar los modelos de muebles](arte/muebles-v19/index.html) · [Referencias](arte/muebles-v19/referencias.html).
 
 Se renuevan libreros, mesas, camas y roperos conservando apoyos, escondites, libros arrojables y cajones. El editor incorpora catálogo visual, arrastre, giros, cuadrícula y colocación validada. Para aplicar cambios a la partida local, abre `Abrir editor.cmd`; en la página pública puedes decorar y descargar el plano.
+
+## V20 · Editor público compartido
+
+[Editar la casona en línea](https://jonathan-bello.github.io/Noche-de-animas-3D/editor/?v=editor-v20) · [Guía de salas y publicación](docs/editor-online-v20.md). Salas por invitación, publicación validada en GitHub, errores descriptivos en español y traslación completa de escaleras con navegación sincronizada.

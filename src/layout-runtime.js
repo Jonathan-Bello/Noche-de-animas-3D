@@ -31,14 +31,14 @@ for(const o of NDALayout.obstacles){if(o.id.startsWith('reserva_'))continue;cons
 // Continuous height profiles, with a single shared half-height transfer cell per staircase.
 const STAIRS=NDALayout.stairs.map(s=>[Math.floor(s.hole[0]),Math.floor(s.hole[1]),Math.ceil(s.hole[2])-1,Math.ceil(s.hole[3])-1]);
 const STAIR_DIR=[-1,1],isStair=new Uint8Array(FL),isStairMid=new Uint8Array(FL),STAIR_BLOCK=new Uint8Array(2*FL),STAIR_ENDS=new Set();
-const STAIR_PATHS=[[[[11,26],[10,26],[9,26],[8,26],[7,26],[7,25]],[[7,25],[7,24],[8,24],[9,24],[10,24],[11,24]]],[[[38,2],[39,2],[40,2],[41,2]],[[41,2],[42,2],[43,2],[44,2],[45,2]]]];
+const STAIR_PATHS=NDALayout.stairs.map((s,k)=>NDAStructure.paths(s,k));
 for(let k=0;k<2;k++){
  const s=NDALayout.stairs[k],r=[Math.floor(s.hole[0]),Math.floor(s.hole[1]),Math.ceil(s.hole[2]),Math.ceil(s.hole[3])];
  for(const f of[0,1])fillLayout(f,r,T.PILLAR);
  const both=new Set(STAIR_PATHS[k].flat().map(([x,y])=>y*W+x));
  for(const i of both){isStair[i]=1;for(const f of[0,1]){grids[f][i]=T.STAIR;STAIR_BLOCK[f*FL+i]=1;}}
  for(const f of[0,1])for(const[x,y]of STAIR_PATHS[k][f])STAIR_BLOCK[f*FL+y*W+x]=0;
- const midpoint=k===0?[7,25]:[41,2];isStairMid[midpoint[1]*W+midpoint[0]]=1;
+ const midpoint=STAIR_PATHS[k][0].at(-1);isStairMid[midpoint[1]*W+midpoint[0]]=1;
  for(const f of[0,1]){const p=STAIR_PATHS[k][f][f?STAIR_PATHS[k][f].length-1:0];STAIR_ENDS.add(p[1]*W+p[0]);}
 }
 const STAIR_INDEX=new Int8Array(FL).fill(-1);STAIR_PATHS.forEach((paths,k)=>paths.flat().forEach(([x,y])=>STAIR_INDEX[y*W+x]=k));
@@ -48,7 +48,7 @@ const stairP=(k,x,y)=>stairProjection(k,x,y).p;
 const elevOf=e=>{const k=stairAt(e.x,e.y);return k<0?e.f:stairProjection(k,e.x,e.y).height;};
 const stairSideBlock=(a,b)=>a!==b&&((isStair[a]&&!isStair[b]&&!STAIR_ENDS.has(a))||(isStair[b]&&!isStair[a]&&!STAIR_ENDS.has(b)));
 function stairFlip(w,e,quiet){if(!e||(e.kind==='ghost'&&ethereal(e)))return;const k=stairAt(e.x,e.y);if(k<0)return;const p=stairP(k,e.x,e.y);if(e.f===0&&p>.505)quiet?(e.f=1):changeFloor(w,e,1);else if(e.f===1&&p<.495)quiet?(e.f=0):changeFloor(w,e,0);}
-const stairNext=(k,up)=>k===0?{x:7.5,y:up?24.5:26.5}:{x:up?42.5:40.5,y:2.5};
+const stairNext=(k,up)=>{const p=up?STAIR_PATHS[k][1][1]:STAIR_PATHS[k][0].at(-2);return{x:p[0]+.5,y:p[1]+.5};};
 // Exterior keeps the existing van, tables and spawn, with its path centered on the new portón.
 fillLayout(0,[0,40,60,60],T.VOID,RID[0].afuera);fillLayout(0,[27,40,33,51],T.FLOOR,RID[0].afuera);fillLayout(0,NDALayout.exterior.apron,T.FLOOR,RID[0].afuera);
 for(let y=41;y<57;y++)for(let x=1;x<59;x++)if(grids[0][y*W+x]===T.VOID&&[[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>grids[0][(y+b)*W+x+a]===T.FLOOR))grids[0][y*W+x]=T.BUSH;

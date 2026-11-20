@@ -1,5 +1,7 @@
 # Cómo usar el modo de decoración
 
+**Actualización V20:** ya puedes editar con amigos y publicar desde internet sin instalar el repositorio. Consulta [la guía del editor en línea](editor-online-v20.md). Las instrucciones locales de esta página siguen disponibles.
+
 El editor es un taller para acomodar la casona con una interacción inspirada en los modos de decoración: vista 3D del cuarto, catálogo con imágenes, selección directa, cuadrícula, giro y vista previa antes de colocar. El plano técnico anterior sigue disponible.
 
 ## La forma más fácil de empezar
@@ -37,7 +39,7 @@ Guardar comprueba que ninguna puerta, escalera, entrada de escondite o ruta nece
 | Archivo → Abrir plano | Importa un plano compatible para revisarlo antes de aplicarlo. |
 | Archivo → Volver al plano cargado | Recupera la versión que cargó el taller; también se puede deshacer. |
 
-**La página pública no escribe en tu carpeta ni publica en GitHub.** En ella puedes decorar, conservar un borrador y descargar el plano. Para ver tus cambios dentro del juego local, usa Abrir editor.cmd y Aplicar. Para que aparezcan en la versión pública, el plano y el juego reconstruido deben integrarse y publicarse en el repositorio.
+**La página pública conserva el borrador y ahora permite publicar en GitHub conectando la cuenta del anfitrión.** También puedes descargar el plano. Para ver tus cambios dentro del juego local, usa Abrir editor.cmd y Aplicar. Para aplicar cambios desde internet, sigue la guía V20; el botón Publicar valida, reconstruye y despliega el juego.
 
 ## Cambiar la apariencia de un mueble
 

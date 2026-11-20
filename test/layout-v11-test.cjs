@@ -1,7 +1,7 @@
 const fs=require('node:fs'),assert=require('node:assert/strict');
 const root=require('node:path').join(__dirname,'..');
 const read=p=>fs.readFileSync(require('node:path').join(root,p),'utf8');
-let source='const NDALayout='+read('src/layout-v11.json')+';\n'+read('src/placement-layout.js')+'\n'+read('src/logic2.js').replace('/*LAYOUT_RUNTIME*/',read('src/layout-runtime.js'))+'\n'+read('src/rules3.js')+'\n'+read('src/rules4.js')+'\n'+read('src/decor-runtime.js')+'\n'+read('src/layout-rules.js')+'\n'+read('src/decor-rules.js')+'\n'+read('src/rules5.js');
+let source='const NDALayout='+read('src/layout-v11.json')+';\n'+read('src/stair-layout.js')+'\n'+read('src/placement-layout.js')+'\n'+read('src/logic2.js').replace('/*LAYOUT_RUNTIME*/',read('src/layout-runtime.js'))+'\n'+read('src/rules3.js')+'\n'+read('src/rules4.js')+'\n'+read('src/decor-runtime.js')+'\n'+read('src/layout-rules.js')+'\n'+read('src/decor-rules.js')+'\n'+read('src/rules5.js');
 const api=new Function('module',source+';return {botInv,botTermoSweep,layoutPlacementAllowed,SPAWN_TILES,casPoint,casRezando5,randomIn,newWorld,step,interact,pickUp,layoutItemVisible,layoutBeginSearch,chooseSpots,SPOTS,ROOMS,ROOM_TILES,ROOM_CENTER,HOME_CHOICES,SURFACES,layoutHideCache,grids,T,STAIR_BLOCK,STAIR_PATHS,stairProjection,layoutDistances,navTo,stairFlip,elevOf,pathLen,los,gMover,sees};')({exports:{}});
 console.log('rooms',api.ROOMS.map(r=>r.length),'spots',api.SPOTS.length);
 assert.equal(api.HOME_CHOICES.length,22);assert.equal(api.SPOTS.length,24);
