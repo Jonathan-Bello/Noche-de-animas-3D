@@ -68,7 +68,7 @@ function netGuestConn(c) {
 }
 function netHostData(c, d) {
   if (!d || typeof d !== 'object') return;
-  if (d.t === 'in') { const prev = NET.inputs.get(c.peer); const acc = prev ? prev.press : new Set(); (d.press || []).forEach(k => acc.add(k)); NET.inputs.set(c.peer, Object.assign({}, d, { press: acc, acts: (prev && prev.acts || []).concat(d.acts || []) })); }
+  if (d.t === 'in') { const prev = NET.inputs.get(c.peer); const acc = prev ? prev.press : new Set(); (d.press || []).forEach(k => acc.add(k)); NET.inputs.set(c.peer, Object.assign({}, d, { pl: d.pl || (prev && prev.pl) || null, press: acc, acts: (prev && prev.acts || []).concat(d.acts || []) })); }
   if (d.t === 'clip' && typeof d.d === 'string' && d.d.length < 60000) { const W_ = window.__game && window.__game.w, inv = W_ && W_.invs.find(i => i.peer === c.peer); if (inv) { VOICE.gotClip(inv.id, d.tag, d.d); for (const o of NET.conns.values()) if (o.open && o !== c) o.send({ t: 'clip', who: inv.id, tag: d.tag, d: d.d }); } }
   if (d.t === 'char') { const p = NET.lobby.find(p => p.peer === c.peer); if (p) { p.char = d.char; p.name = String(d.name || p.name).slice(0, 16); netLobbyChanged(); } }
 }
@@ -198,7 +198,7 @@ function netHostInputs(w, localIdx, localInput) {
     const poseOk = d.pe === i.pe && i.alive && i.hidden < 0 && !i.possessed;
     if (poseOk && typeof d.x === 'number') { i.x = d.x; i.y = d.y; i.vx = d.vx || 0; i.vy = d.vy || 0; i.stam = d.stam; i.tired = !!d.tired; i._ax = d.x; i._ay = d.y; i._af = i.f; } else { i._ax = i.x; i._ay = i.y; i._af = i.f; }
     i.radio = !!d.radio; i.loud = !!d.loud; i.talking = !!d.talk; if (d.guess !== undefined) i.guess = d.guess; if (d.jr) i.journal = d.jr;
-    by[i.id] = { mx: i.alive ? 0 : d.mx || 0, my: i.alive ? 0 : d.my || 0, sprint: !!d.sprint, moving: !!d.moving, face: d.face, press: d.press || new Set(), throwPower: d.tp };
+    by[i.id] = { mx: i.alive ? 0 : d.mx || 0, my: i.alive ? 0 : d.my || 0, sprint: !!d.sprint, moving: !!d.moving, face: d.face, press: d.press || new Set(), throwPower: d.tp, place: d.pl || null }; d.pl = null;
     for (const a of d.acts || []) netAct(w, i, a);
     d.press = new Set(); d.acts = [];
   }
@@ -220,7 +220,7 @@ function netBroadcast(w) {
 }
 function netSendInput(inp, me, acts) {
   const c = NET.hostConn; if (!c || !c.open) return;
-  c.send({ t: 'in', x: me.x, y: me.y, vx: me.vx, vy: me.vy, stam: me.stam, tired: me.tired, face: inp.face, sprint: inp.sprint, moving: !!(inp.mx || inp.my), mx: inp.mx, my: inp.my, tp: inp.throwPower, radio: !!me.radio, loud: !!me.loud, talk: !!me.talking, guess: NET.myGuess, jr: NET.journalOut || null, press: [...NET.pressAcc], acts, pe: NET.localPe });
+  c.send({ t: 'in', pl: inp.place || undefined, x: me.x, y: me.y, vx: me.vx, vy: me.vy, stam: me.stam, tired: me.tired, face: inp.face, sprint: inp.sprint, moving: !!(inp.mx || inp.my), mx: inp.mx, my: inp.my, tp: inp.throwPower, radio: !!me.radio, loud: !!me.loud, talk: !!me.talking, guess: NET.myGuess, jr: NET.journalOut || null, press: [...NET.pressAcc], acts, pe: NET.localPe });
   NET.pressAcc.clear(); NET.journalOut = null;
 }
 

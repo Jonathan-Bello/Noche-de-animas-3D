@@ -1205,7 +1205,7 @@ function step(w, dt, input) {
       if (p.has('e')) { const res = interact(w, i); if (res === 'altar') w.ev('altar', { who: i.id }); }
       if (p.has('q')) toggleLight(w, i);
       if (p.has('f')) i.flash = !i.flash;
-      if (p.has('g') && handItem(i)) { const it = handItem(i); if (it.kind === 'rosario' && hangRosary(w, i)) {} else dropItem(w, i, i.hand); }
+      if (p.has('g') && handItem(i)) { const it = handItem(i); if (hin.place && typeof placeAt === 'function') placeAt(w, i, hin.place); else if (it.kind === 'rosario' && hangRosary(w, i)) {} else dropItem(w, i, i.hand); }
       if (p.has('throw') && handItem(i)) throwItem(w, i, hin.throwPower || 6);
       if (p.has(' ')) useItem(w, i);
       i.vx = i.vx || 0; i.vy = i.vy || 0;

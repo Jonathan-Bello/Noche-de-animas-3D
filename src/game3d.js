@@ -814,7 +814,7 @@ function hud() {
   $('#left').classList.toggle('show', infoPinned || performance.now() < infoUntil);
   // botones táctiles del ánima: atenuar los que no están listos
   if (role === 'ghost') document.querySelectorAll('#tbtns button[data-k]').forEach(b => { const k = b.dataset.k; const ok = k === 'h' ? canHunt(w, g) : k === 'x' ? w.phase === 'huida' && !g.espantoUsed : k === 'r' ? !!g.def.special && w.t >= g.ready.r : ['q', 'e', 'f', 'c', 'v'].includes(k) ? gReady(w, g, k) : true; b.classList.toggle('off', !ok); });
-  if (journalOpen) $('#journalIn').innerHTML = journalHTML(false);
+  if (journalOpen) uiJournalRefresh();
   const vis = role === 'inv' ? 'i' : role === 'ghost' ? 'g' : 'x';
   $('#feed').innerHTML = w.log.filter(l => (l.vis === 'a' || l.vis === vis || role === 'bots') && (l.who === undefined || l.who === null || l.who === ME) && w.t - l.t < 7).slice(-3).map(l => `<div>${l.msg}</div>`).join('');
   // subtítulos de sonidos cercanos
@@ -860,7 +860,7 @@ addEventListener('keydown', e => {
 });
 addEventListener('keyup', e => { let k = e.key.toLowerCase(); k = KEYMAP[k] || k; keys.delete(k); if (k === 'v') radioSet(false); if (k === 'r' && throwing) { throwing = false; pressed.add('throw'); } });
 addEventListener('blur', () => keys.clear());
-addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.has = true; if (running && !$('#game').hidden && $('#modal').hidden) { const locked = document.pointerLockElement === (renderer && renderer.domElement); const k = locked ? 0.0026 : 0.004; yaw += (e.movementX || 0) * k; pitch = clamp(pitch - (e.movementY || 0) * k * 0.7, -0.7, 0.55); } });
+addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.has = true; if (running && !$('#game').hidden && $('#modal').hidden && !journalOpen && !uiMenuOpen()) { const locked = document.pointerLockElement === (renderer && renderer.domElement); if (!locked && !matchMedia('(pointer: coarse)').matches) return; const k = locked ? 0.0026 : 0.004; yaw += (e.movementX || 0) * k; pitch = clamp(pitch - (e.movementY || 0) * k * 0.7, -0.7, 0.55); } });
 addEventListener('wheel', e => { if (running && w && w.opt.role === 'inv') pressed.add(e.deltaY > 0 ? 'wheeldown' : 'wheelup'); }, { passive: true });
 function canvasDown(e) { if (!running || !w || journalOpen || !$('#modal').hidden) return; if (w.opt.role === 'inv' && w.invs[ME] && w.invs[ME].escaped) { specIdx++; return; } if (e.pointerType !== 'touch' && !matchMedia('(pointer: coarse)').matches && document.pointerLockElement !== renderer.domElement) { try { const r = renderer.domElement.requestPointerLock(); if (r && r.catch) r.catch(() => {}); } catch (err) {} } if (e.button === 0) pressed.add(' '); if (e.button === 2 && w.opt.role === 'inv') { throwing = true; throwHold = 0; } }
 function canvasUp(e) { if (e.button === 2 && throwing) { throwing = false; pressed.add('throw'); } }
@@ -879,7 +879,7 @@ function frame(ts) {
   if (vk === 'all') { mx = 0; my = 0; }
   if (throwing) throwHold += dt;
   const face = yaw;
-  const input = w.opt.role === 'bots' ? null : { mx, my, sprint: keys.has('shift'), press: new Set(pressed), face, throwPower: 2 + Math.min(1, throwHold / 1.0) * 6 };
+  const input = w.opt.role === 'bots' ? null : { mx, my, sprint: keys.has('shift'), press: new Set(pressed), face, throwPower: 2 + Math.min(1, throwHold / 1.0) * 6, place: uiTakePlace() };
   if (w.opt.role === 'ghost') w.g.face = face;
   if (input && input.press.has('throw')) throwHold = 0;
   if (['1', '2', '3', '4', 'wheelup', 'wheeldown', 'g', 'e', 'throw', ' '].some(k => pressed.has(k))) showInfo(3);
