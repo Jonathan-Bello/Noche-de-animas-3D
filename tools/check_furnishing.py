@@ -65,7 +65,7 @@ def validate(d):
  for n,(id,f,lo,hi,foot)in enumerate(decor_boxes):
   for bid,bf,blo,bhi,bfoot in decor_boxes[n+1:]:
    if f==bf and min(hi,bhi)-max(lo,blo)>.035 and overlaps(foot,bfoot):errors.append(id+' se encima con '+bid)
- if throwables>48:errors.append('Más de 48 decoraciones arrojables nuevas')
+ if throwables>96:errors.append('Límite: 96 decoraciones arrojables para mantener el rendimiento')
  if errors:raise ValueError('\n'.join(errors))
  return {'doors':len(zones),'furnitureAndHides':len(objects),'bedsAgainstWalls':sum(o.get('model')=='bed' or o['id'].startswith('cama_')for o in d['obstacles']),'internalWindowsOpen':sum(w.get('internal',False)for w in d['windows']),'rugs':len(d.get('decorations',[])),'decorComponents':len(ids),'throwableComponents':throwables,'errors':errors}
 if __name__=='__main__':print(json.dumps(validate(json.loads((ROOT/'src/layout-v11.json').read_text(encoding='utf-8'))),ensure_ascii=False))

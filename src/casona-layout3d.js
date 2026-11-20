@@ -80,11 +80,20 @@ const NDAHouseArt=globalThis.NDAHouseArt=(()=>{
   if(w.state==='postigos cerrados'){for(const sd of[-1,1]){put(sd*span*.25,(y+h)/2,span/2-.025,h-y-.04,.08,P.dark);put(sd*span*.25,(y+h)/2,span/2-.12,.06,.12,P.woodLight);}return;}
   if(w.state==='tablas con rendijas'){for(let yy=y+.15;yy<h-.14;yy+=.32)put(0,yy,span-.04,.24,.075,P.wood);}else for(let j=0;j<3;j++)put(-half+.12+j*(span-.24)/2,y+.17,.17,.28,.035,0x78919a);
  }
- function stairGeometry(b,s){const p=s.path,rise=.19,FH=3.8;for(let j=1;j<p.length;j++){const a=p[j-1],c=p[j],dx=c[0]-a[0],dz=c[1]-a[1],run=Math.hypot(dx,dz),up=c[2]-a[2],ry=-Math.atan2(dz,dx);if(Math.abs(up)>.1){const N=s.id==='principal'?10:20;const profile=[[0,0],[run,0],[run,c[2]]];for(let i=N-1;i>=0;i--){profile.push([run*i/N,a[2]+(i+1)*up/N]);if(i)profile.push([run*i/N,a[2]+i*up/N]);}poly(b,profile,s.width,P.stone,a[0]+dz/run*s.width/2,0,a[1]-dx/run*s.width/2,ry);const railLength=Math.hypot(run,up);for(const side of[-1,1]){const nx=-dz/run*side*(s.width/2-.025),nz=dx/run*side*(s.width/2-.025);b.add(new THREE.BoxGeometry(railLength,.055,.055),P.iron,(a[0]+c[0])/2+nx,(a[2]+c[2])/2+1.05,(a[1]+c[1])/2+nz,0,ry,Math.atan2(up,run));for(let i=0;i<=N;i+=2){const t=i/N;box(b,a[0]+dx*t+nx,a[2]+up*t+.5,a[1]+dz*t+nz,.035,1,.035,P.iron);}}}else box(b,(a[0]+c[0])/2,a[2]/2,(a[1]+c[1])/2,Math.abs(dx)>.01?run+s.width:s.width,a[2],Math.abs(dz)>.01?run+s.width:s.width,P.stone);}
-  const end=p[p.length-1],length=s.id==='principal'?1:1.68;box(b,end[0]+length/2,FH-.09,end[1],length,.18,s.width,P.stone);
-  for(const[a,z,c,d,y]of s.landingRails||[]){const length=Math.hypot(c-a,d-z),n=Math.max(1,Math.ceil(length/.32));box(b,(a+c)/2,y+1.05,(z+d)/2,Math.abs(c-a)>.01?length:.055,.065,Math.abs(d-z)>.01?length:.055,P.iron);for(let j=0;j<=n;j++){const t=j/n;box(b,a+(c-a)*t,y+.52,z+(d-z)*t,.045,1.04,.045,P.iron);}}
-  // Trim the upper hole continuously, leaving only the high landing approach open.
-  const[a,z,c,d]=s.hole;for(const zz of[z,d]){box(b,(a+c)/2,FH+1.0,zz,c-a,.055,.055,P.iron);for(let x=a;x<c;x+=.35)box(b,x,FH+.5,zz,.035,1,.035,P.iron);}box(b,a,FH+1.0,(z+d)/2,.055,.055,d-z,P.iron);
+ function stairGeometry(b,s){
+  const p=s.path,FH=3.8,posts=new Set();
+  // Build each rail from exact endpoints; posts embed into tread and handrail, never float.
+  const rail=(a,c,tread)=>{const d=new THREE.Vector3(c[0]-a[0],c[1]-a[1],c[2]-a[2]),length=d.length();if(length<.001)return;
+   const geo=new THREE.BoxGeometry(length,.055,.055);geo.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(1,0,0),d.clone().normalize()));b.add(geo,P.iron,(a[0]+c[0])/2,(a[1]+c[1])/2+1.05,(a[2]+c[2])/2);
+   const count=Math.max(1,Math.ceil(Math.hypot(d.x,d.z)/.32));for(let i=0;i<=count;i++){const t=i/count,x=a[0]+d.x*t,z=a[2]+d.z*t,top=a[1]+d.y*t+1.05,base=(tread?tread(t):a[1]+d.y*t)-.015,key=[x,z,top].map(v=>v.toFixed(4)).join(':');if(posts.has(key))continue;posts.add(key);box(b,x,(top+base)/2,z,.035,top-base,.035,P.iron);}
+  };
+  for(let j=1;j<p.length;j++){const a=p[j-1],c=p[j],dx=c[0]-a[0],dz=c[1]-a[1],run=Math.hypot(dx,dz),up=c[2]-a[2],ry=-Math.atan2(dz,dx);if(Math.abs(up)>.1){const N=s.id==='principal'?10:20,profile=[[0,0],[run,0],[run,c[2]]];for(let i=N-1;i>=0;i--){profile.push([run*i/N,a[2]+(i+1)*up/N]);if(i)profile.push([run*i/N,a[2]+i*up/N]);}poly(b,profile,s.width,P.stone,a[0]+dz/run*s.width/2,0,a[1]-dx/run*s.width/2,ry);
+    for(const side of[-1,1]){const nx=-dz/run*side*(s.width/2-.025),nz=dx/run*side*(s.width/2-.025);rail([a[0]+nx,a[2],a[1]+nz],[c[0]+nx,c[2],c[1]+nz],t=>a[2]+Math.min(N,Math.floor(t*N)+1)*up/N);}
+   }else box(b,(a[0]+c[0])/2,a[2]/2,(a[1]+c[1])/2,Math.abs(dx)>.01?run+s.width:s.width,a[2],Math.abs(dz)>.01?run+s.width:s.width,P.stone);
+  }
+  const end=p.at(-1),length=s.id==='principal'?1:1.68;box(b,end[0]+length/2,FH-.09,end[1],length,.18,s.width,P.stone);
+  for(const[a,z,c,d,y]of s.landingRails||[])rail([a,y,z],[c,y,d]);
+  const[a,z,c,d]=s.hole;for(const zz of[z,d])rail([a,FH,zz],[c,FH,zz]);rail([a,FH,z],[a,FH,d]);
  }
  function build({floors,world}){const batches=new Map(),get=(f,id)=>{const key=f+':'+id;if(!batches.has(key))batches.set(key,new Batch('casona_v11_'+key));return batches.get(key);};
   const apertureCuts=NDALayout.windows.map(windowCut),frameCuts=NDALayout.windows.map(windowFrameCut),cuts=frameCuts.slice();for(const d of NDALayout.doors){const[a,z,c,e]=d.rect,v=c-a===1;cuts.push([a-(v?0:.12),d.floor*FH,z-(v?.12:0),c+(v?0:.12),(d.floor+1)*FH,e+(v?.12:0)]);}
@@ -125,7 +134,7 @@ const NDAHouseArt=globalThis.NDAHouseArt=(()=>{
    const ruda=new THREE.Mesh(new THREE.ConeGeometry(.12,.35,5),new THREE.MeshStandardMaterial({color:P.green,roughness:1}));ruda.position.set(.6,1.9,.08);leaves[0].add(ruda);ruda.visible=false;const ros=new THREE.Mesh(new THREE.TorusGeometry(.12,.02,4,6),new THREE.MeshStandardMaterial({color:P.bone,roughness:1}));ros.position.set(.6,1.7,.08);leaves[0].add(ros);ros.visible=false;doorMeshes.push({d,piv:leaves[0],leaves,glow,ruda,ros,base:-1.48});}
  }
  function buildHides(){spotMeshes=[];const wood=new THREE.MeshStandardMaterial({color:P.wood,roughness:1,flatShading:true}),dark=new THREE.MeshStandardMaterial({color:P.dark,roughness:1}),bone=new THREE.MeshStandardMaterial({color:P.bone,roughness:1});
-  for(const[s,k]of SPOTS.map((s,k)=>[s,k])){const chest=/arcon|baul/.test(s.type),eye=chest?.78:1.5;s.eyeHeight=eye;const g=new THREE.Group();g.name='refugio_'+s.id;g.position.set(s.x+.5,0,s.y+.5);floorGroups[s.f].add(g);const model=NDAFurnitureArt.create('hide_'+s.id);model.rotation.y=-Math.atan2(s.hy-s.y-.5,s.hx-s.x-.5)+Math.PI/2;g.add(model);const{door,slit,lock,eyes}=model.userData.hide;spotMeshes.push({k,g,door,slit,lock,eyes});
+  for(const[s,k]of SPOTS.map((s,k)=>[s,k])){const chest=/arcon|baul/.test(s.type),eye=chest?.78:1.5;s.eyeHeight=eye;const g=new THREE.Group();g.name='refugio_'+s.id;g.position.set(s.x+.5,0,s.y+.5);floorGroups[s.f].add(g);const model=NDAFurnitureArt.create(s.modelRef||'hide_'+s.id);model.rotation.y=-Math.atan2(s.hy-s.y-.5,s.hx-s.x-.5)+Math.PI/2;g.add(model);const{door,slit,lock,eyes}=model.userData.hide;spotMeshes.push({k,g,door,slit,lock,eyes});
   }
  }
  let drawerMeshes=[];

@@ -23,7 +23,8 @@ async def main():
    assert await host.evaluate('JSON.stringify(NDAEditor.data)')==await guest.evaluate('JSON.stringify(NDAEditor.data)')
    print('Guest edit received',flush=True)
    await host.click('#undo');await guest.wait_for_function("NDAEditor.data.obstacles.find(o=>o.id==='librero_isla').rect[1]===14")
-   print('Undo received',flush=True)
+   await guest.select_option('#room','B06');await guest.evaluate("()=>{NDAEditor.spawnFurniture('librero_isla');NDAEditor.move(8,16.5);if(!NDAEditor.commit())throw Error(NDAEditor.errors());}");await host.wait_for_function("NDAEditor.data.obstacles.some(o=>o.editorSource==='librero_isla')");await host.click('#undo');await guest.wait_for_function("!NDAEditor.data.obstacles.some(o=>o.editorSource)")
+   print('Undo and added furniture received',flush=True)
    # A stale edit is explicitly rejected, with a recoverable draft.
    await guest.evaluate("()=>{const c=[...__fp[0].conns.values()][0];c.send({kind:'edit',revision:-1,layout:NDAEditor.data});}")
    await guest.wait_for_function('document.querySelector("#online-message").textContent.includes("Otro cambio llegó primero")');assert await guest.locator('#download-conflict').is_visible()
@@ -64,7 +65,7 @@ async def main():
    await host.click('#undo');await host.click('#save');await host.wait_for_function('document.querySelector("#status").textContent.startsWith("Guardado")')
    await host.select_option('#room','B08');await host.screenshot(path=str(OUT/'editor-publico.png'))
    assert not errors,errors
-   report={'passed':True,'guestEditAndHostUndo':True,'conflictDraft':True,'githubUIWithMockAPI':True,'credentialsNotSharedOrPersisted':True,'spanishErrors':text,'translatedStairSavedWithNavigation':True,'transport':'Fake PeerJS and mocked GitHub API; real local game validation','errors':errors}
+   report={'passed':True,'guestEditAndHostUndo':True,'guestFurnitureAdditionAndHostUndo':True,'conflictDraft':True,'githubUIWithMockAPI':True,'credentialsNotSharedOrPersisted':True,'spanishErrors':text,'translatedStairSavedWithNavigation':True,'transport':'Fake PeerJS and mocked GitHub API; real local game validation','errors':errors}
    (OUT/'verificacion.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8');print(json.dumps(report,ensure_ascii=False));await b.close()
  finally:(ROOT/'src/layout-v11.json').write_bytes(original);(ROOT/'juego/index.html').write_bytes(built);server.shutdown()
 asyncio.run(main())

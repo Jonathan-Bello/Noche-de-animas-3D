@@ -1,0 +1,193 @@
+{
+  "editor": {
+    "passed": true,
+    "nativeFurnitureDrag": true,
+    "clipboardAcrossRooms": true,
+    "chairPastedAndSavedInAnotherRoom": true,
+    "duplicateCancelDeleteUndo": true,
+    "copiedBooksThrow": 24,
+    "hideCopy": "user_h_9119207b7a4b41f4bb8153613b9568e8",
+    "floatingErrorsStableLayout": true,
+    "errors": []
+  },
+  "stairs": {
+    "passed": true,
+    "heldItemTraversals": 16,
+    "realWidth": true,
+    "railCollision": true,
+    "ghostReachesWidenedLane": true,
+    "noInvisibleSightWall": true,
+    "upperExitDetour": true
+  },
+  "render": {
+    "errors": [],
+    "metrics": {
+      "meshes": 1648,
+      "vertices": 383926,
+      "invalid": 0,
+      "draw": {
+        "frame": 1,
+        "calls": 193,
+        "triangles": 27934,
+        "points": 0,
+        "lines": 0
+      },
+      "version": "casona-v16",
+      "quality": "balanced"
+    }
+  },
+  "mobileEmulated": {
+    "passed": true,
+    "profiles": [
+      {
+        "device": "iPhone 12",
+        "selectionAndMoveCancel": true,
+        "webExportMode": true,
+        "noHorizontalOverflow": true,
+        "errors": []
+      },
+      {
+        "device": "iPhone 12 landscape",
+        "selectionAndMoveCancel": true,
+        "webExportMode": true,
+        "noHorizontalOverflow": true,
+        "errors": []
+      }
+    ],
+    "note": "WebKit emulation, not physical iPhone GPU/FPS."
+  },
+  "sessions": [
+    {
+      "ghost": "pena",
+      "time": 596.9000000000672,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "nachito",
+      "time": 126.79999999999707,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "llorona",
+      "time": 598.1000000000674,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "chaneque",
+      "time": 474.30000000003935,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "matla",
+      "time": 285.7999999999965,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "cucuy",
+      "time": 557.3000000000582,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "guardian",
+      "time": 114.59999999999776,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "nahual",
+      "time": 472.4000000000389,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "demonio",
+      "time": 695.2000000000895,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "planchada",
+      "time": 558.3000000000584,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "chocarrero",
+      "time": 594.5000000000666,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "tlahuel",
+      "time": 196.19999999999314,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "malaire",
+      "time": 560.2000000000588,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "aparecido",
+      "time": 182.8999999999939,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "bruja",
+      "time": 436.8000000000308,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "yohual",
+      "time": 695.2000000000895,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "cihuateteo",
+      "time": 235.3999999999909,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "xtabay",
+      "time": 695.2000000000895,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "cadejo",
+      "time": 568.5000000000607,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "mulata",
+      "time": 695.2000000000895,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "uaychivo",
+      "time": 519.4000000000495,
+      "completed": true,
+      "stalls": 0
+    },
+    {
+      "ghost": "charro",
+      "time": 594.5000000000666,
+      "completed": true,
+      "stalls": 0
+    }
+  ]
+}

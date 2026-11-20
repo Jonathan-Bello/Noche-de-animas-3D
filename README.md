@@ -73,3 +73,7 @@ Se renuevan libreros, mesas, camas y roperos conservando apoyos, escondites, lib
 ## V20 · Editor público compartido
 
 [Editar la casona en línea](https://jonathan-bello.github.io/Noche-de-animas-3D/editor/?v=editor-v20) · [Guía de salas y publicación](docs/editor-online-v20.md). Salas por invitación, publicación validada en GitHub, errores descriptivos en español y traslación completa de escaleras con navegación sincronizada.
+
+## V21 · Muebles desde el catálogo y escaleras corregidas
+
+El [editor público](https://jonathan-bello.github.io/Noche-de-animas-3D/editor/?v=editor-v21) permite arrastrar muebles y adornos desde el catálogo, copiar/pegar entre cuartos y duplicar con IDs independientes. Los avisos flotan sin desplazar el inspector. Los barandales se reconstruyen con uniones continuas y la escalera de servicio usa su ancho físico, incluyendo navegación y visión. [Guía actualizada](docs/editor-online-v20.md).

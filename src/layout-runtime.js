@@ -30,7 +30,7 @@ const SURF_H={[T.TABLE]:.78,[T.ALTAR]:.95},FURN=[[],[]],LAYOUT_FURN=[],LAYOUT_OC
 for(const o of NDALayout.obstacles){if(o.id.startsWith('reserva_'))continue;const[a,b,c,d]=o.rect,type=(o.kind==='prop'||o.kind==='chair')?T.PROP:o.kind==='bench'?T.BENCH:o.kind==='bath'?T.WATER:o.id.startsWith('columna')?T.PILLAR:o.id==='fuente'?T.WATER:(o.id.startsWith('cama_')||o.model==='bed')?T.BED:o.id==='altar_fijo'?T.ALTAR:o.blocksSight?T.SHELF:T.TABLE;fillLayout(o.floor,o.rect,type);FURN[o.floor].push([type,a,b,c-1,d-1]);LAYOUT_FURN.push({...o,type});if(o.blocksSight)LAYOUT_OCCLUDERS.push(o);}
 // Continuous height profiles, with a single shared half-height transfer cell per staircase.
 const STAIRS=NDALayout.stairs.map(s=>[Math.floor(s.hole[0]),Math.floor(s.hole[1]),Math.ceil(s.hole[2])-1,Math.ceil(s.hole[3])-1]);
-const STAIR_DIR=[-1,1],isStair=new Uint8Array(FL),isStairMid=new Uint8Array(FL),STAIR_BLOCK=new Uint8Array(2*FL),STAIR_ENDS=new Set();
+const STAIR_DIR=[-1,1],isStair=new Uint8Array(FL),isStairMid=new Uint8Array(FL),STAIR_BLOCK=new Uint8Array(2*FL),STAIR_ENDS=new Set(),STAIR_CONNECTIONS=new Map();
 const STAIR_PATHS=NDALayout.stairs.map((s,k)=>NDAStructure.paths(s,k));
 for(let k=0;k<2;k++){
  const s=NDALayout.stairs[k],r=[Math.floor(s.hole[0]),Math.floor(s.hole[1]),Math.ceil(s.hole[2]),Math.ceil(s.hole[3])];
@@ -39,14 +39,17 @@ for(let k=0;k<2;k++){
  for(const i of both){isStair[i]=1;for(const f of[0,1]){grids[f][i]=T.STAIR;STAIR_BLOCK[f*FL+i]=1;}}
  for(const f of[0,1])for(const[x,y]of STAIR_PATHS[k][f])STAIR_BLOCK[f*FL+y*W+x]=0;
  const midpoint=STAIR_PATHS[k][0].at(-1);isStairMid[midpoint[1]*W+midpoint[0]]=1;
- for(const f of[0,1]){const p=STAIR_PATHS[k][f][f?STAIR_PATHS[k][f].length-1:0];STAIR_ENDS.add(p[1]*W+p[0]);}
+ for(const f of[0,1]){const p=STAIR_PATHS[k][f][f?STAIR_PATHS[k][f].length-1:0];const node=p[1]*W+p[0];STAIR_ENDS.add(node);const a=f?s.path.at(-2):s.path[1],c=f?s.path.at(-1):s.path[0],dx=Math.sign(c[0]-a[0]),dz=Math.sign(c[1]-a[1]);if(f)STAIR_CONNECTIONS.set(node,(p[1]+dz)*W+p[0]+dx);}
 }
 const STAIR_INDEX=new Int8Array(FL).fill(-1);STAIR_PATHS.forEach((paths,k)=>paths.flat().forEach(([x,y])=>STAIR_INDEX[y*W+x]=k));
-const stairAt=(x,y)=>x<0||y<0||x>=W||y>=H?-1:STAIR_INDEX[(y|0)*W+(x|0)];
+const stairAt=(x,y)=>{if(x<0||y<0||x>=W||y>=H)return -1;const grid=STAIR_INDEX[(y|0)*W+(x|0)];if(grid>=0)return grid;const k=STAIR_SLOTS[(y|0)*W+(x|0)];return k>=0&&NDAStructure.corridor(NDALayout.stairs[k],x,y).distance<=NDALayout.stairs[k].width/2?k:-1;};
+const STAIR_SLOTS=new Int8Array(FL).fill(-1);NDALayout.stairs.forEach((s,k)=>{for(let y=Math.floor(s.hole[1]);y<Math.ceil(s.hole[3]);y++)for(let x=Math.floor(s.hole[0]);x<Math.ceil(s.hole[2]);x++)STAIR_SLOTS[y*W+x]=k;});
+// Cardinal approaches keep capsules clear of railing ends and their diagonal corners.
+const STAIR_NEAR=new Uint8Array(FL);for(const s of NDALayout.stairs)for(let y=Math.max(0,Math.floor(s.hole[1])-1);y<Math.min(H,Math.ceil(s.hole[3])+1);y++)for(let x=Math.max(0,Math.floor(s.hole[0])-1);x<Math.min(W,Math.ceil(s.hole[2])+1);x++)STAIR_NEAR[y*W+x]=1;
 function stairProjection(k,x,y){const p=NDALayout.stairs[k].path;let best=null,travel=0,total=0;for(let j=1;j<p.length;j++)total+=Math.hypot(p[j][0]-p[j-1][0],p[j][1]-p[j-1][1]);for(let j=1;j<p.length;j++){const a=p[j-1],b=p[j],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy),t=clamp(((x-a[0])*dx+(y-a[1])*dy)/(l*l),0,1),dist=Math.hypot(x-a[0]-dx*t,y-a[1]-dy*t);if(!best||dist<best.dist)best={dist,height:(a[2]+(b[2]-a[2])*t)/3.8,p:(travel+l*t)/total};travel+=l;}return best;}
 const stairP=(k,x,y)=>stairProjection(k,x,y).p;
 const elevOf=e=>{const k=stairAt(e.x,e.y);return k<0?e.f:stairProjection(k,e.x,e.y).height;};
-const stairSideBlock=(a,b)=>a!==b&&((isStair[a]&&!isStair[b]&&!STAIR_ENDS.has(a))||(isStair[b]&&!isStair[a]&&!STAIR_ENDS.has(b)));
+const stairSideBlock=(a,b)=>a!==b&&((isStair[a]&&!isStair[b]&&(!STAIR_ENDS.has(a)||(STAIR_CONNECTIONS.has(a)&&STAIR_CONNECTIONS.get(a)!==b)))||(isStair[b]&&!isStair[a]&&(!STAIR_ENDS.has(b)||(STAIR_CONNECTIONS.has(b)&&STAIR_CONNECTIONS.get(b)!==a))));
 function stairFlip(w,e,quiet){if(!e||(e.kind==='ghost'&&ethereal(e)))return;const k=stairAt(e.x,e.y);if(k<0)return;const p=stairP(k,e.x,e.y);if(e.f===0&&p>.505)quiet?(e.f=1):changeFloor(w,e,1);else if(e.f===1&&p<.495)quiet?(e.f=0):changeFloor(w,e,0);}
 const stairNext=(k,up)=>{const p=up?STAIR_PATHS[k][1][1]:STAIR_PATHS[k][0].at(-2);return{x:p[0]+.5,y:p[1]+.5};};
 // Exterior keeps the existing van, tables and spawn, with its path centered on the new portón.
@@ -59,7 +62,7 @@ const roomAt=(f,x,y)=>x<0||y<0||x>=W||y>=H?-1:roomGrid[f][(y|0)*W+(x|0)];
 const roomOf=e=>roomAt(e.f,e.x,e.y),roomId=e=>{const r=roomOf(e);return r<0?'':ROOMS[e.f][r].id;},isHall=(f,r)=>r>=0&&HALLS[f].includes(ROOMS[f][r].id);
 // Each socket owns one solid cell beside its approach point; keep doorway and stair clearances.
 const SPOTS=[];
-for(const h of NDALayout.hidingSockets){const f=h.floor,ri=LAYOUT_ROOMS.get(h.room).r,[x,y]=h.preferredSolid;if(tileAt(f,x,y)!==T.FLOOR||tileAt(f,h.x,h.z)!==T.FLOOR)throw Error('Authored hide obstructed: '+h.id);grids[f][y*W+x]=T.CLOSET;SPOTS.push({f,x,y,hx:h.x+.5,hy:h.z+.5,room:ri,id:h.id,type:h.type,mandatory:h.mandatory});}
+for(const h of NDALayout.hidingSockets){const f=h.floor,ri=LAYOUT_ROOMS.get(h.room).r,[x,y]=h.preferredSolid;if(tileAt(f,x,y)!==T.FLOOR||tileAt(f,h.x,h.z)!==T.FLOOR)throw Error('Authored hide obstructed: '+h.id);grids[f][y*W+x]=T.CLOSET;SPOTS.push({f,x,y,hx:h.x+.5,hy:h.z+.5,room:ri,id:h.id,modelRef:h.modelRef,type:h.type,mandatory:h.mandatory});}
 const SPOT_DEFS=[0,1].map(f=>SPOTS.filter(s=>s.f===f).map(s=>[s.x,s.y]));
 // All supporting furniture is authored in the registry; never auto-fill an arbitrary corner.
 const ROOM_TILES=ROOMS.map((rs,f)=>rs.map((r,i)=>{const out=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(tileAt(f,x,y)===T.FLOOR&&roomAt(f,x,y)===i)out.push([x,y]);return out;}));
@@ -80,7 +83,7 @@ let LAYOUT_HIDE_CACHE=null;
 function layoutDistances(f,x,y){
  const d=new Float32Array(FL).fill(-1),heap=[],push=(node,cost)=>{let k=heap.length;heap.push([node,cost]);while(k){const p=(k-1)>>1;if(heap[p][1]<=cost)break;heap[k]=heap[p];k=p;}heap[k]=[node,cost];},pop=()=>{const first=heap[0],last=heap.pop();if(heap.length){let k=0;while(k*2+1<heap.length){let c=k*2+1;if(c+1<heap.length&&heap[c+1][1]<heap[c][1])c++;if(heap[c][1]>=last[1])break;heap[k]=heap[c];k=c;}heap[k]=last;}return first;};
  const start=(y|0)*W+(x|0);d[start]=0;push(start,0);
- while(heap.length){const[u,cost]=pop();if(cost>d[u]+.00001)continue;const xx=u%W,yy=(u/W)|0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){if(!dx&&!dy)continue;const nx=xx+dx,ny=yy+dy,v=ny*W+nx;if(nx<0||ny<0||nx>=W||ny>=H||!walkableT(grids[f][v])||STAIR_BLOCK[f*FL+v]||stairSideBlock(u,v))continue;if(dx&&dy&&(isStair[u]||isStair[v]||!walkableT(tileAt(f,nx,yy))||!walkableT(tileAt(f,xx,ny))))continue;const next=cost+(dx&&dy?Math.SQRT2:1);if(d[v]<0||next<d[v]-.00001){d[v]=next;push(v,next);}}}return d;
+ while(heap.length){const[u,cost]=pop();if(cost>d[u]+.00001)continue;const xx=u%W,yy=(u/W)|0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){if(!dx&&!dy)continue;const nx=xx+dx,ny=yy+dy,v=ny*W+nx;if(nx<0||ny<0||nx>=W||ny>=H||!walkableT(grids[f][v])||STAIR_BLOCK[f*FL+v]||stairSideBlock(u,v))continue;if(dx&&dy&&(STAIR_NEAR[u]||STAIR_NEAR[v]||!walkableT(tileAt(f,nx,yy))||!walkableT(tileAt(f,xx,ny))))continue;const next=cost+(dx&&dy?Math.SQRT2:1);if(d[v]<0||next<d[v]-.00001){d[v]=next;push(v,next);}}}return d;
 }
 function layoutHideCache(){if(LAYOUT_HIDE_CACHE)return LAYOUT_HIDE_CACHE;const points=[];for(const f of[0,1])for(let y=1;y<39;y++)for(let x=1;x<59;x++){const i=y*W+x;if(walkableT(grids[f][i])&&!STAIR_BLOCK[f*FL+i]&&roomAt(f,x,y)>=0)points.push(f*FL+i);}const distances=SPOTS.map(s=>layoutDistances(s.f,s.hx,s.hy));const covers=SPOTS.map((s,k)=>new Set(points.filter(n=>Math.floor(n/FL)===s.f&&distances[k][n%FL]>=0&&distances[k][n%FL]<=18)));const missing=points.filter(n=>!covers.some(c=>c.has(n)));if(missing.length)throw Error('Hide coverage failed at '+missing.slice(0,12).map(n=>`${n>=FL?1:0}:${n%W},${Math.floor(n%FL/W)}`).join(';'));return LAYOUT_HIDE_CACHE={points,distances,covers};}
 function chooseLayoutSpots(){const{points,covers}=layoutHideCache(),act=new Set(SPOTS.flatMap((s,k)=>s.mandatory?[k]:[])),used=new Set([...act].map(k=>SPOTS[k].f+':'+SPOTS[k].room));let missing=new Set(points);for(const k of act)for(const n of covers[k])missing.delete(n);

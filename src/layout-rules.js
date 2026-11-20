@@ -64,6 +64,7 @@ los=function(f,ax,ay,bx,by,az=1.55,bz=1.55,world){
   if(x<0||y<0||x>=W||y>=H)return false;
   if((prevHeight<3.8)!==(globalHeight<3.8)&&tileAt(1,x,y)!==T.VOID&&!NDALayout.stairs.some(s=>x>=s.hole[0]&&x<=s.hole[2]&&y>=s.hole[1]&&y<=s.hole[3]))return false;prevHeight=globalHeight;
   let block=LAYOUT_SIGHT_HEIGHT[level][i];
+  const sk=STAIR_SLOTS[i];if(sk>=0&&tileAt(level,x,y)===T.PILLAR){const s=NDALayout.stairs[sk],p=NDAStructure.corridor(s,x,y);if(p.distance<s.width/2&&globalHeight>p.height*3.8+.08)block=0;}
   const precise=LAYOUT_SIGHT_LOOKUP.precise[level][i];if(precise){const r=precise.sightRect;if(x<r[0]||x>=r[2]||y<r[1]||y>=r[3])block=0;}
   if(block&&tileAt(level,x,y)===T.WALL){const window=LAYOUT_SIGHT_LOOKUP.windows[level][i]?.find(w=>{const r=layoutWindowVolume(w),bottom=w.floor*3.8+w.sillRelative;return x>=r[0]&&x<r[2]&&y>=r[1]&&y<r[3]&&globalHeight>=bottom&&globalHeight<bottom+w.height;});if(window&&['abierta','vidrio roto'].includes(window.state))block=0;}
   const portal=LAYOUT_SIGHT_LOOKUP.portals[level][i];if(portal&&h>layoutPortalHead(portal,x,y))return false;

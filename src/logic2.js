@@ -86,7 +86,8 @@ function getField(target, mode, mask, ver) {
   if (!fld) { fld = buildField(target, mode, mask); fieldCache.set(key, fld); if (fieldCache.size > 500) fieldCache.delete(fieldCache.keys().next().value); }
   return fld;
 }
-const nodeOf = e => e.f * FL + (e.y | 0) * W + (e.x | 0);
+const stairNavCell=e=>{const k=stairAt(e.x,e.y);if(k<0||walkableT(tileAt(e.f,e.x,e.y)))return null;return STAIR_PATHS[k][e.f].reduce((best,p)=>Math.hypot(p[0]+.5-e.x,p[1]+.5-e.y)<Math.hypot(best[0]+.5-e.x,best[1]+.5-e.y)?p:best);};
+const nodeOf=e=>{const p=stairNavCell(e);return e.f*FL+(p?p[1]:(e.y|0))*W+(p?p[0]:(e.x|0));};
 const ethereal = e => e.kind === 'ghost' && !e.hunt && e.state !== 'despertando';
 function solidFor(w, e, f, tx, ty) {
   const t = tileAt(f, tx, ty);
@@ -104,9 +105,18 @@ function solidFor(w, e, f, tx, ty) {
   return false;
 }
 function collides(w, e, x, y) {
-  const r = e.r;
-  for (let ty = Math.floor(y - r); ty <= Math.floor(y + r); ty++) for (let tx = Math.floor(x - r); tx <= Math.floor(x + r); tx++)
-    if (solidFor(w, e, e.f, tx, ty)) { const cx = clamp(x, tx, tx + 1), cy = clamp(y, ty, ty + 1); if ((x - cx) ** 2 + (y - cy) ** 2 < r * r) return true; }
+  const r=e.r,slot=STAIR_SLOTS[(y|0)*W+(x|0)]??-1,direct=stairAt(x,y),near=slot>=0?slot:NDALayout.stairs.findIndex(s=>x+r>Math.floor(s.hole[0])&&x-r<Math.ceil(s.hole[2])&&y+r>Math.floor(s.hole[1])&&y-r<Math.ceil(s.hole[3])),k=direct>=0?direct:near,s=k>=0&&NDALayout.stairs[k],profile=s&&NDAStructure.corridor(s,x,y);
+  const a=s&&s.path[0],b=s&&s.path[1],run=s&&Math.hypot(b[0]-a[0],b[1]-a[1]),along=s&&((x-a[0])*(b[0]-a[0])+(y-a[1])*(b[1]-a[1]))/run;
+  const entry=profile&&e.f===0&&profile.height===0&&along< -r-.03&&along>=-1.4&&profile.distance<=s.width/2+r+.05;
+  const exit=profile&&e.f===1&&profile.height===1&&x>=Math.ceil(s.hole[2])-.001&&profile.distance<=s.width/2+r+.05;
+  const physical=entry||exit||profile&&profile.distance<=s.width/2-r-.015&&Math.abs(profile.height-e.f)<=.57;
+  if(k>=0&&STAIR_SLOTS[(y|0)*W+(x|0)]===k&&!ethereal(e)&&!(e.kind==='ghost'&&e.def.fly)&&!physical)return true;
+  for(let ty=Math.floor(y-r);ty<=Math.floor(y+r);ty++)for(let tx=Math.floor(x-r);tx<=Math.floor(x+r);tx++)if(solidFor(w,e,e.f,tx,ty)){
+    const n=e.f*FL+ty*W+tx,ownStair=tx>=0&&ty>=0&&tx<W&&ty<H&&STAIR_SLOTS[ty*W+tx]===k;
+    // Reserve the full authored walking width, while keeping doors and gameplay masks solid.
+    if(physical&&(ownStair||((entry||exit)&&walkableT(tileAt(e.f,tx,ty))))&&!w.doorTile?.get(n)?.closed&&!(e.kind==='inv'?w.invMask[n]:w.ghostMask[n]&&!w.ghostMask[nodeOf(e)]))continue;
+    const cx=clamp(x,tx,tx+1),cy=clamp(y,ty,ty+1);if((x-cx)**2+(y-cy)**2<r*r)return true;
+  }
   return false;
 }
 function tryMove(w, e, dx, dy) {
@@ -128,6 +138,7 @@ function changeFloor(w, e, nf) { e.f = nf; w.noise(e, 6, e.kind === 'ghost' ? 'g
 // mueve a e hacia target {f,x,y}; devuelve true al llegar
 function navTo(w, e, tg, speed, dt) {
   if (!tg) return true;
+  const lane=stairNavCell(e);if(lane&&nodeOf(e)!==nodeOf(tg)){steer(w,e,lane[0]+.5,lane[1]+.5,speed,dt);return false;}
   // Recover an off-centre capsule at a stair entry without jumping to another cell or floor.
   if(stairAt(e.x,e.y)>=0&&collides(w,e,e.x,e.y)){
     const x=(e.x|0)+.5,y=(e.y|0)+.5;
@@ -146,14 +157,14 @@ function navTo(w, e, tg, speed, dt) {
   for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
     if (!dx && !dy) continue; const nx = cx + dx, ny = cy + dy; if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
     const n = f * FL + ny * W + nx; if (fld[n] === 65535) continue;
-    if(mode!=='fly'&&(stairSideBlock(cy*W+cx,ny*W+nx)||(dx&&dy&&(isStair[cy*W+cx]||isStair[ny*W+nx]))))continue;
+    if(mode!=='fly'&&(stairSideBlock(cy*W+cx,ny*W+nx)||(dx&&dy&&(STAIR_NEAR[cy*W+cx]||STAIR_NEAR[ny*W+nx]))))continue;
     if (dx && dy && (fld[f * FL + cy * W + nx] === 65535 || fld[f * FL + ny * W + cx] === 65535)) continue;
     const d = fld[n] + (dx && dy ? 0.4 : 0); if (d < bd) { bd = d; best = n; bx = nx; by = ny; }
   }
   const other = (1 - f) * FL + cy * W + cx;
   if ((mode === 'fly' || isStairMid[cy * W + cx]) && fld[other] < bd && fld[other] < fld[cn]) { const k = stairAt(e.x, e.y); if (k >= 0 && mode === 'walk') { const p=stairNext(k,f===0); steer(w,e,p.x,p.y,speed,dt); return false; } changeFloor(w, e, 1 - f); return false; }
   if (best < 0) return steer(w, e, tg.x, tg.y, speed, dt);
-  if(mode==='walk'&&(isStair[cy*W+cx]||isStair[by*W+bx])){
+  if(mode==='walk'&&(STAIR_NEAR[cy*W+cx]||STAIR_NEAR[by*W+bx])){
     // Centre the entry before advancing; diagonal approaches otherwise catch the capsule on the rail.
     const alignX=by!==cy&&Math.abs(e.x-cx-.5)>.035,alignY=bx!==cx&&Math.abs(e.y-cy-.5)>.035;
     if(alignX||alignY){steer(w,e,alignX?cx+.5:e.x,alignY?cy+.5:e.y,speed,dt);return false;}

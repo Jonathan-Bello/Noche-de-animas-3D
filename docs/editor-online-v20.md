@@ -1,6 +1,20 @@
-# Decorar la casona desde internet · V20
+# Decorar la casona desde internet · V21
 
-Abre **[el editor público](https://jonathan-bello.github.io/Noche-de-animas-3D/editor/?v=editor-v20)**. No necesitas instalar el repositorio, Python ni un servidor local.
+Abre **[el editor público](https://jonathan-bello.github.io/Noche-de-animas-3D/editor/?v=editor-v21)**. No necesitas instalar el repositorio, Python ni un servidor local.
+
+## Copiar, pegar y añadir muebles · V21
+
+- **Añadir muebles** abre el catálogo de mesas, camas, libreros, sillas y posibles escondites. Arrastra una imagen hasta la escena y suéltala en una posición válida. También puedes pulsar la imagen y después colocarla; en celular puedes arrastrar desde la imagen o usar este método por toques.
+- **Copiar / Ctrl o Cmd C** guarda la pieza seleccionada en el portapapeles del editor. Elige otro cuarto y usa **Pegar / Ctrl o Cmd V** para crear una copia allí.
+- **Duplicar / Ctrl o Cmd D** crea una copia para colocarla directamente. Esc cancela; Deshacer recupera el estado anterior.
+- Los muebles copiados llevan su decoración. Los libreros generan sus propios libros arrojables; las copias usan el mismo componente visual editable que el original.
+- **Quitar pieza** elimina adornos o copias añadidas, incluyendo los adornos que estén apoyados en un mueble retirado. Las piezas originales de la casa se conservan.
+- Las copias de roperos y arcones son **candidatos de escondite**: siguen la selección de cada noche y la regla de un escondite activo por cuarto. Colocarlas no garantiza que todas estén disponibles a la vez.
+- Las escaleras y los objetos únicos ligados a sucesos se pueden mover dentro de sus reglas, pero no duplicar desde este catálogo.
+
+Las nuevas piezas conservan sus dimensiones y apoyos. Puedes colocarlas en otro cuarto o piso si caben. Los accesos, las escaleras, las cabeceras de camas y las rutas siguen validándose al publicar. Para contener el costo en móviles, esta etapa admite hasta 64 muebles añadidos, cuatro libreros adicionales, 24 candidatos de escondite añadidos y 96 adornos arrojables. El editor indica el motivo cuando se alcanza un límite.
+
+Los avisos de colocación **flotan sobre la escena**. No desplazan la vista ni el inspector al aparecer. El portapapeles es interno a esta pestaña; no lee el portapapeles del sistema.
 
 ## Editar con tus amigos
 
@@ -41,6 +55,10 @@ La API oficial de GitHub exige permiso de escritura de Contents para actualizar 
 Si el plano falla, se publica el motivo en español y el juego conserva el plano anterior. **Ver publicación** abre el seguimiento de GitHub. Si otra persona publicó antes que tú, descarga tu borrador y usa **Cargar plano publicado** para partir de la versión vigente. No se mezclan silenciosamente dos distribuciones distintas.
 
 El estado del juego en curso no cambia en caliente: la nueva distribución se utiliza al cargar la versión actualizada del juego. Las salas compartidas son temporales; lo publicado en GitHub sí permanece guardado.
+
+## Escaleras: barandales y paso útil · V21
+
+Los barrotes se unen físicamente a los peldaños y al pasamanos. La escalera de cocina usa el paso real entre barandales en lugar de una franja estrecha de celdas. Su acceso y desembarco permiten girar y salir sin enganchar la cápsula. Llevar herramientas u objetos no aumenta el tamaño del cuerpo. La navegación y la visión del ánima también reconocen la franja ampliada.
 
 ## Mover escaleras y estructura
 
