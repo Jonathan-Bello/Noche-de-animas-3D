@@ -183,7 +183,7 @@
       "support": "banca_oeste_1",
       "offset": [
         1,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0
@@ -195,7 +195,7 @@
       "support": "banca_este_1",
       "offset": [
         1,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0
@@ -207,7 +207,7 @@
       "support": "banca_oeste_2",
       "offset": [
         1,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0
@@ -219,7 +219,7 @@
       "support": "banca_este_2",
       "offset": [
         1,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0

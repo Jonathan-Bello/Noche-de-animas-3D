@@ -2055,9 +2055,9 @@
       "room": "B04",
       "rect": [
         37,
-        4,
+        5,
         38,
-        8
+        9
       ],
       "height": 0.78,
       "blocksSight": false,
@@ -2595,12 +2595,12 @@
       "room": "B04",
       "floor": 0,
       "x": 46,
-      "z": 2,
+      "z": 3,
       "type": "alacena de servicio",
       "mandatory": false,
       "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
       "preferredSolid": [
-        47,
+        46,
         2
       ],
       "contents": "Vajilla y ollas en compartimentos laterales; hueco central libre."
@@ -5054,7 +5054,7 @@
       "asset": "jar",
       "support": "am_B09",
       "offset": [
-        3.0,
+        3,
         0,
         0.35
       ],
@@ -6130,7 +6130,7 @@
       "support": "banca_oeste_1",
       "offset": [
         1,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0
@@ -6142,7 +6142,7 @@
       "support": "banca_este_1",
       "offset": [
         1,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0
@@ -6154,7 +6154,7 @@
       "support": "banca_oeste_2",
       "offset": [
         1,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0
@@ -6166,7 +6166,7 @@
       "support": "banca_este_2",
       "offset": [
         1,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0
@@ -6834,7 +6834,7 @@
       "support": "am_banca_estrado",
       "offset": [
         0.6,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0
@@ -6846,7 +6846,7 @@
       "support": "am_banca_estrado",
       "offset": [
         2,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0
@@ -6858,7 +6858,7 @@
       "support": "am_banca_estrado",
       "offset": [
         3.4,
-        0.0,
+        0,
         0.5
       ],
       "rotation": 0

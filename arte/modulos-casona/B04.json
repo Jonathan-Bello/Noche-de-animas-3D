@@ -71,9 +71,9 @@
       "room": "B04",
       "rect": [
         0,
-        3,
+        4,
         1,
-        7
+        8
       ],
       "height": 0.78,
       "blocksSight": false,
@@ -173,12 +173,12 @@
       "room": "B04",
       "floor": 0,
       "x": 46,
-      "z": 2,
+      "z": 3,
       "type": "alacena de servicio",
       "mandatory": false,
       "coordinateRole": "Aproximación fija y volumen construido; no reposicionar al azar.",
       "preferredSolid": [
-        47,
+        46,
         2
       ],
       "contents": "Vajilla y ollas en compartimentos laterales; hueco central libre."
