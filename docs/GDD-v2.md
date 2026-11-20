@@ -50,7 +50,7 @@ Si liberan a algunas pero no a todas, la siguiente noche solo siguen las que que
 
 **Tope y derrota:** nunca hay más de **3 ánimas activas**. Si terminan una noche con 3 y no liberan ninguna, el ánima poderosa despierta antes de tiempo: **la campaña se pierde**. Lo que sí se conserva es el **bestiario**: las ánimas que alguna vez liberaron quedan con sus pruebas a la vista para la siguiente campaña.
 
-**Victoria:** con todas las ánimas del sorteo liberadas se juega la **Noche grande** contra la poderosa (15 min, pesadilla). Tiene 3 pruebas como cualquiera, pero deja **ecos falsos** de las pruebas de las ánimas ya liberadas por toda la casa: solo cuenta lo que se lee **en su guarida**. Si la nombran y salen, la casona queda liberada. Si pierden, se repite la Noche grande.
+**Victoria:** con todas las ánimas del sorteo liberadas se juega la **Noche grande** contra la poderosa (15 min, pesadilla). No se trata de adivinar quién es, sino de pagarle sus deudas (§8). Si pierden, se repite la Noche grande.
 
 **Duración de la noche:** 10 min con 1 ánima, 13 con 2, 16 con 3.
 
@@ -103,6 +103,17 @@ Cálculo: con *n* cuartos abiertos de peso 1 y el nuevo de peso 0,5, la probabil
 - Al salir, cada quien apuesta una ánima **por columna**. Cada columna acertada libera a esa ánima; una equivocada solo la deja en la casa.
 
 **Lo que pide al equipo:** dividirse. Unos se quedan en una guarida y otros van a la otra, y eso deja a cada grupo más solo frente a las cacerías.
+
+### Cómo se sabe de quién es cada prueba
+
+Cuatro señales, de la más gruesa a la más fina:
+
+1. **El frío marca las guaridas.** Con 2 ánimas hay 2 cuartos fríos; termómetro y EMF dicen cuáles son. Lo leído dentro de un cuarto frío es de esa ánima.
+2. **Marca de la noche.** Al empezar, cada ánima activa recibe al azar una señal: olor a cempasúchil, campanita o gotas de agua. Cada vez que deja una prueba, su señal aparece débil en ese punto. Cambia cada noche y no depende de qué ánima sea: dice **de quién** es la prueba, no **qué** ánima es.
+3. **Sin dueña:** lo leído en un pasillo o entre dos cuartos no cuenta hasta que la marca o una segunda lectura lo confirmen.
+4. **La libreta avisa:** una columna con 4 pruebas, o sin ninguna ánima posible, tiene una prueba mal asignada.
+
+La marca es sutil a propósito: a veces no se nota y alguien anota en la columna equivocada. Corregirlo es parte del juego.
 
 ## 5. La casona que se abre
 
@@ -189,3 +200,47 @@ El [GDD v1](https://claude.ai/artifact/MTSn6XdYSzKmtpxk5Hm9Un) (copia en `docs/G
 6. **Pantalla entre noches:** quién se liberó, quién se quedó, quién llega, y la elección de cuartos.
 7. **Menú:** *Campaña* (nueva o continuar) y *Noche libre* (la casa completa, una ánima, como hoy).
 8. **Bots:** aprender a atribuir pruebas por guarida y a dividirse entre guaridas. Medir de nuevo con la simulación para calibrar los porcentajes del §6.
+
+## 8. El Charro Negro: el jefe
+
+El Charro Negro no está en el sorteo: es quien trajo a las demás y el jefe de toda campaña (quedan 21 ánimas para sortear). Su cuarto favorito es el Despacho, donde cierra sus tratos. Tiene tres mecánicas propias.
+
+**1. Los tratos (desde la noche 2):** una vez por noche, como máximo, suena el teléfono, la radio o la tele de la base y el Charro ofrece algo a quien conteste:
+
+| Ofrece (uno al azar) | La deuda |
+| --- | --- |
+| Revelar una prueba de una columna | Quedas **endeudado**: las ánimas siempre saben dónde estás y las cacerías te buscan primero |
+| Revivir ya a un compañero muerto | Igual |
+| Cordura al 100 | Igual |
+| Una llave extra | Igual |
+
+Una deuda se paga entregando una moneda extra en la Noche grande. Quien sigue endeudado al terminar la campaña **se queda en la casona**: su personaje aparece como un ánima de la siguiente campaña, con 3 pruebas al azar y su nombre.
+
+**2. La Noche grande: pagar las deudas.** Ya saben quién es; no hay que adivinar.
+
+- Cada ánima liberada dejó una **moneda del trato** que la ataba: 6 en una campaña normal, más 1 por cada deuda.
+- Las monedas esperan en la mesa de la camioneta. Cada una ocupa una ranura y quien la carga es su presa favorita.
+- Se entregan dejándolas en su guarida, que **cambia de cuarto cada 3 min** (se oye un relincho) y justo después de cada entrega.
+- Se le rastrea con sus pruebas fijas: **bajo cero, EMF 5 y herraduras bajo la UV**. Por toda la casa aparecen **ecos falsos** de las pruebas de las ánimas liberadas; solo valen dentro de su guarida.
+- 15 min. Con la última moneda pierde el caballo: 60 s para llegar a la camioneta y la casona queda liberada. Si mueren todos o llega el Alba, se repite la Noche grande.
+
+**3. La cabalgata (su cacería):** a caballo es muy rápido en los espacios abiertos (patio, corredor, galería, rellano, zaguán), pero no cabe por las puertas de los cuartos. Si te ve entrar a un cuarto, a los 10 s se baja del caballo y entra a pie, más lento. La jugada es meterse a un cuarto, cerrar la puerta y esconderse. Se le oye venir por los cascos.
+
+## 9. Plan para probarlo en el juego
+
+**Estado de los cuartos (revisado el 19 nov):** los cuartos ya están en componentes, pero el juego aún no los usa para abrir o cerrar.
+
+- Hay **27 módulos de cuarto** (`arte/modulos-casona/*.json` y `roomModules` en `src/layout-v11.json`) con medidas, muebles, decoración, escondites, puertas y datos de campaña: inicial o no, comprable, complemento y ánima favorita.
+- **41 de las 44 conexiones son puertas** (2 arcos y el portón). Tapiar un cuarto puede ser trabar sus puertas con tablas, sin quitar geometría.
+- **Dos bloqueos:** la Despensa seca solo tiene entrada por la Biblioteca (que empieza tapiada), y la escalera de servicio sube de la Cocina al Cuarto de la nana.
+- **Para el prototipo:** empezar con la **Botica** en vez de la Despensa seca (tiene puertas a la Portería y al corredor) y tapiar el arranque de la escalera de servicio hasta abrir el Cuarto de la nana.
+
+**Tres pruebas, una a la vez:**
+
+| Prueba | Qué entra | Qué medimos | Pasa si |
+| --- | --- | --- | --- |
+| P1 · Campaña de 1 ánima | Puertas tapiadas; un cuarto tapiado no existe para ánima, bots, escondites ni sucesos; guarida sorteada con pesos; llaves y 1 de 3 cuartos; guardado del anfitrión | Qué tan seguido el ánima vive en el cuarto nuevo; tiempo para hallar la guarida según cuartos abiertos | Cuarto nuevo ≤ 7 %; nadie siente que «ya sabía dónde estaba» |
+| P2 · Dos ánimas | Varias ánimas en el motor; marca de la noche; libreta por columnas; cacería compartida | Pruebas anotadas en la columna correcta; campañas ganadas | ≥ 70 % de columnas bien atribuidas por personas; campaña ganada 70–90 % |
+| P3 · El Charro | Tratos, monedas, cabalgata, Noche grande | Cuántos aceptan tratos; duración y resultado de la Noche grande | Al menos 1 trato aceptado cada 2 noches; Noche grande de 10–15 min |
+
+Cada prueba: primero simulación con bots, luego una partida con jugadores y 3 preguntas al final (¿qué fue lo más tenso?, ¿en qué momento te perdiste?, ¿querías jugar la siguiente noche?).
