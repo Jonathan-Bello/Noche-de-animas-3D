@@ -2,7 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.join(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const layout=JSON.parse(read('src/layout-v11.json'));
-const source='const NDALayout='+JSON.stringify(layout)+';\n'+['stair-layout.js','placement-layout.js','logic2.js','rules3.js','rules4.js','decor-runtime.js','layout-rules.js','decor-rules.js','rules5.js'].map(f=>read('src/'+f).replace('/*LAYOUT_RUNTIME*/',read('src/layout-runtime.js'))).join('\n');
+const source='const NDALayout='+JSON.stringify(layout)+';\n'+['stair-layout.js','placement-layout.js','logic2.js','rules3.js','rules4.js','decor-runtime.js','layout-rules.js','decor-rules.js','rules5.js','campaign-rules.js'].map(f=>read('src/'+f).replace('/*LAYOUT_RUNTIME*/',read('src/layout-runtime.js'))).join('\n');
 const a=new Function('module',source+';return {newWorld,navTo,stairFlip,elevOf,STAIR_PATHS,ROOM_CENTER,HOME_CHOICES,ROOMS,layoutHideCache};')({exports:{}});
 const w=a.newWorld({role:'inv',nInv:4}),cache=a.layoutHideCache();assert(cache.points.length>3000);
 for(const d of w.doors)d.closed=false;
